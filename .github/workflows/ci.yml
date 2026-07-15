@@ -1,0 +1,91 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.3', '8.4']
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: enpii_test
+          POSTGRES_USER: enpii
+          POSTGRES_PASSWORD: enpii
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U enpii -d enpii_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, pdo_pgsql, pdo_sqlite
+          coverage: none
+      - uses: ramsey/composer-install@v3
+      - run: composer validate --strict
+      - run: vendor/bin/pint --test
+      - run: vendor/bin/phpunit
+      - run: docker compose config --quiet
+
+  postgres:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: enpii_test
+          POSTGRES_USER: enpii
+          POSTGRES_PASSWORD: enpii
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U enpii -d enpii_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: pdo_pgsql
+          coverage: none
+      - run: php -r '$pdo = new PDO("pgsql:host=127.0.0.1;port=5432;dbname=enpii_test", "enpii", "enpii"); assert($pdo->query("select 1")->fetchColumn() === 1);'
+      - run: php -r '$socket = fsockopen("127.0.0.1", 6379); fwrite($socket, "*1\r\n\x24" . "4\r\nPING\r\n"); assert(str_contains(stream_get_contents($socket), "PONG"));'
+      - run: docker compose config --quiet
+
+  ui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run ui:check
+      - run: npm run ui:test
+      - run: npm run ui:build

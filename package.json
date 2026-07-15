@@ -1,0 +1,15 @@
+{
+  "name": "enpii-studio-packages",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "workspaces": [
+    "packages/ui"
+  ],
+  "scripts": {
+    "ui:build": "npm run build --workspace @enpii-studio/ui",
+    "ui:check": "npm run check --workspace @enpii-studio/ui",
+    "ui:test": "npm run test --workspace @enpii-studio/ui"
+  }
+}

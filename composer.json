@@ -1,0 +1,41 @@
+{
+    "name": "enpii-studio/packages",
+    "description": "Reusable in-process Laravel packages for Enpii Studio products",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": ">=8.3",
+        "enpii-studio/core": "dev-main",
+        "enpii-studio/whatsapp-client": "dev-main"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.24",
+        "orchestra/testbench": "^10.0",
+        "phpunit/phpunit": "^11.5"
+    },
+    "repositories": [
+        { "type": "path", "url": "packages/core", "options": { "symlink": true } },
+        { "type": "path", "url": "packages/whatsapp-client", "options": { "symlink": true } }
+    ],
+    "autoload-dev": {
+        "psr-4": {
+            "EnpiiStudio\\Core\\Tests\\": "packages/core/tests/",
+            "EnpiiStudio\\WhatsAppClient\\Tests\\": "packages/whatsapp-client/tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "lint": "pint --test",
+        "check": [
+            "composer validate --strict",
+            "@lint",
+            "@test"
+        ]
+    },
+    "config": {
+        "allow-plugins": {},
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
