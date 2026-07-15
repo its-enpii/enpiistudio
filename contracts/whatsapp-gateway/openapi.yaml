@@ -1,0 +1,258 @@
+openapi: 3.1.0
+info:
+  title: Enpii WhatsApp Gateway
+  version: 1.0.0
+  description: Internal API contract. Evolution credentials never cross this boundary.
+  license:
+    name: Proprietary
+servers:
+  - url: /api/v1
+security:
+  - bearerAuth: []
+paths:
+  /health:
+    get:
+      summary: Check process health
+      security: []
+      operationId: health
+      responses:
+        '200':
+          description: Process is alive
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+  /ready:
+    get:
+      summary: Check dependency readiness
+      security: []
+      operationId: ready
+      responses:
+        '200':
+          description: Dependencies are ready
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+        '503':
+          $ref: '#/components/responses/Error'
+  /instances/{instanceId}/status:
+    get:
+      summary: Get canonical instance status
+      operationId: instanceStatus
+      parameters:
+        - $ref: '#/components/parameters/InstanceId'
+      responses:
+        '200':
+          $ref: '#/components/responses/InstanceStatus'
+        '401':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+        '404':
+          $ref: '#/components/responses/Error'
+        '503':
+          $ref: '#/components/responses/Error'
+  /instances/{instanceId}/connect:
+    post:
+      summary: Start instance connection
+      operationId: connectInstance
+      parameters:
+        - $ref: '#/components/parameters/InstanceId'
+      responses:
+        '200':
+          description: Connection state and optional short-lived provisioning material
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionResult'
+        '401':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+        '404':
+          $ref: '#/components/responses/Error'
+        '409':
+          $ref: '#/components/responses/Error'
+        '503':
+          $ref: '#/components/responses/Error'
+  /instances/{instanceId}/disconnect:
+    post:
+      summary: Disconnect instance
+      operationId: disconnectInstance
+      parameters:
+        - $ref: '#/components/parameters/InstanceId'
+      responses:
+        '200':
+          $ref: '#/components/responses/InstanceStatus'
+        '401':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+        '404':
+          $ref: '#/components/responses/Error'
+        '409':
+          $ref: '#/components/responses/Error'
+        '503':
+          $ref: '#/components/responses/Error'
+  /messages/text:
+    post:
+      summary: Send text message
+      operationId: sendText
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextMessage'
+      responses:
+        '202':
+          $ref: '#/components/responses/SendResult'
+        '401':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+        '404':
+          $ref: '#/components/responses/Error'
+        '409':
+          $ref: '#/components/responses/Error'
+        '422':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
+        '502':
+          $ref: '#/components/responses/Error'
+        '503':
+          $ref: '#/components/responses/Error'
+  /messages/media:
+    post:
+      summary: Report media sending unavailable
+      operationId: sendMedia
+      description: Reserved. Returns FEATURE_UNAVAILABLE until SSRF-safe media fetching is implemented.
+      responses:
+        '401':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+        '501':
+          $ref: '#/components/responses/Error'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  parameters:
+    InstanceId:
+      name: instanceId
+      in: path
+      required: true
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 100
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: true
+      schema:
+        type: string
+        minLength: 8
+        maxLength: 200
+        pattern: '^[A-Za-z0-9._:-]+$'
+  schemas:
+    GatewayStatus:
+      type: string
+      enum: [disconnected, connecting, connected, error]
+    Health:
+      type: object
+      additionalProperties: false
+      required: [status]
+      properties:
+        status:
+          type: string
+          enum: [ok]
+    InstanceStatus:
+      type: object
+      additionalProperties: false
+      required: [instance_id, status]
+      properties:
+        instance_id:
+          type: string
+        status:
+          $ref: '#/components/schemas/GatewayStatus'
+    ConnectionResult:
+      type: object
+      additionalProperties: false
+      required: [instance_id, status]
+      properties:
+        instance_id:
+          type: string
+        status:
+          $ref: '#/components/schemas/GatewayStatus'
+        qr_code:
+          type: [string, 'null']
+        pairing_code:
+          type: [string, 'null']
+    TextMessage:
+      type: object
+      additionalProperties: false
+      required: [instance_id, to, text]
+      properties:
+        instance_id:
+          type: string
+          minLength: 1
+        to:
+          type: string
+          pattern: '^\+?[1-9]\d{7,14}$'
+        text:
+          type: string
+          minLength: 1
+          maxLength: 4096
+    SendResult:
+      type: object
+      additionalProperties: false
+      required: [message_id, status]
+      properties:
+        message_id:
+          type: string
+        status:
+          type: string
+          enum: [accepted, sent]
+    Error:
+      type: object
+      additionalProperties: false
+      required: [code, message, request_id, retryable]
+      properties:
+        code:
+          type: string
+          pattern: '^[A-Z0-9_]+$'
+        message:
+          type: string
+          maxLength: 300
+        request_id:
+          type: string
+        retryable:
+          type: boolean
+  responses:
+    InstanceStatus:
+      description: Canonical instance state
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InstanceStatus'
+    SendResult:
+      description: Accepted message
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SendResult'
+    Error:
+      description: Safe error envelope; never contains provider response or credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

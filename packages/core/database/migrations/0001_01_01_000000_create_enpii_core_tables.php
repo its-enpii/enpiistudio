@@ -103,6 +103,7 @@ return new class extends Migration
             $table->index(['tenant_id', 'created_at']);
             $table->index(['tenant_id', 'subject_type', 'subject_id']);
             $table->foreign('tenant_id')->references('id')->on('core_tenants')->restrictOnDelete();
+            $table->foreign(['actor_id', 'tenant_id'])->references(['id', 'tenant_id'])->on('core_users')->restrictOnDelete();
         });
     }
 

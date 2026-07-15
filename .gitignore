@@ -1,3 +1,6 @@
+# Local Claude state
+/.claude/
+
 # Local environment
 /.env
 /.env.*
@@ -8,10 +11,26 @@
 
 # PHP dependencies and test artifacts
 /vendor/
+/services/*/vendor/
 /.phpunit.cache/
 /.phpunit.result.cache
+/services/*/.phpunit.cache/
+/services/*/.phpunit.result.cache
 /coverage/
 composer.phar
+
+# Gateway runtime state
+/services/*/.env
+/services/*/storage/framework/cache/*
+/services/*/storage/framework/sessions/*
+/services/*/storage/framework/views/*
+/services/*/storage/logs/*
+/services/*/bootstrap/cache/*.php
+!/services/*/storage/framework/cache/.gitignore
+!/services/*/storage/framework/sessions/.gitignore
+!/services/*/storage/framework/views/.gitignore
+!/services/*/storage/logs/.gitignore
+!/services/*/bootstrap/cache/.gitignore
 
 # Node dependencies and generated UI output
 /node_modules/

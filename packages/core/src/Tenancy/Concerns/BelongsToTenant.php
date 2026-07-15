@@ -50,9 +50,32 @@ trait BelongsToTenant
         static::replicating($assertTenant);
     }
 
+    public function fresh($with = [])
+    {
+        $this->assertCurrentTenant();
+
+        return parent::fresh($with);
+    }
+
+    public function refresh()
+    {
+        $this->assertCurrentTenant();
+
+        return parent::refresh();
+    }
+
     public function getTenantColumn(): string
     {
         return 'tenant_id';
+    }
+
+    private function assertCurrentTenant(): void
+    {
+        $tenantId = $this->getAttribute($this->getTenantColumn());
+
+        if ($tenantId !== null && $tenantId !== '') {
+            app(TenantContext::class)->assertMatches((string) $tenantId);
+        }
     }
 
     public function tenant(): BelongsTo

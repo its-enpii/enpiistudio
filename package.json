@@ -2,7 +2,7 @@
   "name": "enpii-studio-packages",
   "private": true,
   "engines": {
-    "node": ">=20"
+    "node": "^20.19.0 || >=22.12.0"
   },
   "workspaces": [
     "packages/ui"
@@ -10,6 +10,12 @@
   "scripts": {
     "ui:build": "npm run build --workspace @enpii-studio/ui",
     "ui:check": "npm run check --workspace @enpii-studio/ui",
-    "ui:test": "npm run test --workspace @enpii-studio/ui"
+    "ui:test": "npm run test --workspace @enpii-studio/ui",
+    "ui:pack": "npm pack --workspace @enpii-studio/ui --dry-run",
+    "contract:check": "redocly lint contracts/whatsapp-gateway/openapi.yaml"
+  },
+  "devDependencies": {
+    "@redocly/cli": "^2.39.0",
+    "yaml": "^2.8.3"
   }
 }

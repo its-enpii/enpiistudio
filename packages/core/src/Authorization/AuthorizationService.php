@@ -16,6 +16,10 @@ final readonly class AuthorizationService
 
     public function assignRole(User $user, Role $role): void
     {
+        if (! $user->exists || ! $role->exists) {
+            throw new InvalidArgumentException('User and role must be persisted before assignment.');
+        }
+
         $tenantId = $this->context->id();
         $this->context->assertMatches((string) $user->tenant_id);
         $this->context->assertMatches((string) $role->tenant_id);
@@ -27,6 +31,10 @@ final readonly class AuthorizationService
 
     public function grantPermission(Role $role, Permission $permission): void
     {
+        if (! $role->exists || ! $permission->exists) {
+            throw new InvalidArgumentException('Role and permission must be persisted before assignment.');
+        }
+
         $this->context->assertMatches((string) $role->tenant_id);
         $role->permissions()->syncWithoutDetaching([$permission->getKey()]);
     }

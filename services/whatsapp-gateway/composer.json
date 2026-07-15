@@ -1,0 +1,44 @@
+{
+  "name": "enpii-studio/whatsapp-gateway",
+  "description": "Internal network boundary between Enpii products and Evolution API",
+  "type": "project",
+  "license": "proprietary",
+  "require": {
+    "php": ">=8.3",
+    "laravel/framework": "^12.0"
+  },
+  "require-dev": {
+    "laravel/pint": "^1.24",
+    "mockery/mockery": "^1.6",
+    "phpunit/phpunit": "^11.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "EnpiiStudio\\WhatsAppGateway\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "EnpiiStudio\\WhatsAppGateway\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "post-autoload-dump": [
+      "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+      "@php artisan package:discover --ansi"
+    ],
+    "test": "phpunit",
+    "lint": "pint --test",
+    "check": [
+      "composer validate --strict",
+      "@lint",
+      "@test"
+    ]
+  },
+  "config": {
+    "platform": { "php": "8.3.0" },
+    "sort-packages": true
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}

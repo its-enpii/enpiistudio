@@ -13,7 +13,9 @@ final class SettingsRepository
     {
         $key = $this->key($key);
 
-        return Setting::query()->where('key', $key)->value('value') ?? $default;
+        $setting = Setting::query()->where('key', $key)->first();
+
+        return $setting?->value ?? ($setting === null ? $default : null);
     }
 
     public function set(string $key, mixed $value): Setting

@@ -30,6 +30,38 @@ services:
       retries: 10
     restart: unless-stopped
 
+  whatsapp-gateway:
+    build:
+      context: ./services/whatsapp-gateway
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "false"
+      APP_KEY: ${GATEWAY_APP_KEY:-}
+      DB_CONNECTION: pgsql
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_DATABASE: ${POSTGRES_DB:-enpii}
+      DB_USERNAME: ${POSTGRES_USER:-enpii}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-enpii-local}
+      CACHE_STORE: redis
+      REDIS_HOST: redis
+      EVOLUTION_API_DRIVER: ${EVOLUTION_API_DRIVER:-http}
+      EVOLUTION_API_URL: ${EVOLUTION_API_URL:-https://evolution.invalid}
+      EVOLUTION_API_KEY: ${EVOLUTION_API_KEY:-}
+    ports:
+      - "${GATEWAY_PORT:-8090}:8090"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "php", "-r", "$$c=@file_get_contents('http://127.0.0.1:8090/api/v1/health'); exit($$c === '{\"status\":\"ok\"}' ? 0 : 1);"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
 volumes:
   postgres-data:
   redis-data:
