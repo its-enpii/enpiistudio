@@ -18,13 +18,13 @@ jobs:
       postgres:
         image: postgres:17-alpine
         env:
-          POSTGRES_DB: enpii_test
+          POSTGRES_DB: enpii
           POSTGRES_USER: enpii
-          POSTGRES_PASSWORD: enpii
+          POSTGRES_PASSWORD: enpii-local
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U enpii -d enpii_test"
+          --health-cmd "pg_isready -U enpii -d enpii"
           --health-interval 5s
           --health-timeout 5s
           --health-retries 10
@@ -44,12 +44,6 @@ jobs:
       - run: vendor/bin/testbench vendor:publish --tag=whatsapp-client-config --force
       - run: vendor/bin/testbench list --raw | grep -E '^enpii:whatsapp-(connect|smoke)\b'
       - name: Verify Core migrations on PostgreSQL
-        env:
-          DB_CONNECTION: pgsql
-          DB_HOST: 127.0.0.1
-          DB_DATABASE: enpii_test
-          DB_USERNAME: enpii
-          DB_PASSWORD: enpii
         run: |
           vendor/bin/testbench migrate:fresh --force
           vendor/bin/testbench migrate:rollback --force
@@ -63,13 +57,13 @@ jobs:
       postgres:
         image: postgres:17-alpine
         env:
-          POSTGRES_DB: enpii_test
+          POSTGRES_DB: enpii
           POSTGRES_USER: enpii
-          POSTGRES_PASSWORD: enpii
+          POSTGRES_PASSWORD: enpii-local
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U enpii -d enpii_test"
+          --health-cmd "pg_isready -U enpii -d enpii"
           --health-interval 5s
           --health-timeout 5s
           --health-retries 10
@@ -89,7 +83,7 @@ jobs:
           php-version: '8.3'
           extensions: pdo_pgsql
           coverage: none
-      - run: php -r '$pdo = new PDO("pgsql:host=127.0.0.1;port=5432;dbname=enpii_test", "enpii", "enpii"); assert($pdo->query("select 1")->fetchColumn() === 1);'
+      - run: php -r '$pdo = new PDO("pgsql:host=127.0.0.1;port=5432;dbname=enpii", "enpii", "enpii-local"); assert($pdo->query("select 1")->fetchColumn() === 1);'
       - run: php -r '$socket = fsockopen("127.0.0.1", 6379); fwrite($socket, "*1\r\n\x24" . "4\r\nPING\r\n"); assert(str_contains(stream_get_contents($socket), "PONG"));'
       - run: docker compose config --quiet
 
