@@ -42,7 +42,6 @@ jobs:
       - run: vendor/bin/testbench package:create-sqlite-db
       - run: vendor/bin/testbench vendor:publish --tag=enpii-core-migrations --force
       - run: vendor/bin/testbench vendor:publish --tag=whatsapp-client-config --force
-      - run: vendor/bin/testbench migrate:fresh --force
       - run: vendor/bin/testbench list --raw | grep -E '^enpii:whatsapp-(connect|smoke)\b'
       - name: Verify Core migrations on PostgreSQL
         env:
