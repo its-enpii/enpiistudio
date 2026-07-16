@@ -1,5 +1,7 @@
 # Pembaruan Fondasi Reusable Enpii Studio
 
+> **Dokumen target arsitektur.** Bagian di bawah menggambarkan arah pengembangan, bukan seluruh baseline yang sudah aktif. Baseline saat ini terbatas pada package Core, WhatsApp Client, UI presentasional, dan internal WhatsApp Gateway.
+
 ## Integrasi WhatsApp Gateway dengan Evolution API
 
 Enpii Studio telah memiliki sistem WhatsApp Gateway berbasis **Evolution API**. Gateway ini ditempatkan sebagai layanan komunikasi bersama yang dapat digunakan oleh seluruh produk SaaS dan aplikasi tenant.

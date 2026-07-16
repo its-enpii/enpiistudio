@@ -42,4 +42,19 @@ withDefaults(defineProps<{
   cursor: not-allowed;
   opacity: 0.55;
 }
+
+@media (forced-colors: active) {
+  .enpii-button {
+    border: 1px solid ButtonText;
+  }
+
+  .enpii-button:focus-visible {
+    outline-color: Highlight;
+  }
+
+  .enpii-button:disabled {
+    color: GrayText;
+    opacity: 1;
+  }
+}
 </style>

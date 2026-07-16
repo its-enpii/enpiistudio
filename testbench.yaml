@@ -1,0 +1,5 @@
+laravel: '@testbench'
+
+providers:
+  - EnpiiStudio\Core\CoreServiceProvider
+  - EnpiiStudio\WhatsAppClient\WhatsAppClientServiceProvider

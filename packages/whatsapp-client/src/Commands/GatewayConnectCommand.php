@@ -23,16 +23,16 @@ final class GatewayConnectCommand extends Command
 
         try {
             $before = $gateway->status($instance);
-            $this->info("Current instance status: {$before->status}");
+            $this->info("Current instance status: {$before->status->value}");
 
-            if ($before->status === 'open') {
+            if ($before->isConnected()) {
                 $this->info('Instance already open; connect was not requested.');
 
                 return self::SUCCESS;
             }
 
             $connection = $gateway->connect($instance);
-            $this->info("Connect requested. Instance status: {$connection->status}");
+            $this->info("Connect requested. Instance status: {$connection->status->value}");
 
             if ($connection->qrCode !== null) {
                 $this->line($this->option('show-qr') ? 'QR payload: '.$connection->qrCode : 'QR payload available; rerun with --show-qr in a secure terminal.');
@@ -43,9 +43,9 @@ final class GatewayConnectCommand extends Command
             }
 
             $after = $gateway->status($instance);
-            $this->info("Status after request: {$after->status}");
+            $this->info("Status after request: {$after->status->value}");
 
-            if ($after->status !== 'open') {
+            if (! $after->isConnected()) {
                 $this->warn('Scan/pair in WhatsApp, then run enpii:whatsapp-smoke. No polling or message send was performed.');
             }
 

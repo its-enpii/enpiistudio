@@ -12,13 +12,28 @@ describe('EnpiiButton', () => {
     expect(wrapper.get('button').text()).toBe('Simpan')
   })
 
-  it('exposes the native disabled state', () => {
+  it('supports native type and forwards attributes', () => {
+    const wrapper = mount(EnpiiButton, {
+      props: { type: 'submit' },
+      attrs: { 'aria-describedby': 'save-help', name: 'save' },
+    })
+
+    const button = wrapper.get('button')
+    expect(button.attributes('type')).toBe('submit')
+    expect(button.attributes('aria-describedby')).toBe('save-help')
+    expect(button.attributes('name')).toBe('save')
+  })
+
+  it('exposes native disabled behavior', async () => {
     const wrapper = mount(EnpiiButton, {
       props: { disabled: true },
       slots: { default: 'Simpan' },
     })
 
-    expect(wrapper.get('button').attributes()).toHaveProperty('disabled')
+    const button = wrapper.get('button')
+    expect(button.attributes()).toHaveProperty('disabled')
+    await button.trigger('click')
+    expect(wrapper.emitted('click')).toBeUndefined()
   })
 })
 

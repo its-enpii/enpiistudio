@@ -29,7 +29,7 @@ final class GatewaySmokeCommand extends Command
             return self::FAILURE;
         }
 
-        $this->info("Gateway reachable. Instance [{$status->instanceId}] status: {$status->status}");
+        $this->info("Gateway reachable. Instance [{$status->instanceId}] status: {$status->status->value}");
 
         return self::SUCCESS;
     }

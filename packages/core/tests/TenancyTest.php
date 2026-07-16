@@ -45,6 +45,63 @@ final class TenancyTest extends TestCase
         $record->delete();
     }
 
+    public function test_stale_instance_cannot_be_saved_in_another_context(): void
+    {
+        $context = app(TenantContext::class);
+        $record = $context->run(
+            '11111111-1111-4111-8111-111111111111',
+            fn () => TestRecord::query()->create(['name' => 'A']),
+        );
+        $record->name = 'changed';
+        $context->set('22222222-2222-4222-8222-222222222222');
+
+        $this->expectException(TenantMismatch::class);
+
+        $record->save();
+    }
+
+    public function test_stale_instance_cannot_be_replicated_in_another_context(): void
+    {
+        $context = app(TenantContext::class);
+        $record = $context->run(
+            '11111111-1111-4111-8111-111111111111',
+            fn () => TestRecord::query()->create(['name' => 'A']),
+        );
+        $context->set('22222222-2222-4222-8222-222222222222');
+
+        $this->expectException(TenantMismatch::class);
+
+        $record->replicate();
+    }
+
+    public function test_stale_instance_cannot_be_refreshed_in_another_context(): void
+    {
+        $context = app(TenantContext::class);
+        $record = $context->run(
+            '11111111-1111-4111-8111-111111111111',
+            fn () => TestRecord::query()->create(['name' => 'A']),
+        );
+        $context->set('22222222-2222-4222-8222-222222222222');
+
+        $this->expectException(TenantMismatch::class);
+
+        $record->refresh();
+    }
+
+    public function test_stale_instance_cannot_be_fetched_fresh_in_another_context(): void
+    {
+        $context = app(TenantContext::class);
+        $record = $context->run(
+            '11111111-1111-4111-8111-111111111111',
+            fn () => TestRecord::query()->create(['name' => 'A']),
+        );
+        $context->set('22222222-2222-4222-8222-222222222222');
+
+        $this->expectException(TenantMismatch::class);
+
+        $record->fresh();
+    }
+
     public function test_explicit_mismatched_tenant_is_rejected(): void
     {
         $context = app(TenantContext::class);

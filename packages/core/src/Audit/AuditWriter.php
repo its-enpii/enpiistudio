@@ -6,6 +6,7 @@ namespace EnpiiStudio\Core\Audit;
 
 use EnpiiStudio\Core\Audit\Contracts\AuditActorResolver;
 use EnpiiStudio\Core\Audit\Models\AuditLog;
+use EnpiiStudio\Core\Identity\Models\User;
 use EnpiiStudio\Core\Tenancy\TenantContext;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\Eloquent\Model;
@@ -39,6 +40,10 @@ final readonly class AuditWriter
             throw new InvalidArgumentException('Audit action must not be empty.');
         }
 
+        if (! $subject->exists || $subject->getKey() === null) {
+            throw new InvalidArgumentException('Audit subject must be persisted.');
+        }
+
         if (method_exists($subject, 'getTenantColumn')) {
             $this->context->assertMatches((string) $subject->getAttribute($subject->getTenantColumn()));
         }
@@ -46,6 +51,10 @@ final readonly class AuditWriter
         $actorId = $this->container->bound(AuditActorResolver::class)
             ? $this->container->make(AuditActorResolver::class)->actorId()
             : null;
+
+        if ($actorId !== null && ! User::query()->whereKey($actorId)->exists()) {
+            throw new InvalidArgumentException('Audit actor must belong to the current tenant.');
+        }
 
         return AuditLog::query()->create([
             'tenant_id' => $this->context->id(),

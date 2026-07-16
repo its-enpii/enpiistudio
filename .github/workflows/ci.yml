@@ -18,27 +18,37 @@ jobs:
       postgres:
         image: postgres:17-alpine
         env:
-          POSTGRES_DB: enpii_test
+          POSTGRES_DB: enpii
           POSTGRES_USER: enpii
-          POSTGRES_PASSWORD: enpii
+          POSTGRES_PASSWORD: enpii-local
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U enpii -d enpii_test"
+          --health-cmd "pg_isready -U enpii -d enpii"
           --health-interval 5s
           --health-timeout 5s
           --health-retries 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: shivammathur/setup-php@v2
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
         with:
           php-version: ${{ matrix.php }}
           extensions: mbstring, pdo_pgsql, pdo_sqlite
           coverage: none
-      - uses: ramsey/composer-install@v3
+      - uses: ramsey/composer-install@a8d0d959dab41457692a5e2041bd9b757a119e3f # v3
       - run: composer validate --strict
       - run: vendor/bin/pint --test
       - run: vendor/bin/phpunit
+      - run: vendor/bin/testbench package:create-sqlite-db
+      - run: vendor/bin/testbench vendor:publish --tag=enpii-core-migrations --force
+      - run: vendor/bin/testbench vendor:publish --tag=whatsapp-client-config --force
+      - run: vendor/bin/testbench list --raw | grep -E '^enpii:whatsapp-(connect|smoke)\b'
+      - name: Verify Core migrations on PostgreSQL
+        run: |
+          vendor/bin/testbench migrate:fresh --force
+          vendor/bin/testbench migrate:rollback --force
+          vendor/bin/testbench migrate --force
+      - run: composer audit --no-interaction
       - run: docker compose config --quiet
 
   postgres:
@@ -47,13 +57,13 @@ jobs:
       postgres:
         image: postgres:17-alpine
         env:
-          POSTGRES_DB: enpii_test
+          POSTGRES_DB: enpii
           POSTGRES_USER: enpii
-          POSTGRES_PASSWORD: enpii
+          POSTGRES_PASSWORD: enpii-local
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U enpii -d enpii_test"
+          --health-cmd "pg_isready -U enpii -d enpii"
           --health-interval 5s
           --health-timeout 5s
           --health-retries 10
@@ -67,25 +77,59 @@ jobs:
           --health-timeout 5s
           --health-retries 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: shivammathur/setup-php@v2
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
         with:
           php-version: '8.3'
           extensions: pdo_pgsql
           coverage: none
-      - run: php -r '$pdo = new PDO("pgsql:host=127.0.0.1;port=5432;dbname=enpii_test", "enpii", "enpii"); assert($pdo->query("select 1")->fetchColumn() === 1);'
+      - run: php -r '$pdo = new PDO("pgsql:host=127.0.0.1;port=5432;dbname=enpii", "enpii", "enpii-local"); assert($pdo->query("select 1")->fetchColumn() === 1);'
       - run: php -r '$socket = fsockopen("127.0.0.1", 6379); fwrite($socket, "*1\r\n\x24" . "4\r\nPING\r\n"); assert(str_contains(stream_get_contents($socket), "PONG"));'
       - run: docker compose config --quiet
+
+  gateway:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: enpii_gateway_test
+          POSTGRES_USER: enpii
+          POSTGRES_PASSWORD: enpii
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U enpii -d enpii_gateway_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, pdo_pgsql, pdo_sqlite
+          coverage: none
+      - run: composer install --working-dir=services/whatsapp-gateway --no-interaction
+      - run: composer check --working-dir=services/whatsapp-gateway
+      - run: DB_CONNECTION=pgsql DB_HOST=127.0.0.1 DB_DATABASE=enpii_gateway_test DB_USERNAME=enpii DB_PASSWORD=enpii APP_KEY=base64:MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY= php services/whatsapp-gateway/artisan migrate:fresh --force
+      - run: DB_CONNECTION=pgsql DB_HOST=127.0.0.1 DB_DATABASE=enpii_gateway_test DB_USERNAME=enpii DB_PASSWORD=enpii APP_KEY=base64:MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY= php services/whatsapp-gateway/artisan migrate:rollback --force
+      - run: DB_CONNECTION=pgsql DB_HOST=127.0.0.1 DB_DATABASE=enpii_gateway_test DB_USERNAME=enpii DB_PASSWORD=enpii APP_KEY=base64:MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY= php services/whatsapp-gateway/artisan migrate --force
+      - run: docker compose config --quiet
+      - run: composer audit --working-dir=services/whatsapp-gateway --no-interaction
 
   ui:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
-          node-version: 20
+          node-version: 20.19.0
           cache: npm
       - run: npm ci
+      - run: npm run contract:check
       - run: npm run ui:check
       - run: npm run ui:test
       - run: npm run ui:build
+      - run: npm pack --workspace @enpii-studio/ui --dry-run
+      - run: npm audit --audit-level=high

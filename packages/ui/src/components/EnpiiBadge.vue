@@ -62,4 +62,12 @@ withDefaults(defineProps<{
   --enpii-badge-border: var(--enpii-color-neutral-border);
   --enpii-badge-text: var(--enpii-color-neutral-text);
 }
+
+@media (forced-colors: active) {
+  .enpii-badge {
+    border-color: CanvasText;
+    color: CanvasText;
+    background: Canvas;
+  }
+}
 </style>

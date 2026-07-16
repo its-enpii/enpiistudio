@@ -20,6 +20,14 @@ final readonly class MediaMessage
             throw new InvalidArgumentException('Instance ID and idempotency key are required.');
         }
 
+        if (strlen($instanceId) > 100) {
+            throw new InvalidArgumentException('Instance ID must contain 1-100 characters.');
+        }
+
+        if (strlen($idempotencyKey) < 8 || strlen($idempotencyKey) > 200 || ! preg_match('/^[A-Za-z0-9._:-]+$/', $idempotencyKey)) {
+            throw new InvalidArgumentException('Idempotency key must contain 8-200 safe characters.');
+        }
+
         if (! preg_match('/^\+?[1-9]\d{7,14}$/', $to)) {
             throw new InvalidArgumentException('Recipient must be an E.164-like phone number.');
         }
