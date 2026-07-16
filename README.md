@@ -1,55 +1,43 @@
 # Enpii Studio
 
-Monorepo baseline Laravel 12 / PHP 8.3+ yang mendistribusikan paket
-internal dan satu layanan jaringan bersama. Repositori ini
-menggabungkan paket Composer in-process, satu library Vue
-presentasional, satu layanan WhatsApp Gateway internal, satu
-kontrak OpenAPI, dan Compose untuk kebutuhan lokal.
+Enpii Studio adalah monorepo Laravel 12/PHP 8.3+ yang memuat fondasi internal untuk aplikasi produk. Repositori ini belum memuat aplikasi produk siap pakai.
 
-## Inventaris aktif
+## Batas sistem aktif
 
-- [`packages/core`](packages/core) — paket Composer in-process.
-  Tenancy fail-closed, Identity, Authorization kustom, Settings,
-  Feature Flags, Audit append-only.
-- [`packages/whatsapp-client`](packages/whatsapp-client) — paket
-  Composer in-process. Kontrak `WhatsAppGateway`, DTO, enum status,
-  exception, fake, HTTP adapter ke Gateway internal.
-- [`packages/ui`](packages/ui) — library Vue 3 + TypeScript + Vite.
-  Design tokens, `EnpiiButton`, dan `EnpiiBadge` presentasional.
-- [`services/whatsapp-gateway`](services/whatsapp-gateway) —
-  layanan Laravel tersendiri (network boundary). Otorisasi API
-  principal, ACL instance, lifecycle, text send, idempotency
-  persisten, error envelope aman, health/readiness, PostgreSQL,
-  Redis.
-- [`contracts/whatsapp-gateway/openapi.yaml`](contracts/whatsapp-gateway/openapi.yaml)
-  — kontrak OpenAPI 3.1 untuk layanan Gateway.
-- [`compose.yaml`](compose.yaml) — stack lokal: PostgreSQL 17,
-  Redis 7, layanan Gateway.
+```text
+Aplikasi produk Laravel
+├── enpii-studio/core                 in-process
+├── enpii-studio/whatsapp-client      in-process
+├── @enpii-studio/ui                  frontend Vue
+└── HTTP
+    └── Enpii WhatsApp Gateway        layanan jaringan internal
+        └── Evolution API             layanan eksternal
+```
 
-## Batas aktif
+Aplikasi produk tidak boleh memanggil Evolution API secara langsung. Gateway adalah satu-satunya batas jaringan bersama; Core dan WhatsApp Client tetap berjalan di dalam proses aplikasi konsumen.
 
-- Paket Composer (`packages/core`, `packages/whatsapp-client`)
-  berjalan in-process di aplikasi Laravel konsumen.
-- `@enpii-studio/ui` dikonsumsi aplikasi Vue 3 di sisi frontend.
-- `services/whatsapp-gateway` adalah satu-satunya dependency
-  jaringan bersama. Evolution API tetap layanan eksternal di
-  belakang Gateway.
-- Aplikasi produk: **belum ada**. Produk-produk akan dibuat di
-  repositori terpisah yang memakai paket-paket di sini sebagai
-  path Composer.
+## Mulai berdasarkan peran
 
-## Cara membaca dokumentasi
+| Peran | Mulai dari |
+| --- | --- |
+| Pengembang aplikasi produk | [Referensi implementasi aktif](docs/implementation-reference.md#6-contoh-integrasi-aplikasi-konsumen) untuk pemasangan Core, tenancy, authorization, WhatsApp Client, dan UI |
+| Maintainer Enpii Studio | [Referensi kontrak lengkap](docs/implementation-reference.md) dan matriks kemampuan yang belum ada |
+| Operator WhatsApp Gateway | [Setup dan runbook](docs/setup.md), lalu [kontrak API aktif](docs/implementation-reference.md#5-whatsapp-gateway) |
 
-- [`docs/implementation-reference.md`](docs/implementation-reference.md)
-  — referensi kontrak aktif: API publik paket, struktur tabel,
-  enum, DTO, command, dan daftar kemampuan **belum ada**.
-- [`docs/setup.md`](docs/setup.md) — runbook operasional lokal.
-- [`docs/enpiistudio.md`](docs/enpiistudio.md) — target
-  arsitektur. Bukan deskripsi implementasi aktif.
-- [`docs/enpii-studio-roadmap.md`](docs/enpii-studio-roadmap.md)
-  — roadmap hidup; dapat tertinggal dari sumber.
+## Komponen aktif
 
-## Verifikasi
+| Komponen | Bentuk | Kemampuan aktif | Dokumentasi |
+| --- | --- | --- | --- |
+| [`packages/core`](packages/core) | Paket Composer in-process | Tenancy fail-closed, Identity, Authorization kustom, Settings, Feature Flags, Audit | [Core](docs/implementation-reference.md#2-core) |
+| [`packages/whatsapp-client`](packages/whatsapp-client) | Paket Composer in-process | Kontrak, DTO, HTTP adapter, exception, fake, dan command untuk Gateway | [WhatsApp Client](docs/implementation-reference.md#3-whatsapp-client) |
+| [`packages/ui`](packages/ui) | Paket npm internal | Token CSS, `EnpiiButton`, dan `EnpiiBadge` presentasional | [UI](docs/implementation-reference.md#4-ui) |
+| [`services/whatsapp-gateway`](services/whatsapp-gateway) | Layanan Laravel berjaringan | API principal, ACL instance, lifecycle, text send, idempotency, error aman, health/readiness | [WhatsApp Gateway](docs/implementation-reference.md#5-whatsapp-gateway) |
+| [`contracts/whatsapp-gateway/openapi.yaml`](contracts/whatsapp-gateway/openapi.yaml) | OpenAPI 3.1 | Kontrak HTTP Gateway yang dimaksud | [Perbedaan implementasi/OpenAPI](docs/implementation-reference.md#59-perbedaan-implementasi-dan-openapi-yang-diketahui) |
+| [`compose.yaml`](compose.yaml) | Stack lokal | PostgreSQL 17, Redis 7, dan WhatsApp Gateway | [Runbook Compose](docs/setup.md#gateway-melalui-compose) |
+
+## Verifikasi cepat
+
+Prasyarat dan prosedur lengkap tersedia di [`docs/setup.md`](docs/setup.md). Dari root repositori:
 
 ```bash
 composer install
@@ -58,10 +46,22 @@ composer install --working-dir=services/whatsapp-gateway
 composer check --working-dir=services/whatsapp-gateway
 npm install
 npm run contract:check
-npm run ui:check && npm run ui:test && npm run ui:build
+npm run ui:check
+npm run ui:test
+npm run ui:build
 docker compose config --quiet
 ```
 
-Pipeline CI menjalankan perintah yang sama dengan tambahan audit
-Composer dan npm, pemindaian Redocly untuk OpenAPI, dan layanan
-PostgreSQL + Redis sebagai service container.
+Perintah di atas tidak melakukan koneksi atau pengiriman WhatsApp live.
+
+## Otoritas dokumentasi
+
+1. [`docs/implementation-reference.md`](docs/implementation-reference.md) menjelaskan perilaku implementasi aktif.
+2. [`docs/setup.md`](docs/setup.md) menjelaskan pemasangan dan operasi lokal.
+3. [`contracts/whatsapp-gateway/openapi.yaml`](contracts/whatsapp-gateway/openapi.yaml) menjelaskan kontrak HTTP yang dimaksud. Perbedaan terhadap runtime dicatat di referensi implementasi.
+4. [`docs/enpiistudio.md`](docs/enpiistudio.md) adalah arsitektur **Target**, bukan kontrak aktif.
+5. [`docs/enpii-studio-roadmap.md`](docs/enpii-studio-roadmap.md) adalah roadmap non-normatif dan dapat tertinggal dari kode sumber.
+
+## Batas utama saat ini
+
+Aplikasi produk, resolver tenant konkret, propagasi tenant otomatis ke queue, pengiriman media, deployment produksi Gateway, dan komponen UI interaktif **belum ada**. Daftar lengkap beserta pengganti saat ini tersedia pada [matriks kemampuan yang belum ada](docs/implementation-reference.md#9-matriks-kemampuan-yang-belum-ada).

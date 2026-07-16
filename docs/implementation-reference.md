@@ -1,352 +1,261 @@
-# Enpii Studio — Referensi Implementasi Aktif
+# Referensi implementasi aktif Enpii Studio
 
-Dokumen ini merinci kontrak aktif pada monorepo `enpii-studio`. Ia
-bukan target arsitektur — target arsitektur hidup di
-[`docs/enpiistudio.md`](enpiistudio.md), roadmap hidup di
-[`docs/enpii-studio-roadmap.md`](enpii-studio-roadmap.md), dan
-prosedur operasional lokal di [`docs/setup.md`](setup.md).
+Dokumen ini menjelaskan kontrak yang benar-benar tersedia di repositori Enpii Studio. Pembacanya adalah pengembang aplikasi produk, maintainer paket, dan operator WhatsApp Gateway. Dokumen ini bukan arsitektur masa depan; arah **Target** berada di [`enpiistudio.md`](enpiistudio.md), sedangkan prosedur lokal berada di [`setup.md`](setup.md).
 
-## Label status
+## Status dan sumber kebenaran
 
-Setiap kemampuan memakai label agar pembaca tidak keliru antara
-implementasi aktif dan target:
+- **Aktif** berarti implementasi tersedia pada kode sumber dan didukung pengujian atau runtime.
+- **belum ada** berarti kemampuan tersebut tidak tersedia pada implementasi saat ini.
+- **Target** berarti gagasan masa depan yang tidak boleh diperlakukan sebagai kontrak aktif.
 
-- **Aktif** — kode atau kontrak ada di repository dan dipakai oleh
-  test atau runtime aktif.
-- **belum ada** — kemampuan tersebut sengaja tidak dibuat; konsumen
-  paket harus merancang atau menambahkannya sendiri.
-- **Target** — kemampuan tersebut ada di dokumen target tetapi
-  belum diimplementasikan.
+Jika sumber bertentangan, gunakan urutan penyelesaian berikut: kode sumber dan runtime, pengujian, migrasi dan penyedia layanan, OpenAPI dan Compose, runbook, lalu dokumen target atau roadmap. OpenAPI menggambarkan kontrak HTTP yang dimaksud, tetapi [perbedaan terhadap runtime](#59-perbedaan-implementasi-dan-openapi-yang-diketahui) tetap dicatat secara terbuka.
 
-Tiap pernyataan di sini mengikuti hierarki sumber:
+Semua tautan memakai jalur relatif repositori tanpa line anchor agar tidak cepat kedaluwarsa.
 
-1. Source `packages/`, `services/`, `contracts/`.
-2. Test `packages/core/tests`, `services/whatsapp-gateway/tests`.
-3. Migration dan service provider.
-4. Compose dan OpenAPI.
-5. Dokumen operasional `docs/setup.md`.
-6. Dokumen target `docs/enpiistudio.md` dan roadmap.
+## Daftar isi
 
-## Cara membaca path
+- [1. Peta sistem aktif](#1-peta-sistem-aktif)
+- [2. Core](#2-core)
+- [3. WhatsApp Client](#3-whatsapp-client)
+- [4. UI](#4-ui)
+- [5. WhatsApp Gateway](#5-whatsapp-gateway)
+- [6. Contoh integrasi aplikasi konsumen](#6-contoh-integrasi-aplikasi-konsumen)
+- [7. Konvensi lintas komponen](#7-konvensi-lintas-komponen)
+- [8. Troubleshooting](#8-troubleshooting)
+- [9. Matriks kemampuan yang belum ada](#9-matriks-kemampuan-yang-belum-ada)
 
-Semua path repo-relative. Contoh `[TenantContext.php](../packages/core/src/Tenancy/TenantContext.php)`
-mengacu ke paket internal. Path tidak disertai line anchor agar
-tetap valid saat source berubah.
+## 1. Peta sistem aktif
 
----
-
-## 1. `enpii-studio/core` — Tenancy (Aktif)
-
-### 1.1 Inventaris `packages/core/src/Tenancy/`
-
-```
-Tenancy/
-├── TenantContext.php
-├── Concerns/
-│   └── BelongsToTenant.php
-├── Contracts/
-│   └── TenantResolver.php
-├── Exceptions/
-│   ├── TenantContextMissing.php
-│   └── TenantMismatch.php
-├── Middleware/
-│   └── ResolveTenantContext.php
-├── Models/
-│   └── Tenant.php
-└── Scopes/
-    └── TenantScope.php
+```text
+Aplikasi produk Laravel
+├── enpii-studio/core                 in-process
+├── enpii-studio/whatsapp-client      in-process
+├── @enpii-studio/ui                  frontend Vue
+└── HTTP
+    └── Enpii WhatsApp Gateway        layanan jaringan internal
+        └── Evolution API             layanan eksternal
 ```
 
-### 1.2 `TenantContext`
+| Komponen | Tanggung jawab aktif | Tidak bertanggung jawab atas |
+| --- | --- | --- |
+| Core | Konteks tenant, model identity, authorization, settings, feature flags, audit | Login/MFA, resolver tenant konkret, propagasi queue otomatis |
+| WhatsApp Client | Kontrak PHP, validasi DTO, HTTP adapter, fake, command terbatas | Kepemilikan tenant, credential Evolution, auto-connect |
+| UI | Token CSS, Button, Badge | State aplikasi dan komponen interaktif |
+| WhatsApp Gateway | Auth principal, ACL instance, lifecycle, text send, idempotency, readiness | Domain tenant Core, aplikasi produk, media delivery |
+| Evolution API | Koneksi WhatsApp aktual | Kontrak aplikasi produk |
 
-API publik ([`TenantContext.php`](../packages/core/src/Tenancy/TenantContext.php)):
+Aplikasi produk **belum ada** di repositori ini. Setiap produk nantinya tetap menjadi modular monolith Laravel standalone dengan database, deployment, dan release cycle sendiri.
+
+## 2. Core
+
+Paket [`enpii-studio/core`](../packages/core) menyediakan fondasi in-process untuk aplikasi Laravel. Laravel package discovery mendaftarkan [`CoreServiceProvider`](../packages/core/src/CoreServiceProvider.php). Provider memasang scoped binding untuk `TenantContext`, `AuthorizationService`, `SettingsRepository`, dan `FeatureFlags`, serta Gate `enpii.permission`. Migrasi tidak dimuat otomatis; aplikasi harus memublikasikannya dengan tag `enpii-core-migrations`.
+
+### 2.1 Tenancy
+
+Folder [`Tenancy`](../packages/core/src/Tenancy) memuat konteks, scope, trait model, kontrak resolver, middleware, model tenant, serta dua exception fail-closed.
+
+#### `TenantContext`
+
+[`TenantContext`](../packages/core/src/Tenancy/TenantContext.php) mempunyai API berikut:
 
 ```php
-public function set(string $tenantId): void
-public function id(): string
-public function has(): bool
-public function assertMatches(string $tenantId): void
-public function forget(): void
-public function run(string $tenantId, Closure $callback): mixed
+set(string $tenantId): void
+id(): string
+has(): bool
+assertMatches(string $tenantId): void
+forget(): void
+run(string $tenantId, Closure $callback): mixed
 ```
 
-Aturan:
+`set()` menolak ID tenant kosong. `id()` melempar `TenantContextMissing` bila konteks belum tersedia. `assertMatches()` memakai `hash_equals()` dan melempar `TenantMismatch` saat ID berbeda. `run()` menyimpan konteks sebelumnya, menjalankan callback, lalu memulihkannya di `finally`; pola ini aman untuk pemanggilan bersarang maupun exception.
 
-- `set()` kosong → `TenantContextMissing`.
-- `id()` tanpa konteks → `TenantContextMissing`.
-- `assertMatches()` memakai `hash_equals` (timing-safe).
-- `run()` menyimpan konteks sebelumnya dan memulihkannya di
-  `finally`.
+Kontrak runtime hanya menjamin string non-kosong. Migrasi memakai kolom UUID, sehingga validitas UUID baru ditegakkan saat data mencapai database yang mendukung tipe tersebut.
 
-### 1.3 `TenantScope`
+#### Scope dan lifecycle model
 
-[`TenantScope.php`](../packages/core/src/Tenancy/Scopes/TenantScope.php)
-menyuntikkan `where tenant_id = context->id()` ke seluruh
-`Builder`. Scope ini terpasang otomatis lewat trait
-`BelongsToTenant`.
+[`TenantScope`](../packages/core/src/Tenancy/Scopes/TenantScope.php) menambahkan kondisi `tenant_id = TenantContext::id()` pada query Eloquent. Trait [`BelongsToTenant`](../packages/core/src/Tenancy/Concerns/BelongsToTenant.php) memasang scope dan menyediakan `tenant()` serta `getTenantColumn()` dengan default `tenant_id`.
 
-### 1.4 Trait `BelongsToTenant`
+Saat `creating`, trait mengisi kolom tenant dari konteks bila nilainya kosong. Nilai eksplisit harus cocok dengan konteks aktif. Trait juga memvalidasi atribut saat `retrieved`, `saving`, `deleting`, dan `replicating`. Nilai asli model ikut diperiksa untuk mencegah pemindahan tenant melalui perubahan atribut. `fresh()` dan `refresh()` memeriksa konteks sebelum membaca ulang model basi.
 
-[`BelongsToTenant.php`](../packages/core/src/Tenancy/Concerns/BelongsToTenant.php)
-melakukan:
+Batas perlindungan berbeda menurut jalur akses:
 
-- Memasang global `TenantScope`.
-- Saat `creating`: bila kolom tenant kosong, otomatis diisi
-  `context->id()`; bila tidak kosong, divalidasi dengan
-  `assertMatches`.
-- Validasi tenant saat `retrieved`, `saving`, `deleting`,
-  `replicating`, dan `original != null` agar model basi dari tenant
-  lain tidak lolos diam-diam.
-- Override `fresh()` dan `refresh()` memvalidasi konteks dulu.
-- Default `getTenantColumn(): 'tenant_id'`.
-- `tenant()` untuk relasi ke `Tenant`.
+| Jalur | Perlindungan aktif |
+| --- | --- |
+| Query Eloquent biasa | Global scope menambahkan filter tenant |
+| Hydration model tanpa scope | Event `retrieved` masih memeriksa tenant |
+| Save/delete/replicate/fresh/refresh | Lifecycle assertion menolak model dari tenant lain |
+| Bulk update/delete, raw query, query builder | Tidak menjalankan lifecycle model; filter tenant wajib ditulis eksplisit |
+| Quiet methods atau `withoutEvents` | Dapat melewati assertion berbasis event |
 
-### 1.5 Model `Tenant`
+Tidak ada bypass administrator implisit. Kode lintas tenant harus menjadi operasi administratif yang eksplisit, dibatasi, dan diuji tersendiri.
 
-[`Tenant.php`](../packages/core/src/Tenancy/Models/Tenant.php):
+#### Model dan tabel tenant
 
-- final Eloquent model.
-- `HasUuids`.
-- `SoftDeletes`.
-- Tabel `core_tenants`.
-- Fillable: `name`, `slug`, `status`.
-- Model `Tenant` sendiri tidak tenant-scoped.
+[`Tenant`](../packages/core/src/Tenancy/Models/Tenant.php) adalah model final dengan `HasUuids` dan `SoftDeletes`. Model ini tidak tenant-scoped karena mewakili pemilik konteks.
 
-### 1.6 Resolver dan middleware
+| Kolom `core_tenants` | Kontrak |
+| --- | --- |
+| `id` | UUID primary key |
+| `name` | String |
+| `slug` | String unik global |
+| `status` | String, default `active` |
+| `created_at`, `updated_at` | Timestamp |
+| `deleted_at` | Soft delete nullable |
 
-[`TenantResolver.php`](../packages/core/src/Tenancy/Contracts/TenantResolver.php)
-kontrak:
+Soft delete tidak memicu foreign key. Hard delete tenant dibatasi oleh foreign key langsung dari users, roles, settings, feature flags, dan audit logs. Permissions bersifat global dan tidak memblokir penghapusan tenant. Pivot memiliki aturan cascade melalui foreign key role/user masing-masing.
+
+#### Resolver pada request
+
+[`TenantResolver`](../packages/core/src/Tenancy/Contracts/TenantResolver.php) hanya mendefinisikan `resolveTenantId(): string`. [`ResolveTenantContext`](../packages/core/src/Tenancy/Middleware/ResolveTenantContext.php) menjalankan request di dalam `TenantContext::run()`.
+
+Aplikasi konsumen harus menyediakan resolver dan alias middleware:
 
 ```php
-interface TenantResolver
+use EnpiiStudio\Core\Tenancy\Contracts\TenantResolver;
+use EnpiiStudio\Core\Tenancy\Middleware\ResolveTenantContext;
+use Illuminate\Foundation\Configuration\Middleware;
+
+$app->singleton(TenantResolver::class, ProductTenantResolver::class);
+
+$middleware->alias([
+    'tenant' => ResolveTenantContext::class,
+]);
+```
+
+Contoh tersebut adalah kode aplikasi konsumen, bukan class yang disediakan paket. Resolver subdomain, header, session, dan JWT claim dicatat pada [matriks kemampuan yang belum ada](#9-matriks-kemampuan-yang-belum-ada).
+
+#### Konteks pada queue
+
+Queue job harus membawa ID tenant sebagai data serializable dan memasang ulang konteks secara manual:
+
+```php
+public function handle(TenantContext $context): void
 {
-    public function resolveTenantId(): string;
+    $context->run($this->tenantId, function (): void {
+        // Seluruh query tenant-scoped berada di sini.
+    });
 }
 ```
 
-[`ResolveTenantContext.php`](../packages/core/src/Tenancy/Middleware/ResolveTenantContext.php)
-middleware:
+Jangan menyimpan instance model tenant sebagai pengganti ID tanpa mempertimbangkan stale-model checks. Trait atau middleware queue otomatis dicatat pada matriks akhir.
+
+### 2.2 Identity
+
+[`User`](../packages/core/src/Identity/Models/User.php) adalah model autentikasi final yang menggunakan `BelongsToTenant`, `HasUuids`, dan `Notifiable`.
+
+| Aspek | Kontrak aktif |
+| --- | --- |
+| Tabel | `core_users` |
+| Fillable | `name`, `email`, `password`, `status` |
+| Hidden | `password`, `remember_token` |
+| Cast | `email_verified_at` → datetime; `password` → hashed |
+| Relasi | `roles()` melalui `core_role_user` dengan pivot `tenant_id` |
+| Helper | `hasRole(string)` dan `hasPermission(string)` |
+
+Karena model final, aplikasi tidak dapat membuat subclass. Data khusus produk sebaiknya ditempatkan pada model profil yang berelasi melalui komposisi. Laravel auth provider harus memakai model Core ini bila Gate `enpii.permission` digunakan:
 
 ```php
-return $this->context->run(
-    $this->resolver->resolveTenantId(),
-    fn () => $next($request),
-);
+// config/auth.php
+'providers' => [
+    'users' => [
+        'driver' => 'eloquent',
+        'model' => \EnpiiStudio\Core\Identity\Models\User::class,
+    ],
+],
 ```
 
-`CoreServiceProvider`
-([`register`](../packages/core/src/CoreServiceProvider.php)) tidak
-mendaftarkan alias middleware atau binding default untuk
-`TenantResolver`.
+Gate meneruskan authenticated user ke `AuthorizationService::allow(User $user, ...)`. Model auth lain tidak memenuhi type contract dan dapat menghasilkan `TypeError`. Paket tidak menyediakan login, registrasi, password reset, MFA, Sanctum, atau Passport.
 
-### 1.7 Item yang belum ada (Tenancy)
+Helper `hasRole()` dan `hasPermission()` hanya memeriksa relasi. Keduanya tidak menolak user inactive secara mandiri. Gunakan Gate atau `AuthorizationService::allow()` untuk keputusan akses.
 
-- **belum ada** — concrete resolver subdomain bawaan.
-- **belum ada** — concrete resolver header bawaan.
-- **belum ada** — concrete resolver session bawaan.
-- **belum ada** — concrete resolver JWT claim bawaan.
-- **belum ada** — middleware resolver yang terpasang otomatis;
-  konsumen paket harus memilih implementasi `TenantResolver`,
-  binding ke container, dan mendaftarkan alias middleware
-  sendiri.
-- **belum ada** — `TenantAwareJob` atau job middleware untuk
-  propagasi konteks ke queue.
-- **belum ada** — integrasi otomatis broadcast/event listener.
+### 2.3 Authorization
 
-Penyebaran konteks di queue saat ini **manual**:
+Authorization bersifat custom, bukan Spatie Permission. [`Role`](../packages/core/src/Authorization/Models/Role.php) tenant-scoped, sedangkan [`Permission`](../packages/core/src/Authorization/Models/Permission.php) bersifat global.
+
+[`AuthorizationService`](../packages/core/src/Authorization/AuthorizationService.php) menyediakan:
 
 ```php
-public function handle(): void
-{
-    app(TenantContext::class)->run(
-        $this->tenantId,
-        fn () => /* kerja job */
-    );
-}
+assignRole(User $user, Role $role): void
+grantPermission(Role $role, Permission $permission): void
+allow(User $user, string $permission): bool
 ```
 
-### 1.8 Struktur tabel `core_tenants`
+`assignRole()` mensyaratkan user dan role sudah tersimpan. Keduanya harus cocok dengan konteks aktif; pivot menyimpan `tenant_id`. `grantPermission()` juga mensyaratkan model tersimpan dan role dari konteks aktif.
 
-Migration aktif
-[`0001_01_01_000000_create_enpii_core_tables.php`](../packages/core/database/migrations/0001_01_01_000000_create_enpii_core_tables.php):
+`allow()` menjalankan pemeriksaan dengan urutan berikut:
 
-| Kolom      | Tipe                                         |
-| ---------- | -------------------------------------------- |
-| `id`       | UUID primary                                 |
-| `name`     | string                                       |
-| `slug`     | string unik                                  |
-| `status`   | string, default `active`                     |
-| timestamps | `created_at`, `updated_at`                   |
-| soft delete| `deleted_at`                                 |
+1. User non-`active` langsung ditolak dengan `false`.
+2. Slug permission di-trim dan nilai kosong melempar `InvalidArgumentException`.
+3. ID tenant user harus cocok dengan konteks.
+4. Relasi role-permission menentukan hasil akhir.
 
-Foreign key tenant: `restrictOnDelete()` untuk semua tabel
-tenant-owned. Tenant tidak dapat dihapus sebelum audit,
-permissions, roles, users, settings, feature flags terkait
-disingkirkan.
+Karena status diperiksa lebih dahulu, user inactive dengan slug kosong atau konteks berbeda tetap menghasilkan `false`, bukan validation/mismatch exception.
 
-### 1.9 Batas kemampuan Tenancy
-
-- Tenant context adalah string UUID; tidak ada integer atau ULID.
-- Model `Tenant` tidak tenant-scoped (self-reference aman karena
-  ia adalah pemilik).
-- Tidak ada caching, Redis, atau event-driven broadcasting untuk
-  `TenantContext`; setiap request/queue/job mempertahankan
-  konteksnya sendiri.
-- Raw query atau `withoutGlobalScopes` dilewati; tidak ada
-  helper tersembunyi untuk mengakses data lintas tenant.
-
----
-
-## 2. `enpii-studio/core` — Identity, Authorization, Feature Flags, Settings, Audit (Aktif)
-
-### 2.1 Identity
-
-[`User.php`](../packages/core/src/Identity/Models/User.php):
-
-- final, extends `Illuminate\Foundation\Auth\User`.
-- `BelongsToTenant`, `HasUuids`, `Notifiable`.
-- Tabel `core_users`.
-- Fillable: `name`, `email`, `password`, `status`.
-- Hidden: `password`, `remember_token`.
-- Casts: `email_verified_at` datetime, `password` hashed.
-- Relasi: `roles()` lewat `core_role_user` dengan `tenant_id`
-  pivot.
-
-Karena `User` dideklarasikan `final`, pewarisan langsung tidak
-tersedia. Kustomisasi product-side dapat memakai komposisi (model
-profil tambahan), `Auth::loginUsingId()` + `User::class` saat
-otorisasi, atau perubahan kontrak model di masa depan
-(**belum ada**).
-
-Helper:
+Provider memasang Gate `enpii.permission`. Pemakaian yang dianjurkan:
 
 ```php
-$user->hasRole('manager');
-$user->hasPermission('orders.view');
+$allowed = Gate::forUser($user)
+    ->allows('enpii.permission', 'orders.view');
 ```
 
-**belum ada** — endpoint login, register, reset, MFA, maupun
-otentikasi API/Sanctum/Passport.
+Permission tidak mempunyai tenant ID. Isolasi terjadi melalui role tenant-scoped dan composite pivot `core_role_user`. Wildcard permission, super-admin bypass, policy domain, serta CRUD role/permission dicatat pada matriks akhir.
 
-### 2.2 Authorization
+### 2.4 Feature Flags
 
-[`AuthorizationService.php`](../packages/core/src/Authorization/AuthorizationService.php):
+[`FeatureFlags`](../packages/core/src/FeatureFlags/FeatureFlags.php) membaca dan menulis boolean per tenant:
 
 ```php
-public function assignRole(User $user, Role $role): void
-public function grantPermission(Role $role, Permission $permission): void
-public function allow(User $user, string $permission): bool
+enabled(string $key): bool
+set(string $key, bool $enabled): FeatureFlag
 ```
 
-Model:
-
-- [`Role.php`](../packages/core/src/Authorization/Models/Role.php)
-  tenant-scoped (`BelongsToTenant`), UUID, fillable `name` dan
-  `slug`.
-- [`Permission.php`](../packages/core/src/Authorization/Models/Permission.php)
-  global (tanpa trait `BelongsToTenant`), UUID.
-
-Karakter:
-
-- Bukan Spatie Permission; custom dengan tabel pivot
-  `core_permission_role`.
-- Role tenant-scoped, permission global.
-- `assignRole()` mensyaratkan user dan role sudah tersimpan
-  (`exists`), memvalidasi tenant ID keduanya, dan menyimpan
-  `tenant_id` pada pivot.
-- `grantPermission()` mensyaratkan role dan permission sudah
-  tersimpan, memvalidasi tenant role.
-- `allow()` memvalidasi tenant user dan menolak user non-`active`.
-- Gate aktif:
+Tenant tidak diterima sebagai argumen; model [`FeatureFlag`](../packages/core/src/FeatureFlags/Models/FeatureFlag.php) memperoleh tenant dari `TenantContext`. Key di-trim dan hanya nilai kosong yang ditolak. Paket tidak menetapkan charset, format namespace, normalisasi huruf, atau batas panjang di level service; batas string database tetap berlaku.
 
 ```php
-Gate::define('enpii.permission',
-    fn ($user, string $permission) =>
-        app(AuthorizationService::class)->allow($user, $permission));
-```
+$enabled = $context->run($tenantId, function () use ($flags): bool {
+    $flags->set('orders.new-flow', true);
 
-Penggunaan:
-
-```php
-Gate::forUser($user)->allows('enpii.permission', 'orders.view');
-```
-
-**belum ada** — policy kelas per domain, CRUD role/permission UI
-atau API, wildcard permission, super-admin bypass, audit akses
-gagal, atau direktori permission tambahan (timpa via service
-provider).
-
-### 2.3 Feature Flags
-
-[`FeatureFlags.php`](../packages/core/src/FeatureFlags/FeatureFlags.php):
-
-```php
-public function enabled(string $key): bool
-public function set(string $key, bool $enabled): FeatureFlag
-```
-
-Aturan:
-
-- Key kosong → `InvalidArgumentException`.
-- Missing key bernilai `false` (bukan null).
-- Tenant implisit dari `TenantContext`; metode tidak menerima
-  parameter tenant.
-
-Contoh:
-
-```php
-$context->run($tenantId, function () use ($flags): void {
-    $flags->set('whatsapp.dedicated-instance', true);
+    return $flags->enabled('orders.new-flow');
 });
-
-$enabled = $context->run(
-    $tenantId,
-    fn () => $flags->enabled('whatsapp.dedicated-instance'),
-);
 ```
 
-**belum ada** — percentage rollout, cohort, variant, jadwal
-aktif/nonaktif, cache, atau UI pengelolaan.
+Key yang tidak ditemukan selalu menghasilkan `false`. `set()` memakai `updateOrCreate()` dan tidak memberikan jaminan concurrency tambahan untuk dua first-write bersamaan. API delete/unset, rollout persentase, cohort, variant, schedule, dan cache tercatat pada matriks akhir.
 
-### 2.4 Settings
+### 2.5 Settings
 
-[`SettingsRepository.php`](../packages/core/src/Settings/SettingsRepository.php):
+[`SettingsRepository`](../packages/core/src/Settings/SettingsRepository.php) menyediakan penyimpanan key-value JSON per tenant:
 
 ```php
-public function get(string $key, mixed $default = null): mixed
-public function set(string $key, mixed $value): Setting
+get(string $key, mixed $default = null): mixed
+set(string $key, mixed $value): Setting
 ```
 
-Aturan:
-
-- Key kosong atau tanpa `.` → `InvalidArgumentException`.
-- Nilai disimpan JSON (`Setting::value` cast ke `json`).
-- Stored `null` berbeda dari missing key: `get()` tanpa argumen
-  kedua memakai default hanya bila baris tidak ada; bila baris
-  ada dengan `value = null`, kembalian `null`.
-
-Contoh:
+Key di-trim, harus non-kosong, dan harus mengandung setidaknya satu titik. Implementasi tidak memvalidasi segment kosong, charset, case, schema nilai, atau panjang sebelum database.
 
 ```php
-$context->run($tenantId, function () use ($settings): void {
+$currency = $context->run($tenantId, function () use ($settings): string {
     $settings->set('orders.currency', 'IDR');
-});
 
-$currency = $context->run(
-    $tenantId,
-    fn () => $settings->get('orders.currency', 'IDR'),
-);
+    return $settings->get('orders.currency', 'IDR');
+});
 ```
 
-**belum ada** — global settings, schema typed, enkripsi nilai,
-cache, atau UI pengelolaan.
+Perbedaan missing key dan nilai `null` tersimpan bersifat penting:
 
-### 2.5 Audit
+| Kondisi | `get('orders.label', 'fallback')` |
+| --- | --- |
+| Baris tidak ada | `'fallback'` |
+| Baris ada dengan JSON `null` | `null` |
+| Baris ada dengan nilai | Nilai yang tersimpan |
 
-[`AuditWriter.php`](../packages/core/src/Audit/AuditWriter.php):
+`set()` memakai `updateOrCreate()` tanpa concurrency guarantee tambahan. API delete, global settings, typed schema, enkripsi nilai, dan cache tercatat pada matriks akhir.
+
+### 2.6 Audit
+
+[`AuditWriter`](../packages/core/src/Audit/AuditWriter.php) menulis audit secara eksplisit:
 
 ```php
-public function record(
+record(
     string $action,
     Model $subject,
     array $before = [],
@@ -355,36 +264,24 @@ public function record(
 ): AuditLog
 ```
 
-Aturan:
+Action harus non-kosong dan subject harus sudah tersimpan. Bila subject memiliki method `getTenantColumn()`, writer memeriksa tenant subject terhadap konteks. Model non-tenant juga diterima dan audit-nya tetap diatribusikan kepada konteks aktif. `subject_type` memakai `getMorphClass()`: morph alias bila terdaftar, FQCN bila tidak.
 
-- Action kosong → `InvalidArgumentException`.
-- Subject harus `exists` dan `getKey()` non-null.
-- Subjek tenant-scoped divalidasi dengan `context->id()`.
-- Actor opsional lewat
-  [`AuditActorResolver`](../packages/core/src/Audit/Contracts/AuditActorResolver.php);
-  bila di-binding, actor harus ada di tenant aktif.
-- Redaksi rekursif untuk kunci: `password`,
-  `password_confirmation`, `remember_token`, `token`,
-  `access_token`, `refresh_token`, `secret`, `api_key`, `apikey`,
-  `authorization`. Nilai digantikan literal `[REDACTED]`.
+Actor bersifat opsional melalui [`AuditActorResolver`](../packages/core/src/Audit/Contracts/AuditActorResolver.php). Tanpa binding, `actor_id` bernilai `null` walaupun Laravel Auth memiliki user. ID dari resolver harus ditemukan melalui query `User` dalam scope tenant aktif; status active/inactive tidak diperiksa.
 
-[`AuditLog.php`](../packages/core/src/Audit/Models/AuditLog.php):
+```php
+$this->app->bind(AuditActorResolver::class, function () {
+    return new class implements AuditActorResolver {
+        public function actorId(): ?string
+        {
+            return auth()->id() === null ? null : (string) auth()->id();
+        }
+    };
+});
+```
 
-- `BelongsToTenant`, `HasUuids`.
-- Tabel `core_audit_logs`.
-- `updating`/`deleting` melempar `LogicException` untuk
-  append-only enforcement.
-- Tabel telah `updated_at = null`; hanya `created_at`.
+Writer meredaksi recursive array bila nama key cocok secara case-insensitive dengan allowlist sensitif: `password`, `password_confirmation`, `remember_token`, `token`, `access_token`, `refresh_token`, `secret`, `api_key`, `apikey`, dan `authorization`. Nilainya menjadi `[REDACTED]`. Jaminan ini tidak mencakup objek, JSON string terenkode, atau key lain seperti `client_secret`.
 
-Trait
-[`Auditable.php`](../packages/core/src/Audit/Concerns/Auditable.php)
-mencatat otomatis:
-
-- `created` → `after = getAttributes()`.
-- `updated` → `before = getOriginal`, `after = getChanges`.
-- `deleted` → `before = getOriginal`.
-
-Contoh aplikasi manual:
+Contoh manual:
 
 ```php
 app(AuditWriter::class)->record(
@@ -396,375 +293,519 @@ app(AuditWriter::class)->record(
 );
 ```
 
-**belum ada** — DB trigger, enkripsi append-only, hash chain
-kriptografis, maupun pencegah akses raw SQL ke baris audit.
+Trait [`Auditable`](../packages/core/src/Audit/Concerns/Auditable.php) bersifat opt-in. Model produk harus menambahkan `use Auditable;`. Trait mencatat event `created`, `updated`, dan `deleted`; event `restored` tidak dicatat. Callback berjalan setelah perubahan model, sehingga aplikasi harus membungkus perubahan domain dan audit dalam transaksi bila keduanya harus atomik.
 
-### 2.6 Tabel ringkas Core
+[`AuditLog`](../packages/core/src/Audit/Models/AuditLog.php) menolak event model `updating` dan `deleting`. Ini bukan database immutability: builder bulk, quiet/event-suppressed operations, dan raw SQL dapat melewati perlindungan tersebut.
 
-| Tabel                  | Tenant-scoped | Catatan                                       |
-| ---------------------- | ------------- | --------------------------------------------- |
-| `core_tenants`         | Tidak         | UUID, soft delete, slug unik                  |
-| `core_users`           | Ya            | UUID, unik per `(tenant_id, email)`           |
-| `core_roles`           | Ya            | UUID, unik per `(tenant_id, slug)`            |
-| `core_permissions`     | Tidak         | UUID, slug unik global                        |
-| `core_permission_role` | Tidak         | Pivot global permission ↔ role                |
-| `core_role_user`       | Ya            | Composite FK `(role, tenant)` dan `(user, tenant)` |
-| `core_settings`        | Ya            | UUID, JSON value, unik per `(tenant_id, key)` |
-| `core_feature_flags`   | Ya            | UUID, boolean, unik per `(tenant_id, key)`    |
-| `core_audit_logs`      | Ya            | UUID, append-only Eloquent                    |
+### 2.7 Skema data Core
 
-Setiap tabel tenant-scoped memiliki `restrictOnDelete()` ke
-`core_tenants` agar audit/riwayat tidak hilang saat tenant
-dihapus paksa.
+Migrasi aktif berada di [`create_enpii_core_tables`](../packages/core/database/migrations/0001_01_01_000000_create_enpii_core_tables.php).
 
----
+| Tabel | Scope dan kunci | Aturan penghapusan penting |
+| --- | --- | --- |
+| `core_tenants` | UUID PK; slug unik; soft delete | Hard delete dibatasi FK langsung |
+| `core_users` | Tenant; UUID PK; unik `(tenant_id,email)` dan `(id,tenant_id)` | Tenant restrict; pivot role cascade |
+| `core_roles` | Tenant; UUID PK; unik `(tenant_id,slug)` dan `(id,tenant_id)` | Tenant restrict; pivots cascade |
+| `core_permissions` | Global; UUID PK; slug unik | Tidak bergantung tenant |
+| `core_permission_role` | PK `(permission_id,role_id)` | Cascade dari permission/role |
+| `core_role_user` | PK `(tenant_id,role_id,user_id)`; composite FK ke role/user | Cascade melalui role/user; tidak memiliki FK tenant langsung |
+| `core_settings` | Tenant; UUID PK; unik `(tenant_id,key)`; JSON nullable | Tenant restrict |
+| `core_feature_flags` | Tenant; UUID PK; unik `(tenant_id,key)` | Tenant restrict |
+| `core_audit_logs` | Tenant; UUID PK; actor composite FK; subject ID string | Tenant/actor restrict; hanya `created_at` |
 
-## 3. `enpii-studio/whatsapp-client` (Aktif)
+Composite uniqueness `(id, tenant_id)` hanya tersedia pada users dan roles. Settings, flags, dan audit mengandalkan UUID primary key serta constraint masing-masing; jangan menggeneralisasi composite key ke seluruh tabel tenant.
 
-### 3.1 Kontrak
+Pengujian perilaku Core menggunakan Orchestra Testbench dan SQLite in-memory. Suite tersebut membuktikan isolasi tenant, stale-model rejection, Gate dasar, stored-null settings, redaksi audit, dan Eloquent append-only. Ia belum merupakan conformance suite PostgreSQL untuk seluruh perilaku.
 
-[`WhatsAppGateway.php`](../packages/whatsapp-client/src/Contracts/WhatsAppGateway.php):
+## 3. WhatsApp Client
+
+Paket [`enpii-studio/whatsapp-client`](../packages/whatsapp-client) adalah adapter in-process menuju Enpii WhatsApp Gateway. Laravel package discovery mendaftarkan penyedia layanan dan singleton `WhatsAppGateway`; aplikasi produk tidak memanggil Evolution API langsung.
+
+### 3.1 Konfigurasi dan binding
+
+[`config/whatsapp-client.php`](../packages/whatsapp-client/config/whatsapp-client.php) mendefinisikan:
+
+| Variabel lingkungan | Default | Keterangan |
+| --- | --- | --- |
+| `ENPII_WHATSAPP_GATEWAY_URL` | `http://localhost:8090/api/v1` | Base URL Gateway |
+| `ENPII_WHATSAPP_GATEWAY_KEY` | Tidak ada | Bearer token; wajib non-kosong |
+| `ENPII_WHATSAPP_GATEWAY_TIMEOUT` | `10` | Total timeout dalam detik |
+| `ENPII_WHATSAPP_GATEWAY_CONNECT_TIMEOUT` | `3` | Connect timeout dalam detik |
+
+URL wajib HTTPS, kecuali HTTP pada host loopback tepat `localhost`, `127.0.0.1`, atau `::1`. URL dengan userinfo/password ditolak. Constructor belum memvalidasi bahwa timeout bernilai positif.
+
+[`WhatsAppClientServiceProvider`](../packages/whatsapp-client/src/WhatsAppClientServiceProvider.php) menggabungkan config, lalu mengikat singleton `WhatsAppGateway` ke `HttpWhatsAppGateway`. Config dapat dipublikasikan dengan tag `whatsapp-client-config`. Dua command didaftarkan saat aplikasi berjalan di console.
 
 ```php
-public function sendText(TextMessage $message): SendResult;
-public function sendMedia(MediaMessage $message): SendResult;
-public function status(string $instanceId): InstanceStatus;
-public function connect(string $instanceId): ConnectionResult;
-public function disconnect(string $instanceId): InstanceStatus;
+public function __construct(
+    private WhatsAppGateway $whatsApp,
+) {}
 ```
 
-Kontrak ini adalah satu-satunya cara aplikasi produk berinteraksi
-dengan Evolution API; semua rahasia Evolution isolasi di belakang
-Gateway.
+### 3.2 Kontrak
 
-### 3.2 DTOs
-
-- [`TextMessage`](../packages/whatsapp-client/src/DTOs/TextMessage.php)
-  - `string $instanceId` (1–100 byte).
-  - `string $to` (E.164-like `^\+?[1-9]\d{7,14}$`).
-  - `string $text` (1–4096 byte; trim tidak boleh kosong).
-  - `string $idempotencyKey` (8–200, regex
-    `^[A-Za-z0-9._:-]+$`).
-- [`MediaMessage`](../packages/whatsapp-client/src/DTOs/MediaMessage.php)
-  - `string $instanceId`, `string $to`, `string $idempotencyKey`
-    sama dengan `TextMessage`.
-  - `string $mediaUrl` (wajib HTTPS melalui
-    `filter_var + parse_url`).
-  - `?string $caption`, `?string $filename`.
-  - Caption/filename tanpa validasi (placeholder, **belum ada**
-    batasan formal).
-- [`SendResult`](../packages/whatsapp-client/src/DTOs/SendResult.php)
-  - `string $messageId`, `string $status` ∈
-    `accepted|sent`. Tidak ada enum; status adalah string.
-
-> Tenant ID/konteks tenant **belum ada** di dalam paket
-> `whatsapp-client`. Identitas pemilik hanya diketahui dari
-> `instanceId` yang pemilihan instance-nya dilakukan Gateway
-> berdasarkan API principal; paket tidak membawa tenant.
-
-- [`InstanceStatus`](../packages/whatsapp-client/src/DTOs/InstanceStatus.php)
-  - `string $instanceId`, `GatewayStatus $status`.
-  - `isConnected()` mengembalikan true hanya bila status `connected`.
-- [`ConnectionResult`](../packages/whatsapp-client/src/DTOs/ConnectionResult.php)
-  - `string $instanceId`, `GatewayStatus $status`.
-  - `?string $qrCode`, `?string $pairingCode` (null-aman).
-
-### 3.3 Enum `GatewayStatus`
-
-[`GatewayStatus.php`](../packages/whatsapp-client/src/Enums/GatewayStatus.php):
+[`WhatsAppGateway`](../packages/whatsapp-client/src/Contracts/WhatsAppGateway.php) menyediakan lima operasi:
 
 ```php
-enum GatewayStatus: string
-{
-    case Disconnected = 'disconnected';
-    case Connecting = 'connecting';
-    case Connected = 'connected';
-    case Error = 'error';
+sendText(TextMessage $message): SendResult
+sendMedia(MediaMessage $message): SendResult
+status(string $instanceId): InstanceStatus
+connect(string $instanceId): ConnectionResult
+disconnect(string $instanceId): InstanceStatus
+```
+
+Paket tidak membawa ID atau konteks tenant. `instanceId` adalah nama logis yang dikirim ke Gateway. Gateway menentukan kepemilikan melalui API principal, terpisah dari tenancy Core.
+
+### 3.3 DTO dan status
+
+| DTO | Properti | Validasi aktif |
+| --- | --- | --- |
+| [`TextMessage`](../packages/whatsapp-client/src/DTOs/TextMessage.php) | `instanceId`, `to`, `text`, `idempotencyKey` | ID 1–100 byte; penerima E.164-like; text 1–4096 byte; key 8–200 karakter `[A-Za-z0-9._:-]` |
+| [`MediaMessage`](../packages/whatsapp-client/src/DTOs/MediaMessage.php) | `instanceId`, `to`, `mediaUrl`, `idempotencyKey`, `caption?`, `filename?` | Batas ID/penerima/key sama; URL wajib HTTPS; caption/filename belum divalidasi |
+| [`SendResult`](../packages/whatsapp-client/src/DTOs/SendResult.php) | `messageId`, `status` | ID non-kosong; status string `accepted` atau `sent` |
+| [`InstanceStatus`](../packages/whatsapp-client/src/DTOs/InstanceStatus.php) | `instanceId`, `GatewayStatus` | Tidak melakukan validasi tambahan; `isConnected()` tersedia |
+| [`ConnectionResult`](../packages/whatsapp-client/src/DTOs/ConnectionResult.php) | `instanceId`, `GatewayStatus`, `qrCode?`, `pairingCode?` | Provisioning material nullable |
+
+Validasi panjang pada DTO memakai `strlen()`, sehingga batasnya berbasis byte. Raw HTTP Gateway dan OpenAPI tidak selalu memakai semantik panjang identik; lihat [perbedaan kontrak](#59-perbedaan-implementasi-dan-openapi-yang-diketahui).
+
+[`GatewayStatus`](../packages/whatsapp-client/src/Enums/GatewayStatus.php) memiliki nilai `disconnected`, `connecting`, `connected`, dan `error`. `isConnected()` hanya true untuk `connected`. Status kirim tetap string, bukan enum.
+
+QR code dan pairing code adalah material provisioning sensitif. Jangan log atau simpan nilai tersebut tanpa kebutuhan operasional yang sah.
+
+### 3.4 Error dan retry
+
+[`GatewayException`](../packages/whatsapp-client/src/Exceptions/GatewayException.php) memuat `kind`, `retryable`, `httpStatus`, `gatewayCode`, dan `requestId`.
+
+| `kind` | Pemicu | Data tambahan |
+| --- | --- | --- |
+| `transport` | `ConnectionException` setelah percobaan habis | `retryable=true`; exception asli sebagai `previous` |
+| `response` | Gateway mengembalikan HTTP gagal | Status, code, request ID, dan retryable dari error envelope |
+| `protocol` | JSON, field wajib, status, atau instance ID tidak valid | Detail field aman; respons provider mentah tidak diekspos |
+
+Bila error body tidak lengkap, client memakai `HTTP_ERROR`, mengambil request ID dari header `X-Request-ID`, dan menganggap status `>=500` retryable. Respons sukses harus berupa JSON object. Field wajib harus berupa string non-kosong, status harus dikenal, dan `instance_id` harus sama dengan permintaan.
+
+Validasi DTO/config melempar `InvalidArgumentException`. Assertion atau conflict pada fake melempar `RuntimeException`.
+
+| Operasi | Retry otomatis client |
+| --- | --- |
+| `status`, `connect`, `disconnect` | Tidak ada |
+| `sendText`, `sendMedia` | Maksimal dua attempt dengan jeda 100 ms, hanya untuk `ConnectionException` |
+| HTTP 4xx/5xx | Tidak diulang otomatis |
+| Protocol error | Tidak diulang otomatis |
+
+Setelah kegagalan transport yang ambigu, caller boleh mengulang send dengan idempotency key yang sama. Jangan membuat key baru hanya karena respons tidak diterima; provider mungkin sudah menerima pesan.
+
+```php
+try {
+    $result = $gateway->sendText($message);
+} catch (InvalidArgumentException $exception) {
+    // Perbaiki input; jangan retry otomatis.
+} catch (GatewayException $exception) {
+    logger()->warning('WhatsApp Gateway failed', [
+        'kind' => $exception->kind,
+        'code' => $exception->gatewayCode,
+        'request_id' => $exception->requestId,
+        'retryable' => $exception->retryable,
+    ]);
 }
 ```
 
-`isConnected()` true hanya untuk `Connected`. Status `SendResult`
-masih string (`accepted|sent`), bukan enum — **belum ada** enum
-status kirim.
-
-### 3.4 Exceptions
-
-[`GatewayException.php`](../packages/whatsapp-client/src/Exceptions/GatewayException.php):
-
-- Field: `string $kind`, `bool $retryable`, `?int $httpStatus`,
-  `?string $gatewayCode`, `?string $requestId`.
-- `kind`: `transport`, `response`, `protocol`.
-- Factory: `transport(Throwable)`, `response(int, ?string,
-  ?string, bool)`, `protocol(string, ?Throwable)`.
-- DTO/config validation melempar
-  `InvalidArgumentException`.
-- Fake expectation/idempotency conflict melempar
-  `RuntimeException`.
-- `GatewayException::getMessage()` aman; response mentah dari
-  provider tidak pernah diekspos.
-
-Batas tangkap di sisi konsumen:
-
-- Tangkap `GatewayException` untuk semua kesalahan protokol ke
-  Gateway.
-- Tangkap `InvalidArgumentException` saat membangun DTO.
-- Tangkap `RuntimeException` dari `FakeWhatsAppGateway` hanya di
-  test.
+Jangan log API key, recipient lengkap, QR/pairing payload, atau exception `previous` tanpa redaksi.
 
 ### 3.5 Fake
 
-[`FakeWhatsAppGateway.php`](../packages/whatsapp-client/src/Fakes/FakeWhatsAppGateway.php):
+[`FakeWhatsAppGateway`](../packages/whatsapp-client/src/Fakes/FakeWhatsAppGateway.php) merekam text/media messages serta instance yang di-connect/disconnect. State status default adalah `Disconnected`; QR default `fake-qr`; pairing code default `null`.
 
-- State publik:
-  - `array $textMessages`,
-    `array $mediaMessages`,
-    `array $connectedInstances`,
-    `array $disconnectedInstances`.
-  - `GatewayStatus $instanceStatus`
-    (default `Disconnected`).
-  - `?string $qrCode` (default `'fake-qr'`),
-    `?string $pairingCode` (default `null`).
-- Idempotency internal: key sama dengan payload yang sama → replay
-  identik; payload berbeda pada key yang sama → `RuntimeException`.
-- Assertions: `assertConnected`, `assertDisconnected`,
-  `assertTextSent(Closure)`, `assertMediaSent(Closure)`,
-  `assertNothingSent()`.
+Fake menyediakan `assertConnected()`, `assertDisconnected()`, `assertTextSent()`, `assertMediaSent()`, dan `assertNothingSent()`. Key yang sama dengan payload identik mengembalikan result yang sama. Key sama dengan payload berbeda melempar `RuntimeException`.
 
-Binding manual default (contoh):
+Binding test dilakukan manual:
 
 ```php
-$fake = new \EnpiiStudio\WhatsAppClient\Fakes\FakeWhatsAppGateway;
+$fake = new FakeWhatsAppGateway;
 
-$this->app->instance(
-    \EnpiiStudio\WhatsAppClient\Contracts\WhatsAppGateway::class,
-    $fake,
+$this->app->instance(WhatsAppGateway::class, $fake);
+
+// Jalankan subject under test.
+$fake->assertTextSent(
+    fn (TextMessage $message): bool => $message->instanceId === 'local-instance',
 );
 ```
 
-**belum ada** — provider atau hook yang otomatis menukar
-`WhatsAppGateway` dengan `FakeWhatsAppGateway` di test
-environment (Testbench/app instance harus di-binding manual).
-State fake global, bukan per-instance.
+State status fake bersifat global, bukan per-instance. Fake menerima media dan menghasilkan success future-facing; ini bukan bukti bahwa Gateway runtime mendukung media.
 
-### 3.6 Commands
+### 3.6 Command
 
-- [`GatewayConnectCommand`](../packages/whatsapp-client/src/Commands/GatewayConnectCommand.php):
-  - Signature:
-    `enpii:whatsapp-connect {instance} {--show-qr} {--show-pairing}`.
-  - Urutan: status → (jika belum connected) connect → status.
-  - QR/pairing hanya dicetak bila flag eksplisit diset.
-  - Tidak ada `send`; tidak ada polling tanpa batas.
-- [`GatewaySmokeCommand`](../packages/whatsapp-client/src/Commands/GatewaySmokeCommand.php):
-  - Signature: `enpii:whatsapp-smoke {instance}`.
-  - Hanya memanggil `status`; status valid apa pun sudah
-    menandakan Gateway terjangkau.
-  - Tangkap eksplisit `GatewayException` lalu `Throwable` umum.
+| Command | Perilaku |
+| --- | --- |
+| `enpii:whatsapp-smoke {instance}` | Memanggil status sekali; tidak connect atau send |
+| `enpii:whatsapp-connect {instance} {--show-qr} {--show-pairing}` | Status → connect bila perlu → status; tanpa polling dan tanpa send |
 
-### 3.7 Service Provider
+QR/pairing hanya dicetak ketika operator memberi flag eksplisit. Gunakan flag tersebut hanya pada terminal aman. Command mengembalikan exit failure saat Gateway melempar error.
 
-[`WhatsAppClientServiceProvider.php`](../packages/whatsapp-client/src/WhatsAppClientServiceProvider.php):
+### 3.7 Batas media
 
-- `mergeConfigFrom(__DIR__.'/../config/whatsapp-client.php', 'whatsapp-client')`.
-- `singleton(WhatsAppGateway::class, fn ($app) => new HttpWhatsAppGateway(
-    http: $app->make(Factory::class),
-    baseUrl: (string) $app['config']->get('whatsapp-client.url'),
-    apiKey: (string) $app['config']->get('whatsapp-client.api_key'),
-    timeout: (int) $app['config']->get('whatsapp-client.timeout'),
-    connectTimeout: (int) $app['config']->get('whatsapp-client.connect_timeout'),
-))`.
-- Tag publish: `whatsapp-client-config` (copy
-  `config/whatsapp-client.php` ke `config_path('whatsapp-client.php')`).
-- `commands([GatewayConnectCommand::class, GatewaySmokeCommand::class])`
-  hanya pada console.
+`MediaMessage`, `sendMedia()`, dan fake media tersedia sebagai surface persiapan. HTTP client mengirim body serta `Idempotency-Key`, tetapi Gateway aktif mengabaikannya setelah autentikasi dan selalu mengembalikan `501 FEATURE_UNAVAILABLE`. Pada runtime saat ini, `sendMedia()` selalu berakhir sebagai `GatewayException` kind `response` bila request mencapai Gateway.
 
-Pemecahan `WhatsAppGateway` lewat DI:
+## 4. UI
 
-```php
-$gateway = app(\EnpiiStudio\WhatsAppClient\Contracts\WhatsAppGateway::class);
-$result = $gateway->status('demo');
+Paket [`@enpii-studio/ui`](../packages/ui) adalah library Vue 3 internal dan private. Ia hanya berisi komponen presentasional serta token CSS; state aplikasi tetap milik produk.
+
+### 4.1 Export dan konsumsi
+
+[`src/index.ts`](../packages/ui/src/index.ts) mengekspor `EnpiiButton` dan `EnpiiBadge`, serta mengimpor token CSS. Package export `./styles.css` dan compatibility alias `./tokens.css` menunjuk artifact CSS yang sama; import salah satu saja.
+
+```ts
+import { EnpiiBadge, EnpiiButton } from '@enpii-studio/ui'
+import '@enpii-studio/ui/styles.css'
 ```
 
-**belum ada** — facade, presensi helper `enpii_whatsapp()`,
-resolver berbasis tenant, hook otomatis provider untuk fake.
+Peer dependency aktif adalah Vue `^3.5.0`. Package tetap `private`, versi `0.0.0`, dan berlisensi internal `UNLICENSED`.
 
-### 3.8 `HttpWhatsAppGateway`
+### 4.2 Komponen
 
-[`HttpWhatsAppGateway.php`](../packages/whatsapp-client/src/Http/HttpWhatsAppGateway.php)
-menggunakan Laravel HTTP Client (`Factory`) dengan bearer token.
-Tanggung jawabnya:
+| Komponen | Props | Default | Kontrak elemen |
+| --- | --- | --- | --- |
+| [`EnpiiButton`](../packages/ui/src/components/EnpiiButton.vue) | `type?: button|submit|reset`, `disabled?: boolean` | `button`, `false` | Native `<button>` dengan slot |
+| [`EnpiiBadge`](../packages/ui/src/components/EnpiiBadge.vue) | `tone?: primary|success|warning|danger|neutral`, `pill?: boolean` | `neutral`, `false` | Presentational `<span>` dengan slot |
 
-- Validasi instance ID sebelum request.
-- Menyusun request body JSON untuk endpoint Gateway.
-- Mengonversi `Response` gagal menjadi `GatewayException` dengan
-  kind `response` atau `protocol`.
-- Tangkap `Throwable` jaringan menjadi `GatewayException` dengan
-  kind `transport`.
-- `mediaUrl` harus HTTPS — bila tidak, `InvalidArgumentException`
-  dilempar sebelum HTTP call.
+```vue
+<EnpiiButton type="submit" :disabled="saving">
+  Simpan
+</EnpiiButton>
 
----
+<EnpiiBadge tone="success" pill>
+  Aktif
+</EnpiiBadge>
+```
 
-## 4. Konvensi project
+Accessible name Button berasal dari slot; icon-only button tetap membutuhkan label yang diberikan aplikasi. Untuk submit form, gunakan `type="submit"` eksplisit. `disabled` memakai perilaku native. CSS menyediakan `:focus-visible` dan penyesuaian forced colors.
 
-### 4.1 Produk aplikasi (skeleton)
+Badge tidak mempunyai semantic role khusus. Teks harus menyampaikan status tanpa mengandalkan warna saja.
 
-**belum ada** — aplikasi produk belum ada di repository ini.
-Tujuan akhir adalah tiap produk menjadi modular monolith Laravel
-standalone yang menambahkan:
+### 4.3 Token CSS
 
-- `enpii-studio/core` (path repository Composer) sebagai syarat
-  wajib.
-- `enpii-studio/whatsapp-client` bila produk memerlukan
-  WhatsApp.
-- `@enpii-studio/ui` bila produk memerlukan UI Vue bersama.
-- Koneksi HTTP ke Gateway internal bila produk memerlukan
-  pengiriman pesan.
+[`tokens.css`](../packages/ui/src/styles/tokens.css) mendefinisikan custom properties `--enpii-*` untuk warna primary/semantic, focus, radius control, spacing control, dan font stack. Override dilakukan setelah import stylesheet:
 
-Testbench lokal di root (`testbench.yaml`) saat ini hanya memuat
-`CoreServiceProvider` dan `WhatsAppClientServiceProvider`.
+```css
+@import '@enpii-studio/ui/styles.css';
 
-### 4.2 Migrasi dan tenant ID
+:root {
+  --enpii-color-primary: #1d4ed8;
+  --enpii-color-primary-hover: #1e40af;
+}
+```
 
-- Migrasi Core dipublikasikan dengan tag
-  `enpii-core-migrations`; tidak auto-load.
-- Migrasi Gateway
-  ([`0001_01_01_000000_create_gateway_tables.php`](../services/whatsapp-gateway/database/migrations/0001_01_01_000000_create_gateway_tables.php))
-  auto-load di service Gateway.
-- Tabel Core ber-prefix `core_`. Tabel Gateway ber-prefix
-  `gateway_`.
-- Tenant ID adalah UUID string non-null dengan `restrictOnDelete`
-  pada FK ke `core_tenants`.
-- Composite uniqueness `(id, tenant_id)` pada tabel
-  tenant-owned inti mencegah replikasi UUID lintas tenant.
+Package tidak mengirim konfigurasi Tailwind. Aplikasi boleh memetakan token sendiri. Modal, dropdown, tabs, toast, dismissible chips, menu interaktif, dan komponen stateful lainnya dicatat pada matriks akhir.
 
-### 4.3 ID convention
+## 5. WhatsApp Gateway
 
-- Primary key seluruh model domain Core menggunakan UUID
-  (trait `HasUuids`).
-- Gateway principal/instance/delivery menggunakan UUID.
-- `instanceId` adalah string logis (1–100 byte) yang dipilih
-  caller; bukan primary key di Gateway (Gateway menyimpan
-  `GatewayInstance::name` sebagai string unik).
-- Idempotency key adalah string 8–200
-  (`[A-Za-z0-9._:-]+`) dengan fungsi berbeda dari primary key.
-- Audit `subject_id` disimpan sebagai string (UUID hasil
-  `(string) $subject->getKey()`).
-- **belum ada** — ULID, auto-increment integer, atau helper ID
-  generator di paket.
+[`services/whatsapp-gateway`](../services/whatsapp-gateway) adalah Laravel application terpisah dan satu-satunya network boundary bersama. Gateway menyembunyikan credential Evolution, mengautentikasi principal, membatasi instance, dan menyediakan kontrak `/api/v1`.
 
-### 4.4 Dokumentasi Gateway contract
+### 5.1 Endpoint aktif
 
-[`contracts/whatsapp-gateway/openapi.yaml`](../contracts/whatsapp-gateway/openapi.yaml):
+| Endpoint | Auth | Input utama | Sukses |
+| --- | --- | --- | --- |
+| `GET /health` | Publik | — | `200 {status: ok}` |
+| `GET /ready` | Publik | — | `200`, atau `503 NOT_READY` |
+| `GET /instances/{instanceId}/status` | Bearer | Path instance | `200 InstanceStatus` |
+| `POST /instances/{instanceId}/connect` | Bearer | Path instance | `200 ConnectionResult` |
+| `POST /instances/{instanceId}/disconnect` | Bearer | Path instance | `200 InstanceStatus` |
+| `POST /messages/text` | Bearer | JSON + `Idempotency-Key` | `202 SendResult` |
+| `POST /messages/media` | Bearer | Runtime mengabaikan body | `501 FEATURE_UNAVAILABLE` |
 
-- OpenAPI `3.1.0`, versi `1.0.0`.
-- `servers: - url: /api/v1`.
-- `securitySchemes.bearerAuth: http/bearer`.
-- Endpoint:
-  - `GET /health` (publik).
-  - `GET /ready` (publik; 503 bila dependency belum siap).
-  - `GET /instances/{instanceId}/status`.
-  - `POST /instances/{instanceId}/connect`.
-  - `POST /instances/{instanceId}/disconnect`.
-  - `POST /messages/text`
-    (header `Idempotency-Key` wajib; respons `202`).
-  - `POST /messages/media` (selalu `501 FEATURE_UNAVAILABLE`
-    sampai SSRF-safe fetching tersedia).
-- Skema `Error` tetap:
-  `{ "code", "message", "request_id", "retryable" }`.
-- Skema `SendResult.status`: `accepted | sent`.
-- Skema `GatewayStatus`: `disconnected | connecting | connected |
-  error`.
+Semua endpoint terlindungi memakai rate limit default 60 permintaan per menit per principal. Endpoint health/readiness berada di luar auth dan throttle group.
 
-**belum ada** — generated SDK, halaman Redoc/Swagger UI, atau
-generated conformance tests.
+### 5.2 Autentikasi dan ACL
 
-### 4.5 Deployment aktif
+Bearer token berbentuk `<key_id>.<secret>`. Middleware mencari principal dengan `key_id` dan status persis `active`, lalu memverifikasi secret menggunakan `password_verify()`. Database hanya menyimpan `key_hash`.
 
-[`compose.yaml`](../compose.yaml):
+Provisioning dilakukan melalui:
 
-- `postgres` (PostgreSQL 17) untuk Gateway.
-- `redis` (Redis 7) untuk lock dan rate-limit.
-- `gateway` (Laravel) dengan image internal.
-- `EVOLUTION_API_DRIVER` env diteruskan ke container Gateway
-  dengan default `http`; override `fake` diaktifkan saat runtime
-  smoke.
+```bash
+php artisan gateway:principal-create PRODUCT_NAME \
+  --instance=INSTANCE_NAME
+```
 
-**belum ada** — deployment production, Nginx unit, TLS, S3
-kompatibel, image rilis otomatis, atau workload autoscaling.
+Command dapat menerima nol atau lebih option `--instance`, membuat principal, lalu menampilkan API key sekali. Instance name unik secara global dan dimiliki satu principal. Instance tidak ada menghasilkan `404 INSTANCE_NOT_FOUND`; instance milik principal lain menghasilkan `403 INSTANCE_FORBIDDEN`.
 
----
+Rotasi/revocation command, management API, serta reassignment instance tercatat pada matriks akhir. Mengubah kolom status principal secara administratif menjadi selain `active` membuat autentikasi gagal.
 
-## 5. Matriks kemampuan **belum ada**
+### 5.3 Lifecycle dan status
 
-Daftar pindai cepat untuk membedakan target vs aktif. Item dengan
-penanda **belum ada** belum diimplementasikan dan harus dirancang
-bersama saat dibutuhkan.
+Status provider dipetakan ke status kanonis:
 
-### 5.1 Core — Tenancy
+| Evolution state | Gateway status |
+| --- | --- |
+| `open`, `connected` | `connected` |
+| `connecting`, `qr_required` | `connecting` |
+| `close`, `disconnected` | `disconnected` |
+| Lainnya | `error` |
 
-- Concrete resolver (subdomain/header/session/JWT) **belum ada**.
-- Auto-install middleware resolver **belum ada**.
-- Queue propagation otomatis atau trait `TenantAwareJob`
-  **belum ada**.
+Status endpoint meminta state provider dan menyimpannya pada `gateway_instances.status`. Connect dan disconnect memakai Redis/cache lock per UUID instance selama 15 detik. Lock contention menghasilkan `409 INSTANCE_BUSY` dengan `retryable=true`.
 
-### 5.2 Core — Identity/Authorization
+Connect HTTP adapter selalu mengembalikan status awal `connecting`, beserta QR/pairing nullable. Gateway tidak polling tanpa batas, tidak auto-connect sebelum send, dan tidak menjalankan lifecycle secara otomatis.
 
-- Endpoint login/register/reset, MFA, API auth Sanctum/Passport
-  **belum ada**.
-- Policy kelas, CRUD role/permission UI atau API, wildcard
-  permission, super-admin bypass **belum ada**.
-- Composition profile untuk ekstensi `User` (karena `final`)
-  **belum ada**.
+### 5.4 Health dan readiness
 
-### 5.3 Core — Feature Flags/Settings/Audit
+`/health` hanya membuktikan proses merespons. `/ready` menjalankan query database serta cache write/read. Ia tidak memeriksa Evolution API. Karena itu readiness dapat hijau ketika provider WhatsApp sedang gagal. Compose healthcheck memakai `/health`, bukan `/ready`.
 
-- Percentage rollout, cohort, variant, schedule, cache
-  **belum ada**.
-- Global settings, typed schema, enkripsi nilai, cache
-  **belum ada**.
-- DB trigger, hash chain, raw SQL guard **belum ada**.
+### 5.5 Idempotency pengiriman teks
 
-### 5.4 WhatsApp Client
+[`IdempotencyService`](../services/whatsapp-gateway/src/Services/IdempotencyService.php) mewajibkan key 8–200 karakter dengan pola `[A-Za-z0-9._:-]`. Scope record adalah `principal_id + operation + SHA-256(key)`; request hash adalah SHA-256 dari JSON payload tervalidasi dalam urutan field runtime.
 
-- Enum `SendStatus` (saat ini masih string `accepted|sent`)
-  **belum ada**.
-- Tenant/principal-aware binding otomatis untuk fake
-  **belum ada**.
-- Validasi panjang/format `caption`/`filename` `MediaMessage`
-  **belum ada**; batas hanya pada URL wajib HTTPS.
-- Pengiriman media di Gateway masih `501 FEATURE_UNAVAILABLE`
-  sampai SSRF-safe fetching tersedia.
+| Kondisi record | Hasil |
+| --- | --- |
+| Tidak ada | Buat `processing`, jalankan send, simpan response |
+| Key sama, payload sama, `completed` | Replay response lama dengan HTTP `202` |
+| Key sama, payload sama, `failed` | Replay error code/status/message/retryable lama dengan request ID baru |
+| Key sama, payload sama, `processing` | `409 REQUEST_IN_PROGRESS`, retryable |
+| Key sama, payload berbeda | `409 IDEMPOTENCY_CONFLICT`, non-retryable |
 
-### 5.5 Gateway
+Record diberi `expires_at = now + 7 hari`, tetapi lookup tidak mengabaikan record kedaluwarsa. Expiry efektif bergantung pada command `gateway:idempotency-purge`, yang dijadwalkan harian hanya bila scheduler Laravel berjalan. Compose tidak menyediakan scheduler. Selain itu, successful record direferensikan delivery melalui `restrictOnDelete`; purge dapat gagal menghapus record tersebut. Karena itu jangan mengklaim retensi tujuh hari sebagai TTL efektif saat ini.
 
-- Media delivery (`POST /messages/media`) **belum ada**;
-  konstanta dikembalikan `501 FEATURE_UNAVAILABLE`.
-- Generated SDK, conformance tests, dokumentasi render (Redoc UI)
-  **belum ada**.
-- Deployment production otomatis **belum ada**.
+Gateway menyimpan satu delivery dengan provider message ID, recipient masked, HMAC recipient menggunakan `APP_KEY`, status, dan `attempts=1`. Bila provider send berhasil tetapi persistence delivery gagal, Gateway mengembalikan `500 DELIVERY_PERSISTENCE_FAILED` dan memperingatkan caller agar tidak retry memakai key baru.
 
-### 5.6 Aplikasi produk
+### 5.6 Request ID dan error envelope
 
-- Template/skeleton Laravel standalone untuk produk **belum ada**.
-- Contoh aplikasi seperti `enpii-laundry` **belum ada**.
+Middleware membuat UUID baru untuk setiap request dan mengirimkannya melalui `X-Request-ID`. Incoming correlation ID tidak dipertahankan. Error body selalu berbentuk:
 
----
+```json
+{
+  "code": "ERROR_CODE",
+  "message": "Safe message",
+  "request_id": "generated-uuid",
+  "retryable": false
+}
+```
 
-## 6. Lampiran — referensi cepat ke file aktif
+Client membaca `request_id` dari body, lalu memakai header sebagai fallback. Simpan request ID pada log aplikasi untuk korelasi dukungan, tanpa menyertakan secret atau payload sensitif.
 
-- Core service provider
-  [`CoreServiceProvider.php`](../packages/core/src/CoreServiceProvider.php).
-- Migration Core
-  [`0001_…_create_enpii_core_tables.php`](../packages/core/database/migrations/0001_01_01_000000_create_enpii_core_tables.php).
-- Test Core
-  [`TenancyTest.php`](../packages/core/tests/TenancyTest.php),
-  [`CoreBehaviorTest.php`](../packages/core/tests/CoreBehaviorTest.php).
-- WhatsApp Client tests
-  [`FakeWhatsAppGatewayTest.php`](../packages/whatsapp-client/tests/FakeWhatsAppGatewayTest.php),
-  [`HttpWhatsAppGatewayTest.php`](../packages/whatsapp-client/tests/HttpWhatsAppGatewayTest.php).
-- Gateway tests
-  [`GatewayApiTest.php`](../services/whatsapp-gateway/tests/Feature/GatewayApiTest.php).
-- Gateway OpenAPI
-  [`openapi.yaml`](../contracts/whatsapp-gateway/openapi.yaml).
-- Setup operasional
-  [`docs/setup.md`](setup.md).
+| Code | HTTP | Retryable | Arti/tindakan caller |
+| --- | ---: | --- | --- |
+| `UNAUTHENTICATED` | 401 | false | Credential hilang/tidak valid/principal inactive; perbaiki credential |
+| `INSTANCE_FORBIDDEN` | 403 | false | Instance milik principal lain; jangan retry |
+| `INSTANCE_NOT_FOUND` | 404 | false | Provision instance atau perbaiki nama |
+| `INSTANCE_BUSY` | 409 | true | Lifecycle lock sedang dipakai; retry terbatas |
+| `IDEMPOTENCY_CONFLICT` | 409 | false | Key telah dipakai payload lain; perbaiki pemetaan bisnis |
+| `REQUEST_IN_PROGRESS` | 409 | true | Request pertama belum selesai; retry key/payload yang sama |
+| `INVALID_INSTANCE` | 422 | false | Identifier ditolak provider adapter |
+| `INVALID_IDEMPOTENCY_KEY` | 422 | false | Perbaiki header key |
+| `VALIDATION_FAILED` | 422 | false | Perbaiki JSON body |
+| `FEATURE_UNAVAILABLE` | 501 | false | Media delivery belum tersedia |
+| `PROVIDER_PROTOCOL_ERROR` | 502 | true | Respons Evolution tidak valid; inspeksi provider |
+| `PROVIDER_UNAVAILABLE` | 503 | true | Evolution gagal/timeout; retry terkontrol |
+| `NOT_READY` | 503 | true | DB/cache belum siap |
+| `DELIVERY_PERSISTENCE_FAILED` | 500 | false | Send mungkin sudah terjadi; jangan gunakan key baru |
+| `INTERNAL_ERROR` | 500 | true atau persisted false | Error tak terduga; gunakan request ID |
+| `NOT_FOUND` / `HTTP_ERROR` | Sesuai HTTP | false | Error HTTP generik, termasuk route/throttle saat ini |
+
+Field `retryable` adalah petunjuk, bukan perintah retry otomatis. Caller tetap harus memakai backoff, batas percobaan, serta idempotency key yang sama pada send ambigu.
+
+### 5.7 Penyimpanan dan konfigurasi
+
+| Tabel | Isi utama |
+| --- | --- |
+| `gateway_api_principals` | UUID, nama, key ID unik, password hash, status |
+| `gateway_instances` | UUID, principal, nama unik, encrypted provider token, status |
+| `gateway_idempotency_keys` | Scope/hash/status/response/HTTP status/expiry |
+| `gateway_message_deliveries` | Instance, idempotency, provider ID, masked/HMAC recipient, status/attempts |
+
+Gateway memakai PostgreSQL untuk persistence dan Redis cache untuk readiness, lifecycle lock, serta rate limiting. `APP_KEY` harus stabil karena melindungi encrypted cast `provider_token` dan menjadi HMAC key recipient.
+
+Provider mendukung driver `http` dan `fake`. HTTP driver memerlukan Evolution URL HTTPS (HTTP hanya exact loopback), API key, dan timeout default 10 detik. Provider HTTP failure menjadi `503 PROVIDER_UNAVAILABLE`; malformed response menjadi `502 PROVIDER_PROTOCOL_ERROR`; keduanya retryable.
+
+Compose membangun service `whatsapp-gateway` secara lokal. Container menjalankan migrasi lalu Artisan development server. Ia membuka port PostgreSQL, Redis, dan Gateway ke host; tidak menyediakan TLS, reverse proxy, scheduler, queue worker, atau production process manager. Detail standalone dan Compose ada di [`setup.md`](setup.md).
+
+### 5.8 Contoh wire aman dengan fake driver
+
+Contoh ini hanya untuk stack lokal dengan `EVOLUTION_API_DRIVER=fake`. Jangan menjalankannya terhadap provider nyata tanpa persetujuan eksplisit.
+
+```bash
+BASE_URL=http://127.0.0.1:8090/api/v1
+API_KEY='KEY_ID.SECRET_PLACEHOLDER'
+INSTANCE='local-instance'
+KEY='order.demo.0001'
+
+curl "$BASE_URL/health"
+curl "$BASE_URL/ready"
+curl -H "Authorization: Bearer $API_KEY" \
+  "$BASE_URL/instances/$INSTANCE/status"
+
+curl -X POST -H "Authorization: Bearer $API_KEY" \
+  "$BASE_URL/instances/$INSTANCE/connect"
+
+curl -X POST \
+  -H "Authorization: Bearer $API_KEY" \
+  -H "Idempotency-Key: $KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"instance_id":"local-instance","to":"+628000000000","text":"Pesan uji fake"}' \
+  "$BASE_URL/messages/text"
+```
+
+Mengulang body dan key yang sama menghasilkan replay stabil. Mengubah text dengan key sama menghasilkan `409 IDEMPOTENCY_CONFLICT`. Recipient di atas hanya placeholder dokumentasi dan tidak boleh dipakai untuk send nyata.
+
+### 5.9 Perbedaan implementasi dan OpenAPI yang diketahui
+
+[`openapi.yaml`](../contracts/whatsapp-gateway/openapi.yaml) adalah kontrak HTTP yang dimaksud, tetapi runtime belum sepenuhnya conform:
+
+- Runtime menambahkan `X-Request-ID`; OpenAPI belum mendeklarasikan header tersebut.
+- Throttle berlaku pada semua route terlindungi, sedangkan OpenAPI hanya mendeklarasikan `429` pada text send.
+- Error runtime `500`, `502`, `503`, dan beberapa `422` dapat muncul pada endpoint yang daftar response OpenAPI-nya lebih sempit.
+- Client mengirim body dan idempotency header pada media; OpenAPI media tidak mendeklarasikannya, sedangkan runtime mengabaikannya dan mengembalikan `501`.
+- OpenAPI mencantumkan `403` untuk media, tetapi controller media tidak melakukan ACL lookup setelah auth.
+- CI hanya menjalankan lint OpenAPI dan pengujian runtime secara terpisah. Generated conformance test **belum ada**.
+
+Saat terjadi drift, kode sumber dan pengujian menjelaskan perilaku teramati; OpenAPI tetap menunjukkan kontrak yang perlu diselaraskan.
+
+## 6. Contoh integrasi aplikasi konsumen
+
+Tidak ada skeleton aplikasi produk. Potongan berikut menunjukkan tanggung jawab aplikasi konsumen, bukan file yang disediakan paket.
+
+### 6.1 Instalasi dan request tenancy
+
+Tambahkan path repositories pada `composer.json` aplikasi, require paket, lalu publikasikan migrasi Core seperti dijelaskan di [`setup.md`](setup.md). Konfigurasikan Laravel auth agar memakai model `EnpiiStudio\Core\Identity\Models\User`.
+
+Implementasikan `ProductTenantResolver`, bind ke `TenantResolver`, lalu pasang `ResolveTenantContext` pada route tenant. Resolver harus mengautentikasi sumber tenant; jangan mempercayai header bebas tanpa authorization.
+
+```php
+Route::middleware(['auth', 'tenant'])->group(function (): void {
+    Route::get('/orders', function (
+        SettingsRepository $settings,
+        FeatureFlags $flags,
+    ) {
+        return [
+            'currency' => $settings->get('orders.currency', 'IDR'),
+            'new_flow' => $flags->enabled('orders.new-flow'),
+        ];
+    });
+});
+```
+
+### 6.2 Authorization dan audit
+
+```php
+abort_unless(
+    Gate::allows('enpii.permission', 'orders.update'),
+    403,
+);
+
+DB::transaction(function () use ($order): void {
+    $before = ['status' => $order->status];
+    $order->update(['status' => 'ready']);
+
+    app(AuditWriter::class)->record(
+        'order.status-changed',
+        $order,
+        before: $before,
+        after: ['status' => 'ready'],
+    );
+});
+```
+
+Transaksi diperlukan bila perubahan domain dan audit harus berhasil atau gagal sebagai satu unit.
+
+### 6.3 Pengiriman text
+
+Gunakan idempotency key stabil yang diturunkan dari operasi bisnis, bukan random key setiap attempt:
+
+```php
+$message = new TextMessage(
+    instanceId: 'product-instance',
+    to: $recipient,
+    text: 'Pesanan siap diambil.',
+    idempotencyKey: 'order.notification.'.$order->getKey(),
+);
+
+try {
+    $result = $gateway->sendText($message);
+} catch (GatewayException $exception) {
+    report($exception);
+
+    // Queue retry hanya bila kebijakan aplikasi menerima
+    // $exception->retryable, dengan idempotency key yang sama.
+    throw $exception;
+}
+```
+
+Connect harus tetap tindakan operator eksplisit. Jangan memanggil `connect()` otomatis di jalur send.
+
+### 6.4 UI
+
+```ts
+import { EnpiiBadge, EnpiiButton } from '@enpii-studio/ui'
+import '@enpii-studio/ui/styles.css'
+```
+
+Komponen dapat digunakan langsung di Vue template setelah registrasi/import sesuai setup aplikasi.
+
+## 7. Konvensi lintas komponen
+
+- Setiap produk adalah modular monolith standalone dengan satu Laravel application, database, deployment, dan release cycle.
+- Core dan WhatsApp Client adalah paket Composer in-process. UI adalah paket npm internal. Hanya Gateway menjadi dependensi jaringan bersama.
+- Tabel Core memakai prefix `core_`; tabel Gateway memakai `gateway_`.
+- Primary key model domain Core dan Gateway memakai UUID. `TenantContext` sendiri hanya memvalidasi string non-kosong.
+- `instanceId` adalah nama logis string, bukan UUID database instance.
+- Audit subject ID dan provider message ID disimpan sebagai string karena berasal dari boundary berbeda.
+- Idempotency key mengidentifikasi operasi bisnis; ia bukan primary key domain dan harus stabil saat retry.
+- Migrasi Core dimiliki aplikasi konsumen setelah publish. Migrasi Gateway auto-loaded oleh service provider. Upgrade harus menambah migrasi baru, bukan mengubah migrasi yang telah dijalankan.
+- Credential live, recipient, QR/pairing payload, provider token, dan respons Evolution mentah tidak boleh disimpan di source, fixture, log, atau dokumentasi.
+
+## 8. Troubleshooting
+
+| Gejala | Penyebab umum | Tindakan aman |
+| --- | --- | --- |
+| `TenantContextMissing` | Middleware/resolver tidak berjalan atau query di luar `run()` | Pasang context pada request/job; jangan memberi fallback tenant global |
+| `TenantMismatch` | Model basi atau ID tenant eksplisit berbeda | Buang model lama dan query ulang di konteks benar |
+| `Target [TenantResolver] is not instantiable` | Binding resolver aplikasi belum ada | Bind implementasi consumer dan pasang middleware alias |
+| Tabel `core_*` tidak ditemukan | Migrasi Core belum dipublikasikan/dijalankan | Periksa destination, publish, lalu migrate |
+| Gate menghasilkan `TypeError` | Auth provider memakai model selain Core `User` | Perbaiki `config/auth.php` atau jangan gunakan Gate Core |
+| `401 UNAUTHENTICATED` | Token salah, kosong, atau principal inactive | Provision/rotate credential secara aman; jangan log secret |
+| `403 INSTANCE_FORBIDDEN` | Principal tidak memiliki instance | Perbaiki ACL/provisioning; jangan retry |
+| `404 INSTANCE_NOT_FOUND` | Nama instance belum dibuat/salah | Provision atau perbaiki identifier |
+| `409 INSTANCE_BUSY` | Lifecycle lock aktif | Retry terbatas dengan backoff |
+| `409 REQUEST_IN_PROGRESS` | Send pertama masih berjalan | Ulangi key dan payload yang sama setelah jeda |
+| `409 IDEMPOTENCY_CONFLICT` | Key dipakai payload berbeda | Perbaiki derivasi key; jangan menimpa record |
+| `422 VALIDATION_FAILED` | JSON text send tidak valid | Perbaiki field berdasarkan kontrak DTO/API |
+| `422 INVALID_IDEMPOTENCY_KEY` | Header hilang/format salah | Gunakan 8–200 karakter aman |
+| `429 HTTP_ERROR` | Rate limit protected route | Backoff; kurangi frekuensi; gunakan request ID |
+| `501 FEATURE_UNAVAILABLE` | Media endpoint belum diterapkan | Gunakan text atau tunda fitur media |
+| `502 PROVIDER_PROTOCOL_ERROR` | Respons Evolution tidak sesuai | Inspeksi versi/provider tanpa log secret |
+| `503 PROVIDER_UNAVAILABLE` | Evolution tidak terjangkau | Retry terkontrol dengan key sama untuk send |
+| `503 NOT_READY` | DB/cache gagal | Periksa PostgreSQL/Redis; jangan kirim trafik |
+| Health hijau, provider gagal | Health/readiness tidak memeriksa Evolution | Uji status instance secara terautentikasi |
+| Idempotency rows tidak terhapus | Scheduler tidak berjalan atau FK delivery restrict | Jalankan scheduler; periksa purge dan FK sebelum cleanup |
+| Encrypted token gagal dibaca | `APP_KEY` berubah | Pulihkan key lama; jangan generate ulang pada deployment |
+| Client `protocol` | JSON/field/status/instance mismatch | Gunakan request ID; selaraskan Gateway/client contract |
+
+## 9. Matriks kemampuan yang belum ada
+
+Matriks ini adalah daftar kanonis tunggal. Bagian lain menjelaskan perilaku aktif tanpa mengulang daftar absen.
+
+| Area | Kemampuan **belum ada** | Pengganti saat ini | Tambahkan ketika |
+| --- | --- | --- | --- |
+| Tenancy | Resolver subdomain/header/session/JWT bawaan | Consumer implements `TenantResolver` | Pola resolver stabil lintas produk |
+| Tenancy | Queue middleware/`TenantAwareJob` otomatis | Job membawa ID dan memakai `TenantContext::run()` | Queue dipakai berulang lintas produk |
+| Identity | Login/register/reset/MFA/API auth | Aplikasi menyusun auth sendiri dengan Core `User` | Product auth requirements disepakati |
+| Identity | Model User extensible | Composition melalui profile model | Kebutuhan field lintas produk terbukti |
+| Authorization | Wildcard, super-admin, policies, CRUD UI/API | Permission exact + Gate custom | Kebutuhan operasional nyata muncul |
+| Feature Flags | Rollout/cohort/variant/schedule/cache/delete API | Boolean tenant key | Boolean sederhana tidak cukup |
+| Settings | Global setting, typed schema, encryption, cache/delete API | JSON key-value per tenant | Data sensitif/volume/schema menuntutnya |
+| Audit | DB trigger, hash chain, outbox, restore audit | Eloquent writer/trait opt-in | Compliance/durability membutuhkan boundary DB |
+| WhatsApp Client | `SendStatus` enum, facade/helper, fake auto-binding | String status + DI/manual fake | API client perlu ergonomi tambahan |
+| WhatsApp Client | Validasi caption/filename formal | Hanya HTTPS media URL | Media delivery mulai dirancang |
+| UI | Modal/dropdown/tabs/toast/menu dan komponen stateful | Button, Badge, tokens | Pola UI berulang pada produk nyata |
+| Gateway | Media delivery SSRF-safe | Endpoint `501 FEATURE_UNAVAILABLE` | Fetch policy/storage/scanning siap |
+| Gateway | Credential rotation/revocation/reassignment management | Provision command + administrasi DB terbatas | Operasi multi-produk membutuhkan lifecycle key |
+| Gateway | OpenAPI conformance/generated SDK/rendered docs | Lint OpenAPI + tests terpisah | Contract drift harus dicegah otomatis |
+| Gateway | Scheduler/worker/reverse proxy/TLS/production deployment | Compose lokal + Artisan server | Menjelang deployment production |
+| Product | Skeleton dan aplikasi contoh | Dokumentasi consumer manual | Produk pertama mulai dibangun |
+| IDs | ULID/auto-increment convention | UUID domain, string boundary IDs | Ada kebutuhan terukur untuk mengganti |
+
+## Indeks sumber utama
+
+- Core: [`src`](../packages/core/src), [`migration`](../packages/core/database/migrations/0001_01_01_000000_create_enpii_core_tables.php), [`tests`](../packages/core/tests).
+- WhatsApp Client: [`src`](../packages/whatsapp-client/src), [`config`](../packages/whatsapp-client/config/whatsapp-client.php), [`tests`](../packages/whatsapp-client/tests).
+- UI: [`README`](../packages/ui/README.md), [`src`](../packages/ui/src), [`tests`](../packages/ui/tests).
+- Gateway: [`routes`](../services/whatsapp-gateway/routes/api.php), [`src`](../services/whatsapp-gateway/src), [`migration`](../services/whatsapp-gateway/database/migrations/0001_01_01_000000_create_gateway_tables.php), [`tests`](../services/whatsapp-gateway/tests).
+- HTTP contract: [`openapi.yaml`](../contracts/whatsapp-gateway/openapi.yaml).
+- Operasi lokal: [`setup.md`](setup.md).
