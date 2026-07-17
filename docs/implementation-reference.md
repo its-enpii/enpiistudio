@@ -663,7 +663,7 @@ Tidak ada skeleton aplikasi produk. Potongan berikut menunjukkan tanggung jawab 
 
 ### 6.1 Instalasi dan request tenancy
 
-Tambahkan path repositories pada `composer.json` aplikasi, require paket, lalu publikasikan migrasi Core seperti dijelaskan di [`setup.md`](setup.md). Konfigurasikan Laravel auth agar memakai model `EnpiiStudio\Core\Identity\Models\User`.
+Tambahkan repository Composer VCS dan require tag rilis kedua paket seperti dijelaskan di [`setup.md`](setup.md). Path repositories hanya untuk pengembangan monorepo. Publikasikan migrasi Core, lalu konfigurasikan Laravel auth agar memakai model `EnpiiStudio\Core\Identity\Models\User`.
 
 Implementasikan `ProductTenantResolver`, bind ke `TenantResolver`, lalu pasang `ResolveTenantContext` pada route tenant. Resolver harus mengautentikasi sumber tenant; jangan mempercayai header bebas tanpa authorization.
 

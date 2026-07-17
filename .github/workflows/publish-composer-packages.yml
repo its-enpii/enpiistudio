@@ -1,0 +1,71 @@
+name: Publish Composer packages
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-composer-packages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          fetch-depth: 0
+      - name: Configure GitHub authentication
+        env:
+          GH_TOKEN: ${{ secrets.PACKAGE_PUBLISH_TOKEN }}
+        run: gh auth setup-git
+      - name: Publish package repositories
+        env:
+          GH_TOKEN: ${{ secrets.PACKAGE_PUBLISH_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          publish() {
+            local prefix="$1"
+            local repository="$2"
+            local remote="https://github.com/${repository}.git"
+            local split_sha remote_sha
+
+            split_sha="$(git subtree split --prefix="$prefix" "$GITHUB_SHA")"
+            remote_sha="$(git ls-remote "$remote" refs/heads/main | cut -f1)"
+
+            if [[ -n "$remote_sha" ]]; then
+              git fetch --no-tags "$remote" refs/heads/main
+
+              if ! git merge-base --is-ancestor "$remote_sha" "$split_sha"; then
+                printf 'Refusing non-fast-forward publish to %s: %s is not an ancestor of %s\n' \
+                  "$repository" "$remote_sha" "$split_sha" >&2
+                exit 1
+              fi
+            fi
+
+            git push "$remote" "$split_sha:refs/heads/main"
+
+            if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
+              remote_sha="$(git ls-remote "$remote" "refs/tags/$GITHUB_REF_NAME" | cut -f1)"
+
+              if [[ -n "$remote_sha" && "$remote_sha" != "$split_sha" ]]; then
+                printf 'Refusing to move %s tag %s from %s to %s\n' \
+                  "$repository" "$GITHUB_REF_NAME" "$remote_sha" "$split_sha" >&2
+                exit 1
+              fi
+
+              if [[ -z "$remote_sha" ]]; then
+                git push "$remote" "$split_sha:refs/tags/$GITHUB_REF_NAME"
+              fi
+            fi
+          }
+
+          publish packages/core its-enpii/enpii-studio-core
+          publish packages/whatsapp-client its-enpii/enpii-studio-whatsapp-client

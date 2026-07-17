@@ -41,7 +41,15 @@ Pengujian perilaku paket Core memakai Orchestra Testbench dengan SQLite in-memor
 
 ## Memasang paket pada aplikasi produk
 
-Aplikasi konsumen harus menambahkan path repository yang menunjuk ke `packages/core` dan `packages/whatsapp-client`, lalu mewajibkan paket yang diperlukan. Jangan menyalin kode sumber paket ke aplikasi.
+Aplikasi konsumen mengambil kedua paket dari repository distribusi publik berdasarkan tag rilis:
+
+```bash
+composer config repositories.enpii-studio-core vcs https://github.com/its-enpii/enpii-studio-core.git
+composer config repositories.enpii-studio-whatsapp-client vcs https://github.com/its-enpii/enpii-studio-whatsapp-client.git
+composer require enpii-studio/core:^0.1 enpii-studio/whatsapp-client:^0.1
+```
+
+Path repositories pada root monorepo hanya untuk pengembangan paket secara lokal. Jangan memakai checkout `../enpii-studio`, path repository, atau submodule dalam aplikasi konsumen. Versi paket mengikuti tag immutable pada repository distribusi; package belum didaftarkan ke Packagist sehingga kedua deklarasi VCS tetap wajib.
 
 Penyedia layanan kedua paket terdaftar melalui Laravel package discovery. Core tidak memuat migrasinya secara otomatis. Periksa destination sebelum memublikasikan migrasi:
 
