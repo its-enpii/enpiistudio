@@ -34,7 +34,7 @@ enpii-studio/core              → package: Identity, Tenancy, Authorization,
                                   Settings, Feature Flags, Audit Log,
                                   Customer Management base
 enpii-studio/whatsapp-client   → package: WhatsAppProvider contract + HTTP client
-enpii-studio/ui                → package: komponen Vue reusable, design tokens
+@its-enpii/ui                → package: komponen Vue reusable, design tokens
 
 enpii-whatsapp-gateway         → service terpisah (sudah ada), Evolution API adapter
 
@@ -111,7 +111,7 @@ Core dianggap matang untuk di-tag versi 1.0 dan dipakai app kedua jika:
 
 ### Fase 6 — Infrastruktur Lintas Produk (opsional, belakangan)
 - [ ] Platform Admin dashboard untuk memantau WhatsApp Gateway lintas 25 produk (overview, delivery logs, provider health).
-- [ ] `enpii-studio/ui` sebagai package komponen Vue, diekstrak dari pola yang berulang di beberapa produk pertama — bukan didesain di awal secara spekulatif.
+- [ ] `@its-enpii/ui` sebagai package komponen Vue, diekstrak dari pola yang berulang di beberapa produk pertama — bukan didesain di awal secara spekulatif.
 
 ---
 

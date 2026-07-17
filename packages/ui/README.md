@@ -1,14 +1,29 @@
-# @enpii-studio/ui
+# @its-enpii/ui
+
+> Registry: `https://npm.pkg.github.com`
 
 Setup-only Vue 3 package. Menyediakan design tokens CSS yang dapat dipakai bersama Tailwind serta presentational `EnpiiButton` dan `EnpiiBadge`. Bukan component library lengkap.
 
 ## Konsumsi
 
-Saat iterasi lokal, tambahkan dependency path/workspace dari aplikasi frontend, lalu import package dan CSS hasil build:
+Untuk real project, buat `.npmrc` tanpa menyimpan token literal:
+
+```ini
+@its-enpii:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_TOKEN}
+```
+
+Isi `GITHUB_PACKAGES_TOKEN` melalui environment dengan PAT classic yang memiliki `read:packages`, lalu pasang rilis:
+
+```bash
+npm install @its-enpii/ui@^0.1
+```
+
+Import package dan CSS:
 
 ```ts
-import { EnpiiBadge, EnpiiButton } from '@enpii-studio/ui'
-import '@enpii-studio/ui/styles.css'
+import { EnpiiBadge, EnpiiButton } from '@its-enpii/ui'
+import '@its-enpii/ui/styles.css'
 ```
 
 ```vue
@@ -32,6 +47,6 @@ npm run ui:build
 npm run ui:pack
 ```
 
-Distribusi tetap private/internal. Sebelum dipakai lintas produk, naikkan versi `0.x` dengan SemVer dan publish ke registry private; breaking change boleh terjadi hanya melalui kenaikan minor selama fase `0.x`.
+Distribusi tersedia sebagai `@its-enpii/ui@0.1.0` melalui GitHub Packages dan tetap internal/`UNLICENSED`. Token tidak boleh masuk repository, lockfile, log, atau image. Breaking change hanya melalui kenaikan minor selama fase `0.x`.
 
 Tambahkan komponen lain hanya setelah pola yang sama terbukti berulang pada aplikasi produk.

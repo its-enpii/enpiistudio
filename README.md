@@ -8,7 +8,7 @@ Enpii Studio adalah monorepo Laravel 12/PHP 8.3+ yang memuat fondasi internal un
 Aplikasi produk Laravel
 ├── enpii-studio/core                 in-process
 ├── enpii-studio/whatsapp-client      in-process
-├── @enpii-studio/ui                  frontend Vue
+├── @its-enpii/ui                  frontend Vue
 └── HTTP
     └── Enpii WhatsApp Gateway        layanan jaringan internal
         └── Evolution API             layanan eksternal
