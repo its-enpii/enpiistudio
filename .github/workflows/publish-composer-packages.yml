@@ -34,7 +34,7 @@ jobs:
           publish() {
             local prefix="$1"
             local repository="$2"
-            local remote="https://github.com/${repository}.git"
+            local remote="https://x-access-token:${GH_TOKEN}@github.com/${repository}.git"
             local split_sha remote_sha
 
             split_sha="$(git subtree split --prefix="$prefix" "$GITHUB_SHA")"
