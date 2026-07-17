@@ -54,7 +54,7 @@ Supaya scope tidak melebar sebelum fondasi terbukti:
 - **Tidak** membangun Notification Orchestrator penuh (multi-channel, template management kompleks) di awal — cukup abstraksi tipis ke WhatsApp Gateway.
 - **Tidak** membangun Billing & Subscription lintas produk — tiap produk boleh punya billing sederhana sendiri dulu.
 - **Tidak** membangun dashboard Platform Admin terpusat — itu kebutuhan setelah beberapa produk jalan, bukan prasyarat produk pertama.
-- **Tidak** mem-package-kan Core dengan versi tag di awal — pakai `"type": "path"` di Composer selama masih iterasi cepat.
+- Rilis pra-1.0 Core dan WhatsApp Client melalui repository distribusi Composer VCS dengan tag immutable; path repository hanya untuk pengembangan monorepo.
 
 ### 2.2 Kriteria "Core Siap Dipakai Ulang"
 
@@ -93,7 +93,7 @@ Core dianggap matang untuk di-tag versi 1.0 dan dipakai app kedua jika:
 - [ ] Idempotency key + retry dasar (belum perlu queue kompleks di awal, cukup job sederhana).
 
 ### Fase 3 — Pilot: `enpii-laundry`
-- [ ] Scaffold Laravel + Vue 3 + Inertia, `composer require` Core dan WhatsApp Client via path repository.
+- [ ] Scaffold Laravel + Vue 3 + Inertia, lalu `composer require` Core dan WhatsApp Client dari repository distribusi VCS.
 - [ ] Fitur inti: data pelanggan, pencatatan transaksi, status proses laundry, invoice, notifikasi WhatsApp saat cucian selesai.
 - [ ] Domain event `LaundryOrderReady` → WhatsApp Client → Evolution API → validasi delivery log.
 - [ ] Deploy pilot ke produksi kecil (real user, bukan cuma staging).
