@@ -51,7 +51,22 @@ composer require enpii-studio/core:^0.1 enpii-studio/whatsapp-client:^0.1
 
 Path repositories pada root monorepo hanya untuk pengembangan paket secara lokal. Jangan memakai checkout `../enpii-studio`, path repository, atau submodule dalam aplikasi konsumen. Versi paket mengikuti tag immutable pada repository distribusi; package belum didaftarkan ke Packagist sehingga kedua deklarasi VCS tetap wajib.
 
-Penyedia layanan kedua paket terdaftar melalui Laravel package discovery. Core tidak memuat migrasinya secara otomatis. Periksa destination sebelum memublikasikan migrasi:
+UI dipasang dari GitHub Packages. Buat `.npmrc` pada aplikasi tanpa token literal:
+
+```ini
+@its-enpii:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_TOKEN}
+```
+
+Isi `GITHUB_PACKAGES_TOKEN` melalui environment dengan PAT classic yang memiliki `read:packages`, lalu jalankan:
+
+```bash
+npm install @its-enpii/ui@^0.1
+```
+
+Jangan commit token ke repository, lockfile, image, atau log CI. Import `@its-enpii/ui` dan `@its-enpii/ui/styles.css` dari frontend aplikasi.
+
+Penyedia layanan kedua paket Composer terdaftar melalui Laravel package discovery. Core tidak memuat migrasinya secara otomatis. Periksa destination sebelum memublikasikan migrasi:
 
 ```bash
 php artisan vendor:publish --tag=enpii-core-migrations

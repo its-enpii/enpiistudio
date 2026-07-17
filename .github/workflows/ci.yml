@@ -131,5 +131,5 @@ jobs:
       - run: npm run ui:check
       - run: npm run ui:test
       - run: npm run ui:build
-      - run: npm pack --workspace @enpii-studio/ui --dry-run
+      - run: npm run ui:pack
       - run: npm audit --audit-level=high

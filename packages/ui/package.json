@@ -1,9 +1,16 @@
 {
-  "name": "@enpii-studio/ui",
-  "version": "0.0.0",
-  "private": true,
+  "name": "@its-enpii/ui",
+  "version": "0.1.0",
   "description": "Internal presentational Vue components for Enpii Studio products",
   "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/its-enpii/enpiistudio.git",
+    "directory": "packages/ui"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "type": "module",
   "files": [
     "dist"

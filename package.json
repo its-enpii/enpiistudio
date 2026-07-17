@@ -8,10 +8,10 @@
     "packages/ui"
   ],
   "scripts": {
-    "ui:build": "npm run build --workspace @enpii-studio/ui",
-    "ui:check": "npm run check --workspace @enpii-studio/ui",
-    "ui:test": "npm run test --workspace @enpii-studio/ui",
-    "ui:pack": "npm pack --workspace @enpii-studio/ui --dry-run",
+    "ui:build": "npm run build --workspace @its-enpii/ui",
+    "ui:check": "npm run check --workspace @its-enpii/ui",
+    "ui:test": "npm run test --workspace @its-enpii/ui",
+    "ui:pack": "npm pack --workspace @its-enpii/ui --dry-run",
     "contract:check": "redocly lint contracts/whatsapp-gateway/openapi.yaml"
   },
   "devDependencies": {

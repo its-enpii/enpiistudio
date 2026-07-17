@@ -30,7 +30,7 @@ Semua tautan memakai jalur relatif repositori tanpa line anchor agar tidak cepat
 Aplikasi produk Laravel
 ├── enpii-studio/core                 in-process
 ├── enpii-studio/whatsapp-client      in-process
-├── @enpii-studio/ui                  frontend Vue
+├── @its-enpii/ui                  frontend Vue
 └── HTTP
     └── Enpii WhatsApp Gateway        layanan jaringan internal
         └── Evolution API             layanan eksternal
@@ -448,18 +448,18 @@ QR/pairing hanya dicetak ketika operator memberi flag eksplisit. Gunakan flag te
 
 ## 4. UI
 
-Paket [`@enpii-studio/ui`](../packages/ui) adalah library Vue 3 internal dan private. Ia hanya berisi komponen presentasional serta token CSS; state aplikasi tetap milik produk.
+Paket [`@its-enpii/ui`](../packages/ui) adalah library Vue 3 internal yang didistribusikan melalui GitHub Packages. Ia hanya berisi komponen presentasional serta token CSS; state aplikasi tetap milik produk.
 
 ### 4.1 Export dan konsumsi
 
 [`src/index.ts`](../packages/ui/src/index.ts) mengekspor `EnpiiButton` dan `EnpiiBadge`, serta mengimpor token CSS. Package export `./styles.css` dan compatibility alias `./tokens.css` menunjuk artifact CSS yang sama; import salah satu saja.
 
 ```ts
-import { EnpiiBadge, EnpiiButton } from '@enpii-studio/ui'
-import '@enpii-studio/ui/styles.css'
+import { EnpiiBadge, EnpiiButton } from '@its-enpii/ui'
+import '@its-enpii/ui/styles.css'
 ```
 
-Peer dependency aktif adalah Vue `^3.5.0`. Package tetap `private`, versi `0.0.0`, dan berlisensi internal `UNLICENSED`.
+Peer dependency aktif adalah Vue `^3.5.0`. Package dirilis sebagai versi `0.1.0` melalui GitHub Packages dan tetap berlisensi internal `UNLICENSED`; instalasi memerlukan autentikasi package registry seperti dijelaskan di [`setup.md`](setup.md).
 
 ### 4.2 Komponen
 
@@ -487,7 +487,7 @@ Badge tidak mempunyai semantic role khusus. Teks harus menyampaikan status tanpa
 [`tokens.css`](../packages/ui/src/styles/tokens.css) mendefinisikan custom properties `--enpii-*` untuk warna primary/semantic, focus, radius control, spacing control, dan font stack. Override dilakukan setelah import stylesheet:
 
 ```css
-@import '@enpii-studio/ui/styles.css';
+@import '@its-enpii/ui/styles.css';
 
 :root {
   --enpii-color-primary: #1d4ed8;
@@ -732,8 +732,8 @@ Connect harus tetap tindakan operator eksplisit. Jangan memanggil `connect()` ot
 ### 6.4 UI
 
 ```ts
-import { EnpiiBadge, EnpiiButton } from '@enpii-studio/ui'
-import '@enpii-studio/ui/styles.css'
+import { EnpiiBadge, EnpiiButton } from '@its-enpii/ui'
+import '@its-enpii/ui/styles.css'
 ```
 
 Komponen dapat digunakan langsung di Vue template setelah registrasi/import sesuai setup aplikasi.
