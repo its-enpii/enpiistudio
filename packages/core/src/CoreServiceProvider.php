@@ -33,6 +33,14 @@ final class CoreServiceProvider extends ServiceProvider
             app()->forgetScopedInstances();
         });
 
+        // Force the tenant middleware to run BEFORE AuthenticatesRequests.
+        // Without this, Laravel's default priority list places Authenticate
+        // (which queries the User model via TenantScope) ahead of the route
+        // 'tenant' middleware, so User::query() fires with no context set.
+        $this->app->afterResolving(\Illuminate\Contracts\Http\Kernel::class, function ($kernel): void {
+            $kernel->prependToMiddlewarePriority(\EnpiiStudio\Core\Tenancy\Middleware\ResolveTenantContext::class);
+        });
+
         Gate::define('enpii.permission', fn ($user, string $permission) => app(AuthorizationService::class)->allow($user, $permission));
 
         $this->publishes([
