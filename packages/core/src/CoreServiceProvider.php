@@ -23,6 +23,16 @@ final class CoreServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        // Laravel 12 FPM/CLI HTTP workers reuse the container across requests.
+        // Scoped bindings must be flushed at end-of-request or tenant state
+        // leaks from request N to N+1 inside the same worker. Without this,
+        // TenantContext::run()'s finally block restores $previous (often null),
+        // but the same instance is reused next request, so cross-request
+        // leakage still occurs for callers that rely on fresh state.
+        $this->app->terminating(static function (): void {
+            app()->forgetScopedInstances();
+        });
+
         Gate::define('enpii.permission', fn ($user, string $permission) => app(AuthorizationService::class)->allow($user, $permission));
 
         $this->publishes([
