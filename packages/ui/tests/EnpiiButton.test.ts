@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
-import { describe, expect, it } from 'vitest'
-import { EnpiiBadge, EnpiiButton } from '../src'
+import { describe, expect, it, vi } from 'vitest'
+import { EnpiiBadge, EnpiiButton, enpiiUi } from '../src'
 
 describe('EnpiiButton', () => {
   it('uses safe button semantics and preserves accessible text', () => {
@@ -37,6 +37,25 @@ describe('EnpiiButton', () => {
   })
 })
 
+describe('enpiiUi plugin', () => {
+  it('provides injectable configuration', () => {
+    const navigate = vi.fn()
+    const app = { config: { globalProperties: {} }, provide: vi.fn() }
+    enpiiUi.install(app as never, {
+      permissions: ['loans.view', '*'],
+      appMode: { isDesktop: true },
+      navigate,
+      logout: vi.fn(),
+    })
+
+    expect(app.provide).toHaveBeenCalledTimes(4)
+    expect(app.provide.mock.calls[0][1]).toEqual(['loans.view', '*'])
+    expect(app.provide.mock.calls[1][1]).toEqual({ isDesktop: true })
+    expect(app.provide.mock.calls[2][1]).toEqual({ navigate, logout: expect.any(Function) })
+    expect(app.provide.mock.calls[3][1]).toEqual({})
+  })
+})
+
 describe('EnpiiBadge', () => {
   it('renders presentational text without interactive semantics', () => {
     const wrapper = mount(EnpiiBadge, {
@@ -46,8 +65,8 @@ describe('EnpiiBadge', () => {
 
     const badge = wrapper.get('span')
     expect(badge.text()).toBe('Aktif')
+    expect(badge.classes()).toContain('enpii-badge')
     expect(badge.classes()).toContain('enpii-badge--success')
-    expect(badge.classes()).toContain('enpii-badge--pill')
     expect(badge.attributes('role')).toBeUndefined()
   })
 })

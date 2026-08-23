@@ -1,0 +1,353 @@
+<script setup>
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, useId, watch } from 'vue';
+import AppIcon from './EnpiiIcon.vue';
+import { useShape } from '../composables/useShape';
+
+defineOptions({ inheritAttrs: false });
+
+const props = defineProps({
+    modelValue: { type: [String, Number], default: '' },
+    options: { type: Array, default: () => [] },
+    label: { type: String, required: true },
+    placeholder: { type: String, default: null },
+    error: { type: String, default: null },
+    hint: { type: String, default: null },
+    disabled: { type: Boolean, default: false },
+    clearable: { type: Boolean, default: false },
+    required: { type: Boolean, default: false },
+    searchable: { type: Boolean, default: false },
+    loading: { type: Boolean, default: false },
+    valueKey: { type: String, default: 'value' },
+    labelKey: { type: String, default: 'label' },
+    groupKey: { type: String, default: 'group' },
+    id: { type: String, default: null },
+    hideLabel: { type: Boolean, default: false },
+    emptyActionLabel: { type: String, default: null },
+    excludedValues: { type: Array, default: () => [] },
+    shape: {
+        type: String,
+        default: 'rounded',
+        validator: (value) => ['rounded', 'pill', 'sharp'].includes(value),
+    },
+});
+
+const shapeClass = useShape(props);
+
+const emit = defineEmits(['update:modelValue', 'search', 'search-change', 'empty-action']);
+const generatedId = useId();
+const selectId = computed(() => props.id || generatedId);
+const trigger = ref(null);
+const listbox = ref(null);
+const open = ref(false);
+const placeAbove = ref(false);
+/** Selalu fixed sejak render pertama; kalau tidak, panel ikut alur dokumen di ujung <body> dan fokus memaksa halaman scroll ke bawah. */
+const menuStyle = ref({ position: 'fixed', top: '0px', left: '0px', width: '0px', zIndex: 80, visibility: 'hidden' });
+const search = ref('');
+const highlighted = ref(0);
+const searchInput = ref(null);
+const selectedCache = ref(null);
+let searchTimer;
+
+const selected = computed(() => {
+    const current = props.options.find((option) => String(option[props.valueKey]) === String(props.modelValue));
+
+    return current || (selectedCache.value && String(selectedCache.value[props.valueKey]) === String(props.modelValue) ? selectedCache.value : null);
+});
+const selectedLabel = computed(() => selected.value?.[props.labelKey] || '');
+const visibleOptions = computed(() => {
+    const excluded = new Set(props.excludedValues.map((value) => String(value)));
+    const filtered = excluded.size === 0 ? props.options : props.options.filter((option) => !excluded.has(String(option[props.valueKey])));
+    const query = search.value.trim().toLocaleLowerCase();
+
+    if (!query) return filtered;
+
+    return filtered.filter((option) => {
+        const label = String(option[props.labelKey] ?? '').toLocaleLowerCase();
+        const group = String(option[props.groupKey] ?? '').toLocaleLowerCase();
+        const subtitle = String(option.subtitle ?? option.description ?? '').toLocaleLowerCase();
+        const value = String(option[props.valueKey] ?? '').toLocaleLowerCase();
+        return label.includes(query) || group.includes(query) || subtitle.includes(query) || value.includes(query);
+    });
+});
+
+/** Flat list for keyboard nav; grouped rows for render (header + options). */
+const visibleRows = computed(() => {
+    const opts = visibleOptions.value;
+    const hasGroup = opts.some((o) => o[props.groupKey]);
+    if (!hasGroup) {
+        return opts.map((option, index) => ({ kind: 'option', option, index }));
+    }
+
+    const rows = [];
+    let index = 0;
+    let lastGroup = Symbol('start');
+    for (const option of opts) {
+        const group = option[props.groupKey] || '';
+        if (group !== lastGroup) {
+            rows.push({ kind: 'header', label: group || 'Lainnya' });
+            lastGroup = group;
+        }
+        rows.push({ kind: 'option', option, index: index++ });
+    }
+    return rows;
+});
+
+function estimatedPopupHeight() {
+    const itemHeight = 36;
+    const optionHeight = Math.min(visibleRows.value.length, 8) * itemHeight;
+    const searchHeight = props.searchable ? 52 : 0;
+    return optionHeight + searchHeight + 16;
+}
+
+function positionMenu() {
+    const triggerEl = trigger.value;
+    if (!triggerEl) return;
+
+    const margin = 8;
+    const rect = triggerEl.getBoundingClientRect();
+    const popupHeight = estimatedPopupHeight();
+    const spaceBelow = window.innerHeight - rect.bottom - margin;
+    const spaceAbove = rect.top - margin;
+    const above = spaceBelow < popupHeight && spaceAbove > spaceBelow;
+    placeAbove.value = above;
+
+    const left = Math.min(Math.max(margin, rect.left), window.innerWidth - rect.width - margin);
+    const maxList = Math.min(224 + (props.searchable ? 52 : 0), above ? spaceAbove : spaceBelow);
+
+    if (above) {
+        menuStyle.value = {
+            position: 'fixed',
+            left: `${left}px`,
+            width: `${rect.width}px`,
+            bottom: `${window.innerHeight - rect.top + margin}px`,
+            top: 'auto',
+            zIndex: 80,
+            maxHeight: `${maxList}px`,
+            visibility: 'visible',
+        };
+    } else {
+        menuStyle.value = {
+            position: 'fixed',
+            left: `${left}px`,
+            width: `${rect.width}px`,
+            top: `${rect.bottom + margin}px`,
+            bottom: 'auto',
+            zIndex: 80,
+            maxHeight: `${maxList}px`,
+            visibility: 'visible',
+        };
+    }
+}
+
+function rememberSelected(options = props.options) {
+    const option = options.find((item) => String(item[props.valueKey]) === String(props.modelValue));
+    if (option) selectedCache.value = option;
+}
+
+function openMenu() {
+    if (props.disabled) return;
+    open.value = true;
+    highlighted.value = Math.max(0, visibleOptions.value.findIndex((option) => String(option[props.valueKey]) === String(props.modelValue)));
+    nextTick(() => {
+        positionMenu();
+        requestAnimationFrame(() => positionMenu());
+        props.searchable && searchInput.value?.focus({ preventScroll: true });
+    });
+}
+
+function onViewportChange() {
+    if (open.value) positionMenu();
+}
+onMounted(() => {
+    window.addEventListener('resize', onViewportChange);
+    window.addEventListener('scroll', onViewportChange, true);
+});
+onBeforeUnmount(() => {
+    window.removeEventListener('resize', onViewportChange);
+    window.removeEventListener('scroll', onViewportChange, true);
+});
+
+function closeMenu() {
+    open.value = false;
+    menuStyle.value = { ...menuStyle.value, visibility: 'hidden' };
+    if (search.value) emit('search-change', '');
+    search.value = '';
+}
+
+function choose(option) {
+    selectedCache.value = option;
+    emit('update:modelValue', option[props.valueKey]);
+    closeMenu();
+}
+
+function clear() {
+    selectedCache.value = null;
+    emit('update:modelValue', '');
+    closeMenu();
+}
+
+function runEmptyAction() {
+    const query = search.value.trim();
+    if (!props.emptyActionLabel || !query || props.loading || visibleOptions.value.length) return;
+
+    closeMenu();
+    emit('empty-action', query);
+}
+
+function move(delta) {
+    if (!visibleOptions.value.length) return;
+    highlighted.value = (highlighted.value + delta + visibleOptions.value.length) % visibleOptions.value.length;
+}
+
+function onKeydown(event) {
+    if (!open.value && ['ArrowDown', 'Enter', ' '].includes(event.key)) {
+        event.preventDefault();
+        openMenu();
+        return;
+    }
+    if (!open.value) return;
+    if (event.key === 'ArrowDown') { event.preventDefault(); move(1); }
+    if (event.key === 'ArrowUp') { event.preventDefault(); move(-1); }
+    if (event.key === 'Enter') {
+        if (visibleOptions.value[highlighted.value]) { event.preventDefault(); choose(visibleOptions.value[highlighted.value]); }
+        else if (props.emptyActionLabel && search.value.trim() && !props.loading) { event.preventDefault(); runEmptyAction(); }
+    }
+    if (event.key === 'Escape') { event.preventDefault(); closeMenu(); }
+}
+
+function onSearch() {
+    emit('search-change', search.value);
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => emit('search', search.value), 300);
+}
+
+function onDocumentClick(event) {
+    if (!event.target.closest(`[data-smart-select="${selectId.value}"]`)) closeMenu();
+}
+
+onMounted(() => document.addEventListener('click', onDocumentClick));
+onBeforeUnmount(() => {
+    clearTimeout(searchTimer);
+    document.removeEventListener('click', onDocumentClick);
+});
+
+watch(() => props.options, (options) => {
+    rememberSelected(options);
+    highlighted.value = Math.min(highlighted.value, Math.max(options.length - 1, 0));
+}, { immediate: true });
+watch(search, () => {
+    highlighted.value = 0;
+});
+watch(() => props.modelValue, (value) => {
+    const match = props.options.find((item) => String(item[props.valueKey]) === String(value));
+    selectedCache.value = match ?? null;
+});
+</script>
+
+<template>
+    <div class="enpii-smart-select" :data-smart-select="selectId">
+        <label :for="selectId" class="enpii-smart-select__label"
+        :class="{ 'enpii-sr-only': hideLabel }">{{ label }}</label>
+        <div class="enpii-smart-select__control-wrap">
+            <button
+                :id="selectId"
+                ref="trigger"
+                type="button"
+                role="combobox"
+                :aria-expanded="open"
+                :aria-controls="`${selectId}-listbox`"
+                :aria-invalid="Boolean(error)"
+                :aria-required="required"
+                :disabled="disabled"
+                class="enpii-smart-select__trigger"
+                :class="[shapeClass, { 'enpii-smart-select__trigger--error': Boolean(error) }]"
+                v-bind="$attrs"
+                @click="open ? closeMenu() : openMenu()"
+                @keydown="onKeydown"
+            >
+                <span class="enpii-smart-select__value"
+                :class="{ 'enpii-smart-select__value--placeholder': !selectedLabel }">{{ selectedLabel || (placeholder ?? `Pilih ${label.toLowerCase()}`) }}</span>
+                <AppIcon name="expand_more" class="enpii-smart-select__chevron"
+                :class="{ 'enpii-smart-select__chevron--open': open }" />
+            </button>
+            <button
+                v-if="clearable && selectedLabel"
+                type="button"
+                class="enpii-smart-select__clear"
+                aria-label="Hapus pilihan"
+                @click="clear"
+            >
+                <AppIcon name="close" />
+            </button>
+            <Teleport to="body">
+                <Transition
+                    name="dropdown"
+                >
+                    <div
+                        v-if="open"
+                        :id="`${selectId}-listbox`"
+                        ref="listbox"
+                        role="listbox"
+                        class="enpii-smart-select__menu"
+                        :class="[shapeClass, { 'enpii-smart-select__menu--above': placeAbove }]"
+                        :style="menuStyle"
+                        :data-smart-select="selectId"
+                    >
+                        <div v-if="searchable" class="enpii-smart-select__search-wrap">
+                            <AppIcon name="search" class="enpii-smart-select__search-icon" />
+                            <input ref="searchInput" v-model="search" type="search" class="enpii-smart-select__search-input" placeholder="Cari..." @input="onSearch" @keydown="onKeydown">
+                            <button v-if="search" type="button" class="enpii-smart-select__search-clear" @click="search = ''; onSearch()"><AppIcon name="close" /></button>
+                        </div>
+                        <div class="enpii-smart-select__options">
+                            <div v-if="loading" class="enpii-smart-select__status">Memuat...</div>
+                            <template v-else>
+                                <template v-for="(row, rowIndex) in visibleRows" :key="row.kind === 'header' ? `h-${row.label}-${rowIndex}` : String(row.option[valueKey])">
+                                    <div
+                                        v-if="row.kind === 'header'"
+                                        class="enpii-smart-select__group-label"
+                                        role="presentation"
+                                    >
+                                        {{ row.label }}
+                                    </div>
+                                    <button
+                                        v-else
+                                        :id="`${selectId}-option-${row.index}`"
+                                        type="button"
+                                        role="option"
+                                        :aria-selected="String(row.option[valueKey]) === String(modelValue)"
+                                        class="enpii-smart-select__option"
+                                        :class="{
+                                            'enpii-smart-select__option--highlighted': row.index === highlighted,
+                                            'enpii-smart-select__option--selected': String(row.option[valueKey]) === String(modelValue)
+                                        }"
+                                        @mouseenter="highlighted = row.index"
+                                        @click="choose(row.option)"
+                                    >
+                                        <div class="enpii-smart-select__option-body">
+                                            <div class="enpii-smart-select__option-top">
+                                                <span class="enpii-smart-select__option-label">
+                                                    {{ row.option[labelKey] }}
+                                                </span>
+                                                <span v-if="row.option.badge" class="enpii-smart-select__option-badge">
+                                                    {{ row.option.badge }}
+                                                </span>
+                                            </div>
+                                            <p v-if="row.option.subtitle || row.option.description" class="enpii-smart-select__option-subtitle">
+                                                {{ row.option.subtitle || row.option.description }}
+                                            </p>
+                                        </div>
+                                        <AppIcon v-if="String(row.option[valueKey]) === String(modelValue)" name="check" class="enpii-smart-select__check" />
+                                    </button>
+                                </template>
+                                <button v-if="!visibleOptions.length && emptyActionLabel && search.trim()" type="button" class="enpii-smart-select__empty-action" @click="runEmptyAction"><AppIcon name="person_add" class="enpii-smart-select__empty-icon" />{{ emptyActionLabel }}</button>
+                                <div v-else-if="!visibleOptions.length" class="enpii-smart-select__status">Tidak ada opsi.</div>
+                            </template>
+                        </div>
+                    </div>
+                </Transition>
+            </Teleport>
+        </div>
+        <p v-if="error" :id="`${selectId}-error`" class="enpii-smart-select__help enpii-smart-select__help--error">{{ error }}</p>
+        <p v-else-if="hint" :id="`${selectId}-hint`" class="enpii-smart-select__help">{{ hint }}</p>
+    </div>
+</template>
