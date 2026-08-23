@@ -16,6 +16,8 @@
   },
   "devDependencies": {
     "@redocly/cli": "^2.39.0",
+    "debug": "^4.4.3",
+    "https-proxy-agent": "^9.1.0",
     "yaml": "^2.8.3"
   }
 }

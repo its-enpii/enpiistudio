@@ -7,7 +7,9 @@ namespace EnpiiStudio\Core;
 use EnpiiStudio\Core\Authorization\AuthorizationService;
 use EnpiiStudio\Core\FeatureFlags\FeatureFlags;
 use EnpiiStudio\Core\Settings\SettingsRepository;
+use EnpiiStudio\Core\Tenancy\Middleware\ResolveTenantContext;
 use EnpiiStudio\Core\Tenancy\TenantContext;
+use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -37,8 +39,8 @@ final class CoreServiceProvider extends ServiceProvider
         // Without this, Laravel's default priority list places Authenticate
         // (which queries the User model via TenantScope) ahead of the route
         // 'tenant' middleware, so User::query() fires with no context set.
-        $this->app->afterResolving(\Illuminate\Contracts\Http\Kernel::class, function ($kernel): void {
-            $kernel->prependToMiddlewarePriority(\EnpiiStudio\Core\Tenancy\Middleware\ResolveTenantContext::class);
+        $this->app->afterResolving(Kernel::class, function ($kernel): void {
+            $kernel->prependToMiddlewarePriority(ResolveTenantContext::class);
         });
 
         Gate::define('enpii.permission', fn ($user, string $permission) => app(AuthorizationService::class)->allow($user, $permission));
