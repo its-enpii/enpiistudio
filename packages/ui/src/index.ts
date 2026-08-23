@@ -1,5 +1,6 @@
 import './styles/tokens.css'
 import './styles/components.css'
+import './styles/icon-font.css'
 
 export { default as enpiiUi } from './plugin'
 export { enpiiPermissionsKey, enpiiAppModeKey, enpiiNavigationKey, enpiiFlashKey } from './plugin'

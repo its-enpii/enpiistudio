@@ -1,5 +1,5 @@
 <script setup>
-import { computed, inject, onBeforeUnmount, onMounted, ref } from 'vue';
+import { computed, inject, nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
 import { enpiiNavigationKey } from '../plugin';
 import AppIcon from './EnpiiIcon.vue';
 import { useShape } from '../composables/useShape';
@@ -10,6 +10,17 @@ const loading = ref(false);
 const items = ref([]);
 const unreadCount = ref(0);
 const dropdownRef = ref(null);
+const trigger = ref(null);
+const panel = ref(null);
+const placeAbove = ref(false);
+const panelStyle = ref({
+    position: 'fixed',
+    top: '0px',
+    left: '0px',
+    width: '0px',
+    zIndex: 50,
+    visibility: 'hidden',
+});
 const notifiedIds = ref(new Set());
 const navigation = inject(enpiiNavigationKey, { navigate: () => {} });
 const emit = defineEmits(['navigate']);
@@ -128,7 +139,50 @@ function toggleDropdown(e) {
     open.value = !open.value;
     if (open.value) {
         fetchNotifications();
+        nextTick(() => positionPanel());
     }
+}
+
+function positionPanel() {
+    if (!open.value || !trigger.value) return;
+
+    const margin = 12;
+    const triggerRect = trigger.value.getBoundingClientRect();
+    const panelRect = panel.value?.getBoundingClientRect();
+    const panelWidth = panelRect?.width || Math.min(384, window.innerWidth - margin * 2);
+    const estimatedHeight = panelRect?.height || (items.value.length ? 480 : 160);
+    const spaceBelow = window.innerHeight - triggerRect.bottom - margin;
+    const spaceAbove = triggerRect.top - margin;
+
+    placeAbove.value = spaceBelow < estimatedHeight && spaceAbove > spaceBelow;
+    const maxHeight = Math.max(120, placeAbove.value ? spaceAbove : spaceBelow);
+    const left = Math.min(Math.max(margin, triggerRect.right - panelWidth), window.innerWidth - panelWidth - margin);
+
+    panelStyle.value = placeAbove.value
+        ? {
+            position: 'fixed',
+            top: 'auto',
+            bottom: `${window.innerHeight - triggerRect.top + margin}px`,
+            left: `${left}px`,
+            width: `${panelWidth}px`,
+            maxHeight: `${maxHeight}px`,
+            zIndex: 50,
+            visibility: 'visible',
+        }
+        : {
+            position: 'fixed',
+            top: `${triggerRect.bottom + margin}px`,
+            bottom: 'auto',
+            left: `${left}px`,
+            width: `${panelWidth}px`,
+            maxHeight: `${maxHeight}px`,
+            zIndex: 50,
+            visibility: 'visible',
+        };
+}
+
+function onViewportChange() {
+    if (open.value) positionPanel();
 }
 
 function handleClickOutside(e) {
@@ -144,6 +198,8 @@ onMounted(() => {
     fetchNotifications();
     document.addEventListener('click', handleClickOutside);
     window.addEventListener('notifications:toggle', toggleDropdown);
+    window.addEventListener('resize', onViewportChange);
+    window.addEventListener('scroll', onViewportChange, true);
 
     pollTimer = setInterval(() => {
         if (typeof document !== 'undefined' && !document.hidden) {
@@ -155,6 +211,8 @@ onMounted(() => {
 onBeforeUnmount(() => {
     document.removeEventListener('click', handleClickOutside);
     window.removeEventListener('notifications:toggle', toggleDropdown);
+    window.removeEventListener('resize', onViewportChange);
+    window.removeEventListener('scroll', onViewportChange, true);
     if (pollTimer) {
         clearInterval(pollTimer);
     }
@@ -165,6 +223,7 @@ onBeforeUnmount(() => {
     <div ref="dropdownRef" class="enpii-notification-dropdown__anchor" @click.stop>
         <button
             type="button"
+            ref="trigger"
             class="enpii-notification-dropdown__trigger"
             aria-label="Notifikasi"
             :aria-expanded="open"
@@ -180,8 +239,10 @@ onBeforeUnmount(() => {
         <!-- Dropdown Menu -->
         <Transition name="dropdown">
             <div
+                ref="panel"
                 class="enpii-notification-dropdown__panel"
-                :class="shapeClass"
+                :class="[shapeClass, { 'enpii-notification-dropdown__panel--above': placeAbove }]"
+                :style="panelStyle"
                 @click.stop
             >
                 <!-- Header -->
