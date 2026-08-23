@@ -86,9 +86,12 @@ function parsePollBody(body) {
  * Used as :key and for tracking submitted state per (msg, block).
  */
 let blockCounter = 0;
-export function nextBlockId() {
+export function nextBlockId(index) {
+    if (index !== undefined) {
+        return "block-" + index;
+    }
     blockCounter += 1;
-    return `b_${Date.now().toString(36)}_${blockCounter}`;
+    return "block-" + blockCounter;
 }
 
 /**
@@ -166,6 +169,7 @@ export function parseMarkdownTree(raw) {
 
     const tokens = [];
     let cursor = 0;
+    let blockIndex = 0;
 
     // Pattern 1: ::type{json}::body::
     const compRe = /::(artifact|button|poll)\s*\{([\s\S]*?)\}(?:\s*::|\s*\n([\s\S]*?)\n::|\s*\n::)/g;
@@ -191,7 +195,7 @@ export function parseMarkdownTree(raw) {
         if (span.kind === 'component') {
             const [, type, attrsRaw, body] = span.match;
             const attrs = parseComponentAttrs(attrsRaw);
-            const id = nextBlockId();
+            const id = nextBlockId(blockIndex++);
             if (type === 'artifact') {
                 tokens.push({
                     type: 'artifact',

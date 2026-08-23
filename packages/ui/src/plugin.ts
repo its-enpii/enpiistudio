@@ -7,7 +7,7 @@ export interface EnpiiUiPluginOptions {
     isOffline?: boolean
     isReadOnly?: boolean
   }
-  navigate?: (path: string, method?: string) => void
+  navigate?: (path: string, options?: Record<string, unknown>) => void
   logout?: () => void
   flash?: Record<string, string | null>
 }

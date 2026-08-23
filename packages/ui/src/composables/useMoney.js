@@ -4,7 +4,7 @@
  * Usage:
  *   const { money } = useMoney();
  *   money(150000)            // => 'Rp150.000'
- *   money(150000, 'USD')     // => ',000'
+ *   money(150000, 'USD')     // => 'US$150.000'
  */
 export function useMoney() {
     const cache = new Map();

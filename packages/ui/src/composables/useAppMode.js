@@ -1,4 +1,4 @@
-import { computed, inject, onMounted, ref } from 'vue';
+import { computed, inject, ref } from 'vue';
 import { enpiiAppModeKey } from '../plugin';
 
 const isOffline = ref(typeof navigator !== 'undefined' ? !navigator.onLine : false);

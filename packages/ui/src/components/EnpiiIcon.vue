@@ -1,5 +1,5 @@
 <script setup>
-const props = defineProps({
+defineProps({
     name: { type: String, required: true },
     filled: { type: Boolean, default: false },
     label: { type: String, default: null },

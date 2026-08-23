@@ -96,7 +96,11 @@ const queryBase = computed(() => {
 });
 
 function apply() {
-    navigation.navigate(props.baseUrl, queryBase.value, { preserveScroll: true, replace: true });
+    navigation.navigate(props.baseUrl, {
+        params: queryBase.value,
+        preserveScroll: true,
+        replace: true,
+    });
     emit('navigate', { url: props.baseUrl, parameters: queryBase.value });
 }
 

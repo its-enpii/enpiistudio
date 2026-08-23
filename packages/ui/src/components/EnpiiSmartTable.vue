@@ -50,13 +50,19 @@ const perPageOptions = computed(() => props.perPageOptions.map((value) => ({ val
 watch(() => props.search, (value) => { query.value = value; });
 
 function visit(parameters = {}) {
-    navigation.navigate(props.url, {
+    const params = {
         search: query.value || undefined,
         per_page: Number(props.perPage),
         sort: props.sort || undefined,
         direction: props.direction || undefined,
         ...parameters,
-    }, { preserveState: true, preserveScroll: true, replace: true });
+    };
+    navigation.navigate(props.url, {
+        params,
+        preserveState: true,
+        preserveScroll: true,
+        replace: true,
+    });
     emit('navigate', { url: props.url, parameters });
 }
 

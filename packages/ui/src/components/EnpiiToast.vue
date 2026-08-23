@@ -24,7 +24,7 @@ watch(flash, (value) => {
     else if (value.error != null) show('error', value.error);
     else if (value.warning != null) show('warning', value.warning);
     else if (value.info != null) show('info', value.info);
-}, { immediate: true });
+}, { immediate: true, deep: true });
 
 onBeforeUnmount(() => {
     dismiss();
