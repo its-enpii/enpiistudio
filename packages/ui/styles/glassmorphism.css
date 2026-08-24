@@ -308,6 +308,7 @@
 
 /* New overlays, controls and editor chrome */
 .enpii-date-range__popup,
+.enpii-theme-menu__panel,
 .enpii-rich-editor,
 .enpii-rich-editor__toolbar {
   border: 1px solid var(--glass-border, rgba(255, 255, 255, .4));
@@ -754,6 +755,7 @@
 
 .enpii-trend-bar-chart__tooltip {
   border: 1px solid var(--glass-border, rgba(255, 255, 255, .4));
+  background: rgba(255, 255, 255, .34);
   border-radius: var(--enpii-radius-overlay);
   backdrop-filter: blur(16px) saturate(160%);
   -webkit-backdrop-filter: blur(16px) saturate(160%);
@@ -928,6 +930,51 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) .enpii-icon__container--neutral {
     background: rgba(20, 24, 32, .45);
+  }
+}
+
+[data-theme='dark'] .enpii-trend-bar-chart__tooltip {
+  border-color: rgba(255, 255, 255, .16);
+  background: rgba(20, 24, 32, .42);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .enpii-trend-bar-chart__tooltip {
+    border-color: rgba(255, 255, 255, .16);
+    background: rgba(20, 24, 32, .42);
+  }
+}
+
+.enpii-input__control::placeholder,
+.enpii-textarea__control::placeholder,
+.enpii-smart-select__search-input::placeholder {
+  color: color-mix(in srgb, var(--enpii-color-on-surface-variant) 72%, transparent);
+}
+
+.enpii-notification-dropdown__list::-webkit-scrollbar,
+.enpii-assistant-widget__messages::-webkit-scrollbar,
+.enpii-smart-table__scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.enpii-notification-dropdown__list::-webkit-scrollbar-thumb,
+.enpii-assistant-widget__messages::-webkit-scrollbar-thumb,
+.enpii-smart-table__scroll::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(15, 23, 42, .24);
+}
+
+[data-theme='dark'] .enpii-notification-dropdown__list::-webkit-scrollbar-thumb,
+[data-theme='dark'] .enpii-assistant-widget__messages::-webkit-scrollbar-thumb,
+[data-theme='dark'] .enpii-smart-table__scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, .22);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .enpii-notification-dropdown__list::-webkit-scrollbar-thumb,
+  :root:not([data-theme='light']) .enpii-assistant-widget__messages::-webkit-scrollbar-thumb,
+  :root:not([data-theme='light']) .enpii-smart-table__scroll::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, .22);
   }
 }
 

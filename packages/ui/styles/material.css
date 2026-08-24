@@ -669,3 +669,41 @@
 .enpii-assistant-widget__attachment {
   border-radius: var(--enpii-radius-control);
 }
+
+.enpii-button--default::after,
+.enpii-button--md::after,
+.enpii-button--primary::after,
+.enpii-icon-button[class*='--filled-']::after {
+  transition-property: opacity;
+  transition-duration: var(--enpii-duration-fast);
+  transition-timing-function: ease;
+}
+
+.enpii-input__control::placeholder,
+.enpii-textarea__control::placeholder,
+.enpii-smart-select__search-input::placeholder {
+  color: color-mix(in srgb, currentColor 62%, transparent);
+}
+
+@media (forced-colors: active) {
+  .enpii-card,
+  .enpii-modal__panel,
+  .enpii-drawer__panel,
+  .enpii-toast,
+  .enpii-tooltip__bubble,
+  .enpii-notification-dropdown__panel,
+  .enpii-theme-menu__panel,
+  .enpii-date-picker__popup,
+  .enpii-date-range__popup,
+  .enpii-smart-select__menu {
+    border-color: CanvasText;
+  }
+
+  .enpii-navbar__link:focus-visible,
+  .enpii-sidebar a:focus-visible,
+  .enpii-sidebar__group-toggle:focus-visible,
+  .enpii-pagination__control:focus-visible,
+  .enpii-stepper__trigger:focus-visible {
+    outline-color: Highlight;
+  }
+}

@@ -3,16 +3,23 @@
   --enpii-radius-control: 1rem;
   --enpii-radius-card: 1.25rem;
   --enpii-radius-overlay: 1.5rem;
+  --enpii-shadow-offset-x: 9px;
+  --enpii-shadow-inset-offset-x: 5px;
   --enpii-color-surface: #e0e5ec;
   --enpii-color-surface-container-lowest: #e0e5ec;
   --enpii-color-surface-container-low: #dde2e9;
   --enpii-color-surface-container: #dbe0e7;
   --enpii-color-surface-container-high: #d8dde4;
   --enpii-color-surface-container-highest: #d5dae1;
-  --enpii-shadow-control: 9px 9px 16px rgba(163, 177, 198, .6), -9px -9px 16px rgba(255, 255, 255, .85);
-  --enpii-shadow-inset: inset 5px 5px 10px rgba(163, 177, 198, .55), inset -5px -5px 10px rgba(255, 255, 255, .85);
-  --enpii-shadow-raised: 9px 9px 18px rgba(163, 177, 198, .62), -9px -9px 18px rgba(255, 255, 255, .88);
-  --enpii-shadow-overlay: 14px 14px 28px rgba(163, 177, 198, .62), -14px -14px 28px rgba(255, 255, 255, .9);
+  --enpii-shadow-control: var(--enpii-shadow-offset-x) 9px 16px rgba(163, 177, 198, .6), calc(var(--enpii-shadow-offset-x) * -1) -9px 16px rgba(255, 255, 255, .85);
+  --enpii-shadow-inset: inset var(--enpii-shadow-inset-offset-x) 5px 10px rgba(163, 177, 198, .55), inset calc(var(--enpii-shadow-inset-offset-x) * -1) -5px 10px rgba(255, 255, 255, .85);
+  --enpii-shadow-raised: var(--enpii-shadow-offset-x) 9px 18px rgba(163, 177, 198, .62), calc(var(--enpii-shadow-offset-x) * -1) -9px 18px rgba(255, 255, 255, .88);
+  --enpii-shadow-overlay: calc(var(--enpii-shadow-offset-x) * 1.56) 14px 28px rgba(163, 177, 198, .62), calc(var(--enpii-shadow-offset-x) * -1.56) -14px 28px rgba(255, 255, 255, .9);
+}
+
+[dir='rtl'] {
+  --enpii-shadow-offset-x: -9px;
+  --enpii-shadow-inset-offset-x: -5px;
 }
 
 [data-theme='dark'] {
@@ -22,10 +29,10 @@
   --enpii-color-surface-container: #272c32;
   --enpii-color-surface-container-high: #24292f;
   --enpii-color-surface-container-highest: #21262b;
-  --enpii-shadow-control: 9px 9px 16px rgba(11, 14, 17, .55), -9px -9px 16px rgba(72, 80, 90, .38);
-  --enpii-shadow-inset: inset 5px 5px 10px rgba(9, 12, 15, .58), inset -5px -5px 10px rgba(74, 82, 92, .34);
-  --enpii-shadow-raised: 9px 9px 18px rgba(11, 14, 17, .58), -9px -9px 18px rgba(74, 82, 92, .4);
-  --enpii-shadow-overlay: 14px 14px 28px rgba(11, 14, 17, .62), -14px -14px 28px rgba(76, 84, 94, .44);
+  --enpii-shadow-control: var(--enpii-shadow-offset-x) 9px 16px rgba(11, 14, 17, .55), calc(var(--enpii-shadow-offset-x) * -1) -9px 16px rgba(72, 80, 90, .38);
+  --enpii-shadow-inset: inset var(--enpii-shadow-inset-offset-x) 5px 10px rgba(9, 12, 15, .58), inset calc(var(--enpii-shadow-inset-offset-x) * -1) -5px 10px rgba(74, 82, 92, .34);
+  --enpii-shadow-raised: var(--enpii-shadow-offset-x) 9px 18px rgba(11, 14, 17, .58), calc(var(--enpii-shadow-offset-x) * -1) -9px 18px rgba(74, 82, 92, .4);
+  --enpii-shadow-overlay: calc(var(--enpii-shadow-offset-x) * 1.56) 14px 28px rgba(11, 14, 17, .62), calc(var(--enpii-shadow-offset-x) * -1.56) -14px 28px rgba(76, 84, 94, .44);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -36,10 +43,10 @@
     --enpii-color-surface-container: #272c32;
     --enpii-color-surface-container-high: #24292f;
     --enpii-color-surface-container-highest: #21262b;
-    --enpii-shadow-control: 9px 9px 16px rgba(11, 14, 17, .55), -9px -9px 16px rgba(72, 80, 90, .38);
-    --enpii-shadow-inset: inset 5px 5px 10px rgba(9, 12, 15, .58), inset -5px -5px 10px rgba(74, 82, 92, .34);
-    --enpii-shadow-raised: 9px 9px 18px rgba(11, 14, 17, .58), -9px -9px 18px rgba(74, 82, 92, .4);
-    --enpii-shadow-overlay: 14px 14px 28px rgba(11, 14, 17, .62), -14px -14px 28px rgba(76, 84, 94, .44);
+    --enpii-shadow-control: var(--enpii-shadow-offset-x) 9px 16px rgba(11, 14, 17, .55), calc(var(--enpii-shadow-offset-x) * -1) -9px 16px rgba(72, 80, 90, .38);
+    --enpii-shadow-inset: inset var(--enpii-shadow-inset-offset-x) 5px 10px rgba(9, 12, 15, .58), inset calc(var(--enpii-shadow-inset-offset-x) * -1) -5px 10px rgba(74, 82, 92, .34);
+    --enpii-shadow-raised: var(--enpii-shadow-offset-x) 9px 18px rgba(11, 14, 17, .58), calc(var(--enpii-shadow-offset-x) * -1) -9px 18px rgba(74, 82, 92, .4);
+    --enpii-shadow-overlay: calc(var(--enpii-shadow-offset-x) * 1.56) 14px 28px rgba(11, 14, 17, .62), calc(var(--enpii-shadow-offset-x) * -1.56) -14px 28px rgba(76, 84, 94, .44);
   }
 }
 
@@ -122,10 +129,13 @@
 
 .enpii-range__control {
   box-shadow: var(--enpii-shadow-inset);
+  height: .75rem;
+  border-radius: 999px;
 }
 
 .enpii-range__control::-webkit-slider-thumb {
   box-shadow: var(--enpii-shadow-control);
+  border: 0;
 }
 
 .enpii-range__control:focus-visible {
@@ -210,11 +220,6 @@
   box-shadow: var(--enpii-shadow-inset), inset 0 0 0 2px var(--enpii-color-danger-border);
 }
 
-.enpii-range__control {
-  height: .75rem;
-  border-radius: 999px;
-}
-
 .enpii-button:active:not(:disabled),
 .enpii-icon-button:active:not(:disabled),
 .enpii-tabs__tab--pill:active:not(:disabled),
@@ -276,8 +281,6 @@
 .enpii-radio-group__options,
 .enpii-switch__track { border-radius: var(--enpii-radius-control); }
 .enpii-switch__thumb { border-radius: 999px; }
-.enpii-range__control::-webkit-slider-thumb { border: 0; }
-
 .enpii-avatar--xs { width: 1.5rem; height: 1.5rem; font-size: .625rem; }
 .enpii-avatar--sm { width: 2rem; height: 2rem; font-size: .75rem; }
 .enpii-avatar--md { width: 2.5rem; height: 2.5rem; font-size: .875rem; }
@@ -723,4 +726,48 @@
 .enpii-form-row,
 .enpii-form-actions {
   font-weight: 500;
+}
+
+.enpii-input__control,
+.enpii-textarea__control,
+.enpii-smart-select__trigger,
+.enpii-date-range__inputs input,
+.enpii-time-picker__control,
+.enpii-input-mask__control,
+.enpii-currency-input__control,
+.enpii-smart-select__search-input {
+  transition: box-shadow var(--enpii-duration-fast) ease, outline-color var(--enpii-duration-fast) ease;
+}
+
+.enpii-input__control::placeholder,
+.enpii-textarea__control::placeholder,
+.enpii-currency-input__control::placeholder {
+  color: color-mix(in srgb, var(--enpii-color-outline) 78%, transparent);
+}
+
+.enpii-notification-dropdown__item,
+.enpii-smart-select__option,
+.enpii-date-picker__day,
+.enpii-date-picker__cell,
+.enpii-date-range__preset,
+.enpii-date-range__day,
+.enpii-rich-editor__btn {
+  transition: box-shadow var(--enpii-duration-fast) ease, transform var(--enpii-duration-fast) ease, background-color var(--enpii-duration-fast) ease;
+}
+
+@media (forced-colors: active) {
+  .enpii-input__control,
+  .enpii-textarea__control,
+  .enpii-smart-select__trigger,
+  .enpii-switch__track,
+  .enpii-range__control {
+    border: 1px solid CanvasText;
+    box-shadow: none;
+  }
+
+  .enpii-modal__panel,
+  .enpii-drawer__panel,
+  .enpii-tooltip__bubble {
+    box-shadow: none;
+  }
 }
