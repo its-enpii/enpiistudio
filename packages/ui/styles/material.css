@@ -35,7 +35,10 @@
 .enpii-button,
 .enpii-icon-button--filled-primary,
 .enpii-icon-button--filled-info {
-  background-image: linear-gradient(color-mix(in srgb, #ffffff 16%, var(--enpii-color-primary)), color-mix(in srgb, #ffffff 16%, var(--enpii-color-primary)));
+  background-image: linear-gradient(
+    color-mix(in srgb, var(--enpii-color-on-primary) 16%, var(--enpii-color-primary)),
+    color-mix(in srgb, var(--enpii-color-on-primary) 16%, var(--enpii-color-primary))
+  );
   font-weight: 500;
 }
 
@@ -537,4 +540,107 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
+}
+
+/* Late-added families: banner, shortcuts, assistant, currency, chart, tables, icons */
+.enpii-offline-banner {
+  border-radius: var(--enpii-radius-card);
+  box-shadow: var(--enpii-shadow-overlay);
+}
+
+.enpii-offline-banner__title,
+.enpii-assistant-widget__name {
+  font-weight: 500;
+}
+
+.enpii-keyboard-shortcuts__group,
+.enpii-inline-empty-state {
+  border: 0;
+  border-radius: var(--enpii-radius-card);
+  background: var(--enpii-color-surface-container-low);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-keyboard-shortcuts__key {
+  border-radius: var(--enpii-radius-control);
+  box-shadow: var(--enpii-shadow-control);
+  font-weight: 500;
+}
+
+.enpii-assistant-artifact-card,
+.enpii-assistant-poll-card {
+  border-radius: var(--enpii-radius-card);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-assistant-artifact-card:hover:not(:disabled),
+.enpii-assistant-poll-card__option--interactive:hover {
+  background-color: color-mix(in srgb, currentColor 8%, transparent);
+}
+
+.enpii-assistant-artifact-card__icon,
+.enpii-assistant-poll-card__marker {
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+.enpii-assistant-poll-card__other-button,
+.enpii-assistant-widget__confirm-button,
+.enpii-assistant-widget__reject-button {
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+.enpii-currency-input__control {
+  border-radius: var(--enpii-radius-control);
+}
+
+.enpii-currency-input__action {
+  border-radius: 999px;
+}
+
+.enpii-currency-input__action:hover,
+.enpii-currency-input__action:focus {
+  background-color: color-mix(in srgb, currentColor 8%, transparent);
+}
+
+.enpii-trend-bar-chart__tooltip {
+  border-radius: var(--enpii-radius-overlay);
+  box-shadow: var(--enpii-shadow-overlay);
+}
+
+.enpii-report-period-filter__export {
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+.enpii-report-period-filter__export:hover {
+  background-color: color-mix(in srgb, currentColor 8%, transparent);
+}
+
+.enpii-loan-history-table__head,
+.enpii-loan-history-table__link {
+  font-weight: 500;
+}
+
+.enpii-loan-history-table__row:hover {
+  background-color: color-mix(in srgb, currentColor 6%, transparent);
+}
+
+.enpii-notification-dropdown__trigger:hover,
+.enpii-notification-dropdown__trigger[aria-expanded='true'] {
+  background-color: color-mix(in srgb, currentColor 8%, transparent);
+}
+
+.enpii-icon__container {
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-confirm-dialog__icon {
+  border-radius: 999px;
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-assistant-widget__attachment {
+  border-radius: var(--enpii-radius-control);
 }

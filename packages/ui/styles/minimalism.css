@@ -495,3 +495,86 @@
     transition: none;
   }
 }
+
+/* Late-added families: banner, shortcuts, assistant, currency, chart, tables, icons */
+.enpii-offline-banner,
+.enpii-keyboard-shortcuts__group,
+.enpii-assistant-artifact-card,
+.enpii-assistant-poll-card,
+.enpii-trend-bar-chart__tooltip,
+.enpii-report-period-filter__export {
+  border: 1px solid rgba(229, 231, 235, .55);
+  border-radius: var(--enpii-radius-card);
+}
+
+.enpii-offline-banner,
+.enpii-trend-bar-chart__tooltip {
+  box-shadow: 0 12px 32px rgba(15, 23, 42, .08);
+}
+
+.enpii-keyboard-shortcuts__group,
+.enpii-assistant-artifact-card,
+.enpii-assistant-poll-card,
+.enpii-inline-empty-state,
+.enpii-report-period-filter__export {
+  box-shadow: none;
+}
+
+.enpii-keyboard-shortcuts__key {
+  border: 1px solid rgba(229, 231, 235, .65);
+  border-radius: .25rem;
+  background: none;
+  box-shadow: none;
+  font-weight: 500;
+}
+
+.enpii-assistant-artifact-card__icon,
+.enpii-assistant-poll-card__marker {
+  border-radius: .375rem;
+  font-weight: 500;
+}
+
+.enpii-assistant-widget__attachments,
+.enpii-assistant-widget__attachment {
+  border-color: rgba(229, 231, 235, .55);
+}
+
+.enpii-assistant-widget__confirm-button,
+.enpii-assistant-widget__reject-button {
+  font-weight: 500;
+}
+
+.enpii-currency-input__control {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid rgba(229, 231, 235, .65);
+  border-radius: var(--enpii-radius-control);
+  background: none;
+  box-shadow: none;
+  font-family: inherit;
+}
+
+.enpii-currency-input__control:focus-visible,
+.enpii-currency-input__action:focus-visible {
+  outline: 3px solid var(--enpii-color-focus);
+  outline-offset: 2px;
+}
+
+.enpii-loan-history-table__head {
+  border-bottom: 1px solid rgba(229, 231, 235, .55);
+}
+
+.enpii-smart-table__head {
+  border-bottom: 1px solid rgba(229, 231, 235, .55);
+}
+
+.enpii-empty-state {
+  border: 1px solid rgba(229, 231, 235, .55);
+  border-radius: var(--enpii-radius-card);
+  background: transparent;
+  box-shadow: none;
+}
+
+.enpii-icon__container--neutral {
+  border: 1px solid rgba(229, 231, 235, .55);
+}

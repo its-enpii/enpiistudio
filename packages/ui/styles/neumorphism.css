@@ -602,3 +602,113 @@
     transform: none;
   }
 }
+
+/* Late-added families: banner, shortcuts, assistant, currency, chart, tables, icons */
+.enpii-offline-banner {
+  border: 0;
+  border-radius: var(--enpii-radius-card);
+  box-shadow: var(--enpii-shadow-overlay);
+}
+
+.enpii-keyboard-shortcuts__group,
+.enpii-inline-empty-state,
+.enpii-stat-tile {
+  border: 0;
+  border-radius: var(--enpii-radius-control);
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-inset);
+}
+
+.enpii-keyboard-shortcuts__key {
+  border: 0;
+  border-radius: var(--enpii-radius-control);
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-raised);
+}
+
+.enpii-assistant-artifact-card,
+.enpii-assistant-poll-card {
+  border: 0;
+  border-radius: var(--enpii-radius-card);
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-assistant-artifact-card__icon,
+.enpii-assistant-poll-card__marker {
+  border: 0;
+  border-radius: var(--enpii-radius-control);
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-assistant-poll-card__marker--selected,
+.enpii-assistant-artifact-card:focus-visible {
+  box-shadow: var(--enpii-shadow-inset);
+}
+
+.enpii-currency-input__control {
+  border: 0;
+  border-radius: var(--enpii-radius-control);
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-inset);
+}
+
+.enpii-currency-input__control:focus-visible,
+.enpii-currency-input__action:focus-visible {
+  outline: 3px solid var(--enpii-color-focus);
+  outline-offset: 3px;
+}
+
+.enpii-currency-input__action {
+  border: 0;
+  border-radius: var(--enpii-radius-control);
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-trend-bar-chart__tooltip {
+  border: 0;
+  border-radius: var(--enpii-radius-overlay);
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-overlay);
+}
+
+.enpii-report-period-filter__export {
+  border: 0;
+  border-radius: var(--enpii-radius-control);
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-report-period-filter__export:active:not(:disabled) {
+  box-shadow: var(--enpii-shadow-inset);
+}
+
+.enpii-assistant-widget__attachment {
+  border-radius: var(--enpii-radius-control);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-loan-history-table__head {
+  border: 0;
+  border-radius: 0;
+  background: var(--enpii-color-surface-container-low);
+  box-shadow: none;
+}
+
+.enpii-breadcrumb__link {
+  border-radius: .75rem;
+}
+
+.enpii-breadcrumb__link:hover,
+.enpii-breadcrumb__link:focus-visible {
+  border-radius: inherit;
+  box-shadow: var(--enpii-shadow-inset);
+}
+
+.enpii-page-header__title,
+.enpii-form-row,
+.enpii-form-actions {
+  font-weight: 500;
+}
