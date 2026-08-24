@@ -491,3 +491,176 @@
 .enpii-rich-editor__content :is(h1, h2, h3, h4, h5, h6, strong) {
   font-weight: 600;
 }
+
+/* Popup leaf coverage */
+.enpii-modal__panel,
+.enpii-drawer__panel,
+.enpii-date-picker__popup,
+.enpii-date-range__popup,
+.enpii-smart-select__menu,
+.enpii-notification-dropdown__panel,
+.enpii-tooltip__bubble {
+  border: 2px solid var(--enpii-color-on-surface);
+  border-radius: .25rem;
+  box-shadow: 4px 4px 0 var(--enpii-color-on-surface);
+}
+
+.enpii-confirm-dialog__icon,
+.enpii-notification-dropdown__badge {
+  border: 2px solid var(--enpii-color-on-surface);
+}
+
+.enpii-date-picker__nav-button,
+.enpii-date-picker__chevron,
+.enpii-date-range__chevron,
+.enpii-smart-select__chevron,
+.enpii-notification-dropdown__chevron {
+  border: 2px solid var(--enpii-color-on-surface);
+  border-radius: .25rem;
+  box-shadow: 2px 2px 0 var(--enpii-color-on-surface);
+}
+
+.enpii-date-picker__weekdays,
+.enpii-date-picker__days,
+.enpii-date-range__weekdays,
+.enpii-date-range__days,
+.enpii-smart-select__options {
+  color: var(--enpii-color-on-surface);
+}
+
+.enpii-date-picker__weekday,
+.enpii-date-range__weekdays span,
+.enpii-smart-select__group-label {
+  color: var(--enpii-color-on-surface);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.enpii-date-picker__cell,
+.enpii-date-picker__day,
+.enpii-date-range__preset,
+.enpii-date-range__day,
+.enpii-smart-select__option,
+.enpii-smart-select__empty-action {
+  border: 2px solid transparent;
+  border-radius: .25rem;
+}
+
+.enpii-date-picker__cell:hover:not(:disabled),
+.enpii-date-picker__day:hover:not(:disabled),
+.enpii-date-range__preset:hover:not(:disabled),
+.enpii-date-range__day:hover:not(:disabled),
+.enpii-smart-select__option:hover:not(:disabled),
+.enpii-smart-select__empty-action:hover:not(:disabled) {
+  border-color: var(--enpii-color-on-surface);
+  transform: translate(-1px, -1px);
+  box-shadow: 2px 2px 0 var(--enpii-color-on-surface);
+}
+
+.enpii-date-picker__cell--selected,
+.enpii-date-picker__day--selected,
+.enpii-date-range__day--selected,
+.enpii-smart-select__option--selected {
+  background: var(--enpii-color-on-surface);
+  border-color: var(--enpii-color-on-surface);
+  color: var(--enpii-color-surface-container-lowest);
+  font-weight: 600;
+}
+
+.enpii-date-picker__cell--current,
+.enpii-date-picker__day--today,
+.enpii-date-range__day--today {
+  border-color: var(--enpii-color-primary);
+}
+
+.enpii-date-range__day--between {
+  background: color-mix(in srgb, var(--enpii-color-primary-soft) 70%, transparent);
+  border-radius: 0;
+  color: var(--enpii-color-on-surface);
+}
+
+.enpii-date-range__day--between:first-child { border-radius: .25rem 0 0 .25rem; }
+.enpii-date-range__day--between:last-child { border-radius: 0 .25rem .25rem 0; }
+
+.enpii-date-picker__day--outside,
+.enpii-date-range__day--outside,
+.enpii-date-picker__day:disabled,
+.enpii-date-range__day:disabled,
+.enpii-smart-select__option:disabled {
+  color: var(--enpii-color-outline);
+  cursor: not-allowed;
+}
+
+.enpii-time-picker__control {
+  border: 2px solid var(--enpii-color-on-surface);
+  border-radius: .25rem;
+  box-shadow: 3px 3px 0 var(--enpii-color-on-surface);
+}
+
+.enpii-notification-dropdown__header,
+.enpii-notification-dropdown__footer,
+.enpii-date-picker__footer,
+.enpii-date-range__footer {
+  border-width: 2px;
+  border-style: solid;
+  border-color: var(--enpii-color-on-surface);
+}
+
+.enpii-notification-dropdown__item-title,
+.enpii-notification-dropdown__mark-read {
+  font-weight: 600;
+}
+
+.enpii-notification-dropdown__dot { border-radius: 0; }
+.enpii-notification-dropdown__badge { border-radius: .125rem; }
+.enpii-notification-dropdown__footer-link:hover { text-decoration-thickness: 2px; }
+
+.enpii-tooltip__bubble::after {
+  content: "";
+  position: absolute;
+  width: .625rem;
+  height: .625rem;
+  background: inherit;
+  clip-path: polygon(50% 100%, 100% 0, 0 0);
+}
+
+.enpii-tooltip__bubble--top::after { bottom: -.5rem; left: calc(50% - .3125rem); transform: rotate(180deg); }
+.enpii-tooltip__bubble--bottom::after { top: -.5rem; left: calc(50% - .3125rem); }
+.enpii-tooltip__bubble--left::after { right: -.55rem; top: calc(50% - .3125rem); transform: rotate(90deg); }
+.enpii-tooltip__bubble--right::after { left: -.55rem; top: calc(50% - .3125rem); transform: rotate(-90deg); }
+
+.enpii-date-picker__cell:focus-visible,
+.enpii-date-picker__day:focus-visible,
+.enpii-date-picker__nav-button:focus-visible,
+.enpii-date-picker__footer-button:focus-visible,
+.enpii-date-range__preset:focus-visible,
+.enpii-date-range__day:focus-visible,
+.enpii-date-range__footer-button:focus-visible,
+.enpii-time-picker__control:focus-visible,
+.enpii-smart-select__option:focus-visible,
+.enpii-smart-select__empty-action:focus-visible,
+.enpii-notification-dropdown__item:focus-visible,
+.enpii-notification-dropdown__footer-link:focus-visible {
+  outline: 3px solid var(--enpii-color-focus);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enpii-date-picker__cell,
+  .enpii-date-picker__day,
+  .enpii-date-range__preset,
+  .enpii-date-range__day,
+  .enpii-smart-select__option,
+  .enpii-smart-select__empty-action {
+    transition: none;
+  }
+
+  .enpii-date-picker__cell:hover:not(:disabled),
+  .enpii-date-picker__day:hover:not(:disabled),
+  .enpii-date-range__preset:hover:not(:disabled),
+  .enpii-date-range__day:hover:not(:disabled),
+  .enpii-smart-select__option:hover:not(:disabled),
+  .enpii-smart-select__empty-action:hover:not(:disabled) {
+    transform: none;
+  }
+}

@@ -427,3 +427,178 @@
 .enpii-rich-editor__content :is(h1, h2, h3, h4, h5, h6, strong) {
   font-weight: 500;
 }
+
+/* Popup leaf coverage */
+.enpii-modal__panel,
+.enpii-drawer__panel,
+.enpii-date-picker__popup,
+.enpii-date-range__popup,
+.enpii-smart-select__menu,
+.enpii-notification-dropdown__panel,
+.enpii-tooltip__bubble {
+  border: 0;
+  border-radius: var(--enpii-radius-card);
+  box-shadow: var(--enpii-shadow-overlay);
+}
+
+.enpii-confirm-dialog__icon,
+.enpii-smart-select__search-input {
+  border-radius: var(--enpii-radius-control);
+}
+
+.enpii-date-picker__weekdays,
+.enpii-date-picker__days,
+.enpii-date-range__weekdays,
+.enpii-date-range__days,
+.enpii-smart-select__options {
+  color: var(--enpii-color-on-surface);
+}
+
+.enpii-date-picker__weekday,
+.enpii-date-range__weekdays span {
+  color: var(--enpii-color-on-surface-variant);
+  font-weight: 500;
+}
+
+.enpii-date-picker__nav-button,
+.enpii-date-range__calendars header button,
+.enpii-date-picker__chevron,
+.enpii-date-range__chevron,
+.enpii-smart-select__chevron,
+.enpii-notification-dropdown__chevron {
+  border-radius: var(--enpii-radius-control);
+}
+
+.enpii-date-picker__cell,
+.enpii-date-picker__day,
+.enpii-date-range__preset,
+.enpii-date-range__day,
+.enpii-smart-select__option,
+.enpii-smart-select__empty-action,
+.enpii-notification-dropdown__item {
+  border-radius: var(--enpii-radius-control);
+}
+
+.enpii-date-picker__cell:hover:not(:disabled),
+.enpii-date-picker__day:hover:not(:disabled),
+.enpii-date-range__preset:hover:not(:disabled),
+.enpii-date-range__day:hover:not(:disabled),
+.enpii-smart-select__option:hover:not(:disabled),
+.enpii-smart-select__option--highlighted,
+.enpii-smart-select__empty-action:hover:not(:disabled),
+.enpii-notification-dropdown__item:hover {
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-raised);
+  transform: translateY(-1px);
+}
+
+.enpii-date-picker__cell--selected,
+.enpii-date-picker__day--selected,
+.enpii-date-range__day--selected,
+.enpii-smart-select__option--selected {
+  background: var(--enpii-color-surface-container-highest);
+  box-shadow: var(--enpii-shadow-inset);
+  transform: translateY(0);
+  color: var(--enpii-color-primary-text);
+}
+
+.enpii-date-picker__cell--current,
+.enpii-date-picker__day--today,
+.enpii-date-range__day--today {
+  box-shadow: var(--enpii-shadow-inset), inset 0 0 0 2px var(--enpii-color-primary-border);
+}
+
+.enpii-date-range__day--between {
+  border-radius: 0;
+  background: color-mix(in srgb, var(--enpii-color-primary-soft) 45%, transparent);
+  color: var(--enpii-color-on-surface);
+}
+
+.enpii-date-range__day--between:first-child { border-radius: var(--enpii-radius-control) 0 0 var(--enpii-radius-control); }
+.enpii-date-range__day--between:last-child { border-radius: 0 var(--enpii-radius-control) var(--enpii-radius-control) 0; }
+
+.enpii-date-picker__day--outside,
+.enpii-date-range__day--outside,
+.enpii-date-picker__day:disabled,
+.enpii-date-range__day:disabled,
+.enpii-smart-select__option:disabled {
+  color: var(--enpii-color-outline);
+  cursor: not-allowed;
+}
+
+.enpii-time-picker__control,
+.enpii-smart-select__search-input {
+  border: 0;
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-inset);
+}
+
+.enpii-time-picker__clear,
+.enpii-smart-select__search-clear,
+.enpii-notification-dropdown__mark-read {
+  border-radius: var(--enpii-radius-control);
+}
+
+.enpii-notification-dropdown__badge,
+.enpii-notification-dropdown__dot {
+  border-radius: 999px;
+}
+
+.enpii-notification-dropdown__badge { box-shadow: var(--enpii-shadow-raised); }
+.enpii-notification-dropdown__dot { background: var(--enpii-color-primary); }
+.enpii-notification-dropdown__item--unread { box-shadow: inset 3px 0 0 var(--enpii-color-primary); }
+.enpii-notification-dropdown__item--read { opacity: .72; }
+.enpii-notification-dropdown__footer-link:focus-visible { outline: 3px solid var(--enpii-color-focus); }
+
+.enpii-tooltip__bubble::after {
+  content: "";
+  position: absolute;
+  width: .75rem;
+  height: .75rem;
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-raised);
+  clip-path: polygon(50% 100%, 100% 0, 0 0);
+}
+
+.enpii-tooltip__bubble--top::after { bottom: -.4rem; left: calc(50% - .375rem); transform: rotate(180deg); }
+.enpii-tooltip__bubble--bottom::after { top: -.4rem; left: calc(50% - .375rem); }
+.enpii-tooltip__bubble--left::after { right: -.5rem; top: calc(50% - .375rem); transform: rotate(90deg); }
+.enpii-tooltip__bubble--right::after { left: -.5rem; top: calc(50% - .375rem); transform: rotate(-90deg); }
+
+.enpii-date-picker__cell:focus-visible,
+.enpii-date-picker__day:focus-visible,
+.enpii-date-picker__nav-button:focus-visible,
+.enpii-date-picker__footer-button:focus-visible,
+.enpii-date-range__preset:focus-visible,
+.enpii-date-range__day:focus-visible,
+.enpii-date-range__footer-button:focus-visible,
+.enpii-time-picker__control:focus-visible,
+.enpii-smart-select__option:focus-visible,
+.enpii-smart-select__empty-action:focus-visible,
+.enpii-notification-dropdown__item:focus-visible,
+.enpii-notification-dropdown__footer-link:focus-visible {
+  outline: 3px solid var(--enpii-color-focus);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enpii-date-picker__cell,
+  .enpii-date-picker__day,
+  .enpii-date-range__preset,
+  .enpii-date-range__day,
+  .enpii-smart-select__option,
+  .enpii-smart-select__empty-action,
+  .enpii-notification-dropdown__item {
+    transition: none;
+  }
+
+  .enpii-date-picker__cell:hover:not(:disabled),
+  .enpii-date-picker__day:hover:not(:disabled),
+  .enpii-date-range__preset:hover:not(:disabled),
+  .enpii-date-range__day:hover:not(:disabled),
+  .enpii-smart-select__option:hover:not(:disabled),
+  .enpii-smart-select__empty-action:hover:not(:disabled),
+  .enpii-notification-dropdown__item:hover {
+    transform: none;
+  }
+}

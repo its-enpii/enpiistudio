@@ -348,3 +348,150 @@
 .enpii-rich-editor__content :is(h1, h2, h3, h4, h5, h6, strong) {
   font-weight: 500;
 }
+
+/* Popup leaf coverage */
+.enpii-modal__panel,
+.enpii-drawer__panel,
+.enpii-date-picker__popup,
+.enpii-date-range__popup,
+.enpii-smart-select__menu,
+.enpii-notification-dropdown__panel,
+.enpii-tooltip__bubble {
+  border: 1px solid var(--enpii-color-outline-variant);
+  border-radius: .5rem;
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--enpii-color-on-surface) 5%, transparent);
+}
+
+.enpii-confirm-dialog__icon {
+  border: 1px solid var(--enpii-color-outline-variant);
+  border-radius: 999px;
+}
+
+.enpii-date-picker__weekday,
+.enpii-date-range__weekdays span,
+.enpii-smart-select__group-label {
+  color: var(--enpii-color-on-surface-variant);
+  font-weight: 500;
+}
+
+.enpii-date-picker__cell,
+.enpii-date-picker__day,
+.enpii-date-range__preset,
+.enpii-date-range__day,
+.enpii-smart-select__option,
+.enpii-smart-select__empty-action {
+  border-radius: .375rem;
+}
+
+.enpii-date-picker__cell:hover:not(:disabled),
+.enpii-date-picker__day:hover:not(:disabled),
+.enpii-date-range__preset:hover:not(:disabled),
+.enpii-date-range__day:hover:not(:disabled),
+.enpii-smart-select__option:hover:not(:disabled),
+.enpii-smart-select__option--highlighted,
+.enpii-smart-select__empty-action:hover:not(:disabled),
+.enpii-notification-dropdown__item:hover {
+  background: color-mix(in srgb, var(--enpii-color-on-surface) 4%, transparent);
+}
+
+.enpii-date-picker__cell--selected,
+.enpii-date-picker__day--selected,
+.enpii-date-range__day--selected,
+.enpii-smart-select__option--selected {
+  background: color-mix(in srgb, var(--enpii-color-primary) 7%, transparent);
+  color: var(--enpii-color-primary-text);
+  font-weight: 500;
+}
+
+.enpii-date-picker__cell--current,
+.enpii-date-picker__day--today,
+.enpii-date-range__day--today {
+  box-shadow: inset 0 -2px 0 var(--enpii-color-primary);
+}
+
+.enpii-date-range__day--between {
+  background: color-mix(in srgb, var(--enpii-color-primary) 4%, transparent);
+  border-radius: 0;
+  color: var(--enpii-color-primary-text);
+}
+
+.enpii-date-range__day--between:first-child { border-radius: .375rem 0 0 .375rem; }
+.enpii-date-range__day--between:last-child { border-radius: 0 .375rem .375rem 0; }
+
+.enpii-date-picker__day--outside,
+.enpii-date-range__day--outside,
+.enpii-date-picker__day:disabled,
+.enpii-date-range__day:disabled,
+.enpii-smart-select__option:disabled {
+  color: var(--enpii-color-outline);
+  cursor: not-allowed;
+}
+
+.enpii-time-picker__control {
+  border: 1px solid var(--enpii-color-outline-variant);
+  border-radius: .375rem;
+  background: transparent;
+  box-shadow: none;
+}
+
+.enpii-notification-dropdown__header,
+.enpii-notification-dropdown__footer,
+.enpii-date-picker__footer,
+.enpii-date-range__footer {
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--enpii-color-outline-variant);
+}
+
+.enpii-notification-dropdown__item-title,
+.enpii-notification-dropdown__mark-read {
+  font-weight: 500;
+}
+
+.enpii-notification-dropdown__badge,
+.enpii-notification-dropdown__dot {
+  border-radius: 999px;
+}
+
+.enpii-tooltip__bubble::after {
+  content: "";
+  position: absolute;
+  width: .5rem;
+  height: .5rem;
+  background: inherit;
+  clip-path: polygon(50% 100%, 100% 0, 0 0);
+}
+
+.enpii-tooltip__bubble--top::after { bottom: -.38rem; left: calc(50% - .25rem); transform: rotate(180deg); }
+.enpii-tooltip__bubble--bottom::after { top: -.38rem; left: calc(50% - .25rem); }
+.enpii-tooltip__bubble--left::after { right: -.42rem; top: calc(50% - .25rem); transform: rotate(90deg); }
+.enpii-tooltip__bubble--right::after { left: -.42rem; top: calc(50% - .25rem); transform: rotate(-90deg); }
+
+.enpii-date-picker__cell:focus-visible,
+.enpii-date-picker__day:focus-visible,
+.enpii-date-picker__nav-button:focus-visible,
+.enpii-date-picker__footer-button:focus-visible,
+.enpii-date-range__preset:focus-visible,
+.enpii-date-range__day:focus-visible,
+.enpii-date-range__footer-button:focus-visible,
+.enpii-time-picker__control:focus-visible,
+.enpii-smart-select__option:focus-visible,
+.enpii-smart-select__empty-action:focus-visible,
+.enpii-notification-dropdown__item:focus-visible,
+.enpii-notification-dropdown__footer-link:focus-visible {
+  outline: 3px solid var(--enpii-color-focus);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enpii-date-picker__cell,
+  .enpii-date-picker__day,
+  .enpii-date-range__preset,
+  .enpii-date-range__day,
+  .enpii-smart-select__option,
+  .enpii-smart-select__empty-action,
+  .enpii-notification-dropdown__item,
+  .enpii-tooltip__bubble {
+    transition: none;
+  }
+}

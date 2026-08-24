@@ -297,6 +297,225 @@
   }
 }
 
+/* Popup leaf coverage */
+.enpii-date-range__popup,
+.enpii-confirm-dialog {
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, .4));
+  border-radius: var(--enpii-radius-overlay);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  box-shadow: var(--enpii-shadow-overlay);
+}
+
+[data-theme='dark'] .enpii-date-range__popup,
+[data-theme='dark'] .enpii-confirm-dialog,
+:root:not([data-theme='light']) .enpii-date-range__popup,
+:root:not([data-theme='light']) .enpii-confirm-dialog {
+  border-color: rgba(255, 255, 255, .16);
+}
+
+.enpii-date-picker__weekday,
+.enpii-date-range__weekdays span,
+.enpii-smart-select__group-label,
+.enpii-notification-dropdown__header,
+.enpii-notification-dropdown__footer {
+  border-color: rgba(255, 255, 255, .28);
+}
+
+.enpii-date-picker__weekday,
+.enpii-date-range__weekday {
+  color: var(--enpii-color-on-surface-variant);
+  font-weight: 500;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.enpii-date-picker__day,
+.enpii-date-picker__cell,
+.enpii-date-range__day,
+.enpii-date-range__preset,
+.enpii-smart-select__option,
+.enpii-smart-select__empty-action,
+.enpii-notification-dropdown__item,
+.enpii-tooltip__bubble {
+  background: rgba(255, 255, 255, .38);
+}
+
+.enpii-date-picker__day:hover:not(:disabled),
+.enpii-date-picker__cell:hover:not(:disabled),
+.enpii-date-range__day:hover:not(:disabled),
+.enpii-date-range__preset:hover:not(:disabled),
+.enpii-smart-select__option:hover:not(:disabled),
+.enpii-smart-select__option--highlighted,
+.enpii-smart-select__empty-action:hover,
+.enpii-notification-dropdown__item:hover {
+  background: rgba(255, 255, 255, .52);
+}
+
+.enpii-date-picker__day--selected,
+.enpii-date-picker__cell--selected,
+.enpii-date-range__day--selected,
+.enpii-smart-select__option--selected {
+  background: rgba(255, 255, 255, .68);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .55);
+}
+
+.enpii-date-picker__day--today,
+.enpii-date-range__day--today {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .45);
+}
+
+.enpii-date-range__day--between {
+  background: rgba(255, 255, 255, .26);
+  border-radius: 0;
+}
+
+.enpii-date-range__day:first-child,
+.enpii-date-range__day:last-child,
+.enpii-date-picker__day,
+.enpii-date-picker__cell,
+.enpii-date-range__preset,
+.enpii-smart-select__option,
+.enpii-smart-select__empty-action {
+  border-radius: 999px;
+}
+
+.enpii-date-picker__day--outside,
+.enpii-date-range__day--outside,
+.enpii-date-picker__day:disabled,
+.enpii-date-range__day:disabled,
+.enpii-smart-select__option:disabled {
+  background: rgba(255, 255, 255, .16);
+  color: var(--enpii-color-outline);
+  cursor: not-allowed;
+}
+
+.enpii-smart-select__check,
+.enpii-notification-dropdown__dot {
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, .35));
+}
+
+.enpii-notification-dropdown__badge {
+  background: var(--enpii-color-error);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, .42);
+}
+
+.enpii-tooltip__bubble::after {
+  content: "";
+  position: absolute;
+  width: .5rem;
+  height: .5rem;
+  background: inherit;
+  border-right: 1px solid var(--glass-border, rgba(255, 255, 255, .4));
+  border-bottom: 1px solid var(--glass-border, rgba(255, 255, 255, .4));
+  transform: rotate(45deg);
+}
+
+.enpii-tooltip__bubble--top::after { bottom: -.29rem; left: calc(50% - .25rem); }
+.enpii-tooltip__bubble--bottom::after { top: -.29rem; left: calc(50% - .25rem); transform: rotate(225deg); }
+.enpii-tooltip__bubble--left::after { right: -.29rem; top: calc(50% - .25rem); transform: rotate(135deg); }
+.enpii-tooltip__bubble--right::after { left: -.29rem; top: calc(50% - .25rem); transform: rotate(-45deg); }
+
+[data-theme='dark'] .enpii-date-picker__day,
+[data-theme='dark'] .enpii-date-picker__cell,
+[data-theme='dark'] .enpii-date-range__day,
+[data-theme='dark'] .enpii-date-range__preset,
+[data-theme='dark'] .enpii-smart-select__option,
+[data-theme='dark'] .enpii-smart-select__empty-action,
+[data-theme='dark'] .enpii-notification-dropdown__item,
+[data-theme='dark'] .enpii-tooltip__bubble,
+:root:not([data-theme='light']) .enpii-date-picker__day,
+:root:not([data-theme='light']) .enpii-date-picker__cell,
+:root:not([data-theme='light']) .enpii-date-range__day,
+:root:not([data-theme='light']) .enpii-date-range__preset,
+:root:not([data-theme='light']) .enpii-smart-select__option,
+:root:not([data-theme='light']) .enpii-smart-select__empty-action,
+:root:not([data-theme='light']) .enpii-notification-dropdown__item,
+:root:not([data-theme='light']) .enpii-tooltip__bubble {
+  background: rgba(20, 24, 32, .46);
+}
+
+[data-theme='dark'] .enpii-date-picker__day:hover:not(:disabled),
+[data-theme='dark'] .enpii-date-picker__cell:hover:not(:disabled),
+[data-theme='dark'] .enpii-date-range__day:hover:not(:disabled),
+[data-theme='dark'] .enpii-date-range__preset:hover:not(:disabled),
+[data-theme='dark'] .enpii-smart-select__option:hover:not(:disabled),
+[data-theme='dark'] .enpii-smart-select__option--highlighted,
+[data-theme='dark'] .enpii-smart-select__empty-action:hover,
+[data-theme='dark'] .enpii-notification-dropdown__item:hover,
+:root:not([data-theme='light']) .enpii-date-picker__day:hover:not(:disabled),
+:root:not([data-theme='light']) .enpii-date-picker__cell:hover:not(:disabled),
+:root:not([data-theme='light']) .enpii-date-range__day:hover:not(:disabled),
+:root:not([data-theme='light']) .enpii-date-range__preset:hover:not(:disabled),
+:root:not([data-theme='light']) .enpii-smart-select__option:hover:not(:disabled),
+:root:not([data-theme='light']) .enpii-smart-select__option--highlighted,
+:root:not([data-theme='light']) .enpii-smart-select__empty-action:hover,
+:root:not([data-theme='light']) .enpii-notification-dropdown__item:hover {
+  background: rgba(20, 24, 32, .6);
+}
+
+[data-theme='dark'] .enpii-date-picker__day--selected,
+[data-theme='dark'] .enpii-date-picker__cell--selected,
+[data-theme='dark'] .enpii-date-range__day--selected,
+[data-theme='dark'] .enpii-smart-select__option--selected,
+:root:not([data-theme='light']) .enpii-date-picker__day--selected,
+:root:not([data-theme='light']) .enpii-date-picker__cell--selected,
+:root:not([data-theme='light']) .enpii-date-range__day--selected,
+:root:not([data-theme='light']) .enpii-smart-select__option--selected {
+  background: rgba(20, 24, 32, .72);
+}
+
+[data-theme='dark'] .enpii-notification-dropdown__badge,
+:root:not([data-theme='light']) .enpii-notification-dropdown__badge {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, .18);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .enpii-date-range__popup,
+  .enpii-confirm-dialog {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgb(245 249 253 / 96%);
+  }
+
+  .enpii-date-picker__day,
+  .enpii-date-picker__cell,
+  .enpii-date-range__day,
+  .enpii-date-range__preset,
+  .enpii-smart-select__option,
+  .enpii-smart-select__empty-action,
+  .enpii-notification-dropdown__item,
+  .enpii-tooltip__bubble {
+    background: rgb(240 246 252 / 92%);
+  }
+
+  [data-theme='dark'] .enpii-date-range__popup,
+  [data-theme='dark'] .enpii-confirm-dialog,
+  :root:not([data-theme='light']) .enpii-date-range__popup,
+  :root:not([data-theme='light']) .enpii-confirm-dialog {
+    background: rgb(27 33 43 / 98%);
+  }
+
+  [data-theme='dark'] .enpii-date-picker__day,
+  [data-theme='dark'] .enpii-date-picker__cell,
+  [data-theme='dark'] .enpii-date-range__day,
+  [data-theme='dark'] .enpii-date-range__preset,
+  [data-theme='dark'] .enpii-smart-select__option,
+  [data-theme='dark'] .enpii-smart-select__empty-action,
+  [data-theme='dark'] .enpii-notification-dropdown__item,
+  [data-theme='dark'] .enpii-tooltip__bubble,
+  :root:not([data-theme='light']) .enpii-date-picker__day,
+  :root:not([data-theme='light']) .enpii-date-picker__cell,
+  :root:not([data-theme='light']) .enpii-date-range__day,
+  :root:not([data-theme='light']) .enpii-date-range__preset,
+  :root:not([data-theme='light']) .enpii-smart-select__option,
+  :root:not([data-theme='light']) .enpii-smart-select__empty-action,
+  :root:not([data-theme='light']) .enpii-notification-dropdown__item,
+  :root:not([data-theme='light']) .enpii-tooltip__bubble {
+    background: rgb(22 28 36 / 94%);
+  }
+}
+
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .enpii-navbar,
   .enpii-sidebar,
