@@ -142,6 +142,202 @@
   background: linear-gradient(90deg, color-mix(in srgb, currentColor 5%, transparent), color-mix(in srgb, currentColor 11%, transparent), color-mix(in srgb, currentColor 5%, transparent));
 }
 
+/* Family-specific extrusion and wells */
+.enpii-icon-button,
+.enpii-avatar,
+.enpii-tabs__tab--pill,
+.enpii-tabs__tab--pills-bar,
+.enpii-filter-pill__button,
+.enpii-stat-tile,
+.enpii-empty-state,
+.enpii-csv-import-export__columns {
+  border: 0;
+  border-radius: var(--enpii-radius-control);
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-badge {
+  border: 0;
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-control);
+  font-weight: 600;
+}
+
+.enpii-badge--pill,
+.enpii-avatar,
+.enpii-spinner,
+.enpii-stepper__marker {
+  border-radius: 9999px;
+}
+
+.enpii-card,
+.enpii-alert,
+.enpii-toast,
+.enpii-modal__panel,
+.enpii-drawer__panel,
+.enpii-notification-dropdown__panel,
+.enpii-theme-menu__panel,
+.enpii-date-picker__popup,
+.enpii-smart-select__menu {
+  border-radius: var(--enpii-radius-card);
+}
+
+.enpii-tooltip__bubble {
+  border: 0;
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-raised);
+}
+
+.enpii-smart-select__trigger,
+.enpii-date-picker__control,
+.enpii-checkbox__box--field,
+.enpii-radio-group__options,
+.enpii-rich-editor__surface,
+.enpii-range__control,
+.enpii-progress__track,
+.enpii-smart-table__head {
+  border: 0;
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-inset);
+}
+
+.enpii-range__control {
+  height: .75rem;
+  border-radius: 999px;
+}
+
+.enpii-button:active:not(:disabled),
+.enpii-icon-button:active:not(:disabled),
+.enpii-tabs__tab--pill:active:not(:disabled),
+.enpii-tabs__tab--pills-bar:active:not(:disabled),
+.enpii-filter-pill__button:active:not(:disabled),
+.enpii-navbar__link:active,
+.enpii-sidebar a:active,
+.enpii-pagination__control:active:not(:disabled) {
+  box-shadow: var(--enpii-shadow-inset);
+}
+
+.enpii-button:focus-visible,
+.enpii-icon-button:focus-visible,
+.enpii-tabs__tab:focus-visible,
+.enpii-accordion__trigger:focus-visible,
+.enpii-smart-select__trigger:focus-visible,
+.enpii-date-picker__control:focus-visible,
+.enpii-checkbox__native:focus-visible + .enpii-checkbox__box,
+.enpii-radio-group__native:focus-visible + .enpii-radio-group__icon,
+.enpii-switch__native:focus-visible ~ .enpii-switch__track,
+.enpii-range__control:focus-visible {
+  outline: 3px solid var(--enpii-color-focus);
+  outline-offset: 3px;
+}
+
+.enpii-checkbox__native,
+.enpii-radio-group__native,
+.enpii-switch__thumb {
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-switch__track[aria-checked='true'] .enpii-switch__thumb {
+  box-shadow: var(--enpii-shadow-inset);
+}
+
+.enpii-tabs__tab--pill,
+.enpii-tabs__tab--pills-bar { border-radius: 999px; }
+.enpii-tabs__tab--active,
+.enpii-filter-pill__button--active,
+.enpii-pagination__control--active { box-shadow: var(--enpii-shadow-inset); }
+.enpii-tabs__tab--underline { border-bottom: 3px solid var(--enpii-color-primary); }
+
+.enpii-accordion,
+.enpii-accordion--bordered,
+.enpii-accordion--filled,
+.enpii-accordion--surface {
+  border-radius: var(--enpii-radius-card);
+}
+.enpii-accordion--bordered { border: 0; }
+.enpii-accordion--ghost { background: transparent; box-shadow: none; }
+.enpii-accordion--filled .enpii-accordion__panel { background: var(--enpii-color-surface-container-low); }
+
+.enpii-drawer__panel--left { border-radius: 0 var(--enpii-radius-card) var(--enpii-radius-card) 0; }
+.enpii-drawer__panel--right { border-radius: var(--enpii-radius-card) 0 0 var(--enpii-radius-card); }
+.enpii-drawer__panel--top { border-radius: 0 0 var(--enpii-radius-card) var(--enpii-radius-card); }
+.enpii-drawer__panel--bottom { border-radius: var(--enpii-radius-card) var(--enpii-radius-card) 0 0; }
+
+.enpii-checkbox__box--field,
+.enpii-radio-group__options,
+.enpii-switch__track { border-radius: var(--enpii-radius-control); }
+.enpii-switch__thumb { border-radius: 999px; }
+.enpii-range__control::-webkit-slider-thumb { border: 0; }
+
+.enpii-avatar--xs { width: 1.5rem; height: 1.5rem; font-size: .625rem; }
+.enpii-avatar--sm { width: 2rem; height: 2rem; font-size: .75rem; }
+.enpii-avatar--md { width: 2.5rem; height: 2.5rem; font-size: .875rem; }
+.enpii-avatar--lg { width: 3rem; height: 3rem; font-size: 1rem; }
+.enpii-avatar--xl { width: 4rem; height: 4rem; font-size: 1.25rem; }
+.enpii-avatar--rounded { border-radius: 999px; }
+
+.enpii-spinner { inline-size: 2rem; block-size: 2rem; }
+.enpii-spinner--sm { inline-size: 1rem; block-size: 1rem; }
+.enpii-spinner--lg { inline-size: 3rem; block-size: 3rem; }
+.enpii-spinner--inverse { color: #fff; }
+
+.enpii-table-wrapper { border: 0; border-radius: var(--enpii-radius-card); overflow: hidden; }
+.enpii-csv-import-export__columns { border: 0; }
+
+.enpii-button--primary,
+.enpii-button--secondary,
+.enpii-button--outline,
+.enpii-button--ghost,
+.enpii-button--danger,
+.enpii-button--success,
+.enpii-button--tertiary,
+.enpii-button--sm,
+.enpii-button--compact,
+.enpii-button--md,
+.enpii-button--default,
+.enpii-button--large,
+.enpii-button--lg,
+.enpii-button--icon-only {
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-button--primary,
+.enpii-button--tertiary {
+  color: var(--enpii-color-primary-text);
+}
+
+.enpii-icon-button--filled-primary,
+.enpii-icon-button--filled-secondary,
+.enpii-icon-button--filled-neutral,
+.enpii-icon-button--filled-success,
+.enpii-icon-button--filled-danger,
+.enpii-icon-button--filled-warning,
+.enpii-icon-button--filled-info,
+.enpii-icon-button--filled-tertiary,
+.enpii-icon-button--filled-error,
+.enpii-icon-button--sm,
+.enpii-icon-button--md,
+.enpii-icon-button--lg {
+  border-radius: var(--enpii-radius-control);
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-badge--primary,
+.enpii-badge--success,
+.enpii-badge--warning,
+.enpii-badge--error,
+.enpii-badge--primary-soft,
+.enpii-badge--success-soft,
+.enpii-badge--warning-soft,
+.enpii-badge--error-soft,
+.enpii-badge--info-soft,
+.enpii-badge--pill {
+  box-shadow: var(--enpii-shadow-control);
+}
+
 .enpii-navbar__brand,
 .enpii-footer__brand,
 .enpii-alert__title,
