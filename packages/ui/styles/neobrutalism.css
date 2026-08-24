@@ -599,6 +599,12 @@
   box-shadow: 3px 3px 0 var(--enpii-color-on-surface);
 }
 
+.enpii-time-picker--error .enpii-time-picker__control,
+.enpii-input-mask--error .enpii-input-mask__control,
+.enpii-date-range__control--error {
+  border-color: var(--enpii-color-danger-border) !important;
+}
+
 .enpii-notification-dropdown__header,
 .enpii-notification-dropdown__footer,
 .enpii-date-picker__footer,

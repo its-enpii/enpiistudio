@@ -216,6 +216,14 @@
   box-shadow: none;
 }
 
+.enpii-input__control--error,
+.enpii-textarea__control--error,
+.enpii-smart-select__trigger--error,
+.enpii-date-picker__control--error,
+.enpii-radio-group__options--error {
+  border-color: var(--enpii-color-danger-border) !important;
+}
+
 .enpii-switch__track { border: 1px solid rgba(229, 231, 235, .55); box-shadow: none; }
 .enpii-range__control { height: .25rem; }
 .enpii-progress__track { border: 0; }
@@ -432,6 +440,12 @@
   border-radius: .375rem;
   background: transparent;
   box-shadow: none;
+}
+
+.enpii-time-picker--error .enpii-time-picker__control,
+.enpii-input-mask--error .enpii-input-mask__control,
+.enpii-date-range__control--error {
+  border-color: var(--enpii-color-danger-border);
 }
 
 .enpii-notification-dropdown__header,

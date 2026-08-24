@@ -32,7 +32,9 @@
   box-shadow: var(--enpii-shadow-control);
 }
 
-.enpii-button,
+.enpii-button--default,
+.enpii-button--md,
+.enpii-button--primary,
 .enpii-icon-button--filled-primary,
 .enpii-icon-button--filled-info {
   background-image: linear-gradient(
@@ -42,12 +44,25 @@
   font-weight: 500;
 }
 
+/* Non-filled variants (and tone combos like --outline.--danger) must keep
+   their own background, not the primary tonal wash. */
+.enpii-button--secondary,
+.enpii-button--outline,
+.enpii-button--ghost,
+.enpii-button--danger,
+.enpii-button--success,
+.enpii-button--tertiary {
+  background-image: none;
+}
+
 .enpii-button:hover:not(:disabled) {
   filter: none;
   opacity: .92;
 }
 
-.enpii-button::after,
+.enpii-button--default::after,
+.enpii-button--md::after,
+.enpii-button--primary::after,
 .enpii-icon-button--filled-primary::after,
 .enpii-icon-button--filled-info::after {
   content: "";
@@ -60,7 +75,9 @@
   transition: opacity var(--enpii-duration-fast) ease;
 }
 
-.enpii-button:hover:not(:disabled)::after,
+.enpii-button--default:hover:not(:disabled)::after,
+.enpii-button--md:hover:not(:disabled)::after,
+.enpii-button--primary:hover:not(:disabled)::after,
 .enpii-icon-button--filled-primary:hover:not(:disabled)::after,
 .enpii-icon-button--filled-info:hover:not(:disabled)::after {
   opacity: .08;
@@ -533,13 +550,21 @@
   opacity: .92;
 }
 
-.enpii-button::after,
-.enpii-icon-button::after,
+/* State-layer overlay geometry (no background — the ::before/::after overlay
+   is painted by the filled-variant rules above). */
 .enpii-icon-button[class*='--filled-']::after {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
+  background-color: currentColor;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--enpii-duration-fast) ease;
+}
+
+.enpii-icon-button[class*='--filled-']:hover:not(:disabled)::after {
+  opacity: .08;
 }
 
 /* Late-added families: banner, shortcuts, assistant, currency, chart, tables, icons */

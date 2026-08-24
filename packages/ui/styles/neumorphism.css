@@ -161,7 +161,7 @@
   border: 0;
   background: var(--enpii-color-surface-container-lowest);
   box-shadow: var(--enpii-shadow-control);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .enpii-badge--pill,
@@ -200,6 +200,14 @@
   border: 0;
   background: var(--enpii-color-surface-container-lowest);
   box-shadow: var(--enpii-shadow-inset);
+}
+
+.enpii-input__control--error,
+.enpii-textarea__control--error,
+.enpii-smart-select__trigger--error,
+.enpii-date-picker__control--error,
+.enpii-radio-group__options--error {
+  box-shadow: var(--enpii-shadow-inset), inset 0 0 0 2px var(--enpii-color-danger-border);
 }
 
 .enpii-range__control {
@@ -358,6 +366,10 @@
   border-radius: var(--enpii-radius-control);
   background: var(--enpii-color-surface-container-lowest);
   box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-date-range__control--error {
+  box-shadow: inset 0 0 0 2px var(--enpii-color-danger-border), var(--enpii-shadow-inset);
 }
 
 .enpii-date-range__preset,

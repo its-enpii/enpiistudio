@@ -13,8 +13,7 @@
   --enpii-shadow-overlay: 0 24px 64px rgba(31, 41, 51, .2);
 }
 
-[data-theme='dark'],
-:root:not([data-theme='light']) {
+[data-theme='dark'] {
   --enpii-color-surface-container-lowest: rgba(20, 24, 32, .55);
   --enpii-color-surface-container-low: rgba(20, 24, 32, .52);
   --enpii-color-surface-container: rgba(20, 24, 32, .48);
@@ -24,6 +23,20 @@
   --enpii-shadow-raised: 0 18px 48px rgba(0, 0, 0, .3);
   --enpii-shadow-overlay: 0 24px 64px rgba(0, 0, 0, .36);
   --glass-border: rgba(255, 255, 255, .16);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --enpii-color-surface-container-lowest: rgba(20, 24, 32, .55);
+    --enpii-color-surface-container-low: rgba(20, 24, 32, .52);
+    --enpii-color-surface-container: rgba(20, 24, 32, .48);
+    --enpii-color-surface-container-high: rgba(20, 24, 32, .45);
+    --enpii-color-surface-container-highest: rgba(20, 24, 32, .42);
+    --enpii-shadow-control: 0 12px 34px rgba(0, 0, 0, .26);
+    --enpii-shadow-raised: 0 18px 48px rgba(0, 0, 0, .3);
+    --enpii-shadow-overlay: 0 24px 64px rgba(0, 0, 0, .36);
+    --glass-border: rgba(255, 255, 255, .16);
+  }
 }
 
 .enpii-assistant-widget__panel,
@@ -54,11 +67,57 @@
   border-radius: var(--enpii-radius-overlay);
 }
 
+/* Scrim surfaces read as frosted glass too */
+.enpii-modal__overlay,
+.enpii-drawer__backdrop {
+  background: rgba(31, 41, 51, .38);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+}
+
+[data-theme='dark'] .enpii-modal__overlay,
+[data-theme='dark'] .enpii-drawer__backdrop {
+  background: rgba(2, 6, 14, .52);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .enpii-modal__overlay,
+  :root:not([data-theme='light']) .enpii-drawer__backdrop {
+    background: rgba(2, 6, 14, .52);
+  }
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .enpii-modal__overlay,
+  .enpii-drawer__backdrop {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(31, 41, 51, .55);
+  }
+
+  [data-theme='dark'] .enpii-modal__overlay,
+  [data-theme='dark'] .enpii-drawer__backdrop {
+    background: rgba(2, 6, 14, .72);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) .enpii-modal__overlay,
+    :root:not([data-theme='light']) .enpii-drawer__backdrop {
+      background: rgba(2, 6, 14, .72);
+    }
+  }
+}
+
 .enpii-navbar--transparent { border-bottom-color: var(--glass-border, rgba(255, 255, 255, .4)); }
 
-[data-theme='dark'] .enpii-navbar--transparent,
-:root:not([data-theme='light']) .enpii-navbar--transparent {
+[data-theme='dark'] .enpii-navbar--transparent {
   border-bottom-color: rgba(255, 255, 255, .18);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .enpii-navbar--transparent {
+    border-bottom-color: rgba(255, 255, 255, .18);
+  }
 }
 
 .enpii-drawer__header,
@@ -78,7 +137,7 @@
 .enpii-footer__brand,
 .enpii-alert__title,
 .enpii-drawer__title {
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .enpii-range__label,
@@ -158,20 +217,34 @@
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35), var(--enpii-shadow-control);
 }
 
+.enpii-input__control--error,
+.enpii-textarea__control--error,
+.enpii-smart-select__trigger--error,
+.enpii-date-picker__control--error,
+.enpii-radio-group__options--error {
+  box-shadow: inset 0 0 0 1px var(--enpii-color-danger-border), inset 0 1px 0 rgba(255, 255, 255, .35), var(--enpii-shadow-control);
+}
+
 [data-theme='dark'] .enpii-input__control,
 [data-theme='dark'] .enpii-textarea__control,
 [data-theme='dark'] .enpii-smart-select__trigger,
 [data-theme='dark'] .enpii-date-picker__control,
 [data-theme='dark'] .enpii-checkbox__box--field,
-[data-theme='dark'] .enpii-radio-group__options,
-:root:not([data-theme='light']) .enpii-input__control,
-:root:not([data-theme='light']) .enpii-textarea__control,
-:root:not([data-theme='light']) .enpii-smart-select__trigger,
-:root:not([data-theme='light']) .enpii-date-picker__control,
-:root:not([data-theme='light']) .enpii-checkbox__box--field,
-:root:not([data-theme='light']) .enpii-radio-group__options {
+[data-theme='dark'] .enpii-radio-group__options {
   background: rgba(20, 24, 32, .42);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), var(--enpii-shadow-control);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .enpii-input__control,
+  :root:not([data-theme='light']) .enpii-textarea__control,
+  :root:not([data-theme='light']) .enpii-smart-select__trigger,
+  :root:not([data-theme='light']) .enpii-date-picker__control,
+  :root:not([data-theme='light']) .enpii-checkbox__box--field,
+  :root:not([data-theme='light']) .enpii-radio-group__options {
+    background: rgba(20, 24, 32, .42);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), var(--enpii-shadow-control);
+  }
 }
 
 .enpii-switch__track,
@@ -261,13 +334,19 @@
 [data-theme='dark'] .enpii-date-range__control,
 [data-theme='dark'] .enpii-date-range__inputs input,
 [data-theme='dark'] .enpii-time-picker__control,
-[data-theme='dark'] .enpii-input-mask__control,
-:root:not([data-theme='light']) .enpii-date-range__control,
-:root:not([data-theme='light']) .enpii-date-range__inputs input,
-:root:not([data-theme='light']) .enpii-time-picker__control,
-:root:not([data-theme='light']) .enpii-input-mask__control {
+[data-theme='dark'] .enpii-input-mask__control {
   background: rgba(20, 24, 32, .42);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), var(--enpii-shadow-control);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .enpii-date-range__control,
+  :root:not([data-theme='light']) .enpii-date-range__inputs input,
+  :root:not([data-theme='light']) .enpii-time-picker__control,
+  :root:not([data-theme='light']) .enpii-input-mask__control {
+    background: rgba(20, 24, 32, .42);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), var(--enpii-shadow-control);
+  }
 }
 
 .enpii-date-range__control:focus-visible,
@@ -293,11 +372,16 @@
 
   [data-theme='dark'] .enpii-date-range__popup,
   [data-theme='dark'] .enpii-rich-editor,
-  [data-theme='dark'] .enpii-rich-editor__toolbar,
-  :root:not([data-theme='light']) .enpii-date-range__popup,
-  :root:not([data-theme='light']) .enpii-rich-editor,
-  :root:not([data-theme='light']) .enpii-rich-editor__toolbar {
+  [data-theme='dark'] .enpii-rich-editor__toolbar {
     background: rgb(27 33 43 / 98%);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) .enpii-date-range__popup,
+    :root:not([data-theme='light']) .enpii-rich-editor,
+    :root:not([data-theme='light']) .enpii-rich-editor__toolbar {
+      background: rgb(27 33 43 / 98%);
+    }
   }
 }
 
@@ -312,10 +396,15 @@
 }
 
 [data-theme='dark'] .enpii-date-range__popup,
-[data-theme='dark'] .enpii-confirm-dialog,
-:root:not([data-theme='light']) .enpii-date-range__popup,
-:root:not([data-theme='light']) .enpii-confirm-dialog {
+[data-theme='dark'] .enpii-confirm-dialog {
   border-color: rgba(255, 255, 255, .16);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .enpii-date-range__popup,
+  :root:not([data-theme='light']) .enpii-confirm-dialog {
+    border-color: rgba(255, 255, 255, .16);
+  }
 }
 
 .enpii-date-picker__weekday,
@@ -369,9 +458,31 @@
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .45);
 }
 
+[data-theme='dark'] .enpii-date-picker__day--today,
+[data-theme='dark'] .enpii-date-range__day--today {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .3);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .enpii-date-picker__day--today,
+  :root:not([data-theme='light']) .enpii-date-range__day--today {
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .3);
+  }
+}
+
 .enpii-date-range__day--between {
   background: rgba(255, 255, 255, .26);
   border-radius: 0;
+}
+
+[data-theme='dark'] .enpii-date-range__day--between {
+  background: rgba(20, 24, 32, .34);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .enpii-date-range__day--between {
+    background: rgba(20, 24, 32, .34);
+  }
 }
 
 .enpii-date-range__day:first-child,
@@ -427,16 +538,21 @@
 [data-theme='dark'] .enpii-smart-select__option,
 [data-theme='dark'] .enpii-smart-select__empty-action,
 [data-theme='dark'] .enpii-notification-dropdown__item,
-[data-theme='dark'] .enpii-tooltip__bubble,
-:root:not([data-theme='light']) .enpii-date-picker__day,
-:root:not([data-theme='light']) .enpii-date-picker__cell,
-:root:not([data-theme='light']) .enpii-date-range__day,
-:root:not([data-theme='light']) .enpii-date-range__preset,
-:root:not([data-theme='light']) .enpii-smart-select__option,
-:root:not([data-theme='light']) .enpii-smart-select__empty-action,
-:root:not([data-theme='light']) .enpii-notification-dropdown__item,
-:root:not([data-theme='light']) .enpii-tooltip__bubble {
+[data-theme='dark'] .enpii-tooltip__bubble {
   background: rgba(20, 24, 32, .46);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .enpii-date-picker__day,
+  :root:not([data-theme='light']) .enpii-date-picker__cell,
+  :root:not([data-theme='light']) .enpii-date-range__day,
+  :root:not([data-theme='light']) .enpii-date-range__preset,
+  :root:not([data-theme='light']) .enpii-smart-select__option,
+  :root:not([data-theme='light']) .enpii-smart-select__empty-action,
+  :root:not([data-theme='light']) .enpii-notification-dropdown__item,
+  :root:not([data-theme='light']) .enpii-tooltip__bubble {
+    background: rgba(20, 24, 32, .46);
+  }
 }
 
 [data-theme='dark'] .enpii-date-picker__day:hover:not(:disabled),
@@ -446,32 +562,47 @@
 [data-theme='dark'] .enpii-smart-select__option:hover:not(:disabled),
 [data-theme='dark'] .enpii-smart-select__option--highlighted,
 [data-theme='dark'] .enpii-smart-select__empty-action:hover,
-[data-theme='dark'] .enpii-notification-dropdown__item:hover,
-:root:not([data-theme='light']) .enpii-date-picker__day:hover:not(:disabled),
-:root:not([data-theme='light']) .enpii-date-picker__cell:hover:not(:disabled),
-:root:not([data-theme='light']) .enpii-date-range__day:hover:not(:disabled),
-:root:not([data-theme='light']) .enpii-date-range__preset:hover:not(:disabled),
-:root:not([data-theme='light']) .enpii-smart-select__option:hover:not(:disabled),
-:root:not([data-theme='light']) .enpii-smart-select__option--highlighted,
-:root:not([data-theme='light']) .enpii-smart-select__empty-action:hover,
-:root:not([data-theme='light']) .enpii-notification-dropdown__item:hover {
+[data-theme='dark'] .enpii-notification-dropdown__item:hover {
   background: rgba(20, 24, 32, .6);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .enpii-date-picker__day:hover:not(:disabled),
+  :root:not([data-theme='light']) .enpii-date-picker__cell:hover:not(:disabled),
+  :root:not([data-theme='light']) .enpii-date-range__day:hover:not(:disabled),
+  :root:not([data-theme='light']) .enpii-date-range__preset:hover:not(:disabled),
+  :root:not([data-theme='light']) .enpii-smart-select__option:hover:not(:disabled),
+  :root:not([data-theme='light']) .enpii-smart-select__option--highlighted,
+  :root:not([data-theme='light']) .enpii-smart-select__empty-action:hover,
+  :root:not([data-theme='light']) .enpii-notification-dropdown__item:hover {
+    background: rgba(20, 24, 32, .6);
+  }
 }
 
 [data-theme='dark'] .enpii-date-picker__day--selected,
 [data-theme='dark'] .enpii-date-picker__cell--selected,
 [data-theme='dark'] .enpii-date-range__day--selected,
-[data-theme='dark'] .enpii-smart-select__option--selected,
-:root:not([data-theme='light']) .enpii-date-picker__day--selected,
-:root:not([data-theme='light']) .enpii-date-picker__cell--selected,
-:root:not([data-theme='light']) .enpii-date-range__day--selected,
-:root:not([data-theme='light']) .enpii-smart-select__option--selected {
+[data-theme='dark'] .enpii-smart-select__option--selected {
   background: rgba(20, 24, 32, .72);
 }
 
-[data-theme='dark'] .enpii-notification-dropdown__badge,
-:root:not([data-theme='light']) .enpii-notification-dropdown__badge {
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .enpii-date-picker__day--selected,
+  :root:not([data-theme='light']) .enpii-date-picker__cell--selected,
+  :root:not([data-theme='light']) .enpii-date-range__day--selected,
+  :root:not([data-theme='light']) .enpii-smart-select__option--selected {
+    background: rgba(20, 24, 32, .72);
+  }
+}
+
+[data-theme='dark'] .enpii-notification-dropdown__badge {
   box-shadow: 0 0 0 2px rgba(255, 255, 255, .18);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .enpii-notification-dropdown__badge {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, .18);
+  }
 }
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
@@ -494,10 +625,15 @@
   }
 
   [data-theme='dark'] .enpii-date-range__popup,
-  [data-theme='dark'] .enpii-confirm-dialog,
-  :root:not([data-theme='light']) .enpii-date-range__popup,
-  :root:not([data-theme='light']) .enpii-confirm-dialog {
+  [data-theme='dark'] .enpii-confirm-dialog {
     background: rgb(27 33 43 / 98%);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) .enpii-date-range__popup,
+    :root:not([data-theme='light']) .enpii-confirm-dialog {
+      background: rgb(27 33 43 / 98%);
+    }
   }
 
   [data-theme='dark'] .enpii-date-picker__day,
@@ -507,16 +643,21 @@
   [data-theme='dark'] .enpii-smart-select__option,
   [data-theme='dark'] .enpii-smart-select__empty-action,
   [data-theme='dark'] .enpii-notification-dropdown__item,
-  [data-theme='dark'] .enpii-tooltip__bubble,
-  :root:not([data-theme='light']) .enpii-date-picker__day,
-  :root:not([data-theme='light']) .enpii-date-picker__cell,
-  :root:not([data-theme='light']) .enpii-date-range__day,
-  :root:not([data-theme='light']) .enpii-date-range__preset,
-  :root:not([data-theme='light']) .enpii-smart-select__option,
-  :root:not([data-theme='light']) .enpii-smart-select__empty-action,
-  :root:not([data-theme='light']) .enpii-notification-dropdown__item,
-  :root:not([data-theme='light']) .enpii-tooltip__bubble {
+  [data-theme='dark'] .enpii-tooltip__bubble {
     background: rgb(22 28 36 / 94%);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) .enpii-date-picker__day,
+    :root:not([data-theme='light']) .enpii-date-picker__cell,
+    :root:not([data-theme='light']) .enpii-date-range__day,
+    :root:not([data-theme='light']) .enpii-date-range__preset,
+    :root:not([data-theme='light']) .enpii-smart-select__option,
+    :root:not([data-theme='light']) .enpii-smart-select__empty-action,
+    :root:not([data-theme='light']) .enpii-notification-dropdown__item,
+    :root:not([data-theme='light']) .enpii-tooltip__bubble {
+      background: rgb(22 28 36 / 94%);
+    }
   }
 }
 
@@ -560,13 +701,14 @@
 }
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  [data-theme='dark'],
-  :root:not([data-theme='light']) {
-    --enpii-color-surface-container-lowest: rgb(27 33 43 / 98%);
-    --enpii-color-surface-container-low: rgb(26 31 40 / 97%);
-    --enpii-color-surface-container: rgb(25 30 38 / 96%);
-    --enpii-color-surface-container-high: rgb(24 29 37 / 95%);
-    --enpii-color-surface-container-highest: rgb(23 28 35 / 94%);
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) {
+      --enpii-color-surface-container-lowest: rgb(27 33 43 / 98%);
+      --enpii-color-surface-container-low: rgb(26 31 40 / 97%);
+      --enpii-color-surface-container: rgb(25 30 38 / 96%);
+      --enpii-color-surface-container-high: rgb(24 29 37 / 95%);
+      --enpii-color-surface-container-highest: rgb(23 28 35 / 94%);
+    }
   }
 }
 
@@ -596,13 +738,18 @@
 [data-theme='dark'] .enpii-keyboard-shortcuts__group,
 [data-theme='dark'] .enpii-inline-empty-state,
 [data-theme='dark'] .enpii-assistant-artifact-card,
-[data-theme='dark'] .enpii-assistant-poll-card,
-:root:not([data-theme='light']) .enpii-offline-banner,
-:root:not([data-theme='light']) .enpii-keyboard-shortcuts__group,
-:root:not([data-theme='light']) .enpii-inline-empty-state,
-:root:not([data-theme='light']) .enpii-assistant-artifact-card,
-:root:not([data-theme='light']) .enpii-assistant-poll-card {
+[data-theme='dark'] .enpii-assistant-poll-card {
   border-color: rgba(255, 255, 255, .16);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .enpii-offline-banner,
+  :root:not([data-theme='light']) .enpii-keyboard-shortcuts__group,
+  :root:not([data-theme='light']) .enpii-inline-empty-state,
+  :root:not([data-theme='light']) .enpii-assistant-artifact-card,
+  :root:not([data-theme='light']) .enpii-assistant-poll-card {
+    border-color: rgba(255, 255, 255, .16);
+  }
 }
 
 .enpii-trend-bar-chart__tooltip {
@@ -629,15 +776,20 @@
 [data-theme='dark'] .enpii-toast__close,
 [data-theme='dark'] .enpii-date-picker__nav-button,
 [data-theme='dark'] .enpii-currency-input__action,
-[data-theme='dark'] .enpii-assistant-widget__close,
-:root:not([data-theme='light']) .enpii-notification-dropdown__trigger,
-:root:not([data-theme='light']) .enpii-smart-select__clear,
-:root:not([data-theme='light']) .enpii-modal__close,
-:root:not([data-theme='light']) .enpii-toast__close,
-:root:not([data-theme='light']) .enpii-date-picker__nav-button,
-:root:not([data-theme='light']) .enpii-currency-input__action,
-:root:not([data-theme='light']) .enpii-assistant-widget__close {
+[data-theme='dark'] .enpii-assistant-widget__close {
   background: rgba(20, 24, 32, .46);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .enpii-notification-dropdown__trigger,
+  :root:not([data-theme='light']) .enpii-smart-select__clear,
+  :root:not([data-theme='light']) .enpii-modal__close,
+  :root:not([data-theme='light']) .enpii-toast__close,
+  :root:not([data-theme='light']) .enpii-date-picker__nav-button,
+  :root:not([data-theme='light']) .enpii-currency-input__action,
+  :root:not([data-theme='light']) .enpii-assistant-widget__close {
+    background: rgba(20, 24, 32, .46);
+  }
 }
 
 .enpii-notification-dropdown__trigger:hover,
@@ -656,15 +808,20 @@
 [data-theme='dark'] .enpii-smart-select__clear:hover,
 [data-theme='dark'] .enpii-currency-input__action:hover,
 [data-theme='dark'] .enpii-assistant-widget__composer-button:hover:not(:disabled),
-[data-theme='dark'] .enpii-date-range__calendars header button:hover,
-:root:not([data-theme='light']) .enpii-notification-dropdown__trigger:hover,
-:root:not([data-theme='light']) .enpii-toast__close:hover,
-:root:not([data-theme='light']) .enpii-modal__close:hover,
-:root:not([data-theme='light']) .enpii-smart-select__clear:hover,
-:root:not([data-theme='light']) .enpii-currency-input__action:hover,
-:root:not([data-theme='light']) .enpii-assistant-widget__composer-button:hover:not(:disabled),
-:root:not([data-theme='light']) .enpii-date-range__calendars header button:hover {
+[data-theme='dark'] .enpii-date-range__calendars header button:hover {
   background: rgba(20, 24, 32, .6);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .enpii-notification-dropdown__trigger:hover,
+  :root:not([data-theme='light']) .enpii-toast__close:hover,
+  :root:not([data-theme='light']) .enpii-modal__close:hover,
+  :root:not([data-theme='light']) .enpii-smart-select__clear:hover,
+  :root:not([data-theme='light']) .enpii-currency-input__action:hover,
+  :root:not([data-theme='light']) .enpii-assistant-widget__composer-button:hover:not(:disabled),
+  :root:not([data-theme='light']) .enpii-date-range__calendars header button:hover {
+    background: rgba(20, 24, 32, .6);
+  }
 }
 
 .enpii-currency-input__control {
@@ -673,10 +830,16 @@
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35), var(--enpii-shadow-control);
 }
 
-[data-theme='dark'] .enpii-currency-input__control,
-:root:not([data-theme='light']) .enpii-currency-input__control {
+[data-theme='dark'] .enpii-currency-input__control {
   background: rgba(20, 24, 32, .42);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), var(--enpii-shadow-control);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .enpii-currency-input__control {
+    background: rgba(20, 24, 32, .42);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), var(--enpii-shadow-control);
+  }
 }
 
 .enpii-report-period-filter__export {
@@ -684,18 +847,28 @@
   background: rgba(255, 255, 255, .34);
 }
 
-[data-theme='dark'] .enpii-report-period-filter__export,
-:root:not([data-theme='light']) .enpii-report-period-filter__export {
+[data-theme='dark'] .enpii-report-period-filter__export {
   background: rgba(20, 24, 32, .42);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .enpii-report-period-filter__export {
+    background: rgba(20, 24, 32, .42);
+  }
 }
 
 .enpii-loan-history-table__head {
   background: rgba(255, 255, 255, .46);
 }
 
-[data-theme='dark'] .enpii-loan-history-table__head,
-:root:not([data-theme='light']) .enpii-loan-history-table__head {
+[data-theme='dark'] .enpii-loan-history-table__head {
   background: rgba(20, 24, 32, .48);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .enpii-loan-history-table__head {
+    background: rgba(20, 24, 32, .48);
+  }
 }
 
 .enpii-icon__container--neutral {
@@ -709,11 +882,17 @@
 }
 
 [data-theme='dark'] .enpii-assistant-widget__attachments-bar,
-[data-theme='dark'] .enpii-assistant-widget__attachment,
-:root:not([data-theme='light']) .enpii-assistant-widget__attachments-bar,
-:root:not([data-theme='light']) .enpii-assistant-widget__attachment {
+[data-theme='dark'] .enpii-assistant-widget__attachment {
   border-color: rgba(255, 255, 255, .16);
   background: rgba(20, 24, 32, .42);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .enpii-assistant-widget__attachments-bar,
+  :root:not([data-theme='light']) .enpii-assistant-widget__attachment {
+    border-color: rgba(255, 255, 255, .16);
+    background: rgba(20, 24, 32, .42);
+  }
 }
 
 .enpii-assistant-widget__confirm-button {
@@ -724,19 +903,32 @@
   background: rgba(255, 255, 255, .52);
 }
 
-[data-theme='dark'] .enpii-assistant-widget__confirm-button,
-:root:not([data-theme='light']) .enpii-assistant-widget__confirm-button {
+[data-theme='dark'] .enpii-assistant-widget__confirm-button {
   background: rgba(20, 24, 32, .46);
 }
 
-[data-theme='dark'] .enpii-assistant-widget__confirm-button:hover:not(:disabled),
-:root:not([data-theme='light']) .enpii-assistant-widget__confirm-button:hover:not(:disabled) {
+[data-theme='dark'] .enpii-assistant-widget__confirm-button:hover:not(:disabled) {
   background: rgba(20, 24, 32, .6);
 }
 
-[data-theme='dark'] .enpii-icon__container--neutral,
-:root:not([data-theme='light']) .enpii-icon__container--neutral {
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .enpii-assistant-widget__confirm-button {
+    background: rgba(20, 24, 32, .46);
+  }
+
+  :root:not([data-theme='light']) .enpii-assistant-widget__confirm-button:hover:not(:disabled) {
+    background: rgba(20, 24, 32, .6);
+  }
+}
+
+[data-theme='dark'] .enpii-icon__container--neutral {
   background: rgba(20, 24, 32, .45);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .enpii-icon__container--neutral {
+    background: rgba(20, 24, 32, .45);
+  }
 }
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
@@ -762,19 +954,29 @@
   [data-theme='dark'] .enpii-inline-empty-state,
   [data-theme='dark'] .enpii-assistant-artifact-card,
   [data-theme='dark'] .enpii-assistant-poll-card,
-  [data-theme='dark'] .enpii-trend-bar-chart__tooltip,
-  :root:not([data-theme='light']) .enpii-offline-banner,
-  :root:not([data-theme='light']) .enpii-keyboard-shortcuts__group,
-  :root:not([data-theme='light']) .enpii-inline-empty-state,
-  :root:not([data-theme='light']) .enpii-assistant-artifact-card,
-  :root:not([data-theme='light']) .enpii-assistant-poll-card,
-  :root:not([data-theme='light']) .enpii-trend-bar-chart__tooltip {
+  [data-theme='dark'] .enpii-trend-bar-chart__tooltip {
     background: rgb(22 28 36 / 94%);
   }
 
-  [data-theme='dark'] .enpii-assistant-widget__panel,
-  :root:not([data-theme='light']) .enpii-assistant-widget__panel {
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) .enpii-offline-banner,
+    :root:not([data-theme='light']) .enpii-keyboard-shortcuts__group,
+    :root:not([data-theme='light']) .enpii-inline-empty-state,
+    :root:not([data-theme='light']) .enpii-assistant-artifact-card,
+    :root:not([data-theme='light']) .enpii-assistant-poll-card,
+    :root:not([data-theme='light']) .enpii-trend-bar-chart__tooltip {
+      background: rgb(22 28 36 / 94%);
+    }
+  }
+
+  [data-theme='dark'] .enpii-assistant-widget__panel {
     background: rgb(25 30 38 / 98%);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) .enpii-assistant-widget__panel {
+      background: rgb(25 30 38 / 98%);
+    }
   }
 
   .enpii-currency-input__control,
@@ -801,18 +1003,23 @@
   [data-theme='dark'] .enpii-toast__close,
   [data-theme='dark'] .enpii-date-picker__nav-button,
   [data-theme='dark'] .enpii-currency-input__action,
-  [data-theme='dark'] .enpii-assistant-widget__close,
-  :root:not([data-theme='light']) .enpii-currency-input__control,
-  :root:not([data-theme='light']) .enpii-report-period-filter__export,
-  :root:not([data-theme='light']) .enpii-loan-history-table__head,
-  :root:not([data-theme='light']) .enpii-icon__container--neutral,
-  :root:not([data-theme='light']) .enpii-notification-dropdown__trigger,
-  :root:not([data-theme='light']) .enpii-smart-select__clear,
-  :root:not([data-theme='light']) .enpii-modal__close,
-  :root:not([data-theme='light']) .enpii-toast__close,
-  :root:not([data-theme='light']) .enpii-date-picker__nav-button,
-  :root:not([data-theme='light']) .enpii-currency-input__action,
-  :root:not([data-theme='light']) .enpii-assistant-widget__close {
+  [data-theme='dark'] .enpii-assistant-widget__close {
     background: rgb(25 30 38 / 96%);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) .enpii-currency-input__control,
+    :root:not([data-theme='light']) .enpii-report-period-filter__export,
+    :root:not([data-theme='light']) .enpii-loan-history-table__head,
+    :root:not([data-theme='light']) .enpii-icon__container--neutral,
+    :root:not([data-theme='light']) .enpii-notification-dropdown__trigger,
+    :root:not([data-theme='light']) .enpii-smart-select__clear,
+    :root:not([data-theme='light']) .enpii-modal__close,
+    :root:not([data-theme='light']) .enpii-toast__close,
+    :root:not([data-theme='light']) .enpii-date-picker__nav-button,
+    :root:not([data-theme='light']) .enpii-currency-input__action,
+    :root:not([data-theme='light']) .enpii-assistant-widget__close {
+      background: rgb(25 30 38 / 96%);
+    }
   }
 }
