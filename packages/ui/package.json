@@ -45,6 +45,10 @@
   "peerDependencies": {
     "vue": "^3.5.0"
   },
+  "dependencies": {
+    "@tiptap/starter-kit": "^3.29.0",
+    "@tiptap/vue-3": "^3.29.0"
+  },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.0",
     "@vue/test-utils": "^2.4.6",
