@@ -342,12 +342,88 @@
 .enpii-footer__brand,
 .enpii-alert__title,
 .enpii-drawer__title {
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .enpii-range__label,
 .enpii-progress__meta,
 .enpii-avatar,
 .enpii-stepper__step--active .enpii-stepper__label {
+  font-weight: 500;
+}
+
+/* New form families use raised triggers/buttons and inset wells */
+.enpii-date-range__control {
+  border: 0;
+  border-radius: var(--enpii-radius-control);
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-date-range__preset,
+.enpii-date-range__day,
+.enpii-date-range__calendars header button,
+.enpii-date-range__footer-button,
+.enpii-time-picker__clear,
+.enpii-rich-editor__btn {
+  border: 0;
+  border-radius: var(--enpii-radius-control);
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-date-range__day--selected {
+  background: var(--enpii-color-primary);
+  color: var(--enpii-color-on-primary);
+}
+
+.enpii-date-range__popup {
+  box-shadow: var(--enpii-shadow-overlay);
+}
+
+.enpii-date-range__preset:active:not(:disabled),
+.enpii-date-range__day:active:not(:disabled),
+.enpii-date-range__footer-button:active:not(:disabled),
+.enpii-time-picker__clear:active,
+.enpii-rich-editor__btn:active:not(:disabled) {
+  transform: none;
+  box-shadow: var(--enpii-shadow-inset);
+}
+
+.enpii-date-range__inputs input,
+.enpii-time-picker__control,
+.enpii-input-mask__control {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  border-radius: var(--enpii-radius-control);
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-inset);
+  font-family: inherit;
+}
+
+.enpii-rich-editor__surface {
+  border: 0;
+  background: var(--enpii-color-surface-container-lowest);
+}
+
+.enpii-rich-editor__toolbar {
+  border-bottom: 0;
+}
+
+.enpii-date-range__control:focus-visible,
+.enpii-date-range__preset:focus-visible,
+.enpii-date-range__inputs input:focus-visible,
+.enpii-date-range__day:focus-visible,
+.enpii-date-range__footer-button:focus-visible,
+.enpii-rich-editor__btn:focus-visible,
+.enpii-rich-editor__content:focus-visible,
+.enpii-time-picker__control:focus-visible,
+.enpii-input-mask__control:focus-visible {
+  outline: 3px solid var(--enpii-color-focus);
+  outline-offset: 3px;
+}
+
+.enpii-rich-editor__content :is(h1, h2, h3, h4, h5, h6, strong) {
   font-weight: 500;
 }

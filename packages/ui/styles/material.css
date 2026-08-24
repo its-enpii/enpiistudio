@@ -320,6 +320,80 @@
   font-weight: 500;
 }
 
+/* New date, time, mask and editor controls */
+.enpii-date-range__control,
+.enpii-time-picker__control,
+.enpii-input-mask__control {
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: var(--enpii-radius-control);
+  font-family: inherit;
+}
+
+.enpii-date-range__popup {
+  border-radius: var(--enpii-radius-overlay);
+  box-shadow: var(--enpii-shadow-overlay);
+  overflow: hidden;
+}
+
+.enpii-date-range__preset,
+.enpii-date-range__footer-button,
+.enpii-rich-editor__btn {
+  border-radius: var(--enpii-radius-control);
+  background-color: var(--enpii-color-surface-container-low);
+  color: var(--enpii-color-primary-text);
+}
+
+.enpii-date-range__preset,
+.enpii-date-range__day,
+.enpii-date-range__footer-button,
+.enpii-rich-editor__btn,
+.enpii-time-picker__clear {
+  border-radius: var(--enpii-radius-control);
+}
+
+.enpii-date-range__preset:hover:not(:disabled),
+.enpii-date-range__preset:focus-visible,
+.enpii-date-range__day:hover:not(:disabled),
+.enpii-date-range__day:focus-visible,
+.enpii-date-range__footer-button:hover:not(:disabled),
+.enpii-date-range__footer-button:focus-visible,
+.enpii-rich-editor__btn:hover:not(:disabled),
+.enpii-rich-editor__btn:focus-visible,
+.enpii-date-range__calendars header button:hover,
+.enpii-date-range__calendars header button:focus-visible,
+.enpii-time-picker__clear:hover,
+.enpii-time-picker__clear:focus-visible {
+  background-color: color-mix(in srgb, var(--enpii-color-primary) 8%, transparent);
+  outline-color: var(--enpii-color-focus);
+}
+
+.enpii-date-range__control:focus-visible,
+.enpii-date-range__inputs input:focus-visible,
+.enpii-date-range__day:focus-visible,
+.enpii-date-range__footer-button:focus-visible,
+.enpii-rich-editor__btn:focus-visible,
+.enpii-rich-editor__content:focus-visible,
+.enpii-time-picker__control:focus-visible,
+.enpii-input-mask__control:focus-visible {
+  outline: 3px solid var(--enpii-color-focus);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+.enpii-rich-editor__toolbar,
+.enpii-rich-editor__surface {
+  background: var(--enpii-color-surface-container);
+}
+
+.enpii-rich-editor__toolbar {
+  border-bottom: 0;
+}
+
+.enpii-rich-editor__content :is(h1, h2, h3, h4, h5, h6, strong) {
+  font-weight: 500;
+}
+
 .enpii-button:hover:not(:disabled),
 .enpii-icon-button:hover:not(:disabled),
 .enpii-icon-button[class*='--filled-']:hover:not(:disabled) {

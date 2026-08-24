@@ -229,6 +229,74 @@
   border-radius: var(--enpii-radius-control);
 }
 
+/* New overlays, controls and editor chrome */
+.enpii-date-range__popup,
+.enpii-rich-editor,
+.enpii-rich-editor__toolbar {
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, .4));
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  box-shadow: var(--enpii-shadow-overlay);
+}
+
+.enpii-date-range__popup { border-radius: var(--enpii-radius-overlay); }
+.enpii-rich-editor__toolbar { border-width: 1px 1px 0; }
+
+.enpii-date-range__control,
+.enpii-time-picker__control,
+.enpii-input-mask__control,
+.enpii-date-range__inputs input {
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: var(--enpii-radius-control);
+  background: rgba(255, 255, 255, .34);
+  font-family: inherit;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35), var(--enpii-shadow-control);
+}
+
+[data-theme='dark'] .enpii-date-range__control,
+[data-theme='dark'] .enpii-date-range__inputs input,
+[data-theme='dark'] .enpii-time-picker__control,
+[data-theme='dark'] .enpii-input-mask__control,
+:root:not([data-theme='light']) .enpii-date-range__control,
+:root:not([data-theme='light']) .enpii-date-range__inputs input,
+:root:not([data-theme='light']) .enpii-time-picker__control,
+:root:not([data-theme='light']) .enpii-input-mask__control {
+  background: rgba(20, 24, 32, .42);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), var(--enpii-shadow-control);
+}
+
+.enpii-date-range__control:focus-visible,
+.enpii-date-range__inputs input:focus-visible,
+.enpii-date-range__day:focus-visible,
+.enpii-date-range__footer-button:focus-visible,
+.enpii-rich-editor__btn:focus-visible,
+.enpii-rich-editor__content:focus-visible,
+.enpii-time-picker__control:focus-visible,
+.enpii-input-mask__control:focus-visible {
+  outline: 3px solid var(--enpii-color-focus);
+  outline-offset: 2px;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .enpii-date-range__popup,
+  .enpii-rich-editor,
+  .enpii-rich-editor__toolbar {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgb(245 249 253 / 96%);
+  }
+
+  [data-theme='dark'] .enpii-date-range__popup,
+  [data-theme='dark'] .enpii-rich-editor,
+  [data-theme='dark'] .enpii-rich-editor__toolbar,
+  :root:not([data-theme='light']) .enpii-date-range__popup,
+  :root:not([data-theme='light']) .enpii-rich-editor,
+  :root:not([data-theme='light']) .enpii-rich-editor__toolbar {
+    background: rgb(27 33 43 / 98%);
+  }
+}
+
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .enpii-navbar,
   .enpii-sidebar,

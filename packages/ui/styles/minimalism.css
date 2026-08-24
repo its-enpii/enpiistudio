@@ -276,3 +276,75 @@
   border-color: transparent;
   background: none;
 }
+
+/* New fields and editor remain hairline-quiet */
+.enpii-date-range__popup,
+.enpii-rich-editor__toolbar {
+  border: 1px solid rgba(229, 231, 235, .55);
+  border-radius: var(--enpii-radius-card);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, .08);
+}
+
+.enpii-rich-editor__toolbar { border-width: 1px 1px 0; }
+.enpii-rich-editor__surface { border: 1px solid rgba(229, 231, 235, .55); box-shadow: none; }
+
+.enpii-date-range__control,
+.enpii-date-range__inputs input,
+.enpii-time-picker__control,
+.enpii-input-mask__control {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid rgba(229, 231, 235, .65);
+  border-radius: var(--enpii-radius-control);
+  background: none;
+  font-family: inherit;
+  box-shadow: none;
+}
+
+.enpii-date-range__control:focus-visible,
+.enpii-date-range__inputs input:focus-visible,
+.enpii-time-picker__control:focus-visible,
+.enpii-input-mask__control:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--enpii-color-focus) 35%, transparent);
+}
+
+.enpii-time-picker__control,
+.enpii-input-mask__control {
+  box-shadow: none;
+}
+
+
+.enpii-date-range__preset,
+.enpii-date-range__footer-button,
+.enpii-rich-editor__btn,
+.enpii-time-picker__clear {
+  border: 0;
+  background: none;
+  color: var(--enpii-color-primary-text);
+  font-weight: 500;
+  box-shadow: none;
+}
+
+.enpii-date-range__preset:hover:not(:disabled),
+.enpii-date-range__footer-button:hover:not(:disabled),
+.enpii-rich-editor__btn:hover:not(:disabled) {
+  text-decoration: underline;
+  text-underline-offset: .2em;
+}
+
+.enpii-date-range__control:focus-visible,
+.enpii-date-range__preset:focus-visible,
+.enpii-date-range__inputs input:focus-visible,
+.enpii-date-range__day:focus-visible,
+.enpii-date-range__footer-button:focus-visible,
+.enpii-rich-editor__btn:focus-visible,
+.enpii-rich-editor__content:focus-visible,
+.enpii-time-picker__control:focus-visible,
+.enpii-input-mask__control:focus-visible {
+  outline: 3px solid var(--enpii-color-focus);
+  outline-offset: 2px;
+}
+
+.enpii-rich-editor__content :is(h1, h2, h3, h4, h5, h6, strong) {
+  font-weight: 500;
+}
