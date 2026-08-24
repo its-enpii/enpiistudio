@@ -52,6 +52,8 @@
   --enpii-control-height: 3rem;
   --enpii-control-height-sm: 2.5rem;
   --enpii-control-font-size: 1rem;
+  --enpii-space-field-gap: 0.625rem;
+  --enpii-space-form-row-gap: 1.25rem;
   --enpii-space-control-block: 0.625rem;
   --enpii-space-control-inline: 1.5rem;
   --enpii-font-sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -59,6 +61,7 @@
   --enpii-duration-base: 200ms;
   --enpii-shadow-control: 0 1px 2px rgb(15 23 42 / 10%);
   --enpii-shadow-overlay: 0 24px 60px rgb(15 23 42 / 25%);
+  --enpii-focus-ring: 0 0 0 4px color-mix(in srgb, var(--enpii-color-primary-container) 12%, transparent);
   --enpii-z-raised: 10;
   --enpii-z-dropdown: 40;
   --enpii-z-modal: 50;
