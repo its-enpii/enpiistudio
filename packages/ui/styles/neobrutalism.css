@@ -1,0 +1,177 @@
+/* Neobrutalist style layer. Import after @its-enpii/ui/styles.css. */
+:root {
+  --enpii-radius-control: .25rem;
+  --enpii-radius-card: .25rem;
+  --enpii-radius-overlay: .25rem;
+  --enpii-shadow-control: 4px 4px 0 #000;
+  --enpii-shadow-raised: 6px 6px 0 #000;
+  --enpii-shadow-overlay: 6px 6px 0 #000;
+}
+
+.enpii-navbar,
+.enpii-sidebar,
+.enpii-footer,
+.enpii-card {
+  border: 2px solid #000;
+  border-radius: var(--enpii-radius-card);
+  background: #fffdf5;
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-modal__panel {
+  border: 2px solid #000;
+  border-radius: var(--enpii-radius-overlay);
+  background: #fffdf5;
+  box-shadow: var(--enpii-shadow-overlay);
+}
+
+.enpii-button,
+.enpii-icon-button {
+  border: 2px solid #000 !important;
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-button:hover:not(:disabled),
+.enpii-icon-button:hover:not(:disabled) {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--enpii-shadow-raised);
+}
+
+.enpii-button--primary,
+.enpii-button--default,
+.enpii-button--md,
+.enpii-icon-button--filled-primary {
+  background: #ffd93d;
+  color: #000;
+}
+
+.enpii-button--success,
+.enpii-icon-button--filled-success { background: #4ade80; color: #000; }
+.enpii-button--danger,
+.enpii-icon-button--filled-danger { background: #f87171; color: #000; }
+
+.enpii-button--secondary,
+.enpii-button--outline,
+.enpii-button--ghost {
+  background: #fffdf5;
+  color: #000;
+}
+
+.enpii-input__control,
+.enpii-textarea__control,
+.enpii-smart-select__trigger {
+  border: 2px solid #000 !important;
+  box-shadow: 3px 3px 0 #000;
+}
+
+.enpii-navbar--transparent {
+  background: transparent;
+}
+
+.enpii-navbar__link,
+.enpii-sidebar a,
+.enpii-sidebar__group-toggle,
+.enpii-breadcrumb__link,
+.enpii-pagination__control,
+.enpii-stepper__trigger {
+  font-weight: 600;
+}
+
+.enpii-navbar__brand,
+.enpii-footer__brand,
+.enpii-alert__title,
+.enpii-drawer__title,
+.enpii-stepper__step--active .enpii-stepper__label {
+  font-weight: 600;
+}
+
+.enpii-navbar__inner,
+.enpii-sidebar__nav,
+.enpii-footer__inner {
+  padding: .75rem;
+}
+
+.enpii-navbar__link:hover:not([aria-current]),
+.enpii-sidebar a:hover,
+.enpii-sidebar__group-toggle:hover {
+  background: #ffd93d;
+  color: #000;
+  transform: translate(-2px, -2px);
+}
+
+.enpii-navbar__link[aria-current] {
+  background: #ffd93d;
+  color: #000;
+}
+
+.enpii-sidebar__item--active,
+.enpii-sidebar__item--active:hover {
+  background: #ffd93d;
+  color: #000;
+}
+
+.enpii-drawer__panel {
+  border: 2px solid #000;
+  border-radius: var(--enpii-radius-overlay);
+  background: #fffdf5;
+  box-shadow: var(--enpii-shadow-overlay);
+}
+
+.enpii-alert {
+  border: 2px solid #000;
+  border-radius: var(--enpii-radius-control);
+  box-shadow: 4px 4px 0 #000;
+  color: #000;
+}
+
+.enpii-alert--info { background: #bfdbfe; }
+.enpii-alert--success { background: #bbf7d0; }
+.enpii-alert--warning { background: #ffd93d; }
+.enpii-alert--danger { background: #fca5a5; }
+
+.enpii-range__label,
+.enpii-progress__meta,
+.enpii-avatar {
+  font-weight: 600;
+}
+
+.enpii-range__control::-webkit-slider-thumb {
+  border: 2px solid #000;
+  box-shadow: 2px 2px 0 #000;
+}
+
+.enpii-range__control::-moz-range-thumb {
+  border: 2px solid #000;
+}
+
+.enpii-progress__track {
+  border: 2px solid #000;
+}
+
+.enpii-progress__bar {
+  background: #ffd93d;
+}
+
+.enpii-progress--success .enpii-progress__bar { background: #4ade80; }
+.enpii-progress--warning .enpii-progress__bar { background: #fb923c; }
+.enpii-progress--danger .enpii-progress__bar { background: #ef4444; }
+
+.enpii-avatar {
+  border: 2px solid #000;
+  box-shadow: 3px 3px 0 #000;
+}
+
+.enpii-skeleton__item {
+  border: 1px solid #000;
+}
+
+.enpii-pagination__control--active {
+  border: 2px solid #000;
+  background: #ffd93d;
+  color: #000;
+}
+
+.enpii-stepper__marker {
+  border: 2px solid #000;
+  box-shadow: 2px 2px 0 #000;
+}

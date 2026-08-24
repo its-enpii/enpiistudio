@@ -1,0 +1,95 @@
+/* Minimalist style layer. Import after @its-enpii/ui/styles.css. */
+:root {
+  --enpii-radius-control: .375rem;
+  --enpii-radius-card: .375rem;
+  --enpii-radius-overlay: .375rem;
+  --enpii-shadow-control: none;
+  --enpii-shadow-raised: none;
+  --enpii-shadow-overlay: none;
+}
+
+.enpii-navbar,
+.enpii-sidebar,
+.enpii-footer,
+.enpii-drawer__panel,
+.enpii-card,
+.enpii-modal__panel,
+.enpii-alert {
+  border: 1px solid rgba(229, 231, 235, .4);
+  border-radius: var(--enpii-radius-card);
+  box-shadow: none;
+}
+
+.enpii-card,
+.enpii-modal__panel {
+  background: transparent;
+}
+
+.enpii-button {
+  font-weight: 500;
+}
+
+.enpii-button--ghost,
+.enpii-button--outline {
+  border-color: transparent;
+  background: none;
+}
+
+.enpii-button--ghost {
+  text-decoration: underline;
+  text-underline-offset: .2em;
+}
+
+.enpii-navbar__brand,
+.enpii-footer__brand,
+.enpii-alert__title,
+.enpii-drawer__title {
+  font-weight: 500;
+}
+
+.enpii-navbar__link,
+.enpii-sidebar a,
+.enpii-sidebar__group-toggle,
+.enpii-breadcrumb__link,
+.enpii-pagination__control,
+.enpii-stepper__trigger {
+  font-weight: 500;
+  letter-spacing: normal;
+}
+
+.enpii-range__label,
+.enpii-progress__meta,
+.enpii-avatar,
+.enpii-stepper__step--active .enpii-stepper__label {
+  font-weight: 500;
+}
+
+.enpii-range__label {
+  letter-spacing: .02em;
+}
+
+.enpii-alert {
+  border-width: 0;
+  border-left: 1px solid rgba(229, 231, 235, .4);
+  background: transparent;
+}
+
+.enpii-drawer__backdrop {
+  background: rgba(15, 23, 42, .28);
+}
+
+.enpii-range__control {
+  height: .25rem;
+}
+
+.enpii-progress__track {
+  border: 0;
+}
+
+.enpii-avatar {
+  font-weight: 500;
+}
+
+.enpii-skeleton__item {
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, currentColor 7%, transparent), transparent);
+}

@@ -1,9 +1,22 @@
 import { fileURLToPath, URL } from 'node:url'
+import { cp } from 'node:fs/promises'
 import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    {
+      name: 'copy-style-layers',
+      closeBundle: async () => {
+        await cp(
+          fileURLToPath(new URL('./styles', import.meta.url)),
+          fileURLToPath(new URL('./dist/styles', import.meta.url)),
+          { recursive: true },
+        )
+      },
+    },
+  ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

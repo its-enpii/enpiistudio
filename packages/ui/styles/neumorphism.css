@@ -1,0 +1,157 @@
+/* Soft-extruded style layer. Import after @its-enpii/ui/styles.css. */
+:root {
+  --enpii-radius-control: 1rem;
+  --enpii-radius-card: 1.25rem;
+  --enpii-radius-overlay: 1.5rem;
+  --enpii-color-surface: #e0e5ec;
+  --enpii-color-surface-container-lowest: #e0e5ec;
+  --enpii-color-surface-container-low: #dde2e9;
+  --enpii-color-surface-container: #dbe0e7;
+  --enpii-color-surface-container-high: #d8dde4;
+  --enpii-color-surface-container-highest: #d5dae1;
+  --enpii-shadow-control: 9px 9px 16px rgba(163, 177, 198, .6), -9px -9px 16px rgba(255, 255, 255, .85);
+  --enpii-shadow-inset: inset 5px 5px 10px rgba(163, 177, 198, .55), inset -5px -5px 10px rgba(255, 255, 255, .85);
+  --enpii-shadow-raised: 9px 9px 18px rgba(163, 177, 198, .62), -9px -9px 18px rgba(255, 255, 255, .88);
+  --enpii-shadow-overlay: 14px 14px 28px rgba(163, 177, 198, .62), -14px -14px 28px rgba(255, 255, 255, .9);
+}
+
+[data-theme='dark'] {
+  --enpii-color-surface: #2d3239;
+  --enpii-color-surface-container-lowest: #2d3239;
+  --enpii-color-surface-container-low: #2a2f35;
+  --enpii-color-surface-container: #272c32;
+  --enpii-color-surface-container-high: #24292f;
+  --enpii-color-surface-container-highest: #21262b;
+  --enpii-shadow-control: 9px 9px 16px rgba(11, 14, 17, .55), -9px -9px 16px rgba(72, 80, 90, .38);
+  --enpii-shadow-inset: inset 5px 5px 10px rgba(9, 12, 15, .58), inset -5px -5px 10px rgba(74, 82, 92, .34);
+  --enpii-shadow-raised: 9px 9px 18px rgba(11, 14, 17, .58), -9px -9px 18px rgba(74, 82, 92, .4);
+  --enpii-shadow-overlay: 14px 14px 28px rgba(11, 14, 17, .62), -14px -14px 28px rgba(76, 84, 94, .44);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --enpii-color-surface: #2d3239;
+    --enpii-color-surface-container-lowest: #2d3239;
+    --enpii-color-surface-container-low: #2a2f35;
+    --enpii-color-surface-container: #272c32;
+    --enpii-color-surface-container-high: #24292f;
+    --enpii-color-surface-container-highest: #21262b;
+    --enpii-shadow-control: 9px 9px 16px rgba(11, 14, 17, .55), -9px -9px 16px rgba(72, 80, 90, .38);
+    --enpii-shadow-inset: inset 5px 5px 10px rgba(9, 12, 15, .58), inset -5px -5px 10px rgba(74, 82, 92, .34);
+    --enpii-shadow-raised: 9px 9px 18px rgba(11, 14, 17, .58), -9px -9px 18px rgba(74, 82, 92, .4);
+    --enpii-shadow-overlay: 14px 14px 28px rgba(11, 14, 17, .62), -14px -14px 28px rgba(76, 84, 94, .44);
+  }
+}
+
+.enpii-navbar,
+.enpii-sidebar,
+.enpii-footer,
+.enpii-drawer__panel,
+.enpii-card,
+.enpii-modal__panel,
+.enpii-alert {
+  border: 0;
+  border-radius: var(--enpii-radius-card);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+/* Controls: soft extruded surfaces */
+.enpii-button,
+.enpii-smart-select__control,
+.enpii-date-picker__control,
+.enpii-input__control,
+.enpii-textarea__control,
+.enpii-badge {
+  border: 0;
+  box-shadow: var(--enpii-shadow-control);
+  background: var(--enpii-color-surface-container-lowest);
+}
+
+.enpii-button--primary {
+  color: var(--enpii-color-primary-text);
+}
+
+.enpii-button--secondary,
+.enpii-button--ghost {
+  color: var(--enpii-color-primary-text);
+}
+
+.enpii-button:active:not(:disabled),
+.enpii-button--pressed {
+  box-shadow: var(--enpii-shadow-inset);
+}
+
+/* Inputs read as pressed-in wells */
+.enpii-input__control,
+.enpii-textarea__control,
+.enpii-range__native {
+  box-shadow: var(--enpii-shadow-inset);
+  background: var(--enpii-color-surface-container-lowest);
+}
+
+.enpii-navbar__link:hover,
+.enpii-navbar__link:focus-visible,
+.enpii-sidebar a:hover,
+.enpii-sidebar a:focus-visible,
+.enpii-sidebar__group-toggle:hover,
+.enpii-pagination__control:hover:not(:disabled),
+.enpii-pagination__control--active {
+  border-radius: inherit;
+  box-shadow: var(--enpii-shadow-inset);
+}
+
+.enpii-sidebar a,
+.enpii-sidebar__group-toggle,
+.enpii-pagination__control {
+  border-radius: .75rem;
+}
+
+.enpii-input__control,
+.enpii-textarea__control {
+  border: 0;
+  box-shadow: var(--enpii-shadow-inset);
+}
+
+.enpii-input__control:focus,
+.enpii-textarea__control:focus,
+.enpii-input__control:focus-visible,
+.enpii-textarea__control:focus-visible {
+  outline: 3px solid var(--enpii-color-focus);
+  outline-offset: 3px;
+}
+
+.enpii-range__control {
+  box-shadow: var(--enpii-shadow-inset);
+}
+
+.enpii-range__control::-webkit-slider-thumb {
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-range__control:focus-visible {
+  outline: 4px solid var(--enpii-color-focus);
+  outline-offset: 5px;
+}
+
+.enpii-alert,
+.enpii-skeleton__item {
+  border-radius: var(--enpii-radius-control);
+}
+
+.enpii-skeleton__item {
+  background: linear-gradient(90deg, color-mix(in srgb, currentColor 5%, transparent), color-mix(in srgb, currentColor 11%, transparent), color-mix(in srgb, currentColor 5%, transparent));
+}
+
+.enpii-navbar__brand,
+.enpii-footer__brand,
+.enpii-alert__title,
+.enpii-drawer__title {
+  font-weight: 600;
+}
+
+.enpii-range__label,
+.enpii-progress__meta,
+.enpii-avatar,
+.enpii-stepper__step--active .enpii-stepper__label {
+  font-weight: 500;
+}

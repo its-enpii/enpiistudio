@@ -25,7 +25,13 @@
       "require": "./dist/enpii-ui.umd.cjs"
     },
     "./styles.css": "./dist/enpii-ui.css",
-    "./tokens.css": "./dist/enpii-ui.css"
+    "./tokens.css": "./dist/enpii-ui.css",
+    "./styles/material": "./dist/styles/material.css",
+    "./styles/glassmorphism": "./dist/styles/glassmorphism.css",
+    "./styles/neumorphism": "./dist/styles/neumorphism.css",
+    "./styles/neobrutalism": "./dist/styles/neobrutalism.css",
+    "./styles/minimalism": "./dist/styles/minimalism.css",
+    "./styles/*": "./dist/styles/*"
   },
   "scripts": {
     "build": "vite build && vue-tsc --emitDeclarationOnly",

@@ -1,0 +1,119 @@
+/* Material Design 3 style layer. Import after @its-enpii/ui/styles.css. */
+:root {
+  --enpii-radius-control: 999px;
+  --enpii-radius-card: 1rem;
+  --enpii-radius-overlay: 1.5rem;
+  --enpii-shadow-control: 0 1px 2px rgba(0, 0, 0, .14), 0 1px 3px 1px rgba(0, 0, 0, .08);
+  --enpii-shadow-raised: 0 4px 8px 3px rgba(0, 0, 0, .15);
+  --enpii-shadow-overlay: 0 4px 8px 3px rgba(0, 0, 0, .15);
+}
+
+[data-theme='dark'] {
+  --enpii-shadow-control: 0 1px 2px rgba(0, 0, 0, .28), 0 1px 3px 1px rgba(0, 0, 0, .18);
+  --enpii-shadow-raised: 0 4px 8px 3px rgba(0, 0, 0, .32);
+  --enpii-shadow-overlay: 0 4px 8px 3px rgba(0, 0, 0, .32);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --enpii-shadow-control: 0 1px 2px rgba(0, 0, 0, .28), 0 1px 3px 1px rgba(0, 0, 0, .18);
+    --enpii-shadow-raised: 0 4px 8px 3px rgba(0, 0, 0, .32);
+    --enpii-shadow-overlay: 0 4px 8px 3px rgba(0, 0, 0, .32);
+  }
+}
+
+.enpii-navbar,
+.enpii-sidebar,
+.enpii-footer,
+.enpii-drawer__panel,
+.enpii-card,
+.enpii-modal__panel {
+  border-radius: var(--enpii-radius-overlay);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-button,
+.enpii-icon-button--filled-primary,
+.enpii-icon-button--filled-info {
+  background-image: linear-gradient(color-mix(in srgb, #ffffff 16%, var(--enpii-color-primary)), color-mix(in srgb, #ffffff 16%, var(--enpii-color-primary)));
+  font-weight: 500;
+}
+
+.enpii-button:hover:not(:disabled) {
+  filter: none;
+  opacity: .92;
+}
+
+.enpii-button::after,
+.enpii-icon-button--filled-primary::after,
+.enpii-icon-button--filled-info::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-color: currentColor;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--enpii-duration-fast) ease;
+}
+
+.enpii-button:hover:not(:disabled)::after,
+.enpii-icon-button--filled-primary:hover:not(:disabled)::after,
+.enpii-icon-button--filled-info:hover:not(:disabled)::after {
+  opacity: .08;
+}
+
+.enpii-input__control,
+.enpii-textarea__control,
+.enpii-smart-select__trigger {
+  border-radius: var(--enpii-radius-control);
+}
+
+.enpii-navbar__brand,
+.enpii-footer__brand,
+.enpii-alert__title,
+.enpii-drawer__title {
+  font-weight: 500;
+}
+
+.enpii-navbar__link,
+.enpii-sidebar a,
+.enpii-sidebar__group-toggle,
+.enpii-breadcrumb__link,
+.enpii-pagination__control,
+.enpii-stepper__trigger {
+  font-weight: 500;
+}
+
+.enpii-navbar__link:hover,
+.enpii-navbar__link:focus-visible,
+.enpii-sidebar a:hover,
+.enpii-sidebar a:focus-visible,
+.enpii-sidebar__group-toggle:hover,
+.enpii-pagination__control:hover:not(:disabled),
+.enpii-pagination__control--active {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  opacity: .92;
+}
+
+.enpii-range__label,
+.enpii-progress__meta,
+.enpii-avatar,
+.enpii-stepper__step--active .enpii-stepper__label {
+  font-weight: 500;
+}
+
+.enpii-drawer__backdrop {
+  background: rgba(0, 0, 0, .32);
+}
+
+.enpii-alert {
+  border-width: 0;
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-skeleton__item {
+  background: linear-gradient(90deg, color-mix(in srgb, currentColor 7%, transparent), color-mix(in srgb, currentColor 14%, transparent), color-mix(in srgb, currentColor 7%, transparent));
+}

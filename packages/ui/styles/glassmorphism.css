@@ -1,0 +1,111 @@
+/* Frosted-glass style layer. Import after @its-enpii/ui/styles.css. */
+:root {
+  --enpii-radius-control: 1rem;
+  --enpii-radius-card: 1.25rem;
+  --enpii-radius-overlay: 1.5rem;
+  --enpii-color-surface-container-lowest: rgba(255, 255, 255, .55);
+  --enpii-color-surface-container-low: rgba(255, 255, 255, .5);
+  --enpii-color-surface-container: rgba(255, 255, 255, .46);
+  --enpii-color-surface-container-high: rgba(255, 255, 255, .42);
+  --enpii-color-surface-container-highest: rgba(255, 255, 255, .38);
+  --enpii-shadow-control: 0 12px 34px rgba(31, 41, 51, .13);
+  --enpii-shadow-raised: 0 18px 48px rgba(31, 41, 51, .16);
+  --enpii-shadow-overlay: 0 24px 64px rgba(31, 41, 51, .2);
+}
+
+[data-theme='dark'],
+:root:not([data-theme='light']) {
+  --enpii-color-surface-container-lowest: rgba(20, 24, 32, .55);
+  --enpii-color-surface-container-low: rgba(20, 24, 32, .52);
+  --enpii-color-surface-container: rgba(20, 24, 32, .48);
+  --enpii-color-surface-container-high: rgba(20, 24, 32, .45);
+  --enpii-color-surface-container-highest: rgba(20, 24, 32, .42);
+  --enpii-shadow-control: 0 12px 34px rgba(0, 0, 0, .26);
+  --enpii-shadow-raised: 0 18px 48px rgba(0, 0, 0, .3);
+  --enpii-shadow-overlay: 0 24px 64px rgba(0, 0, 0, .36);
+}
+
+.enpii-navbar,
+.enpii-sidebar,
+.enpii-footer,
+.enpii-drawer__panel,
+.enpii-card,
+.enpii-modal__panel,
+.enpii-alert {
+  border: 1px solid rgba(255, 255, 255, .4);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-modal__panel {
+  border-radius: var(--enpii-radius-overlay);
+}
+
+.enpii-navbar--transparent {
+  border-bottom-color: rgba(255, 255, 255, .4);
+}
+
+.enpii-navbar__links--open {
+  border: 1px solid rgba(255, 255, 255, .4);
+  border-radius: var(--enpii-radius-overlay);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  box-shadow: var(--enpii-shadow-raised);
+}
+
+.enpii-drawer__header,
+.enpii-drawer__footer {
+  border-color: rgba(255, 255, 255, .28);
+}
+
+.enpii-alert {
+  border-radius: var(--enpii-radius-control);
+}
+
+.enpii-skeleton__item {
+  background: linear-gradient(90deg, color-mix(in srgb, currentColor 6%, transparent), color-mix(in srgb, currentColor 15%, transparent), color-mix(in srgb, currentColor 6%, transparent));
+}
+
+.enpii-navbar__brand,
+.enpii-footer__brand,
+.enpii-alert__title,
+.enpii-drawer__title {
+  font-weight: 600;
+}
+
+.enpii-range__label,
+.enpii-progress__meta,
+.enpii-avatar,
+.enpii-stepper__step--active .enpii-stepper__label {
+  font-weight: 500;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :root {
+    --enpii-color-surface-container-lowest: rgb(245 249 253 / 96%);
+    --enpii-color-surface-container-low: rgb(240 246 252 / 95%);
+    --enpii-color-surface-container: rgb(235 242 249 / 94%);
+    --enpii-color-surface-container-high: rgb(230 236 244 / 94%);
+    --enpii-color-surface-container-highest: rgb(225 232 240 / 93%);
+  }
+
+  [data-theme='dark'] {
+    --enpii-color-surface-container-lowest: rgb(27 33 43 / 98%);
+    --enpii-color-surface-container-low: rgb(26 31 40 / 97%);
+    --enpii-color-surface-container: rgb(25 30 38 / 96%);
+    --enpii-color-surface-container-high: rgb(24 29 37 / 95%);
+    --enpii-color-surface-container-highest: rgb(23 28 35 / 94%);
+  }
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  [data-theme='dark'],
+  :root:not([data-theme='light']) {
+    --enpii-color-surface-container-lowest: rgb(27 33 43 / 98%);
+    --enpii-color-surface-container-low: rgb(26 31 40 / 97%);
+    --enpii-color-surface-container: rgb(25 30 38 / 96%);
+    --enpii-color-surface-container-high: rgb(24 29 37 / 95%);
+    --enpii-color-surface-container-highest: rgb(23 28 35 / 94%);
+  }
+}
