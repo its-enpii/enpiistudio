@@ -14,6 +14,11 @@ export default defineConfig({
           fileURLToPath(new URL('./dist/styles', import.meta.url)),
           { recursive: true },
         )
+        await cp(
+          fileURLToPath(new URL('./src/assets', import.meta.url)),
+          fileURLToPath(new URL('./dist/assets', import.meta.url)),
+          { recursive: true },
+        )
       },
     },
   ],
