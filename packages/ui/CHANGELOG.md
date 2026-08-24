@@ -7,6 +7,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-08-24
+
+### Added
+- 13 new components: Navbar, Sidebar, Footer, Breadcrumb, Pagination,
+  Drawer, Range, Progress, Spinner, Alert, Skeleton, Avatar, Stepper.
+- 3 new form components: DateRange (presets, dual calendar), TimePicker
+  (12/24h, step minutes), InputMask (no-dep masking, raw v-model).
+- 5 design style layers: `styles/material`, `styles/glassmorphism`,
+  `styles/neumorphism`, `styles/neobrutalism`, `styles/minimalism` —
+  full component-surface coverage incl. variants, theme-agnostic.
+- RichEditor rewritten on Tiptap (`@tiptap/vue-3` + starter-kit as peer
+  deps); public API unchanged.
+- Double-submit guard: `useFormSubmitProvider()` locks all
+  `type=submit` EnpiiButtons while the form is submitting.
+- Smooth motion system: emphasized easing token, accordion expand
+  animation, card hover lift, overlay transitions; honors
+  prefers-reduced-motion.
+- Docs: root DESIGN.md + packages/ui/docs/STYLES.md.
+
+### Changed
+- Spacing normalized to a strict 4px grid (field-gap 8px, row-gap 24px).
+- Unified label typography across all form controls (.8125rem/600,
+  on-surface-variant, no uppercase).
+- RadioGroup compacted (weight 500, tighter rows).
+- Font-weight capped at 600 package-wide.
+- All browser-default style leakage eliminated (appearance resets for
+  buttons/inputs/checkbox/radio/range/search/datetime; WebKit+Firefox).
+
+### Fixed
+- Icon font now copied to dist/assets on build (icons previously fell
+  back to raw text in consumer apps).
+
 ## [0.2.0] - 2026-08-24
 
 First complete release of the package as a standalone Vue 3 component library.
