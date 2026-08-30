@@ -1378,6 +1378,30 @@ button.enpii-stepper__trigger{cursor:pointer}
 .enpii-tag-input__suggestion[data-active='true'],.enpii-tag-input__suggestion:hover{background:var(--enpii-color-surface-container-low)}
 .enpii-tag-input--disabled{opacity:.6}
 .enpii-tag-input--disabled .enpii-tag-input__control{cursor:not-allowed}
+
+/* ===== EnpiiMentionInput ===== */
+.enpii-mention-input{position:relative;display:grid;gap:var(--enpii-space-field-gap);width:100%}
+.enpii-mention-input__label{margin-left:.25rem;color:var(--enpii-color-on-surface-variant);font-size:.8125rem;font-weight:500}
+.enpii-mention-input__wrap{position:relative}
+.enpii-mention-input__control{width:100%;min-height:6rem;padding:.75rem 1rem;border:1px solid var(--enpii-color-outline-variant);border-radius:var(--enpii-radius-control);background:var(--enpii-color-surface-container-lowest);color:var(--enpii-color-on-surface);font-family:inherit;font-size:var(--enpii-control-font-size);line-height:1.5;resize:vertical;transition:border-color var(--enpii-duration-fast) var(--enpii-ease-emphasized),box-shadow var(--enpii-duration-fast) var(--enpii-ease-emphasized),background var(--enpii-duration-fast) var(--enpii-ease-emphasized)}
+.enpii-mention-input__control::placeholder{color:var(--enpii-color-outline)}
+.enpii-mention-input__control:hover:not(:disabled):not([readonly]){border-color:color-mix(in srgb,var(--enpii-color-primary) 40%,transparent)}
+.enpii-mention-input__control:focus-visible{outline:none;border-color:var(--enpii-color-primary-container);box-shadow:var(--enpii-focus-ring)}
+.enpii-mention-input__control:active:not(:disabled):not([readonly]){border-color:var(--enpii-color-primary)}
+.enpii-mention-input__control:disabled,.enpii-mention-input__control[readonly]{cursor:not-allowed;opacity:.6;background:var(--enpii-color-surface-container-low)}
+.enpii-mention-input__suggestions{position:absolute;z-index:var(--enpii-z-dropdown);top:calc(100% + .25rem);left:0;right:0;max-height:14rem;margin:0;padding:.25rem;overflow-y:auto;list-style:none;border:1px solid var(--enpii-color-outline-variant);border-radius:var(--enpii-radius-control);background:var(--enpii-color-surface-container-lowest);box-shadow:var(--enpii-shadow-overlay)}
+.enpii-mention-input__suggestion{display:flex;align-items:center;gap:.5rem;min-height:2.5rem;padding:.5rem .625rem;border:0;border-radius:calc(var(--enpii-radius-control) - .25rem);background:transparent;color:var(--enpii-color-on-surface);font-size:.875rem;font-weight:400;text-align:left;cursor:pointer;transition:background var(--enpii-duration-fast) var(--enpii-ease-emphasized)}
+.enpii-mention-input__suggestion:hover,.enpii-mention-input__suggestion[data-active='true']{background:var(--enpii-color-neutral-soft)}
+.enpii-mention-input__suggestion:focus-visible{outline:3px solid var(--enpii-color-focus);outline-offset:-2px}
+.enpii-mention-input__avatar{width:1.5rem;height:1.5rem;flex-shrink:0;border-radius:9999px;object-fit:cover}
+.enpii-mention-input__user-label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.enpii-mention-input__preview{margin:0;padding:.75rem 1rem;border:1px solid var(--enpii-color-outline-variant);border-radius:var(--enpii-radius-control);background:var(--enpii-color-surface-container-low);color:var(--enpii-color-on-surface);font-size:.875rem;font-weight:400;line-height:1.5;white-space:pre-wrap}
+.enpii-mention-input__mark{padding:.125rem .25rem;border-radius:.375rem;background:var(--enpii-color-primary-soft);color:var(--enpii-color-primary-text);font-weight:500}
+.enpii-mention-input--disabled{opacity:.6}
+.enpii-mention-input--readonly .enpii-mention-input__control{cursor:default}
+@media (max-width:24rem){.enpii-mention-input__suggestion{font-size:.8125rem}}
+@media (prefers-reduced-motion:reduce){.enpii-mention-input__control,.enpii-mention-input__suggestion{transition:none}}
+@media (forced-colors:active){.enpii-mention-input__suggestions{border-color:CanvasText}.enpii-mention-input__mark{background:Canvas;border:1px solid CanvasText}.enpii-mention-input__control:focus-visible,.enpii-mention-input__suggestion:focus-visible{outline-color:Highlight}}
 @media (max-width:360px){.enpii-tag-input__field{min-width:5rem}}
 @media (prefers-reduced-motion:reduce){.enpii-tag-input__control,.enpii-tag-input__remove,.enpii-tag-input__suggestion{transition:none}}
 

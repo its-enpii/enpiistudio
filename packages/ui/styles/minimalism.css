@@ -995,4 +995,25 @@
 .enpii-image-upload__action:hover:not(:disabled),
 .enpii-image-upload__button:hover:not(:disabled) {
   box-shadow: 0 0 0 2px var(--enpii-color-primary-soft);
+/* ===== EnpiiMentionInput ===== */
+.enpii-mention-input__control,
+.enpii-mention-input__suggestions,
+.enpii-mention-input__preview {
+  border-radius: 0.375rem;
+  box-shadow: none;
+}
+
+.enpii-mention-input__control:focus-visible {
+  box-shadow: 0 0 0 2px var(--enpii-color-primary-soft);
+}
+
+.enpii-mention-input__suggestion,
+.enpii-mention-input__mark,
+.enpii-mention-input__preview {
+  font-weight: 400;
+}
+
+.enpii-mention-input__suggestion:hover,
+.enpii-mention-input__suggestion[data-active='true'] {
+  background: color-mix(in srgb, var(--enpii-color-neutral-soft) 72%, transparent);
 }

@@ -1206,4 +1206,32 @@
   border: 0;
   border-radius: var(--enpii-radius-overlay);
   box-shadow: var(--enpii-shadow-inset);
+/* ===== EnpiiMentionInput ===== */
+.enpii-mention-input__control,
+.enpii-mention-input__suggestions,
+.enpii-mention-input__preview {
+  border: 0;
+  border-radius: 0.625rem;
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-mention-input__suggestions {
+  box-shadow: var(--enpii-shadow-overlay);
+}
+
+.enpii-mention-input__control:focus-visible {
+  box-shadow: 0 0 0 3px var(--enpii-color-primary-soft);
+}
+
+.enpii-mention-input__suggestion,
+.enpii-mention-input__mark,
+.enpii-mention-input__preview {
+  font-weight: 500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enpii-mention-input__control,
+  .enpii-mention-input__suggestion {
+    transition: none;
+  }
 }

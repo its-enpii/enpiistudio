@@ -1087,4 +1087,30 @@
 .enpii-image-upload__name,
 .enpii-image-upload__dropzone-text {
   font-weight: 400;
+/* ===== EnpiiMentionInput ===== */
+.enpii-mention-input__control,
+.enpii-mention-input__suggestions,
+.enpii-mention-input__preview {
+  border-radius: var(--enpii-radius-control);
+}
+
+.enpii-mention-input__control {
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-mention-input__suggestion,
+.enpii-mention-input__mark,
+.enpii-mention-input__preview {
+  font-weight: 400;
+}
+
+.enpii-mention-input__control:focus-visible {
+  box-shadow: 0 0 0 3px var(--enpii-color-primary-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enpii-mention-input__control,
+  .enpii-mention-input__suggestion {
+    transition: none;
+  }
 }

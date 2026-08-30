@@ -120,6 +120,13 @@ const id: TranslationDictionary = {
   // --- Textarea ---
   'textarea.placeholder': 'Masukkan {label}',
 
+  // --- MentionInput ---
+  'mentionInput.label': 'Pesan',
+  'mentionInput.ariaLabel': 'Masukkan pesan dengan mention',
+  'mentionInput.placeholder': 'Tulis pesan dan gunakan @ untuk mention',
+  'mentionInput.suggestionsLabel': 'Saran mention',
+  'mentionInput.previewLabel': 'Pratinjau pesan dengan mention',
+
   // --- CsvImportExport ---
   'csvImportExport.importTitle': 'Impor CSV',
   'csvImportExport.importHint': 'Unggah file CSV (Excel-compatible). Baris pertama harus header.',
@@ -460,6 +467,13 @@ const en: TranslationDictionary = {
 
   // --- Textarea ---
   'textarea.placeholder': 'Enter {label}',
+
+  // --- MentionInput ---
+  'mentionInput.label': 'Message',
+  'mentionInput.ariaLabel': 'Enter a message with mentions',
+  'mentionInput.placeholder': 'Write a message and use @ to mention',
+  'mentionInput.suggestionsLabel': 'Mention suggestions',
+  'mentionInput.previewLabel': 'Message preview with mentions',
 
   // --- CsvImportExport ---
   'csvImportExport.importTitle': 'Import CSV',
