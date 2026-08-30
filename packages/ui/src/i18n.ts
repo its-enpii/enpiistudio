@@ -351,6 +351,17 @@ const id: TranslationDictionary = {
   'kanban.ariaLabel': 'Papan kanban',
   'kanban.cardCount': '{count} kartu',
   'kanban.moveCard': 'Pindah kartu {title}',
+
+  // --- WhatsAppPreview ---
+  'whatsappPreview.ariaLabel': 'Log pratinjau chat WhatsApp',
+  'whatsappPreview.contactFallback': 'Kontak',
+  'whatsappPreview.incoming': 'Masuk',
+  'whatsappPreview.outgoing': 'Keluar',
+  'whatsappPreview.readOnly': 'Hanya baca',
+  'whatsappPreview.status.sent': 'Terkirim',
+  'whatsappPreview.status.delivered': 'Tersampaikan',
+  'whatsappPreview.status.read': 'Dibaca',
+  'whatsappPreview.status.failed': 'Gagal',
 }
 
 const en: TranslationDictionary = {
@@ -713,6 +724,16 @@ const en: TranslationDictionary = {
   'imageUpload.zoom': 'Zoom',
   'imageUpload.cancel': 'Cancel',
   'imageUpload.apply': 'Apply crop',
+  // --- WhatsAppPreview ---
+  'whatsappPreview.ariaLabel': 'WhatsApp chat preview log',
+  'whatsappPreview.contactFallback': 'Contact',
+  'whatsappPreview.incoming': 'Incoming',
+  'whatsappPreview.outgoing': 'Outgoing',
+  'whatsappPreview.readOnly': 'Read only',
+  'whatsappPreview.status.sent': 'Sent',
+  'whatsappPreview.status.delivered': 'Delivered',
+  'whatsappPreview.status.read': 'Read',
+  'whatsappPreview.status.failed': 'Failed',
 }
 
 export const builtinDictionaries: TranslationMap = { id, en }

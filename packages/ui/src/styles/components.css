@@ -1714,3 +1714,32 @@ button.enpii-stepper__trigger{cursor:pointer}
 @media (max-width:360px){.enpii-image-upload__list{grid-template-columns:repeat(2,minmax(0,1fr))}.enpii-image-upload__crop-panel{padding:.75rem}}
 @media (prefers-reduced-motion:reduce){.enpii-image-upload__dropzone,.enpii-image-upload__action,.enpii-image-upload__button,.enpii-image-upload-modal-enter-active,.enpii-image-upload-modal-leave-active{transition:none}.enpii-image-upload__dropzone:active:not(.enpii-image-upload__dropzone--disabled),.enpii-image-upload__action:active:not(:disabled),.enpii-image-upload__button:active:not(:disabled){transform:none}}
 @media (forced-colors:active){.enpii-image-upload__dropzone,.enpii-image-upload__item,.enpii-image-upload__button{border-color:CanvasText}.enpii-image-upload__action,.enpii-image-upload__button--primary{background:ButtonFace;color:ButtonText}.enpii-image-upload__crop-canvas{border:1px solid CanvasText}.enpii-image-upload__dropzone:focus-visible,.enpii-image-upload__action:focus-visible,.enpii-image-upload__zoom:focus-visible,.enpii-image-upload__button:focus-visible{outline-color:Highlight}}
+/* ===== EnpiiWhatsAppPreview ===== */
+.enpii-whatsapp-preview{max-width:36rem;padding:1rem;background:var(--enpii-color-surface);border:1px solid var(--enpii-color-outline-variant);border-radius:var(--enpii-radius-card);color:var(--enpii-color-on-surface);font-size:1rem}
+.enpii-whatsapp-preview--sm{font-size:.875rem}
+.enpii-whatsapp-preview--lg{font-size:1.125rem}
+.enpii-whatsapp-preview--quiet{background:var(--enpii-color-surface-container-lowest)}
+.enpii-whatsapp-preview--readonly{opacity:.88}
+.enpii-whatsapp-preview__header{display:flex;align-items:center;gap:.75rem;min-height:3rem;margin-bottom:1rem;padding:.25rem .5rem .75rem;border-bottom:1px solid var(--enpii-color-outline-variant)}
+.enpii-whatsapp-preview__avatar{display:grid;place-items:center;width:2.5rem;height:2.5rem;flex:0 0 auto;border-radius:50%;background:var(--enpii-color-primary-container);color:var(--enpii-color-on-primary-container);font-size:.875rem;font-weight:500}
+.enpii-whatsapp-preview__contact{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
+.enpii-whatsapp-preview__readonly{margin-left:auto;color:var(--enpii-color-on-surface-variant);font-size:.75rem;font-weight:400}
+.enpii-whatsapp-preview__log{display:flex;flex-direction:column;gap:.25rem;margin:0;padding:0;list-style:none}
+.enpii-whatsapp-preview__divider{align-self:center;margin:.5rem 0;color:var(--enpii-color-on-surface-variant);font-size:.75rem;font-weight:400}
+.enpii-whatsapp-preview__item{display:flex}
+.enpii-whatsapp-preview__item--out{justify-content:flex-end}
+.enpii-whatsapp-preview__item--in{justify-content:flex-start}
+.enpii-whatsapp-preview__bubble{position:relative;display:flex;flex-direction:column;max-width:min(80%,24rem);padding:.75rem 1rem;background:var(--enpii-color-surface-container-low);border:1px solid var(--enpii-color-outline-variant);border-radius:1rem;color:var(--enpii-color-on-surface)}
+.enpii-whatsapp-preview__item--out .enpii-whatsapp-preview__bubble{background:var(--enpii-color-primary-container);border-color:transparent;color:var(--enpii-color-on-primary-container)}
+.enpii-whatsapp-preview__bubble--failed{background:var(--enpii-color-danger-soft);border-color:var(--enpii-color-danger-border);color:var(--enpii-color-danger-text)}
+.enpii-whatsapp-preview__media{display:block;width:100%;max-height:18rem;margin-bottom:.5rem;object-fit:cover;border-radius:.75rem}
+.enpii-whatsapp-preview__body{margin:0;font-weight:400;line-height:1.45;overflow-wrap:anywhere}
+.enpii-whatsapp-preview__meta{display:inline-flex;align-items:center;gap:.25rem;align-self:flex-end;margin-top:.25rem;color:color-mix(in srgb,currentColor 68%,transparent);font-size:.6875rem;font-weight:400;font-variant-numeric:tabular-nums}
+.enpii-whatsapp-preview__status{display:inline-flex}
+.enpii-whatsapp-preview__status--delivered,.enpii-whatsapp-preview__status--read{color:var(--enpii-color-success-text)}
+.enpii-whatsapp-preview__status--failed{color:var(--enpii-color-danger-text)}
+.enpii-whatsapp-preview__status-icon{font-size:1rem;line-height:1}
+.enpii-whatsapp-preview__item--out .enpii-whatsapp-preview__status--delivered,.enpii-whatsapp-preview__item--out .enpii-whatsapp-preview__status--read{color:var(--enpii-color-success-text)}
+@media (max-width:480px){.enpii-whatsapp-preview{padding:.75rem}.enpii-whatsapp-preview__bubble{max-width:88%}}
+@media (max-width:360px){.enpii-whatsapp-preview__avatar{width:2.25rem;height:2.25rem}.enpii-whatsapp-preview__bubble{padding:.625rem .75rem}}
+@media (forced-colors:active){.enpii-whatsapp-preview{border-color:CanvasText}.enpii-whatsapp-preview__item--out .enpii-whatsapp-preview__bubble,.enpii-whatsapp-preview__bubble{border-color:CanvasText;color:CanvasText}.enpii-whatsapp-preview__item--out .enpii-whatsapp-preview__bubble{background:Highlight}}

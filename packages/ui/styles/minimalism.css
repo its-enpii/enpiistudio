@@ -1016,4 +1016,22 @@
 .enpii-mention-input__suggestion:hover,
 .enpii-mention-input__suggestion[data-active='true'] {
   background: color-mix(in srgb, var(--enpii-color-neutral-soft) 72%, transparent);
+/* Late-added family: WhatsApp preview */
+.enpii-whatsapp-preview {
+  border-radius: .5rem;
+  border-color: var(--enpii-color-outline-variant);
+  box-shadow: none;
+}
+
+.enpii-whatsapp-preview__contact {
+  font-weight: 500;
+}
+
+.enpii-whatsapp-preview__bubble {
+  border-radius: .75rem;
+  box-shadow: none;
+}
+
+.enpii-whatsapp-preview__media {
+  border-radius: .5rem;
 }

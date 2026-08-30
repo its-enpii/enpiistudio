@@ -73,6 +73,7 @@ export { default as EnpiiTransferList } from './components/EnpiiTransferList.vue
 export { default as EnpiiMentionInput } from './components/EnpiiMentionInput.vue'
 export { default as EnpiiTimeline } from './components/EnpiiTimeline.vue'
 export { default as EnpiiStatTile } from './components/EnpiiStatTile.vue'
+export { default as EnpiiWhatsAppPreview } from './components/EnpiiWhatsAppPreview.vue'
 export { default as EnpiiSwitch } from './components/EnpiiSwitch.vue'
 export { default as EnpiiTabs } from './components/EnpiiTabs.vue'
 export { default as EnpiiTimePicker } from './components/EnpiiTimePicker.vue'
