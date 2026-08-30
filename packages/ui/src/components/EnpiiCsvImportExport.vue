@@ -3,14 +3,17 @@ import { ref } from 'vue';
 import { useShape } from '../composables/useShape';
 import AppButton from './EnpiiButton.vue';
 import AppModal from './EnpiiModal.vue';
+import { useT } from '../composables/useT'
+
+const t = useT()
 
 const props = defineProps({
     exportUrl: { type: String, required: true },
     importUrl: { type: String, required: true },
     columns: { type: Array, required: true },
     importFile: { type: Function, required: true },
-    title: { type: String, default: 'Impor CSV' },
-    hint: { type: String, default: 'Unggah file CSV (Excel-compatible). Baris pertama harus header.' },
+    title: { type: String, default: undefined },
+    hint: { type: String, default: undefined },
     shape: {
         type: String,
         default: 'rounded',
@@ -51,7 +54,7 @@ function submitImport() {
             if (fileInput.value) fileInput.value.value = '';
         })
         .catch((requestError) => {
-            error.value = requestError?.message || 'Impor gagal.';
+            error.value = requestError?.message || t('csvImportExport.importFailed');
         })
         .finally(() => {
             processing.value = false;
@@ -61,18 +64,18 @@ function submitImport() {
 
 <template>
     <div class="enpii-csv-import-export" :class="shapeClass">
-        <AppButton type="button" variant="secondary" icon="download" size="compact" @click="exportCsv">Export CSV</AppButton>
-        <AppButton type="button" variant="secondary" icon="upload" size="compact" @click="openImport">Import CSV</AppButton>
+        <AppButton type="button" variant="secondary" icon="download" size="compact" @click="exportCsv">{{ t('csvImportExport.exportButton') }}</AppButton>
+        <AppButton type="button" variant="secondary" icon="upload" size="compact" @click="openImport">{{ t('csvImportExport.importButton') }}</AppButton>
     </div>
 
-    <AppModal v-model="open" :title="title" size="md">
-        <p class="enpii-csv-import-export__hint">{{ hint }}</p>
+    <AppModal v-model="open" :title="title ?? t('csvImportExport.importTitle')" size="md">
+        <p class="enpii-csv-import-export__hint">{{ hint ?? t('csvImportExport.importHint') }}</p>
         <div class="enpii-csv-import-export__columns">
-            <p class="enpii-csv-import-export__columns-label">Kolom header</p>
+            <p class="enpii-csv-import-export__columns-label">{{ t('csvImportExport.columnsLabel') }}</p>
             <p class="enpii-csv-import-export__columns-value">{{ columns.join(';') }}</p>
         </div>
         <label class="enpii-csv-import-export__field">
-            <span class="enpii-csv-import-export__label">File CSV</span>
+            <span class="enpii-csv-import-export__label">{{ t('csvImportExport.fileLabel') }}</span>
             <input
                 ref="fileInput"
                 type="file"
@@ -84,8 +87,8 @@ function submitImport() {
             <p v-if="error" class="enpii-csv-import-export__error">{{ error }}</p>
         </label>
         <template #footer>
-            <AppButton variant="secondary" :disabled="processing" @click="open = false">Batal</AppButton>
-            <AppButton :loading="processing" :disabled="!file" icon="upload" @click="submitImport">Impor</AppButton>
+            <AppButton variant="secondary" :disabled="processing" @click="open = false">{{ t('csvImportExport.cancel') }}</AppButton>
+            <AppButton :loading="processing" :disabled="!file" icon="upload" @click="submitImport">{{ t('csvImportExport.import') }}</AppButton>
         </template>
     </AppModal>
 </template>

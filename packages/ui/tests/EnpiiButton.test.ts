@@ -48,7 +48,7 @@ describe('enpiiUi plugin', () => {
       logout: vi.fn(),
     })
 
-    expect(app.provide).toHaveBeenCalledTimes(4)
+    expect(app.provide).toHaveBeenCalledTimes(5)
     expect(app.provide.mock.calls[0][1]).toEqual(['loans.view', '*'])
     expect(app.provide.mock.calls[1][1]).toEqual({ isDesktop: true })
     expect(app.provide.mock.calls[2][1]).toEqual({ navigate, logout: expect.any(Function) })

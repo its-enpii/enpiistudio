@@ -5,6 +5,9 @@ import AppButton from './EnpiiButton.vue';
 import AppIcon from './EnpiiIcon.vue';
 import AppDatePicker from './EnpiiDatePicker.vue';
 import { useShape } from '../composables/useShape';
+import { useT } from '../composables/useT'
+
+const t = useT()
 
 const props = defineProps({
     year: { type: [Number, String], required: true },
@@ -137,28 +140,28 @@ function toMonthValue(year, month) {
 <template>
     <div class="enpii-report-period-filter">
         <div class="enpii-report-period-filter__fields" :class="{ 'enpii-report-period-filter__fields--day': showDay }">
-            <AppDatePicker v-model="selectedYear" label="Tahun" mode="year" required />
+            <AppDatePicker v-model="selectedYear" :label="t('reportPeriod.yearLabel')" mode="year" required />
             <AppDatePicker
                 v-model="selectedMonth"
-                label="Bulan"
+                :label="t('reportPeriod.monthLabel')"
                 mode="month"
                 clearable
-                placeholder="Semua bulan"
+                :placeholder="t('reportPeriod.allMonths')"
             />
             <AppDatePicker
                 v-if="showDay"
                 v-model="selectedDay"
-                label="Tanggal"
+                :label="t('reportPeriod.dayLabel')"
                 mode="date"
                 clearable
-                placeholder="Semua tanggal"
+                :placeholder="t('reportPeriod.allDays')"
                 :min="selectedMonth ? `${selectedMonth}-01` : selectedYear ? `${selectedYear}-01-01` : null"
                 :max="dayMax"
             />
         </div>
         <slot name="extra" />
         <div class="enpii-report-period-filter__actions">
-            <AppButton type="button" size="large" @click="apply">Tampilkan</AppButton>
+            <AppButton type="button" size="large" @click="apply">{{ t('reportPeriod.show') }}</AppButton>
             <a
                 v-if="pdfUrl"
                 :href="pdfHref()"

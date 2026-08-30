@@ -68,3 +68,7 @@ export { useShape } from './composables/useShape'
 export { THEMES, useTheme } from './composables/useTheme'
 export { useFormSubmitProvider } from './composables/useFormSubmit'
 export { useFormSubmitState } from './composables/useFormSubmitState'
+
+export { enpiiI18nKey, createT, builtinDictionaries } from './i18n'
+export type { TranslationDictionary, TranslationMap } from './i18n'
+export { useT } from './composables/useT'

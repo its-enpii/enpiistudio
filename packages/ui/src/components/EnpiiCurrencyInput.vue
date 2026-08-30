@@ -5,6 +5,9 @@ import { ref, useId, watch } from 'vue';
 import { useShape } from '../composables/useShape';
 import AppIcon from './EnpiiIcon.vue';
 import AppTooltip from './EnpiiTooltip.vue';
+import { useT } from '../composables/useT'
+
+const t = useT()
 
 const model = defineModel({ type: [String, Number], default: '' });
 const props = defineProps({
@@ -215,7 +218,7 @@ watch(model, () => {
                     tooltip && `${inputId}-tooltip`
                 ].filter(Boolean).join(' ') || undefined"
                 :readonly="readonly"
-                :placeholder="readonly ? undefined : (placeholder ?? `Masukkan ${label.toLowerCase()}`)"
+                :placeholder="readonly ? undefined : (placeholder ?? t('currencyInput.placeholder', { label: label.toLowerCase() }))"
                 class="enpii-currency-input__control"
                 :class="[shapeClass, { 'enpii-currency-input__control--error': Boolean(error), 'enpii-currency-input__control--readonly': readonly }]"
                 v-bind="$attrs"
@@ -226,10 +229,10 @@ watch(model, () => {
                 @keydown.down.prevent="adjust(-step)"
             >
             <div class="enpii-currency-input__actions">
-                <button v-if="!readonly" type="button" tabindex="-1" class="enpii-currency-input__action" aria-label="Kurangi nilai" @click="adjust(-step)">
+                <button v-if="!readonly" type="button" tabindex="-1" class="enpii-currency-input__action" :aria-label="t('currencyInput.decrease')" @click="adjust(-step)">
                     <AppIcon name="remove" class="enpii-currency-input__action-icon" />
                 </button>
-                <button v-if="!readonly" type="button" tabindex="-1" class="enpii-currency-input__action" aria-label="Tambah nilai" @click="adjust(step)">
+                <button v-if="!readonly" type="button" tabindex="-1" class="enpii-currency-input__action" :aria-label="t('currencyInput.increase')" @click="adjust(step)">
                     <AppIcon name="add" class="enpii-currency-input__action-icon" />
                 </button>
             </div>

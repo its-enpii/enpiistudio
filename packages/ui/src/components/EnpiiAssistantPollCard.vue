@@ -2,6 +2,9 @@
 import { computed, nextTick, ref } from 'vue';
 import AppButton from './EnpiiButton.vue';
 import AppIcon from './EnpiiIcon.vue';
+import { useT } from '../composables/useT'
+
+const t = useT()
 
 const props = defineProps({
     assistantBlock: { type: Object, required: true },
@@ -50,7 +53,7 @@ function onSubmitOther() {
 <template>
     <section
         class="enpii-assistant-poll-card"
-        :aria-label="`Polling: ${assistantBlock.question}`"
+        :aria-label="t('pollCard.pollingLabel', { question: assistantBlock.question })"
     >
         <!-- Header: question + arrow -->
         <header class="enpii-assistant-poll-card__header">
@@ -126,7 +129,7 @@ function onSubmitOther() {
                 ref="otherInput"
                 v-model="otherText"
                 type="text"
-                placeholder="Tulis jawaban…"
+                :placeholder="t('pollCard.placeholder')"
                 class="enpii-assistant-poll-card__other-input"
                 @keydown.enter.prevent="onSubmitOther"
             />

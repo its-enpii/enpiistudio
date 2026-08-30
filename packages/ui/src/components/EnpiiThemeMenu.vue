@@ -2,9 +2,11 @@
 import { onBeforeUnmount, ref, watch } from 'vue';
 import AppIcon from './EnpiiIcon.vue';
 import { useTheme } from '../composables/useTheme';
+import { useT } from '../composables/useT';
 
 const model = defineModel({ type: Boolean, default: false });
 const { theme, themes, setTheme } = useTheme();
+const t = useT();
 const panel = ref(null);
 
 function choose(id) {
@@ -50,7 +52,7 @@ onBeforeUnmount(() => {
                 v-if="model"
                 ref="panel"
                 role="menu"
-                aria-label="Pilih tema tampilan"
+                :aria-label="t('themeMenu.ariaLabel')"
                 class="enpii-theme-menu__panel"
             >
                 <p class="enpii-theme-menu__title">
@@ -58,19 +60,19 @@ onBeforeUnmount(() => {
                 </p>
                 <div class="enpii-theme-menu__options">
                     <button
-                        v-for="t in themes"
-                        :key="t.id"
+                        v-for="themeOption in themes"
+                        :key="themeOption.id"
                         type="button"
                         role="menuitemradio"
-                        :aria-checked="theme === t.id"
-                        :aria-label="`Pilih tema ${t.label}`"
+                        :aria-checked="theme === themeOption.id"
+                        :aria-label="t('themeMenu.selectTheme', { label: themeOption.label })"
                         class="enpii-theme-menu__option"
-                        :class="{ 'enpii-theme-menu__option--active': theme === t.id }"
-                        @click="choose(t.id)"
+                        :class="{ 'enpii-theme-menu__option--active': theme === themeOption.id }"
+                        @click="choose(themeOption.id)"
                     >
-                        <span class="enpii-theme-menu__swatch" :data-for="t.id" aria-hidden="true"><i /><i /><i /></span>
-                        <span class="enpii-theme-menu__label">{{ t.label }}</span>
-                        <AppIcon v-if="theme === t.id" name="check_circle" filled class="enpii-theme-menu__check" />
+                        <span class="enpii-theme-menu__swatch" :data-for="themeOption.id" aria-hidden="true"><i /><i /><i /></span>
+                        <span class="enpii-theme-menu__label">{{ themeOption.label }}</span>
+                        <AppIcon v-if="theme === themeOption.id" name="check_circle" filled class="enpii-theme-menu__check" />
                     </button>
                 </div>
             </div>

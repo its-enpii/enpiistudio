@@ -8,6 +8,9 @@ import AppIcon from './EnpiiIcon.vue';
 import AppInput from './EnpiiInput.vue';
 import EnpiiSmartSelect from './EnpiiSmartSelect.vue';
 import { useShape } from '../composables/useShape';
+import { useT } from '../composables/useT'
+
+const t = useT()
 
 const props = defineProps({
     rows: { type: Array, default: () => [] },
@@ -15,14 +18,14 @@ const props = defineProps({
     pagination: { type: Object, required: true },
     url: { type: String, required: true },
     search: { type: String, default: '' },
-    searchPlaceholder: { type: String, default: 'Cari data...' },
-    searchLabel: { type: String, default: 'Pencarian' },
+    searchPlaceholder: { type: String, default: undefined },
+    searchLabel: { type: String, default: undefined },
     perPageOptions: { type: Array, default: () => [15, 30, 50, 100] },
     perPage: { type: [Number, String], default: 15 },
     sort: { type: String, default: '' },
     direction: { type: String, default: 'asc' },
-    emptyTitle: { type: String, default: 'Belum ada data' },
-    emptyDescription: { type: String, default: 'Belum ada data untuk ditampilkan.' },
+    emptyTitle: { type: String, default: undefined },
+    emptyDescription: { type: String, default: undefined },
     shape: {
         type: String,
         default: 'rounded',
@@ -45,7 +48,7 @@ const pages = computed(() => {
     const end = Math.min(lastPage.value, start + 4);
     return Array.from({ length: end - start + 1 }, (_, index) => start + index);
 });
-const perPageOptions = computed(() => props.perPageOptions.map((value) => ({ value: Number(value), label: `${value} data` })));
+const perPageOptions = computed(() => props.perPageOptions.map((value) => ({ value: Number(value), label: t('smartTable.perPageLabel', { count: value }) })));
 
 watch(() => props.search, (value) => { query.value = value; });
 
@@ -88,14 +91,14 @@ onBeforeUnmount(() => clearTimeout(timer));
 <template>
     <div class="enpii-smart-table" :class="shapeClass">
         <div class="enpii-smart-table__toolbar">
-            <div class="enpii-smart-table__toolbar-start"><EnpiiSmartSelect id="smart-table-per-page" label="Per halaman" hide-label :model-value="Number(perPage)" :options="perPageOptions" :disabled="processing" @update:model-value="changePerPage"/><slot name="toolbar" /></div>
-            <div class="enpii-smart-table__search"><AppInput v-model="query" :label="searchLabel" hide-label icon="search" :placeholder="searchPlaceholder" @input="scheduleSearch"><template v-if="query" #trailing><button type="button" class="enpii-smart-table__clear" aria-label="Hapus pencarian" @click="resetSearch"><AppIcon name="close" /></button></template></AppInput></div>
+            <div class="enpii-smart-table__toolbar-start"><EnpiiSmartSelect id="smart-table-per-page" :label="t('smartTable.perPage')" hide-label :model-value="Number(perPage)" :options="perPageOptions" :disabled="processing" @update:model-value="changePerPage"/><slot name="toolbar" /></div>
+            <div class="enpii-smart-table__search"><AppInput v-model="query" :label="searchLabel ?? t('smartTable.searchLabel')" hide-label icon="search" :placeholder="searchPlaceholder ?? t('smartTable.searchPlaceholder')" @input="scheduleSearch"><template v-if="query" #trailing><button type="button" class="enpii-smart-table__clear" :aria-label="t('smartTable.clearSearch')" @click="resetSearch"><AppIcon name="close" /></button></template></AppInput></div>
         </div>
         <div class="enpii-smart-table__scroll">
-            <div v-if="processing" class="enpii-smart-table__loading">Memuat...</div>
-            <table class="enpii-smart-table__table"><thead class="enpii-smart-table__head"><tr><th v-for="column in columns" :key="column.key" class="enpii-smart-table__th" :class="column.class"><button v-if="column.sortable" type="button" class="enpii-smart-table__sort" @click="sortBy(column)">{{ column.label }}<AppIcon :name="sort === column.key ? direction === 'asc' ? 'arrow_upward' : 'arrow_downward' : 'unfold_more'" class="enpii-smart-table__sort-icon" /></button><span v-else>{{ column.label }}</span></th><th v-if="$slots.actions" class="enpii-smart-table__th enpii-smart-table__th--actions">Aksi</th></tr></thead><tbody><tr v-for="(row, index) in rows" :key="row.row_id || row.id || index" class="enpii-smart-table__row"><td v-for="column in columns" :key="column.key" class="enpii-smart-table__td" :class="column.class"><slot :name="`cell-${column.key}`" :row="row" :value="row[column.key]">{{ row[column.key] ?? '—' }}</slot></td><td v-if="$slots.actions" class="enpii-smart-table__td enpii-smart-table__td--actions"><slot name="actions" :row="row" /></td></tr></tbody></table>
-            <div v-if="!rows.length && !processing" class="enpii-smart-table__empty"><AppEmptyState icon="database" :title="emptyTitle" :description="emptyDescription" /></div>
+            <div v-if="processing" class="enpii-smart-table__loading">{{ t('smartTable.loading') }}</div>
+            <table class="enpii-smart-table__table"><thead class="enpii-smart-table__head"><tr><th v-for="column in columns" :key="column.key" class="enpii-smart-table__th" :class="column.class"><button v-if="column.sortable" type="button" class="enpii-smart-table__sort" @click="sortBy(column)">{{ column.label }}<AppIcon :name="sort === column.key ? direction === 'asc' ? 'arrow_upward' : 'arrow_downward' : 'unfold_more'" class="enpii-smart-table__sort-icon" /></button><span v-else>{{ column.label }}</span></th><th v-if="$slots.actions" class="enpii-smart-table__th enpii-smart-table__th--actions">{{ t('smartTable.actionsHeader') }}</th></tr></thead><tbody><tr v-for="(row, index) in rows" :key="row.row_id || row.id || index" class="enpii-smart-table__row"><td v-for="column in columns" :key="column.key" class="enpii-smart-table__td" :class="column.class"><slot :name="`cell-${column.key}`" :row="row" :value="row[column.key]">{{ row[column.key] ?? '—' }}</slot></td><td v-if="$slots.actions" class="enpii-smart-table__td enpii-smart-table__td--actions"><slot name="actions" :row="row" /></td></tr></tbody></table>
+            <div v-if="!rows.length && !processing" class="enpii-smart-table__empty"><AppEmptyState icon="database" :title='emptyTitle ?? t("smartTable.emptyTitle")' :description='emptyDescription ?? t("smartTable.emptyDescription")' /></div>
         </div>
-        <div class="enpii-smart-table__footer"><p class="enpii-smart-table__summary">Menampilkan {{ pagination.from || 0 }}–{{ pagination.to || 0 }} dari {{ pagination.total || 0 }} data</p><nav v-if="lastPage > 1" class="enpii-smart-table__pagination" aria-label="Pagination"><AppButton variant="ghost" size="compact" :disabled="currentPage === 1 || processing" aria-label="Halaman sebelumnya" @click="goTo(currentPage - 1)"><AppIcon name="chevron_left" /></AppButton><AppButton v-for="page in pages" :key="page" size="compact" :variant="page === currentPage ? 'primary' : 'ghost'" :disabled="processing" @click="goTo(page)">{{ page }}</AppButton><AppButton variant="ghost" size="compact" :disabled="currentPage === lastPage || processing" aria-label="Halaman berikutnya" @click="goTo(currentPage + 1)"><AppIcon name="chevron_right" /></AppButton></nav></div>
+        <div class="enpii-smart-table__footer"><p class="enpii-smart-table__summary">{{ t('smartTable.summary', { from: pagination.from || 0, to: pagination.to || 0, total: pagination.total || 0 }) }}</p><nav v-if="lastPage > 1" class="enpii-smart-table__pagination" :aria-label="t('smartTable.perPageLabel', { count: totalPages })"><AppButton variant="ghost" size="compact" :disabled="currentPage === 1 || processing" :aria-label="t('smartTable.previousPage')" @click="goTo(currentPage - 1)"><AppIcon name="chevron_left" /></AppButton><AppButton v-for="page in pages" :key="page" size="compact" :variant="page === currentPage ? 'primary' : 'ghost'" :disabled="processing" @click="goTo(page)">{{ page }}</AppButton><AppButton variant="ghost" size="compact" :disabled="currentPage === lastPage || processing" :aria-label="t('smartTable.nextPage')" @click="goTo(currentPage + 1)"><AppIcon name="chevron_right" /></AppButton></nav></div>
     </div>
 </template>

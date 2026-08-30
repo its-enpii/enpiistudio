@@ -3,6 +3,9 @@ import { computed, nextTick, onBeforeUnmount, onMounted, ref, useId, watch } fro
 import AppIcon from './EnpiiIcon.vue'
 import { useShape } from '../composables/useShape'
 import { WEEKDAYS, clampIso, createMonthGrid, parseIsoDate, shiftMonth, toIsoDate, usePopupPosition } from '../composables/useCalendar'
+import { useT } from '../composables/useT'
+
+const t = useT()
 
 const model = defineModel({ type: Object, default: () => ({ start: '', end: '' }) })
 const props = defineProps({
@@ -184,7 +187,7 @@ onBeforeUnmount(() => {
         >
             <AppIcon :name="icon" class="enpii-date-range__icon" />
             <span class="enpii-date-range__value" :class="{ 'enpii-date-range__value--placeholder': !displayValue }">
-                {{ displayValue || 'Pilih rentang tanggal' }}
+                {{ displayValue || t('dateRange.placeholder') }}
             </span>
             <AppIcon name="expand_more" class="enpii-date-range__chevron" />
         </button>
@@ -196,7 +199,7 @@ onBeforeUnmount(() => {
                     :id="`${inputId}-calendar`"
                     ref="popup"
                     role="dialog"
-                    aria-label="Pilih rentang tanggal"
+                    :aria-label="t('dateRange.placeholder')"
                     class="enpii-date-range__popup"
                     :class="[placeAbove ? 'enpii-date-range__popup--above-origin' : 'enpii-date-range__popup--below-origin']"
                     :style="popupStyle"
@@ -218,7 +221,7 @@ onBeforeUnmount(() => {
                     <div class="enpii-date-range__calendars">
                         <section>
                             <header>
-                                <button type="button" aria-label="Bulan sebelumnya" @click="moveViews(-1)"><AppIcon name="chevron_left" /></button>
+                                <button type="button" :aria-label="t('dateRange.previousMonth')" @click="moveViews(-1)"><AppIcon name="chevron_left" /></button>
                                 <strong>{{ leftLabel }}</strong><span />
                             </header>
                             <div class="enpii-date-range__weekdays"><span v-for="weekday in WEEKDAYS" :key="weekday">{{ weekday }}</span></div>
@@ -231,7 +234,7 @@ onBeforeUnmount(() => {
                         <section>
                             <header>
                                 <span /><strong>{{ rightLabel }}</strong>
-                                <button type="button" aria-label="Bulan berikutnya" @click="moveViews(1)"><AppIcon name="chevron_right" /></button>
+                                <button type="button" :aria-label="t('dateRange.nextMonth')" @click="moveViews(1)"><AppIcon name="chevron_right" /></button>
                             </header>
                             <div class="enpii-date-range__weekdays"><span v-for="weekday in WEEKDAYS" :key="weekday">{{ weekday }}</span></div>
                             <div class="enpii-date-range__days">
@@ -243,13 +246,13 @@ onBeforeUnmount(() => {
                     </div>
 
                     <footer class="enpii-date-range__footer">
-                        <button v-if="clearable && (draft.start || draft.end)" type="button" class="enpii-date-range__footer-button enpii-date-range__footer-button--clear" @click="clear">Hapus</button>
+                        <button v-if="clearable && (draft.start || draft.end)" type="button" class="enpii-date-range__footer-button enpii-date-range__footer-button--clear" @click="clear">{{ t('dateRange.clear') }}</button>
                         <button type="button" class="enpii-date-range__footer-button" :disabled="!draft.start || !draft.end || isInvalidRange" @click="applyRange">Terapkan</button>
                     </footer>
                 </div>
             </Transition>
         </Teleport>
-        <p v-if="error || isInvalidRange" class="enpii-date-range__help enpii-date-range__help--error">{{ error || 'Tanggal selesai harus setelah tanggal mulai.' }}</p>
+        <p v-if="error || isInvalidRange" class="enpii-date-range__help enpii-date-range__help--error">{{ error || t('dateRange.invalidRange') }}</p>
         <p v-else-if="hint" class="enpii-date-range__help">{{ hint }}</p>
     </div>
 </template>

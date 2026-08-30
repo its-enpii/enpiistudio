@@ -3,6 +3,9 @@ import { computed, inject, nextTick, onBeforeUnmount, onMounted, ref } from 'vue
 import { enpiiNavigationKey } from '../plugin';
 import AppIcon from './EnpiiIcon.vue';
 import { useShape } from '../composables/useShape';
+import { useT } from '../composables/useT'
+
+const t = useT()
 
 const open = ref(false);
 const activeTab = ref('all'); // 'all' | 'unread'
@@ -225,7 +228,7 @@ onBeforeUnmount(() => {
             type="button"
             ref="trigger"
             class="enpii-notification-dropdown__trigger"
-            aria-label="Notifikasi"
+            :aria-label="t('notification.ariaLabel')"
             :aria-expanded="open"
             @click="toggleDropdown"
         >
@@ -249,9 +252,9 @@ onBeforeUnmount(() => {
                 <div class="enpii-notification-dropdown__header">
                     <div class="enpii-notification-dropdown__title-group">
                         <AppIcon name="notifications" class="enpii-notification-dropdown__title-icon" />
-                        <h3 class="enpii-notification-dropdown__title">Notifikasi</h3>
+                        <h3 class="enpii-notification-dropdown__title">{{ t('notification.title') }}</h3>
                         <span v-if="unreadCount > 0" class="enpii-notification-dropdown__count">
-                            {{ unreadCount }} baru
+                            {{ t('notification.newCount', { count: unreadCount }) }}
                         </span>
                     </div>
                     <button
@@ -260,7 +263,7 @@ onBeforeUnmount(() => {
                         class="enpii-notification-dropdown__mark-read"
                         @click.stop="markAsRead(null)"
                     >
-                        Tandai semua dibaca
+                        {{ t('notification.markAllRead') }}
                     </button>
                 </div>
 
@@ -280,17 +283,17 @@ onBeforeUnmount(() => {
                         :class="{ 'enpii-notification-dropdown__tab--active': activeTab === 'unread' }"
                         @click.stop="activeTab = 'unread'"
                     >
-                        Belum Dibaca ({{ unreadCount }})
+                        {{ t('notification.tabUnread', { count: unreadCount }) }}
                     </button>
                 </div>
 
                 <!-- List Content -->
                 <div class="enpii-notification-dropdown__list">
                     <div v-if="loading && items.length === 0" class="enpii-notification-dropdown__status">
-                        Memuat notifikasi...
+                        {{ t('notification.loading') }}
                     </div>
                     <div v-else-if="filteredItems.length === 0" class="enpii-notification-dropdown__status">
-                        Tidak ada notifikasi {{ activeTab === 'unread' ? 'belum dibaca' : '' }}.
+                        {{ activeTab === 'unread' ? t('notification.emptyUnread') : t('notification.emptyAll') }}
                     </div>
                     <div
                         v-for="item in filteredItems"
@@ -334,11 +337,11 @@ onBeforeUnmount(() => {
                 <div class="enpii-notification-dropdown__footer">
                     <button type="button" class="enpii-notification-dropdown__footer-link enpii-notification-dropdown__footer-link--primary" @click.stop="navigate('/notifications/billing')">
                         <AppIcon name="chat" />
-                        Pengingat WhatsApp
+                        {{ t('notification.whatsappReminder') }}
                     </button>
                     <button type="button" class="enpii-notification-dropdown__footer-link" @click.stop="navigate('/billing/invoices')">
                         <AppIcon name="receipt" />
-                        Tagihan Enpii
+                        {{ t('notification.enpiiBilling') }}
                     </button>
                 </div>
             </div>

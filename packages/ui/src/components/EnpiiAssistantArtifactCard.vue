@@ -1,5 +1,8 @@
 <script setup>
 import AppIcon from './EnpiiIcon.vue';
+import { useT } from '../composables/useT'
+
+const t = useT()
 
 const props = defineProps({
     assistantBlock: { type: Object, required: true },
@@ -23,7 +26,7 @@ const icon = iconMap[kind] ?? 'description';
     <button
         type="button"
         class="enpii-assistant-artifact-card"
-        :aria-label="`Buka ${assistantBlock.title}`"
+        :aria-label="t('artifactCard.open', { title: assistantBlock.title })"
         @click="emit('open', assistantBlock)"
     >
         <span class="enpii-assistant-artifact-card__icon">

@@ -2,6 +2,9 @@
 import { onMounted, onUnmounted, ref } from 'vue';
 import AppButton from './EnpiiButton.vue';
 import AppIcon from './EnpiiIcon.vue';
+import { useT } from '../composables/useT'
+
+const t = useT()
 
 const isOffline = ref(typeof navigator !== 'undefined' ? !navigator.onLine : false);
 const isReconnected = ref(false);
@@ -77,9 +80,9 @@ onUnmounted(() => {
                 <div class="enpii-offline-banner__content">
                     <AppIcon name="wifi_off" tone="warning" container-size="9" container-shape="pill" class="enpii-offline-banner__icon" />
                     <div class="enpii-offline-banner__body">
-                        <p class="enpii-offline-banner__title">Mode Offline (Hanya Baca)</p>
+                        <p class="enpii-offline-banner__title">{{ t('offlineBanner.title') }}</p>
                         <p class="enpii-offline-banner__message">
-                            {{ customMessage || 'Data tetap dapat dibaca & dicetak dari database lokal. Fitur penambahan/perubahan data dinonaktifkan.' }}
+                            {{ customMessage || t('offlineBanner.message') }}
                         </p>
                     </div>
                 </div>
@@ -89,10 +92,10 @@ onUnmounted(() => {
                         size="compact"
                         icon="refresh"
                         :loading="isChecking"
-                        aria-label="Cek koneksi server"
+                        :aria-label="t('offlineBanner.checkServerAria')"
                         @click="reconnect"
                     >
-                        Cek Server
+                        {{ t('offlineBanner.checkServer') }}
                     </AppButton>
                 </div>
             </div>
@@ -105,8 +108,8 @@ onUnmounted(() => {
             >
                     <AppIcon name="wifi" tone="success" container-size="9" container-shape="pill" filled class="enpii-offline-banner__icon" />
                 <div class="enpii-offline-banner__body">
-                    <p class="enpii-offline-banner__title">Koneksi Pulih</p>
-                    <p class="enpii-offline-banner__message">Anda telah terhubung kembali ke server utama.</p>
+                    <p class="enpii-offline-banner__title">{{ t('offlineBanner.reconnectedTitle') }}</p>
+                    <p class="enpii-offline-banner__message">{{ t('offlineBanner.reconnectedMessage') }}</p>
                 </div>
             </div>
         </Transition>
