@@ -1,3 +1,15 @@
+## [0.8.0] - 2026-08-30
+
+### Added
+- **Publish infra**: GitHub Actions workflow `ui-publish.yml` (tag `ui-v*` -> GitHub Packages) + release guide `docs/ui-release.md`.
+- **Intl format helpers**: `useFormat` — `formatCurrency` (default IDR), `formatNumber`, `formatPercent`, `formatDate` (short/medium/long/relative), locale-aware via i18n plugin.
+- **Form validation layer**: dependency-free `useForm` / `useField` composables + rules (required, email, minLength, maxLength, min, max, pattern, sameAs, custom) dengan pesan error via `t()` (ID/EN); komponen baru `EnpiiFormField` (label + hint + error, aria-describedby).
+- **Directives**: `v-permission` (`.any`/`.all`/`.hide`) & `v-tooltip` (posisi fixed + flip, ARIA, reduced-motion aware).
+- **Motion polish**: token `--enpii-duration-*` & `--enpii-ease-*`; transisi halus (fade+scale, slide, height collapse, indicator transform) untuk menu/popover/dialog/bottom-sheet/accordion/treeview/tabs/rating/switch/toast/tooltip; `prefers-reduced-motion` -> instant; karakter motion per style layer.
+
+### Notes
+- `EnpiiCurrencyInput` internal formatter dipertahankan (typing UX), `useFormat` untuk display di luar input.
+
 # Changelog
 
 All notable changes to `@its-enpii/ui` will be documented in this file.
