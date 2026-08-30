@@ -707,3 +707,18 @@
     outline-color: Highlight;
   }
 }
+
+.enpii-file-upload__dropzone,
+.enpii-file-upload__item,
+.enpii-file-upload__thumb {
+  border-radius: var(--enpii-radius-control);
+}
+
+.enpii-file-upload__dropzone {
+  border-style: dashed;
+}
+
+.enpii-file-upload__name,
+.enpii-file-upload__dropzone-text {
+  font-weight: 400;
+}

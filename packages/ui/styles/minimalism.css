@@ -619,3 +619,14 @@
     box-shadow: none;
   }
 }
+
+.enpii-file-upload__dropzone,
+.enpii-file-upload__item {
+  border-color: rgba(229, 231, 235, .65);
+  box-shadow: none;
+}
+
+.enpii-file-upload__name,
+.enpii-file-upload__dropzone-text {
+  font-weight: 400;
+}
