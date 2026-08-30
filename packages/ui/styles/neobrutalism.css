@@ -1357,3 +1357,25 @@
     transform: none;
   }
 }
+
+/* Late-added family: WhatsApp preview */
+.enpii-whatsapp-preview {
+  border-radius: var(--enpii-radius-card);
+  border-color: var(--neobrutalism-ink);
+  border-width: 2px;
+  box-shadow: 2px 2px 0 var(--neobrutalism-ink);
+}
+
+.enpii-whatsapp-preview__contact {
+  font-weight: 600;
+}
+
+.enpii-whatsapp-preview__bubble {
+  border-radius: calc(var(--enpii-radius-card) + .5rem);
+  border-color: var(--neobrutalism-ink);
+  box-shadow: 1px 1px 0 var(--neobrutalism-ink);
+}
+
+.enpii-whatsapp-preview__media {
+  border-radius: calc(var(--enpii-radius-card) + .25rem);
+}

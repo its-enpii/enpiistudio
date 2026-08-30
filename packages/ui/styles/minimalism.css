@@ -956,3 +956,23 @@
 .enpii-qr-code {
   box-shadow: none;
 }
+
+/* Late-added family: WhatsApp preview */
+.enpii-whatsapp-preview {
+  border-radius: .5rem;
+  border-color: var(--enpii-color-outline-variant);
+  box-shadow: none;
+}
+
+.enpii-whatsapp-preview__contact {
+  font-weight: 500;
+}
+
+.enpii-whatsapp-preview__bubble {
+  border-radius: .75rem;
+  box-shadow: none;
+}
+
+.enpii-whatsapp-preview__media {
+  border-radius: .5rem;
+}
