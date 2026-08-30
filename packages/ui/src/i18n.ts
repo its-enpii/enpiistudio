@@ -685,6 +685,20 @@ const en: TranslationDictionary = {
   'kanban.ariaLabel': 'Kanban board',
   'kanban.cardCount': '{count} cards',
   'kanban.moveCard': 'Move card {title}',
+
+  // --- ImageUpload ---
+  'imageUpload.label': 'Upload images',
+  'imageUpload.dropzone': 'Drag images here or click to browse',
+  'imageUpload.remove': 'Remove {name}',
+  'imageUpload.crop': 'Crop {name}',
+  'imageUpload.invalidType': '"{name}" is not an image file',
+  'imageUpload.maxSize': '"{name}" exceeds the maximum size of {size}',
+  'imageUpload.maxFiles': 'A maximum of {count} images is allowed',
+  'imageUpload.cropTitle': 'Crop image',
+  'imageUpload.cropArea': 'Crop positioning area',
+  'imageUpload.zoom': 'Zoom',
+  'imageUpload.cancel': 'Cancel',
+  'imageUpload.apply': 'Apply crop',
 }
 
 export const builtinDictionaries: TranslationMap = { id, en }

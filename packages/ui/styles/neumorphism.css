@@ -1159,3 +1159,51 @@
     transform: none;
   }
 }
+
+/* Late-added family: EnpiiImageUpload */
+.enpii-image-upload__label,
+.enpii-image-upload__name {
+  font-weight: 400;
+}
+
+.enpii-image-upload__dropzone,
+.enpii-image-upload__item,
+.enpii-image-upload__crop-panel {
+  border-radius: var(--enpii-radius-control);
+}
+
+.enpii-image-upload__dropzone {
+  border-style: dashed;
+}
+
+.enpii-image-upload__action,
+.enpii-image-upload__button {
+  border-radius: calc(var(--enpii-radius-control) - .25rem);
+}
+
+.enpii-image-upload__dropzone,
+.enpii-image-upload__item,
+.enpii-image-upload__crop-panel {
+  border: 0;
+  border-radius: var(--enpii-radius-overlay);
+  box-shadow: var(--enpii-shadow-inset);
+}
+
+.enpii-image-upload__crop-panel {
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-image-upload__action {
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-image-upload__action:hover:not(:disabled),
+.enpii-image-upload__button:hover:not(:disabled) {
+  box-shadow: var(--enpii-shadow-raised);
+}
+
+.enpii-image-upload__crop-canvas {
+  border: 0;
+  border-radius: var(--enpii-radius-overlay);
+  box-shadow: var(--enpii-shadow-inset);
+}

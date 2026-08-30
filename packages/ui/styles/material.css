@@ -1039,3 +1039,52 @@
     transition: none;
   }
 }
+
+/* Late-added family: EnpiiImageUpload */
+.enpii-image-upload__label,
+.enpii-image-upload__name {
+  font-weight: 400;
+}
+
+.enpii-image-upload__dropzone,
+.enpii-image-upload__item,
+.enpii-image-upload__crop-panel {
+  border-radius: var(--enpii-radius-control);
+}
+
+.enpii-image-upload__dropzone {
+  border-style: dashed;
+}
+
+.enpii-image-upload__action,
+.enpii-image-upload__button {
+  border-radius: calc(var(--enpii-radius-control) - .25rem);
+}
+
+.enpii-image-upload__dropzone,
+.enpii-image-upload__item,
+.enpii-image-upload__crop-panel,
+.enpii-image-upload__thumb {
+  border-radius: var(--enpii-radius-control);
+}
+
+.enpii-image-upload__name,
+.enpii-image-upload__dropzone-text {
+  font-weight: 400;
+}
+
+.enpii-image-upload__dropzone,
+.enpii-image-upload__item,
+.enpii-image-upload__crop-panel,
+.enpii-image-upload__thumb {
+  border-radius: var(--enpii-radius-control);
+}
+
+.enpii-image-upload__dropzone {
+  border-style: dashed;
+}
+
+.enpii-image-upload__name,
+.enpii-image-upload__dropzone-text {
+  font-weight: 400;
+}
