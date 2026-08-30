@@ -1,6 +1,6 @@
 {
   "name": "@its-enpii/ui",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Internal presentational Vue components for Enpii Studio products",
   "license": "UNLICENSED",
   "repository": {

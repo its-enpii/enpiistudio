@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-08-30
+
+### Added
+- EnpiiBottomSheet (swipe-down, mobile-first, focus trap) and
+  EnpiiPasswordInput (strength meter, visibility toggle).
+- EnpiiTransferList (dual listbox, search) and EnpiiTimeline
+  (tones, completed/pending, alternate layout).
+- EnpiiColorPicker (hue/alpha sliders, hex input, swatches) and
+  EnpiiSignaturePad (pointer/touch strokes, undo, toDataURL).
+- EnpiiKanbanBoard (HTML5 drag & drop + keyboard-accessible move menu)
+  and EnpiiQrCode (canvas render, level, PNG download; uses `qrcode`).
+- All new components use t() i18n and full variant coverage in all five
+  style layers.
+
+### Changed
+- `qrcode` added as runtime dependency of @its-enpii/ui (QR encoding is
+  not practical to hand-roll; kept out of peer dependencies).
+
 ## [0.5.0] - 2026-08-30
 
 ### Added
