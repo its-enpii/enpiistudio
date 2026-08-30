@@ -928,3 +928,31 @@
     transition: none;
   }
 }
+/* Late-added families: kanban and QR code */
+.enpii-kanban__column,
+.enpii-kanban__card {
+  border-color: var(--enpii-color-outline-variant);
+  box-shadow: none;
+}
+
+.enpii-kanban__card:hover:not(:active) {
+  border-color: var(--enpii-color-outline);
+  box-shadow: none;
+}
+
+.enpii-kanban__column-title,
+.enpii-kanban__card-title {
+  font-weight: 500;
+}
+
+.enpii-kanban__menu {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+}
+
+.enpii-kanban__menu-item {
+  font-weight: 500;
+}
+
+.enpii-qr-code {
+  box-shadow: none;
+}

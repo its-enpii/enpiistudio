@@ -979,6 +979,15 @@
 
 .enpii-transfer-list__option:hover:not(.enpii-transfer-list__option--disabled),
 .enpii-transfer-list__button:hover:not(:disabled) {
+/* Late-added families: kanban and QR code */
+.enpii-kanban__column,
+.enpii-kanban__card {
+  border: 0;
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-kanban__card:hover:not(:active) {
   background: var(--enpii-color-surface-container-lowest);
   box-shadow: var(--enpii-shadow-raised);
   transform: translateY(-1px);
@@ -993,6 +1002,27 @@
 
 .enpii-transfer-list__search,
 .enpii-transfer-list__button {
+.enpii-kanban__card:active {
+  box-shadow: var(--enpii-shadow-inset);
+}
+
+.enpii-kanban__column-title,
+.enpii-kanban__card-title,
+.enpii-kanban__menu-item {
+  font-weight: 500;
+}
+
+.enpii-kanban__menu {
+  border: 0;
+  box-shadow: var(--enpii-shadow-raised);
+}
+
+.enpii-kanban__menu-item:hover:not(:disabled) {
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-qr-code {
   border: 0;
   box-shadow: var(--enpii-shadow-control);
 }
@@ -1117,5 +1147,15 @@
   .enpii-color-picker__hex-input,
   .enpii-signature-pad__action {
     transition: none;
+  }
+@media (prefers-reduced-motion: reduce) {
+  .enpii-kanban__card,
+  .enpii-kanban__card-menu,
+  .enpii-kanban__menu-item {
+    transition: none;
+  }
+
+  .enpii-kanban__card:hover:not(:active) {
+    transform: none;
   }
 }

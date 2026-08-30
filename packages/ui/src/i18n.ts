@@ -340,6 +340,10 @@ const id: TranslationDictionary = {
   'signaturePad.canvasLabel': 'Area tanda tangan',
   'signaturePad.undo': 'Batalkan',
   'signaturePad.clear': 'Hapus tanda tangan',
+  // --- KanbanBoard ---
+  'kanban.ariaLabel': 'Papan kanban',
+  'kanban.cardCount': '{count} kartu',
+  'kanban.moveCard': 'Pindah kartu {title}',
 }
 
 const en: TranslationDictionary = {
@@ -677,6 +681,10 @@ const en: TranslationDictionary = {
   'signaturePad.canvasLabel': 'Signature area',
   'signaturePad.undo': 'Undo',
   'signaturePad.clear': 'Clear signature',
+  // --- KanbanBoard ---
+  'kanban.ariaLabel': 'Kanban board',
+  'kanban.cardCount': '{count} cards',
+  'kanban.moveCard': 'Move card {title}',
 }
 
 export const builtinDictionaries: TranslationMap = { id, en }

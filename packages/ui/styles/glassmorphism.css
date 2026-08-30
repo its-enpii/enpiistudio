@@ -1510,6 +1510,44 @@
   .enpii-color-picker__swatch,
   .enpii-color-picker__hex-input,
   .enpii-signature-pad__action {
+/* Late-added families: kanban and QR code */
+.enpii-kanban__column,
+.enpii-kanban__card {
+  backdrop-filter: blur(12px) saturate(1.4);
+  background: var(--enpii-color-surface-container-low);
+  box-shadow: var(--enpii-shadow-control), inset 0 1px 0 rgba(255, 255, 255, .12);
+}
+
+.enpii-kanban__column-title,
+.enpii-kanban__card-title {
+  font-weight: 500;
+}
+
+.enpii-kanban__menu {
+  backdrop-filter: blur(16px) saturate(1.6);
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-overlay), inset 0 1px 0 rgba(255, 255, 255, .08);
+}
+
+.enpii-kanban__menu-item {
+  font-weight: 500;
+}
+
+.enpii-kanban__card-menu:hover,
+.enpii-kanban__menu-item:hover:not(:disabled) {
+  background: color-mix(in srgb, currentColor 8%, transparent);
+}
+
+.enpii-qr-code {
+  backdrop-filter: blur(12px) saturate(1.4);
+  background: var(--enpii-color-surface-container-low);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enpii-kanban__card,
+  .enpii-kanban__card-menu,
+  .enpii-kanban__menu-item {
     transition: none;
   }
 }

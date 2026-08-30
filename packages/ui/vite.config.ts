@@ -34,7 +34,7 @@ export default defineConfig({
       fileName: 'enpii-ui',
     },
     rollupOptions: {
-      external: ['vue', '@tiptap/vue-3', '@tiptap/starter-kit', /^@tiptap\//, /^prosemirror-/],
+      external: ['vue', '@tiptap/vue-3', '@tiptap/starter-kit', /^@tiptap\//, /^prosemirror-/, 'qrcode'],
       output: {
         globals: { vue: 'Vue' },
       },
