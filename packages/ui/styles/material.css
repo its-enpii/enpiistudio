@@ -830,3 +830,58 @@
     transition: none;
   }
 }
+
+/* ===== EnpiiColorPicker & EnpiiSignaturePad ===== */
+.enpii-color-picker {
+  border-radius: var(--enpii-radius-overlay);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-color-picker__area {
+  border-radius: calc(var(--enpii-radius-overlay) - .25rem);
+}
+
+.enpii-color-picker__preview,
+.enpii-color-picker__swatch {
+  border-radius: .75rem;
+}
+
+.enpii-color-picker__hex-input {
+  border-radius: .75rem;
+  font-weight: 500;
+}
+
+.enpii-color-picker__hex-input:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--enpii-color-primary-container) 26%, transparent);
+}
+
+.enpii-color-picker__slider {
+  border-radius: .5rem;
+}
+
+.enpii-color-picker__swatch:hover:not(:disabled) {
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-signature-pad__canvas {
+  border-radius: var(--enpii-radius-overlay);
+  border-style: solid;
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-signature-pad__action {
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+.enpii-signature-pad__action:hover:not(:disabled) {
+  background-color: color-mix(in srgb, currentColor 8%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enpii-color-picker__swatch,
+  .enpii-color-picker__hex-input,
+  .enpii-signature-pad__action {
+    transition: none;
+  }
+}
