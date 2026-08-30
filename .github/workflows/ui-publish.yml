@@ -1,0 +1,69 @@
+name: Publish UI package
+
+on:
+  push:
+    tags: ['ui-v*']
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+          cache: npm
+          registry-url: https://npm.pkg.github.com
+          scope: '@its-enpii'
+
+      - name: Validate release tag and unpublished version
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          version="$(node -p "require('./packages/ui/package.json').version")"
+          expected_tag="ui-v${version}"
+
+          if [[ "$GITHUB_REF_NAME" != "$expected_tag" ]]; then
+            printf 'Tag %s does not match package version %s (expected %s)\n' \
+              "$GITHUB_REF_NAME" "$version" "$expected_tag" >&2
+            exit 1
+          fi
+
+          git fetch origin main
+          git merge-base --is-ancestor "$GITHUB_SHA" origin/main
+
+          if npm view "@its-enpii/ui@${version}" version --registry=https://npm.pkg.github.com >/dev/null 2>&1; then
+            printf 'Version %s is already published to GitHub Packages\n' "$version" >&2
+            exit 1
+          fi
+
+      - run: npm ci
+      - run: npm run ui:check
+      - run: npm run ui:test
+      - run: npm run ui:build
+      - run: npm run ui:pack
+
+      - name: Verify build output
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -d packages/ui/dist
+          test -s packages/ui/dist/enpii-ui.js
+          test -s packages/ui/dist/enpii-ui.umd.cjs
+          test -s packages/ui/dist/index.d.ts
+          test -s packages/ui/dist/enpii-ui.css
+
+      - name: Publish package
+        working-directory: packages/ui
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
