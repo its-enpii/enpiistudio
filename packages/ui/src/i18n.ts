@@ -295,6 +295,19 @@ const id: TranslationDictionary = {
 
   // --- AssistantPollCard ---
   'pollCard.pollingLabel': 'Polling: {question}',
+
+  // --- TransferList ---
+  'transferList.available': 'Tersedia',
+  'transferList.chosen': 'Dipilih',
+  'transferList.searchPlaceholder': 'Cari...',
+  'transferList.searchLeft': 'Cari opsi tersedia',
+  'transferList.searchRight': 'Cari opsi dipilih',
+  'transferList.moveRight': 'Pindahkan ke kanan',
+  'transferList.moveLeft': 'Pindahkan ke kiri',
+  'transferList.moveAllRight': 'Pindahkan semua ke kanan',
+  'transferList.moveAllLeft': 'Pindahkan semua ke kiri',
+  'transferList.controlsLabel': 'Kontrol pemindahan',
+  'transferList.noOptions': 'Tidak ada opsi.',
 }
 
 const en: TranslationDictionary = {
@@ -587,6 +600,19 @@ const en: TranslationDictionary = {
 
   // --- AssistantPollCard ---
   'pollCard.pollingLabel': 'Polling: {question}',
+
+  // --- TransferList ---
+  'transferList.available': 'Available',
+  'transferList.chosen': 'Chosen',
+  'transferList.searchPlaceholder': 'Search...',
+  'transferList.searchLeft': 'Search available options',
+  'transferList.searchRight': 'Search chosen options',
+  'transferList.moveRight': 'Move right',
+  'transferList.moveLeft': 'Move left',
+  'transferList.moveAllRight': 'Move all right',
+  'transferList.moveAllLeft': 'Move all left',
+  'transferList.controlsLabel': 'Transfer controls',
+  'transferList.noOptions': 'No options.',
 }
 
 export const builtinDictionaries: TranslationMap = { id, en }

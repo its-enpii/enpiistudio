@@ -924,3 +924,78 @@
     transform: none;
   }
 }
+
+/* ===== EnpiiTransferList & EnpiiTimeline ===== */
+.enpii-transfer-list__panel {
+  border: 0;
+  box-shadow: var(--enpii-shadow-raised);
+}
+
+.enpii-transfer-list__option:hover:not(.enpii-transfer-list__option--disabled),
+.enpii-transfer-list__button:hover:not(:disabled) {
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-raised);
+  transform: translateY(-1px);
+}
+
+.enpii-transfer-list__option--selected,
+.enpii-transfer-list__button:active:not(:disabled) {
+  background: var(--enpii-color-surface-container-highest);
+  box-shadow: var(--enpii-shadow-inset);
+  transform: translateY(0);
+}
+
+.enpii-transfer-list__search,
+.enpii-transfer-list__button {
+  border: 0;
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-transfer-list__search:focus {
+  box-shadow: var(--enpii-shadow-inset);
+}
+
+.enpii-transfer-list__option:focus-visible,
+.enpii-transfer-list__button:focus-visible {
+  outline: 3px solid var(--enpii-color-focus);
+  outline-offset: 2px;
+  box-shadow: var(--enpii-shadow-raised);
+}
+
+.enpii-timeline__marker {
+  border: 0;
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-raised);
+}
+
+.enpii-timeline__item--completed .enpii-timeline__marker {
+  background: var(--enpii-color-surface-container-highest);
+  box-shadow: var(--enpii-shadow-inset);
+  color: var(--enpii-color-success-text);
+}
+
+.enpii-timeline__item--primary .enpii-timeline__marker {
+  background: var(--enpii-color-surface-container-highest);
+  box-shadow: var(--enpii-shadow-inset);
+  color: var(--enpii-color-primary-text);
+}
+
+.enpii-timeline__item--danger .enpii-timeline__marker {
+  background: var(--enpii-color-surface-container-highest);
+  box-shadow: var(--enpii-shadow-inset);
+  color: var(--enpii-color-danger-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enpii-transfer-list__option,
+  .enpii-transfer-list__button,
+  .enpii-transfer-list__search,
+  .enpii-timeline__marker {
+    transition: none;
+  }
+
+  .enpii-transfer-list__option:hover:not(.enpii-transfer-list__option--disabled),
+  .enpii-transfer-list__button:hover:not(:disabled) {
+    transform: none;
+  }
+}
