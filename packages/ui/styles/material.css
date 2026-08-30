@@ -1115,6 +1115,50 @@
   }
 /* Late-added family: WhatsApp preview */
 .enpii-whatsapp-preview {
+/* ===== EnpiiAssistantActionButton ===== */
+.enpii-assistant-action-button__button.enpii-button {
+  font-weight: 500;
+}
+
+/* ===== EnpiiAssistantArtifactModal ===== */
+.enpii-assistant-artifact-modal__body h1,
+.enpii-assistant-artifact-modal__body h2,
+.enpii-assistant-artifact-modal__body h3 {
+  font-weight: 500;
+}
+
+/* ===== EnpiiDesktopSplashScreen ===== */
+.enpii-desktop-splash-screen__splash,
+.enpii-desktop-splash-screen__exit {
+  border-radius: var(--enpii-radius-overlay);
+}
+
+.enpii-desktop-splash-screen__logo {
+  box-shadow: var(--enpii-shadow-overlay);
+}
+
+/* ===== EnpiiDesktopTitleBar ===== */
+.enpii-desktop-title-bar {
+  box-shadow: var(--enpii-shadow-control);
+}
+
+/* ===== EnpiiFormActions / EnpiiFormRow ===== */
+.enpii-form-actions,
+.enpii-form-row {
+  gap: .75rem;
+}
+
+/* ===== EnpiiRating ===== */
+.enpii-rating__star--active {
+  color: var(--enpii-color-primary);
+}
+
+.enpii-rating__star:hover:not(:disabled) {
+  color: var(--enpii-color-primary-hover);
+}
+
+/* ===== EnpiiSmartTable ===== */
+.enpii-smart-table {
   border-radius: var(--enpii-radius-card);
   box-shadow: var(--enpii-shadow-control);
 }
@@ -1126,4 +1170,7 @@
 
 .enpii-whatsapp-preview__media {
   border-radius: calc(var(--enpii-radius-card) + .25rem);
+/* ===== EnpiiSparkline ===== */
+.enpii-sparkline {
+  filter: none;
 }

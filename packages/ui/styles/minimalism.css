@@ -1034,4 +1034,47 @@
 
 .enpii-whatsapp-preview__media {
   border-radius: .5rem;
+/* ===== EnpiiAssistantActionButton ===== */
+.enpii-assistant-action-button__button.enpii-button {
+  font-weight: 500;
+}
+
+/* ===== EnpiiAssistantArtifactModal ===== */
+.enpii-assistant-artifact-modal__body h1,
+.enpii-assistant-artifact-modal__body h2,
+.enpii-assistant-artifact-modal__body h3 {
+  font-weight: 500;
+}
+
+/* ===== EnpiiDesktopSplashScreen ===== */
+.enpii-desktop-splash-screen__splash,
+.enpii-desktop-splash-screen__exit {
+  border-radius: 0;
+}
+
+/* ===== EnpiiDesktopTitleBar ===== */
+.enpii-desktop-title-bar {
+  border-bottom-width: 1px;
+  box-shadow: none;
+}
+
+/* ===== EnpiiPagination ===== */
+.enpii-pagination__control--active {
+  box-shadow: none;
+}
+
+/* ===== EnpiiRating ===== */
+.enpii-rating__star--active {
+  color: var(--enpii-color-primary);
+}
+
+/* ===== EnpiiSmartTable ===== */
+.enpii-smart-table {
+  box-shadow: none;
+  border: 1px solid rgba(229, 231, 235, .55);
+}
+
+/* ===== EnpiiSparkline ===== */
+.enpii-sparkline {
+  filter: none;
 }

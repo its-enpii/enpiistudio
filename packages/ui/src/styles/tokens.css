@@ -67,6 +67,15 @@
   --enpii-z-dropdown: 40;
   --enpii-z-modal: 50;
   --enpii-z-toast: 100;
+  --enpii-radius-card: 0.75rem;
+  --enpii-radius-overlay: 1.25rem;
+  --enpii-shadow-raised: 0 8px 24px rgb(15 23 42 / 15%);
+  --enpii-shadow-lg: 0 12px 24px rgb(15 23 42 / 14%);
+  --enpii-shadow-md: 0 4px 10px rgb(15 23 42 / 12%);
+  --enpii-shadow-xl: 0 18px 36px rgb(15 23 42 / 18%);
+  --enpii-color-error-border: #fecaca;
+  --enpii-color-surface-inverse: #191c1e;
+  --enpii-z-overlay: 60;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -105,7 +114,13 @@
     --enpii-shadow-control: 0 1px 2px rgb(0 0 0 / 30%);
     --enpii-shadow-overlay: 0 24px 60px rgb(0 0 0 / 55%);
     --enpii-z-raised: 10;
-  }
+      --enpii-color-error-border: #7f1d1d;
+    --enpii-color-surface-inverse: #e5e9ee;
+    --enpii-shadow-raised: 0 8px 24px rgb(0 0 0 / 30%);
+    --enpii-shadow-lg: 0 12px 24px rgb(0 0 0 / 28%);
+    --enpii-shadow-md: 0 4px 10px rgb(0 0 0 / 24%);
+    --enpii-shadow-xl: 0 18px 36px rgb(0 0 0 / 36%);
+}
 }
 
 [data-theme='dark'] {
@@ -143,6 +158,29 @@
   --enpii-shadow-control: 0 1px 2px rgb(0 0 0 / 30%);
   --enpii-shadow-overlay: 0 24px 60px rgb(0 0 0 / 55%);
   --enpii-z-raised: 10;
+  --enpii-color-primary: #a5b4fc;
+  --enpii-color-primary-hover: #818cf8;
+  --enpii-color-on-primary: #1e1b4b;
+  --enpii-color-focus: #a5b4fc;
+  --enpii-color-primary-deep: #101418;
+  --enpii-color-primary-fixed: #c7d2fe;
+  --enpii-color-primary-fixed-dim: #a5b4fc;
+  --enpii-color-on-primary-container-soft: rgb(165 180 252 / 16%);
+  --enpii-color-secondary: #6ee7b7;
+  --enpii-color-secondary-container: #065f46;
+  --enpii-color-on-secondary: #062e22;
+  --enpii-color-tertiary: #fcd34d;
+  --enpii-color-tertiary-container: #78350f;
+  --enpii-color-on-tertiary: #332107;
+  --enpii-color-tertiary-fixed: #fde68a;
+  --enpii-color-tertiary-fixed-dim: #d97706;
+  --enpii-color-on-error-container: #690005;
+  --enpii-color-error-border: #7f1d1d;
+  --enpii-color-surface-inverse: #e5e9ee;
+  --enpii-shadow-raised: 0 8px 24px rgb(0 0 0 / 30%);
+  --enpii-shadow-lg: 0 12px 24px rgb(0 0 0 / 28%);
+  --enpii-shadow-md: 0 4px 10px rgb(0 0 0 / 24%);
+  --enpii-shadow-xl: 0 18px 36px rgb(0 0 0 / 36%);
 }
 
 /* Nord — nordtheme.com */
@@ -197,6 +235,12 @@
   --enpii-color-shadow: rgb(46 52 64 / 45%);
   --enpii-shadow-control: 0 1px 2px rgb(46 52 64 / 45%);
   --enpii-shadow-overlay: 0 24px 60px rgb(46 52 64 / 65%);
+  --enpii-color-error-border: #bf616a;
+  --enpii-color-surface-inverse: #eceff4;
+  --enpii-shadow-raised: 0 8px 24px rgb(46 52 64 / 50%);
+  --enpii-shadow-lg: 0 12px 24px rgb(46 52 64 / 45%);
+  --enpii-shadow-md: 0 4px 10px rgb(46 52 64 / 40%);
+  --enpii-shadow-xl: 0 18px 36px rgb(46 52 64 / 55%);
 }
 
 /* Dracula — draculatheme.com */
@@ -251,6 +295,12 @@
   --enpii-color-shadow: rgb(0 0 0 / 45%);
   --enpii-shadow-control: 0 1px 2px rgb(0 0 0 / 45%);
   --enpii-shadow-overlay: 0 24px 60px rgb(0 0 0 / 65%);
+  --enpii-color-error-border: #ff5555;
+  --enpii-color-surface-inverse: #f8f8f2;
+  --enpii-shadow-raised: 0 8px 24px rgb(40 42 54 / 60%);
+  --enpii-shadow-lg: 0 12px 24px rgb(40 42 54 / 55%);
+  --enpii-shadow-md: 0 4px 10px rgb(40 42 54 / 50%);
+  --enpii-shadow-xl: 0 18px 36px rgb(40 42 54 / 65%);
 }
 
 /* Solarized Light — ethanschoonover.com/solarized */
@@ -305,6 +355,12 @@
   --enpii-color-shadow: rgb(7 54 66 / 8%);
   --enpii-shadow-control: 0 1px 2px rgb(7 54 66 / 12%);
   --enpii-shadow-overlay: 0 24px 60px rgb(7 54 66 / 25%);
+  --enpii-color-error-border: #dc322f;
+  --enpii-color-surface-inverse: #fdf6e3;
+  --enpii-shadow-raised: 0 8px 24px rgb(0 43 54 / 40%);
+  --enpii-shadow-lg: 0 12px 24px rgb(0 43 54 / 35%);
+  --enpii-shadow-md: 0 4px 10px rgb(0 43 54 / 30%);
+  --enpii-shadow-xl: 0 18px 36px rgb(0 43 54 / 45%);
 }
 
 /* Gruvbox — github.com/morhetz/gruvbox */
@@ -359,6 +415,12 @@
   --enpii-color-shadow: rgb(0 0 0 / 45%);
   --enpii-shadow-control: 0 1px 2px rgb(0 0 0 / 45%);
   --enpii-shadow-overlay: 0 24px 60px rgb(0 0 0 / 65%);
+  --enpii-color-error-border: #fb4934;
+  --enpii-color-surface-inverse: #fbf1c7;
+  --enpii-shadow-raised: 0 8px 24px rgb(40 40 40 / 50%);
+  --enpii-shadow-lg: 0 12px 24px rgb(40 40 40 / 45%);
+  --enpii-shadow-md: 0 4px 10px rgb(40 40 40 / 40%);
+  --enpii-shadow-xl: 0 18px 36px rgb(40 40 40 / 55%);
 }
 
 /* Rosé Pine — rosepinetheme.com */
@@ -413,4 +475,10 @@
   --enpii-color-shadow: rgb(0 0 0 / 45%);
   --enpii-shadow-control: 0 1px 2px rgb(0 0 0 / 45%);
   --enpii-shadow-overlay: 0 24px 60px rgb(0 0 0 / 65%);
+  --enpii-color-error-border: #eb6f92;
+  --enpii-color-surface-inverse: #e0def4;
+  --enpii-shadow-raised: 0 8px 24px rgb(25 23 36 / 50%);
+  --enpii-shadow-lg: 0 12px 24px rgb(25 23 36 / 45%);
+  --enpii-shadow-md: 0 4px 10px rgb(25 23 36 / 40%);
+  --enpii-shadow-xl: 0 18px 36px rgb(25 23 36 / 55%);
 }
