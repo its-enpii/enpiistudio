@@ -1,4 +1,5 @@
 import type { App } from 'vue'
+import type { InjectionKey } from 'vue'
 import { createT, enpiiI18nKey, type TranslationMap } from './i18n'
 
 export interface EnpiiUiPluginOptions {
@@ -19,6 +20,7 @@ export const enpiiPermissionsKey: unique symbol = Symbol('enpii:permissions')
 export const enpiiAppModeKey: unique symbol = Symbol('enpii:app-mode')
 export const enpiiNavigationKey: unique symbol = Symbol('enpii:navigation')
 export const enpiiFlashKey: unique symbol = Symbol('enpii:flash')
+export const enpiiLocaleKey: InjectionKey<string> = Symbol('enpii:locale')
 
 export default {
   install(app: App, options: EnpiiUiPluginOptions = {}) {
@@ -30,5 +32,6 @@ export default {
     })
     app.provide(enpiiFlashKey, options.flash ?? {})
     app.provide(enpiiI18nKey, createT(options.locale ?? 'id', options.translations))
+    app.provide(enpiiLocaleKey, options.locale ?? 'id')
   },
 }
