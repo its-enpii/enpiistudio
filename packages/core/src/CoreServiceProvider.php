@@ -6,6 +6,8 @@ namespace EnpiiStudio\Core;
 
 use EnpiiStudio\Core\Authorization\AuthorizationService;
 use EnpiiStudio\Core\FeatureFlags\FeatureFlags;
+use EnpiiStudio\Core\Notification\Contracts\NotificationCenter as NotificationCenterContract;
+use EnpiiStudio\Core\Notification\NotificationCenter;
 use EnpiiStudio\Core\Settings\SettingsRepository;
 use EnpiiStudio\Core\Tenancy\Middleware\ResolveTenantContext;
 use EnpiiStudio\Core\Tenancy\TenantContext;
@@ -21,6 +23,7 @@ final class CoreServiceProvider extends ServiceProvider
         $this->app->scoped(AuthorizationService::class);
         $this->app->scoped(SettingsRepository::class);
         $this->app->scoped(FeatureFlags::class);
+        $this->app->scoped(NotificationCenterContract::class, NotificationCenter::class);
     }
 
     public function boot(): void
@@ -48,5 +51,8 @@ final class CoreServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../database/migrations/0001_01_01_000000_create_enpii_core_tables.php' => database_path('migrations/0001_01_01_000000_create_enpii_core_tables.php'),
         ], 'enpii-core-migrations');
+
+        $this->loadRoutesFrom(__DIR__.'/../routes/core-notification.php');
+        $this->loadTranslationsFrom(__DIR__.'/../lang', 'enpii-core');
     }
 }
