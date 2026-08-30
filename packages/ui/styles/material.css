@@ -27,7 +27,8 @@
 .enpii-footer,
 .enpii-drawer__panel,
 .enpii-card,
-.enpii-modal__panel {
+.enpii-modal__panel,
+.enpii-bottom-sheet__panel {
   border-radius: var(--enpii-radius-overlay);
   box-shadow: var(--enpii-shadow-control);
 }
@@ -85,6 +86,7 @@
 
 .enpii-input__control,
 .enpii-textarea__control,
+.enpii-password-input__control,
 .enpii-smart-select__trigger {
   border-radius: var(--enpii-radius-control);
 }
@@ -92,7 +94,8 @@
 .enpii-navbar__brand,
 .enpii-footer__brand,
 .enpii-alert__title,
-.enpii-drawer__title {
+.enpii-drawer__title,
+.enpii-bottom-sheet__title {
   font-weight: 500;
 }
 
@@ -182,6 +185,7 @@
 .enpii-toast,
 .enpii-modal__panel,
 .enpii-drawer__panel,
+.enpii-bottom-sheet__panel,
 .enpii-tooltip__bubble,
 .enpii-notification-dropdown__panel,
 .enpii-theme-menu__panel,
@@ -230,6 +234,7 @@
 
 .enpii-modal__panel,
 .enpii-drawer__panel,
+.enpii-bottom-sheet__panel,
 .enpii-tooltip__bubble,
 .enpii-notification-dropdown__panel,
 .enpii-theme-menu__panel,
@@ -703,6 +708,7 @@
   .enpii-card,
   .enpii-modal__panel,
   .enpii-drawer__panel,
+  .enpii-bottom-sheet__panel,
   .enpii-toast,
   .enpii-tooltip__bubble,
   .enpii-notification-dropdown__panel,
@@ -720,6 +726,11 @@
   .enpii-pagination__control:focus-visible,
   .enpii-stepper__trigger:focus-visible {
     outline-color: Highlight;
+  }
+
+  .enpii-bottom-sheet__handle::after,
+  .enpii-password-input__meter-fill {
+    background: CanvasText;
   }
 }
 
@@ -829,4 +840,38 @@
   .enpii-tree-view__chevron {
     transition: none;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enpii-bottom-sheet__panel,
+  .enpii-password-input__meter-fill {
+    transition: none;
+  }
+
+  .enpii-bottom-sheet__panel {
+    transform: none;
+  }
+}
+
+/* ===== EnpiiBottomSheet & EnpiiPasswordInput ===== */
+.enpii-bottom-sheet__handle::after,
+.enpii-password-input__meter-track {
+  border-radius: 999px;
+}
+
+.enpii-bottom-sheet__panel,
+.enpii-password-input__control {
+  border: 0;
+}
+
+.enpii-bottom-sheet__title,
+.enpii-password-input__toggle,
+.enpii-password-input__strength {
+  font-weight: 500;
+}
+
+.enpii-bottom-sheet__close:focus-visible,
+.enpii-password-input__toggle:focus-visible {
+  outline: 3px solid var(--enpii-color-focus);
+  outline-offset: 2px;
 }

@@ -19,6 +19,11 @@ const id: TranslationDictionary = {
   // --- Modal ---
   'modal.close': 'Tutup modal',
 
+  // --- BottomSheet ---
+  'bottomSheet.close': 'Tutup sheet',
+  'bottomSheet.dragHandle': 'Geser ke bawah untuk menutup sheet',
+  'bottomSheet.dialog': 'Dialog sheet',
+
   // --- Toast ---
   'toast.close': 'Tutup notifikasi',
 
@@ -89,6 +94,18 @@ const id: TranslationDictionary = {
 
   // --- Input ---
   'input.placeholder': 'Masukkan {label}',
+
+  // --- PasswordInput ---
+  'passwordInput.fieldLabel': 'Kata sandi',
+  'passwordInput.show': 'Tampilkan',
+  'passwordInput.hide': 'Sembunyikan',
+  'passwordInput.showPassword': 'Tampilkan kata sandi',
+  'passwordInput.hidePassword': 'Sembunyikan kata sandi',
+  'passwordInput.strength.0': 'Sangat lemah',
+  'passwordInput.strength.1': 'Lemah',
+  'passwordInput.strength.2': 'Sedang',
+  'passwordInput.strength.3': 'Kuat',
+  'passwordInput.strength.4': 'Sangat kuat',
 
   // --- TagInput ---
   'tagInput.label': 'Tag',
@@ -311,6 +328,11 @@ const en: TranslationDictionary = {
   // --- Modal ---
   'modal.close': 'Close modal',
 
+  // --- BottomSheet ---
+  'bottomSheet.close': 'Close sheet',
+  'bottomSheet.dragHandle': 'Swipe down to close sheet',
+  'bottomSheet.dialog': 'Sheet dialog',
+
   // --- Toast ---
   'toast.close': 'Close notification',
 
@@ -381,6 +403,18 @@ const en: TranslationDictionary = {
 
   // --- Input ---
   'input.placeholder': 'Enter {label}',
+
+  // --- PasswordInput ---
+  'passwordInput.fieldLabel': 'Password',
+  'passwordInput.show': 'Show',
+  'passwordInput.hide': 'Hide',
+  'passwordInput.showPassword': 'Show password',
+  'passwordInput.hidePassword': 'Hide password',
+  'passwordInput.strength.0': 'Very weak',
+  'passwordInput.strength.1': 'Weak',
+  'passwordInput.strength.2': 'Medium',
+  'passwordInput.strength.3': 'Strong',
+  'passwordInput.strength.4': 'Very strong',
 
   // --- TagInput ---
   'tagInput.label': 'Tags',
