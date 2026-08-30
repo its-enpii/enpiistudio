@@ -204,6 +204,7 @@
 
 .enpii-input__control,
 .enpii-textarea__control,
+.enpii-password-input__control,
 .enpii-smart-select__trigger,
 .enpii-date-picker__control,
 .enpii-checkbox__box--field,
@@ -745,5 +746,47 @@
   .enpii-tree-view__node,
   .enpii-tree-view__chevron {
     transition: none;
+  }
+}
+
+/* ===== EnpiiBottomSheet & EnpiiPasswordInput ===== */
+.enpii-bottom-sheet__panel,
+.enpii-password-input__control {
+  border: 1px solid rgba(229, 231, 235, .55);
+  border-radius: var(--enpii-radius-card);
+  background: transparent;
+  box-shadow: none;
+}
+
+.enpii-bottom-sheet__title,
+.enpii-password-input__toggle,
+.enpii-password-input__strength {
+  font-weight: 500;
+}
+
+.enpii-bottom-sheet__close:focus-visible,
+.enpii-bottom-sheet__handle:focus-visible,
+.enpii-password-input__toggle:focus-visible {
+  outline: 3px solid var(--enpii-color-focus);
+  outline-offset: 2px;
+}
+
+@media (forced-colors: active) {
+  .enpii-bottom-sheet__panel,
+  .enpii-password-input__control,
+  .enpii-password-input__meter-track {
+    border-color: CanvasText;
+    box-shadow: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enpii-bottom-sheet__panel,
+  .enpii-password-input__meter-fill {
+    transition: none;
+  }
+
+  .enpii-bottom-sheet__panel {
+    transform: none;
   }
 }

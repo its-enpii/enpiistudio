@@ -66,6 +66,7 @@
 
 .enpii-input__control,
 .enpii-textarea__control,
+.enpii-password-input__control,
 .enpii-smart-select__trigger {
   border: 2px solid var(--neobrutalism-ink) !important;
   box-shadow: 3px 3px 0 var(--neobrutalism-ink);
@@ -347,6 +348,7 @@
 
 .enpii-input__control,
 .enpii-textarea__control,
+.enpii-password-input__control,
 .enpii-smart-select__trigger,
 .enpii-date-picker__control {
   box-shadow: 3px 3px 0 var(--neobrutalism-ink);
@@ -1076,6 +1078,71 @@
   .enpii-calendar__nav:hover:not(:disabled),
   .enpii-calendar__day:hover:not(:disabled),
   .enpii-tree-view__node:hover {
+    transform: none;
+  }
+}
+
+/* ===== EnpiiBottomSheet & EnpiiPasswordInput ===== */
+.enpii-bottom-sheet__panel {
+  border: 2px solid var(--neobrutalism-ink);
+  border-radius: var(--enpii-radius-overlay);
+  background: var(--neobrutalism-surface);
+  box-shadow: var(--enpii-shadow-overlay);
+}
+
+.enpii-bottom-sheet__handle::after {
+  background: var(--neobrutalism-ink);
+}
+
+.enpii-bottom-sheet__title,
+.enpii-password-input__toggle,
+.enpii-password-input__strength {
+  color: var(--neobrutalism-ink);
+  font-weight: 600;
+}
+
+.enpii-bottom-sheet__close,
+.enpii-password-input__toggle {
+  border: 2px solid var(--neobrutalism-ink);
+  background: var(--neobrutalism-surface);
+}
+
+.enpii-bottom-sheet__close:hover:not(:disabled),
+.enpii-password-input__toggle:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--enpii-color-warning-border) 75%, var(--neobrutalism-surface));
+}
+
+.enpii-bottom-sheet__close:focus-visible,
+.enpii-bottom-sheet__handle:focus-visible,
+.enpii-password-input__toggle:focus-visible {
+  outline: 3px solid var(--enpii-color-focus);
+  outline-offset: 2px;
+}
+
+.enpii-password-input__meter-track,
+.enpii-password-input__meter-fill {
+  border: 2px solid var(--neobrutalism-ink);
+}
+
+@media (forced-colors: active) {
+  .enpii-bottom-sheet__panel,
+  .enpii-bottom-sheet__close,
+  .enpii-password-input__control,
+  .enpii-password-input__toggle,
+  .enpii-password-input__meter-track,
+  .enpii-password-input__meter-fill {
+    border-color: CanvasText !important;
+    box-shadow: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enpii-bottom-sheet__panel,
+  .enpii-password-input__meter-fill {
+    transition: none;
+  }
+
+  .enpii-bottom-sheet__panel {
     transform: none;
   }
 }

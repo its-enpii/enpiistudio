@@ -64,6 +64,7 @@
 .enpii-drawer__panel,
 .enpii-card,
 .enpii-modal__panel,
+.enpii-bottom-sheet__panel,
 .enpii-alert {
   border: 0;
   border-radius: var(--enpii-radius-card);
@@ -99,6 +100,7 @@
 /* Inputs read as pressed-in wells */
 .enpii-input__control,
 .enpii-textarea__control,
+.enpii-password-input__control,
 .enpii-range__native {
   box-shadow: var(--enpii-shadow-inset);
   background: var(--enpii-color-surface-container-lowest);
@@ -123,6 +125,11 @@
 
 .enpii-input__control,
 .enpii-textarea__control {
+  border: 0;
+  box-shadow: var(--enpii-shadow-inset);
+}
+
+.enpii-password-input__control {
   border: 0;
   box-shadow: var(--enpii-shadow-inset);
 }
@@ -921,6 +928,49 @@
   .enpii-calendar__nav:hover:not(:disabled),
   .enpii-calendar__day:hover:not(:disabled),
   .enpii-tree-view__node:hover {
+    transform: none;
+  }
+}
+
+/* ===== EnpiiBottomSheet & EnpiiPasswordInput ===== */
+.enpii-bottom-sheet__panel {
+  border-radius: var(--enpii-radius-card);
+}
+
+.enpii-bottom-sheet__handle::after,
+.enpii-password-input__meter-track {
+  border-radius: 999px;
+}
+
+.enpii-bottom-sheet__title,
+.enpii-password-input__toggle,
+.enpii-password-input__strength {
+  font-weight: 500;
+}
+
+.enpii-bottom-sheet__close:focus-visible,
+.enpii-bottom-sheet__handle:focus-visible,
+.enpii-password-input__toggle:focus-visible {
+  outline: 3px solid var(--enpii-color-focus);
+  outline-offset: 2px;
+}
+
+@media (forced-colors: active) {
+  .enpii-bottom-sheet__panel,
+  .enpii-password-input__control,
+  .enpii-password-input__meter-track {
+    border: 1px solid CanvasText;
+    box-shadow: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enpii-bottom-sheet__panel,
+  .enpii-password-input__meter-fill {
+    transition: none;
+  }
+
+  .enpii-bottom-sheet__panel {
     transform: none;
   }
 }
