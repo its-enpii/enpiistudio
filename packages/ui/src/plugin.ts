@@ -1,4 +1,5 @@
 import type { App } from 'vue'
+import { createT, enpiiI18nKey, type TranslationMap } from './i18n'
 
 export interface EnpiiUiPluginOptions {
   permissions?: Array<string> | Set<string>
@@ -10,6 +11,8 @@ export interface EnpiiUiPluginOptions {
   navigate?: (path: string, options?: Record<string, unknown>) => void
   logout?: () => void
   flash?: Record<string, string | null>
+  locale?: string
+  translations?: TranslationMap
 }
 
 export const enpiiPermissionsKey: unique symbol = Symbol('enpii:permissions')
@@ -26,5 +29,6 @@ export default {
       logout: options.logout ?? (() => {}),
     })
     app.provide(enpiiFlashKey, options.flash ?? {})
+    app.provide(enpiiI18nKey, createT(options.locale ?? 'id', options.translations))
   },
 }

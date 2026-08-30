@@ -2,6 +2,9 @@
 import { nextTick, onBeforeUnmount, ref, useId, watch } from 'vue';
 import { useShape } from '../composables/useShape';
 import AppIcon from './EnpiiIcon.vue';
+import { useT } from '../composables/useT'
+
+const t = useT()
 
 const model = defineModel({ type: Boolean, default: false });
 const props = defineProps({
@@ -77,7 +80,7 @@ onBeforeUnmount(() => {
                 <section ref="panel" role="dialog" aria-modal="true" :aria-labelledby="titleId" tabindex="-1" :class="['enpii-modal__panel', `enpii-modal__panel--${size}`, shapeClass]" @keydown="onKeydown">
                     <header class="enpii-modal__header">
                         <h2 :id="titleId" class="enpii-modal__title">{{ title }}</h2>
-                        <button v-if="closeable" type="button" class="enpii-modal__close" aria-label="Tutup modal" @click="close"><AppIcon name="close" /></button>
+                        <button v-if="closeable" type="button" class="enpii-modal__close" :aria-label="t('modal.close')" @click="close"><AppIcon name="close" /></button>
                     </header>
                     <div class="enpii-modal__body"><slot /></div>
                     <footer v-if="$slots.footer" class="enpii-modal__footer"><slot name="footer" /></footer>

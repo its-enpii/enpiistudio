@@ -5,6 +5,9 @@ import { useId } from 'vue';
 import { useShape } from '../composables/useShape';
 import AppIcon from './EnpiiIcon.vue';
 import AppTooltip from './EnpiiTooltip.vue';
+import { useT } from '../composables/useT'
+
+const t = useT()
 
 const model = defineModel({ type: [String, Number], default: '' });
 const props = defineProps({
@@ -51,7 +54,7 @@ const inputId = props.id || generatedId;
                     tooltip && `${inputId}-tooltip`
                 ].filter(Boolean).join(' ') || undefined"
                 :readonly="readonly"
-                :placeholder="readonly ? undefined : (placeholder ?? `Masukkan ${label.toLowerCase()}`)"
+                :placeholder="readonly ? undefined : (placeholder ?? t('input.placeholder', { label: label.toLowerCase() }))"
                 class="enpii-input__control"
                 :class="[shapeClass, { 'enpii-input__control--icon': icon, 'enpii-input__control--trailing': Boolean($slots.trailing), 'enpii-input__control--error': Boolean(error), 'enpii-input__control--readonly': readonly }]"
                 v-bind="$attrs"

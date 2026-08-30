@@ -2,6 +2,9 @@
 import { computed, inject, onMounted, onUnmounted, ref } from 'vue';
 import { enpiiAppModeKey, enpiiNavigationKey } from '../plugin';
 import AppIcon from './EnpiiIcon.vue';
+import { useT } from '../composables/useT'
+
+const t = useT()
 
 const navigation = inject(enpiiNavigationKey, {});
 const appMode = inject(enpiiAppModeKey, {});
@@ -22,13 +25,13 @@ function checkOnline() {
 }
 
 const currentUserName = computed(() => {
-    return currentUser?.name || 'Petugas';
+    return currentUser?.name || t('titleBar.officer');
 });
 
 async function triggerSync() {
     if (isSyncing.value || !isOnline.value) return;
     isSyncing.value = true;
-    syncMessage.value = 'Menyinkronkan...';
+    syncMessage.value = t('titleBar.syncing');
     try {
         const res = await fetch('/desktop/sync/trigger', {
             method: 'POST',
@@ -38,19 +41,19 @@ async function triggerSync() {
             },
         });
         if (res.ok) {
-            syncMessage.value = 'Sinkronisasi berhasil!';
+            syncMessage.value = t('titleBar.syncSuccess');
             window.desktopAPI?.sendNotification?.({
-                title: 'Sinkronisasi Berhasil',
-                body: `Data lokal diperbarui dari cloud oleh ${currentUserName.value}.`,
+                title: t('titleBar.syncSuccessNotification'),
+                body: t('titleBar.syncSuccessBody', { user: currentUserName.value }),
                 url: '/dashboard',
             });
             setTimeout(() => { syncMessage.value = ''; }, 3000);
         } else {
-            syncMessage.value = 'Sinkronisasi gagal.';
+            syncMessage.value = t('titleBar.syncFailed');
             setTimeout(() => { syncMessage.value = ''; }, 3000);
         }
     } catch {
-        syncMessage.value = 'Koneksi gagal.';
+        syncMessage.value = t('titleBar.connectionFailed');
         setTimeout(() => { syncMessage.value = ''; }, 3000);
     } finally {
         isSyncing.value = false;
@@ -71,7 +74,7 @@ async function handleClose() {
 
     // Trigger visual Goodbye / Exit Screen
     window.dispatchEvent(new CustomEvent('desktop:closing', {
-        detail: { message: 'Menyimpan sesi & mengamankan data...' }
+        detail: { message: t('titleBar.savingSession') }
     }));
 
     if (currentUser) {
@@ -154,7 +157,7 @@ const tenantName = computed(() => {
             <div
                 v-if="isOnline"
                 class="enpii-desktop-title-bar__status enpii-desktop-title-bar__status--online"
-                title="Aplikasi terhubung langsung dengan server cloud"
+                :title="t('titleBar.onlineTitle')"
             >
                 <span class="enpii-desktop-title-bar__pulse-wrap">
                     <span class="enpii-desktop-title-bar__pulse"></span>
@@ -166,10 +169,10 @@ const tenantName = computed(() => {
             <div
                 v-else
                 class="enpii-desktop-title-bar__status enpii-desktop-title-bar__status--offline"
-                title="Aplikasi dalam mode offline lokal (Hanya Baca dari SQLite)"
+                :title="t('titleBar.offlineTitle')"
             >
                 <span class="enpii-desktop-title-bar__dot enpii-desktop-title-bar__dot--offline"></span>
-                <span>Offline (Hanya Baca)</span>
+                <span>{{ t('titleBar.offlineLabel') }}</span>
             </div>
 
             <!-- Quick Sync Button -->
@@ -178,7 +181,7 @@ const tenantName = computed(() => {
                 type="button"
                 class="enpii-desktop-title-bar__sync"
                 :disabled="isSyncing || isClosing"
-                title="Sinkronkan data dari cloud server"
+                :title="t('titleBar.syncTitle')"
                 @click="triggerSync"
             >
                 <svg
@@ -190,7 +193,7 @@ const tenantName = computed(() => {
                 >
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                 </svg>
-                <span>{{ syncMessage || 'Sinkron' }}</span>
+                <span>{{ syncMessage || t('titleBar.syncButton') }}</span>
             </button>
         </div>
 
@@ -238,8 +241,8 @@ const tenantName = computed(() => {
                 type="button"
                 class="enpii-desktop-title-bar__control enpii-desktop-title-bar__control--close"
                 :class="{ 'enpii-desktop-title-bar__control--closing': isClosing }"
-                title="Keluar & Tutup Aplikasi"
-                aria-label="Keluar & Tutup Aplikasi"
+                :title="t('titleBar.closeTitle')"
+                :aria-label="t('titleBar.closeTitle')"
                 :disabled="isClosing"
                 @click="handleClose"
             >

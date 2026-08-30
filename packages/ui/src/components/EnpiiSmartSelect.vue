@@ -2,6 +2,9 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, useId, watch } from 'vue';
 import AppIcon from './EnpiiIcon.vue';
 import { useShape } from '../composables/useShape';
+import { useT } from '../composables/useT'
+
+const t = useT()
 
 defineOptions({ inheritAttrs: false });
 
@@ -84,7 +87,7 @@ const visibleRows = computed(() => {
     for (const option of opts) {
         const group = option[props.groupKey] || '';
         if (group !== lastGroup) {
-            rows.push({ kind: 'header', label: group || 'Lainnya' });
+            rows.push({ kind: 'header', label: group || t('smartSelect.otherGroup') });
             lastGroup = group;
         }
         rows.push({ kind: 'option', option, index: index++ });
@@ -266,7 +269,7 @@ watch(() => props.modelValue, (value) => {
                 @keydown="onKeydown"
             >
                 <span class="enpii-smart-select__value"
-                :class="{ 'enpii-smart-select__value--placeholder': !selectedLabel }">{{ selectedLabel || (placeholder ?? `Pilih ${label.toLowerCase()}`) }}</span>
+                :class="{ 'enpii-smart-select__value--placeholder': !selectedLabel }">{{ selectedLabel || (placeholder ?? t('smartSelect.selectPlaceholder', { label: label.toLowerCase() })) }}</span>
                 <AppIcon name="expand_more" class="enpii-smart-select__chevron"
                 :class="{ 'enpii-smart-select__chevron--open': open }" />
             </button>
@@ -274,7 +277,7 @@ watch(() => props.modelValue, (value) => {
                 v-if="clearable && selectedLabel"
                 type="button"
                 class="enpii-smart-select__clear"
-                aria-label="Hapus pilihan"
+                :aria-label="t('smartSelect.clearSelection')"
                 @click="clear"
             >
                 <AppIcon name="close" />
@@ -295,11 +298,11 @@ watch(() => props.modelValue, (value) => {
                     >
                         <div v-if="searchable" class="enpii-smart-select__search-wrap">
                             <AppIcon name="search" class="enpii-smart-select__search-icon" />
-                            <input ref="searchInput" v-model="search" type="search" class="enpii-smart-select__search-input" placeholder="Cari..." @input="onSearch" @keydown="onKeydown">
+                            <input ref="searchInput" v-model="search" type="search" class="enpii-smart-select__search-input" :placeholder="t('smartSelect.searchPlaceholder')" @input="onSearch" @keydown="onKeydown">
                             <button v-if="search" type="button" class="enpii-smart-select__search-clear" @click="search = ''; onSearch()"><AppIcon name="close" /></button>
                         </div>
                         <div class="enpii-smart-select__options">
-                            <div v-if="loading" class="enpii-smart-select__status">Memuat...</div>
+                            <div v-if="loading" class="enpii-smart-select__status">{{ t('smartSelect.loading') }}</div>
                             <template v-else>
                                 <template v-for="(row, rowIndex) in visibleRows" :key="row.kind === 'header' ? `h-${row.label}-${rowIndex}` : String(row.option[valueKey])">
                                     <div
@@ -340,7 +343,7 @@ watch(() => props.modelValue, (value) => {
                                     </button>
                                 </template>
                                 <button v-if="!visibleOptions.length && emptyActionLabel && search.trim()" type="button" class="enpii-smart-select__empty-action" @click="runEmptyAction"><AppIcon name="person_add" class="enpii-smart-select__empty-icon" />{{ emptyActionLabel }}</button>
-                                <div v-else-if="!visibleOptions.length" class="enpii-smart-select__status">Tidak ada opsi.</div>
+                                <div v-else-if="!visibleOptions.length" class="enpii-smart-select__status">{{ t('smartSelect.noOptions') }}</div>
                             </template>
                         </div>
                     </div>

@@ -6,6 +6,9 @@ import ArtifactCard from './EnpiiAssistantArtifactCard.vue';
 import ArtifactModal from './EnpiiAssistantArtifactModal.vue';
 import ActionButton from './EnpiiAssistantActionButton.vue';
 import PollCard from './EnpiiAssistantPollCard.vue';
+import { useT } from '../composables/useT'
+
+const t = useT()
 
 const FALLBACK_NAME = 'Ariel';
 
@@ -18,7 +21,7 @@ if (!window.__assistantState__) {
         loading: false,
         sending: false,
         typing: false,
-        typingLabel: 'Sedang mengetik',
+        typingLabel: t('assistant.typing'),
         error: null,
         input: '',
         messages: [],
@@ -102,13 +105,13 @@ onMounted(() => {
 function pickGreeting() {
     const name = displayName();
     const hour = new Date().getHours();
-    const salam = hour < 11 ? 'Selamat pagi' : hour < 15 ? 'Selamat siang' : hour < 18 ? 'Selamat sore' : 'Selamat malam';
+    const salam = hour < 11 ? t('assistant.greetingMorning') : hour < 15 ? t('assistant.greetingSiang') : hour < 18 ? t('assistant.greetingSore') : t('assistant.greetingNight');
     const pool = [
-        `${salam}, apa yang bisa ${name} bantu hari ini?`,
-        `Butuh bantuan? ${name} siap membantu.`,
-        `Perlu bantuan mencatat transaksi? Mungkin ${name} bisa bantu.`,
-        `Halo! ${name} di sini. Ada data yang ingin dicari?`,
-        `${salam}. ${name} siap bantu cek angsuran, jurnal, atau data anggota.`,
+        t('assistant.greetingHelp', { greeting: salam, name }),
+        t('assistant.greetingReady', { name }),
+        t('assistant.greetingTransaction', { name }),
+        t('assistant.greetingSearch', { name }),
+        t('assistant.greetingCheckData', { greeting: salam, name }),
     ];
     return pool[Math.floor(Math.random() * pool.length)];
 }
@@ -188,7 +191,7 @@ async function readSse(response, onEvent) {
         throw new Error(text || `HTTP ${response.status}`);
     }
     const reader = response.body?.getReader();
-    if (!reader) throw new Error('Stream tidak tersedia.');
+    if (!reader) throw new Error(t('assistant.streamUnavailable'));
     const decoder = new TextDecoder();
     let buffer = '';
     while (true) {
@@ -231,13 +234,13 @@ function handleEvent(event, data, assistantMsg) {
     // Tools stay internal — only status on typing chip (not chat bubbles).
     if (event === 'tool_use') {
         typing.value = true;
-        typingLabel.value = 'Mencari data…';
+        typingLabel.value = t('assistant.searchingData');
         scrollBottom();
         return;
     }
     if (event === 'tool_result') {
         typing.value = true;
-        typingLabel.value = data?.ok === false ? 'Data tidak lengkap, menyusun jawaban…' : 'Menyusun jawaban…';
+        typingLabel.value = data?.ok === false ? t('assistant.dataIncomplete') : t('assistant.composingAnswer');
         scrollBottom();
         return;
     }
@@ -245,7 +248,7 @@ function handleEvent(event, data, assistantMsg) {
         typing.value = false;
         pendingConfirmation.value = {
             execution_id: data?.execution_id,
-            summary: data?.summary || 'Konfirmasi aksi',
+            summary: data?.summary || t('assistant.confirmAction'),
             plan: data?.plan || null,
             warnings: data?.warnings || [],
             options: data?.options || [],
@@ -253,13 +256,13 @@ function handleEvent(event, data, assistantMsg) {
         };
         pushMessage({
             role: 'system',
-            content: data?.summary || 'Aksi membutuhkan konfirmasi.',
+            content: data?.summary || t('assistant.actionNeedsConfirm'),
         });
         return;
     }
     if (event === 'error') {
         typing.value = false;
-        const msg = data?.message || 'Terjadi kesalahan asisten.';
+        const msg = data?.message || t('assistant.errorAssistant');
         error.value = msg;
         pushMessage({ role: 'error', content: msg });
         return;
@@ -284,7 +287,7 @@ function processFiles(files) {
     const validImages = Array.from(files).filter((f) => f.type.startsWith('image/'));
     for (const file of validImages) {
         if (file.size > 10 * 1024 * 1024) {
-            error.value = 'Ukuran gambar maksimal 10MB.';
+            error.value = t('assistant.maxImageSize');
             continue;
         }
         const reader = new FileReader();
@@ -394,13 +397,13 @@ async function sendContent(content, attachments = []) {
     const assistantMsg = { role: 'assistant', content: '', _pushed: false };
     sending.value = true;
     typing.value = true;
-    typingLabel.value = 'Sedang mengetik';
+    typingLabel.value = t('assistant.typing');
     scrollBottom();
     try {
         await ensureSession();
         const payload = {
             conversation_id: conversationId,
-            message: content || 'Berikut lampiran gambar untuk dianalisis.',
+            message: content || t('assistant.imageAttachment'),
         };
         if (attachments && attachments.length) {
             payload.attachments = attachments;
@@ -419,15 +422,15 @@ async function sendContent(content, attachments = []) {
         if (!assistantMsg._pushed && !assistantMsg.content) {
             pushMessage({
                 role: 'assistant',
-                content: 'Maaf, saya belum bisa merangkai jawaban. Coba ulangi pertanyaan atau sebutkan lebih spesifik.',
+                content: t('assistant.failedMessage'),
             });
         }
     } catch (e) {
-        error.value = e?.message || 'Gagal mengirim pesan.';
+        error.value = e?.message || t('assistant.failedSend');
         pushMessage({ role: 'error', content: error.value });
     } finally {
         typing.value = false;
-        typingLabel.value = 'Sedang mengetik';
+        typingLabel.value = t('assistant.typing');
         sending.value = false;
         scrollBottom();
     }
@@ -438,7 +441,7 @@ async function decideConfirmation(decision) {
     if (!conf?.execution_id || sending.value) return;
     sending.value = true;
     typing.value = true;
-    typingLabel.value = decision === 'approve' ? 'Menjalankan aksi…' : 'Membatalkan…';
+    typingLabel.value = decision === 'approve' ? t('assistant.executingAction') : t('assistant.cancellingAction');
     error.value = null;
     const assistantMsg = { role: 'assistant', content: '', _pushed: false };
     scrollBottom();
@@ -459,15 +462,15 @@ async function decideConfirmation(decision) {
         if (!assistantMsg._pushed) {
             pushMessage({
                 role: 'assistant',
-                content: decision === 'approve' ? 'Aksi dijalankan.' : 'Aksi dibatalkan.',
+                content: decision === 'approve' ? t('assistant.actionExecuted') : t('assistant.actionCancelled'),
             });
         }
     } catch (e) {
-        error.value = e?.message || 'Gagal konfirmasi.';
+        error.value = e?.message || t('assistant.failedConfirm');
         pushMessage({ role: 'error', content: error.value });
     } finally {
         typing.value = false;
-        typingLabel.value = 'Sedang mengetik';
+        typingLabel.value = t('assistant.typing');
         sending.value = false;
         scrollBottom();
     }
@@ -515,7 +518,7 @@ onBeforeUnmount(() => {
                             <span v-if="persona?.slug" class="enpii-assistant-widget__persona">{{ persona.slug }}</span>
                         </div>
                     </div>
-                    <button type="button" class="enpii-assistant-widget__close" aria-label="Tutup asisten" @click="open = false">
+                    <button type="button" class="enpii-assistant-widget__close" :aria-label="t('assistant.close')" @click="open = false">
                         <AppIcon name="close" />
                     </button>
                 </div>
@@ -546,7 +549,7 @@ onBeforeUnmount(() => {
                                         v-for="(att, i) in msg.attachments"
                                         :key="i"
                                         :src="att.url"
-                                        :alt="att.name || 'Gambar terlampir'"
+                                        :alt="att.name || t('assistant.imageAlt')"
                                         class="enpii-assistant-widget__attachment"
                                     />
                                 </div>
@@ -634,7 +637,7 @@ onBeforeUnmount(() => {
                             <button
                                 type="button"
                                 class="enpii-assistant-widget__thumbnail-remove"
-                                aria-label="Hapus gambar"
+                                :aria-label="t('assistant.removeImage')"
                                 @click="removeAttachedImage(idx)"
                             >
                                 <AppIcon name="close" class="enpii-assistant-widget__thumbnail-icon" />
@@ -655,8 +658,8 @@ onBeforeUnmount(() => {
                             type="button"
                             class="enpii-assistant-widget__composer-button"
                             :disabled="sending || loading"
-                            aria-label="Lampirkan Gambar"
-                            title="Lampirkan Gambar"
+                            :aria-label="t('assistant.attachImage')"
+                            :title="t('assistant.attachImage')"
                             @click="triggerAttach"
                         >
                             <AppIcon name="add_photo_alternate" />
@@ -666,7 +669,7 @@ onBeforeUnmount(() => {
                             v-model="input"
                             rows="2"
                             class="enpii-assistant-widget__input"
-                            :placeholder="`Tulis ke ${displayName()}...`"
+                            :placeholder="t('assistant.inputPlaceholder', { name: displayName() })"
                             :disabled="sending || loading"
                             @input="afterInputChange"
                             @keydown="onKeydown"
@@ -676,7 +679,7 @@ onBeforeUnmount(() => {
                             type="button"
                             class="enpii-assistant-widget__composer-button enpii-assistant-widget__send-button"
                             :disabled="sending || loading || (!input.trim() && !attachedImages.length)"
-                            aria-label="Kirim"
+                            :aria-label="t('assistant.send')"
                             @click="sendMessage"
                         >
                             <AppIcon name="send" />
@@ -692,7 +695,7 @@ onBeforeUnmount(() => {
             type="button"
             class="enpii-assistant-widget__toggle"
             :aria-expanded="open"
-            :aria-label="`Buka ${displayName()}`"
+            :aria-label="t('assistant.openToggle', { name: displayName() })"
             @click="toggle"
         >
             <AppIcon class="enpii-assistant-widget__toggle-icon"

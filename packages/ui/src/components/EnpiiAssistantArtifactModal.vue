@@ -2,6 +2,9 @@
 import { computed } from 'vue';
 import AppModal from './EnpiiModal.vue';
 import { renderMarkdownHtml } from '../composables/useMarkdown';
+import { useT } from '../composables/useT'
+
+const t = useT()
 
 const props = defineProps({
     assistantBlock: { type: Object, default: null },
@@ -15,7 +18,7 @@ const html = computed(() => (props.assistantBlock ? renderMarkdownHtml(props.ass
 <template>
     <AppModal
         :open="assistantBlock !== null"
-        :title="assistantBlock?.title ?? 'Detail'"
+        :title="assistantBlock?.title ?? t('detail')"
         size="lg"
         @close="emit('close')"
     >

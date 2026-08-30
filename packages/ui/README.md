@@ -58,6 +58,51 @@ Tema: tujuh tema bawaan (`classic`, `dark`, `nord`, `dracula`, `solarized`, `gru
 
 Daftar lengkap 43 komponen tersedia pada [`src/index.ts`](src/index.ts). Composable yang diekspor dari root package hanya `useShape` dan `useTheme`; composable lain (`useAppMode`, `useCan`, `useConfirm`, `useKeyboardShortcuts`, `useMarkdown`, `useMoney`, `usePeriodOptions`, `useToast`) berada di dalam bundle dan dipakai oleh komponen.
 
+
+## Internationalisasi (i18n)
+
+Package menyediakan mekanisme i18n ringan tanpa dependency eksternal. Semua string hardcoded Indonesia pada komponen kini dapat dialihkan ke Bahasa Inggris atau bahasa lain melalui plugin `enpiiUi`.
+
+### Mengatur locale dan terjemahan
+
+```ts
+createApp(App)
+  .use(enpiiUi, {
+    locale: 'en',
+    translations: {
+      en: {
+        'modal.close': 'Close dialog',
+        'smartTable.searchPlaceholder': 'Cari data',
+      },
+    },
+  })
+  .mount('#app')
+```
+
+- `locale` — kode bahasa (default: `'id'`). Bahasa bawaan tersedia: `id` (Indonesia) dan `en` (Inggris).
+- `translations` — objek `{ locale: { key: value } }` untuk override atau menambah bahasa baru. Override di-merge di atas kamus bawaan.
+
+### Menggunakan `t()` di luar komponen package
+
+```ts
+import { useT } from '@its-enpii/ui'
+
+// Di dalam komponen Vue:
+const t = useT()
+t('modal.close') // 'Tutup modal' (ID) atau 'Close modal' (EN)
+t('smartTable.summary', { from: 1, to: 15, total: 100 }) // 'Menampilkan 1–15 dari 100 data'
+```
+
+Fungsi `t(key, params?)` menerima parameter `{ nama: nilai }` yang menggantikan placeholder `{nama}` pada string terjemahan. Jika key tidak ditemukan, nilai `key` dikembalikan apa adanya (fallback ke ID bila tersedia).
+
+### Ekspor i18n
+
+- `useT` — composable untuk mendapatkan fungsi `t` (inject atau fallback ID).
+- `createT(locale, overrides?)` — membuat fungsi `t` mandiri tanpa Vue context.
+- `enpiiI18nKey` — injection key untuk `provide`/`inject`.
+- `builtinDictionaries` — objek kamus bawaan (`{ id, en }`).
+- `TranslationDictionary` dan `TranslationMap` — tipe TypeScript.
+
 ## Verifikasi
 
 ```bash

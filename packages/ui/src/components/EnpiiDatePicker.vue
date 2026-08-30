@@ -2,6 +2,9 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, useId, watch } from 'vue';
 import { useShape } from '../composables/useShape';
 import AppIcon from './EnpiiIcon.vue';
+import { useT } from '../composables/useT'
+
+const t = useT()
 
 const model = defineModel({ type: String, default: '' });
 const props = defineProps({
@@ -332,7 +335,7 @@ onBeforeUnmount(() => {
     window.removeEventListener('scroll', onViewportChange, true);
 });
 
-const todayActionLabel = computed(() => props.mode === 'year' ? 'Tahun ini' : props.mode === 'month' ? 'Bulan ini' : 'Hari ini');
+const todayActionLabel = computed(() => props.mode === 'year' ? t('datePicker.thisYear') : props.mode === 'month' ? t('datePicker.thisMonth') : t('datePicker.today'));
 const triggerIcon = computed(() => props.mode === 'year' ? 'event' : 'calendar_month');
 </script>
 
@@ -357,7 +360,7 @@ const triggerIcon = computed(() => props.mode === 'year' ? 'event' : 'calendar_m
             >
                 <AppIcon v-if="icon" :name="icon" class="enpii-date-picker__icon" />
                 <span class="enpii-date-picker__value"
-                      :class="{ 'enpii-date-picker__value--placeholder': !displayValue }">{{ displayValue || (placeholder ?? `Pilih ${label.toLowerCase()}`) }}</span>
+                      :class="{ 'enpii-date-picker__value--placeholder': !displayValue }">{{ displayValue || (placeholder ?? t('datePicker.selectPlaceholder', { label: label.toLowerCase() })) }}</span>
                 <AppIcon :name="triggerIcon" class="enpii-date-picker__chevron"
                       :class="{ 'enpii-date-picker__chevron--open': open }" />
             </button>
@@ -370,7 +373,7 @@ const triggerIcon = computed(() => props.mode === 'year' ? 'event' : 'calendar_m
                         ref="popup"
                         role="dialog"
                         aria-modal="false"
-                        :aria-label="`Pilih ${label.toLowerCase()}`"
+                        :aria-label="t('datePicker.selectPlaceholder', { label: label.toLowerCase() })"
                         class="enpii-date-picker__popup"
                         :class="[
                             { 'enpii-date-picker__popup--above': placeAbove },
@@ -381,13 +384,13 @@ const triggerIcon = computed(() => props.mode === 'year' ? 'event' : 'calendar_m
                     >
                         <div class="enpii-date-picker__header">
                             <div class="enpii-date-picker__nav-group">
-                                <button type="button" class="enpii-date-picker__nav-button" aria-label="Tahun sebelumnya" @click="moveView(0, -1)"><AppIcon name="keyboard_double_arrow_left" class="enpii-date-picker__nav-icon" /></button>
-                                <button type="button" class="enpii-date-picker__nav-button" aria-label="Bulan sebelumnya" @click="moveView(-1)"><AppIcon name="chevron_left" class="enpii-date-picker__nav-icon" /></button>
+                                <button type="button" class="enpii-date-picker__nav-button" :aria-label="t('datePicker.previousYear')" @click="moveView(0, -1)"><AppIcon name="keyboard_double_arrow_left" class="enpii-date-picker__nav-icon" /></button>
+                                <button type="button" class="enpii-date-picker__nav-button" :aria-label="t('datePicker.previousMonth')" @click="moveView(-1)"><AppIcon name="chevron_left" class="enpii-date-picker__nav-icon" /></button>
                             </div>
                             <p class="enpii-date-picker__header-title" aria-live="polite">{{ mode === 'year' ? yearRangeLabel : monthLabel }}</p>
                             <div class="enpii-date-picker__nav-group">
-                                <button type="button" class="enpii-date-picker__nav-button" aria-label="Bulan berikutnya" @click="moveView(1)"><AppIcon name="chevron_right" class="enpii-date-picker__nav-icon" /></button>
-                                <button type="button" class="enpii-date-picker__nav-button" aria-label="Tahun berikutnya" @click="moveView(0, 1)"><AppIcon name="keyboard_double_arrow_right" class="enpii-date-picker__nav-icon" /></button>
+                                <button type="button" class="enpii-date-picker__nav-button" :aria-label="t('datePicker.nextMonth')" @click="moveView(1)"><AppIcon name="chevron_right" class="enpii-date-picker__nav-icon" /></button>
+                                <button type="button" class="enpii-date-picker__nav-button" :aria-label="t('datePicker.nextYear')" @click="moveView(0, 1)"><AppIcon name="keyboard_double_arrow_right" class="enpii-date-picker__nav-icon" /></button>
                             </div>
                         </div>
 
@@ -417,7 +420,7 @@ const triggerIcon = computed(() => props.mode === 'year' ? 'event' : 'calendar_m
                         </Transition>
 
                         <div class="enpii-date-picker__footer">
-                            <button v-if="clearable && model" type="button" class="enpii-date-picker__footer-button enpii-date-picker__footer-button--clear" @click="clear">Hapus</button>
+                            <button v-if="clearable && model" type="button" class="enpii-date-picker__footer-button enpii-date-picker__footer-button--clear" @click="clear">{{ t('datePicker.clear') }}</button>
                             <span v-else class="enpii-date-picker__footer-spacer" />
                             <button type="button" class="enpii-date-picker__footer-button" @click="selectToday">{{ todayActionLabel }}</button>
                         </div>

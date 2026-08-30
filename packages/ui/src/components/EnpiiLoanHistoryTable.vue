@@ -3,14 +3,17 @@ import { inject } from 'vue';
 import { useShape } from '../composables/useShape';
 import { enpiiNavigationKey } from '../plugin';
 import AppBadge from './EnpiiBadge.vue';
+import { useT } from '../composables/useT'
+
+const t = useT()
 
 const emit = defineEmits(['navigate']);
 const navigation = inject(enpiiNavigationKey, { navigate: () => {} });
 
 const props = defineProps({
     loans: { type: Array, default: () => [] },
-    emptyTitle: { type: String, default: 'Belum ada riwayat pinjaman' },
-    emptyDescription: { type: String, default: 'Tidak ditemukan pinjaman terkait entitas ini.' },
+    emptyTitle: { type: String, default: undefined },
+    emptyDescription: { type: String, default: undefined },
     shape: {
         type: String,
         default: 'rounded',
@@ -40,14 +43,14 @@ const statusMeta = {
     active: { label: 'Aktif', tone: 'success' },
     disbursed: { label: 'Aktif', tone: 'success' },
     completed: { label: 'Lunas', tone: 'primary' },
-    written_off: { label: 'Hapus buku', tone: 'error' },
+    written_off: { label: t('loanHistory.statusWrittenOff'), tone: 'error' },
     rescheduled: { label: 'Reschedule', tone: 'neutral' },
 };
 
 const roleLabels = {
-    borrower: 'Peminjam',
-    beneficiary: 'Pemanfaat',
-    'borrower+beneficiary': 'Peminjam',
+    borrower: t('loanHistory.roleBorrower'),
+    beneficiary: t('loanHistory.roleBeneficiary'),
+    'borrower+beneficiary': t('loanHistory.roleBorrower'),
     group: 'Kelompok',
 };
 </script>
@@ -57,13 +60,13 @@ const roleLabels = {
         <table class="enpii-loan-history-table__table">
             <thead class="enpii-loan-history-table__head">
                 <tr>
-                    <th class="enpii-loan-history-table__th">Pinjaman</th>
-                    <th class="enpii-loan-history-table__th">Produk</th>
-                    <th class="enpii-loan-history-table__th">Peran</th>
-                    <th class="enpii-loan-history-table__th enpii-loan-history-table__th--right">Plafon</th>
-                    <th class="enpii-loan-history-table__th enpii-loan-history-table__th--right">Sisa Pokok</th>
-                    <th class="enpii-loan-history-table__th">Cair</th>
-                    <th class="enpii-loan-history-table__th">Status</th>
+                    <th class="enpii-loan-history-table__th">{{ t('loanHistory.headerLoan') }}</th>
+                    <th class="enpii-loan-history-table__th">{{ t('loanHistory.headerProduct') }}</th>
+                    <th class="enpii-loan-history-table__th">{{ t('loanHistory.headerRole') }}</th>
+                    <th class="enpii-loan-history-table__th enpii-loan-history-table__th--right">{{ t('loanHistory.headerCeiling') }}</th>
+                    <th class="enpii-loan-history-table__th enpii-loan-history-table__th--right">{{ t('loanHistory.headerRemaining') }}</th>
+                    <th class="enpii-loan-history-table__th">{{ t('loanHistory.headerDisbursed') }}</th>
+                    <th class="enpii-loan-history-table__th">{{ t('loanHistory.headerStatus') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -97,7 +100,7 @@ const roleLabels = {
                         {{ roleLabels[loan.role] || loan.role || '—' }}
                         </div>
                         <div v-if="loan.allocated_amount != null" class="enpii-loan-history-table__meta enpii-loan-history-table__meta--small">
-                            alokasi {{ formatMoney(loan.allocated_amount) }}
+                            {{ t('loanHistory.allocation', { amount: formatMoney(loan.allocated_amount) }) }}
                         </div>
                     </td>
                     <td class="enpii-loan-history-table__td enpii-loan-history-table__amount">{{ formatMoney(loan.principal_amount) }}</td>

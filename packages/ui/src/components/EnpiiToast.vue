@@ -5,6 +5,8 @@ import { enpiiFlashKey } from '../plugin';
 import AppIcon from './EnpiiIcon.vue';
 import { useShape } from '../composables/useShape';
 
+const t = useT()
+
 const { toastState, show, dismiss, pause, resume } = useToast();
 const flash = computed(() => inject(enpiiFlashKey, {}));
 
@@ -70,7 +72,7 @@ onBeforeUnmount(() => {
                     <button
                         type="button"
                         class="enpii-toast__close"
-                        aria-label="Tutup notifikasi"
+                        :aria-label="t('toast.close')"
                         @click="dismiss"
                     >
                         <AppIcon name="close" />

@@ -2,6 +2,9 @@
 import { computed, useId } from 'vue'
 import AppIcon from './EnpiiIcon.vue'
 import { useShape } from '../composables/useShape'
+import { useT } from '../composables/useT'
+
+const t = useT()
 
 const model = defineModel({ type: String, default: '' })
 const props = defineProps({
@@ -71,7 +74,7 @@ const options = computed(() => {
                 class="enpii-time-picker__control"
                 @input="commit($event.target.value)"
             >
-            <button v-if="clearable && model && !disabled" type="button" class="enpii-time-picker__clear" aria-label="Hapus waktu" @click="commit('')">
+            <button v-if="clearable && model && !disabled" type="button" class="enpii-time-picker__clear" :aria-label="t('timePicker.clearTime')" @click="commit('')">
                 <AppIcon name="close" />
             </button>
         </div>

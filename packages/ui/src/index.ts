@@ -74,3 +74,7 @@ export { default as EnpiiLineChart } from './components/EnpiiLineChart.vue'
 export { default as EnpiiAreaChart } from './components/EnpiiAreaChart.vue'
 export { default as EnpiiDonutChart } from './components/EnpiiDonutChart.vue'
 export { default as EnpiiSparkline } from './components/EnpiiSparkline.vue'
+
+export { enpiiI18nKey, createT, builtinDictionaries } from './i18n'
+export type { TranslationDictionary, TranslationMap } from './i18n'
+export { useT } from './composables/useT'

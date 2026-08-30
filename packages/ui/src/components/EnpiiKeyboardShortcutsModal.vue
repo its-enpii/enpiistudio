@@ -2,6 +2,9 @@
 import { computed } from 'vue';
 import AppIcon from './EnpiiIcon.vue';
 import AppModal from './EnpiiModal.vue';
+import { useT } from '../composables/useT'
+
+const t = useT()
 
 const model = defineModel({ type: Boolean, default: false });
 defineProps({
@@ -21,43 +24,43 @@ const cmdKey = computed(() => (isMac.value ? '⌘ Cmd' : 'Ctrl'));
 
 const shortcutGroups = computed(() => [
     {
-        title: 'Pencarian & Bantuan',
+        title: t('shortcuts.groupSearch'),
         icon: 'search',
         items: [
-            { keys: [cmdKey.value, 'K'], description: 'Buka Pencarian Cepat / Command Palette' },
-            { keys: [modifierKey.value, 'A'], description: 'Buka / Tutup Ariel AI Assistant' },
-            { keys: ['Shift', '?'], description: 'Buka Bantuan Pintasan Keyboard' },
-            { keys: ['Esc'], description: 'Tutup Dialog / Modal / Menu Terbuka' },
+            { keys: [cmdKey.value, 'K'], description: t('shortcuts.openSearch') },
+            { keys: [modifierKey.value, 'A'], description: t('shortcuts.toggleAssistant') },
+            { keys: ['Shift', '?'], description: t('shortcuts.openHelp') },
+            { keys: ['Esc'], description: t('shortcuts.closeDialog') },
         ],
     },
     {
-        title: 'Navigasi Menu Utama',
+        title: t('shortcuts.groupNav'),
         icon: 'navigation',
         items: [
-            { keys: [modifierKey.value, 'D'], description: 'Ke Halaman Dashboard' },
-            { keys: [modifierKey.value, 'J'], description: 'Ke Halaman Jurnal Umum' },
-            { keys: [modifierKey.value, 'L'], description: 'Ke Halaman Pinjaman & Pembiayaan' },
-            { keys: [modifierKey.value, 'M'], description: 'Ke Halaman Data Nasabah / Anggota' },
-            { keys: [modifierKey.value, 'G'], description: 'Ke Halaman Data Kelompok' },
-            { keys: [modifierKey.value, 'R'], description: 'Ke Halaman Laporan Keuangan' },
-            { keys: [modifierKey.value, 'B'], description: 'Ke Halaman E-Budgeting' },
-            { keys: [modifierKey.value, 'T'], description: 'Ke Halaman Tutup Buku' },
+            { keys: [modifierKey.value, 'D'], description: t('shortcuts.gotoDashboard') },
+            { keys: [modifierKey.value, 'J'], description: t('shortcuts.gotoJournal') },
+            { keys: [modifierKey.value, 'L'], description: t('shortcuts.gotoLoans') },
+            { keys: [modifierKey.value, 'M'], description: t('shortcuts.gotoMembers') },
+            { keys: [modifierKey.value, 'G'], description: t('shortcuts.gotoGroups') },
+            { keys: [modifierKey.value, 'R'], description: t('shortcuts.gotoReports') },
+            { keys: [modifierKey.value, 'B'], description: t('shortcuts.gotoBudget') },
+            { keys: [modifierKey.value, 'T'], description: t('shortcuts.gotoClosing') },
         ],
     },
     {
-        title: 'Aksi Cepat & Sistem',
+        title: t('shortcuts.groupActions'),
         icon: 'bolt',
         items: [
-            { keys: [modifierKey.value, 'S'], description: 'Sinkronisasi Data Lokal (Desktop / Cloud)' },
-            { keys: [modifierKey.value, 'N'], description: 'Buka / Tutup Notifikasi' },
-            { keys: [modifierKey.value, 'P'], description: 'Cetak Laporan / Halaman Aktif' },
+            { keys: [modifierKey.value, 'S'], description: t('shortcuts.syncData') },
+            { keys: [modifierKey.value, 'N'], description: t('shortcuts.toggleNotification') },
+            { keys: [modifierKey.value, 'P'], description: t('shortcuts.printReport') },
         ],
     },
 ]);
 </script>
 
 <template>
-    <AppModal v-model="model" title="Pintasan Keyboard (Shortcuts)" size="lg" :shape="shape">
+    <AppModal v-model="model" :title="t('shortcuts.title')" size="lg" :shape="shape">
         <div class="enpii-keyboard-shortcuts">
             <p class="enpii-keyboard-shortcuts__intro">
                 Gunakan kombinasi tombol berikut untuk mempercepat navigasi dan pengoperasian aplikasi di <strong>Desktop</strong> maupun <strong>Website</strong>.

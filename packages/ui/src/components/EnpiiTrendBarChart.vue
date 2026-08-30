@@ -1,5 +1,8 @@
 <script setup>
 import { computed, ref } from 'vue';
+import { useT } from '../composables/useT'
+
+const t = useT()
 
 const props = defineProps({
     data: { type: Array, required: true },
@@ -138,7 +141,7 @@ function tooltipStyle(h) {
             :viewBox="`0 0 ${W} ${H}`"
             class="enpii-trend-bar-chart__svg"
             role="img"
-            aria-label="Tren pencairan dan penerimaan angsuran 6 bulan"
+            :aria-label="t('trendChart.ariaLabel')"
         >
             <g>
                 <line
@@ -235,7 +238,7 @@ function tooltipStyle(h) {
             <caption>Tren 6 bulan pencairan vs penerimaan</caption>
             <thead>
                 <tr>
-                    <th>Bulan</th>
+                    <th>{{ t('datePicker.thisMonth') }}</th>
                     <th>Cair</th>
                     <th>Terima</th>
                 </tr>

@@ -1,6 +1,9 @@
 <script setup>
 import { computed, inject, onMounted, onUnmounted, ref } from 'vue';
 import { enpiiAppModeKey } from '../plugin';
+import { useT } from '../composables/useT'
+
+const t = useT()
 
 const appMode = inject(enpiiAppModeKey, {});
 const tenant = inject('enpii:tenant', null);
@@ -8,8 +11,8 @@ const isDesktop = ref(false);
 const showSplash = ref(false);
 const showExit = ref(false);
 const splashProgress = ref(15);
-const splashStatus = ref('Memuat modul sistem...');
-const exitStatus = ref('Menyimpan sesi & mengamankan data...');
+const splashStatus = ref(t('splash.loadingModules'));
+const exitStatus = ref(t('splash.savingSession'));
 
 let progressInterval = null;
 
@@ -38,16 +41,16 @@ onMounted(() => {
             if (splashProgress.value < 90) {
                 splashProgress.value += 25;
                 if (splashProgress.value >= 40 && splashProgress.value < 70) {
-                    splashStatus.value = 'Menyiapkan database lokal...';
+                    splashStatus.value = t('splash.preparingDb');
                 } else if (splashProgress.value >= 70) {
-                    splashStatus.value = 'Memeriksa otentikasi...';
+                    splashStatus.value = t('splash.checkingAuth');
                 }
             }
         }, 300);
 
         setTimeout(() => {
             splashProgress.value = 100;
-            splashStatus.value = 'Siap!';
+            splashStatus.value = t('splash.ready');
             setTimeout(() => {
                 showSplash.value = false;
                 if (progressInterval) clearInterval(progressInterval);
@@ -92,7 +95,7 @@ onUnmounted(() => {
 
                 <!-- Welcome Text -->
                 <h1 class="enpii-desktop-splash-screen__title">
-                    Selamat Datang
+                    {{ t('splash.welcome') }}
                 </h1>
                 <p class="enpii-desktop-splash-screen__subtitle">
                     Enpii Studio Desktop
@@ -118,7 +121,7 @@ onUnmounted(() => {
 
             <!-- Footer copyright / version -->
             <div class="enpii-desktop-splash-screen__footer">
-                Sistem Informasi Dana Bergulir Masyarakat
+                {{ t('splash.footer') }}
             </div>
         </div>
     </Transition>
@@ -143,7 +146,7 @@ onUnmounted(() => {
                 </div>
 
                 <h2 class="enpii-desktop-splash-screen__title enpii-desktop-splash-screen__title--sm">
-                    Sampai Jumpa!
+                    {{ t('splash.goodbye') }}
                 </h2>
                 <p class="enpii-desktop-splash-screen__tenant">
                     {{ exitStatus }}
@@ -151,7 +154,7 @@ onUnmounted(() => {
 
                 <div class="enpii-desktop-splash-screen__closing">
                     <span class="enpii-desktop-splash-screen__pulse"></span>
-                    <span>Menutup aplikasi dengan aman...</span>
+                    <span>{{ t('splash.closingApp') }}</span>
                 </div>
             </div>
         </div>

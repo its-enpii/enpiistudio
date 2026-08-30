@@ -4,6 +4,9 @@ defineOptions({ inheritAttrs: false });
 import { useId } from 'vue';
 import { useShape } from '../composables/useShape';
 import AppIcon from './EnpiiIcon.vue';
+import { useT } from '../composables/useT'
+
+const t = useT()
 
 const model = defineModel({ type: String, default: '' });
 const props = defineProps({
@@ -37,7 +40,7 @@ const inputId = props.id || useId();
                 :aria-invalid="Boolean(error)"
                 :aria-describedby="error ? `${inputId}-error` : hint ? `${inputId}-hint` : undefined"
                 :readonly="readonly"
-                :placeholder="readonly ? undefined : (placeholder ?? `Masukkan ${label.toLowerCase()}`)"
+                :placeholder="readonly ? undefined : (placeholder ?? t('textarea.placeholder', { label: label.toLowerCase() }))"
                 class="enpii-textarea__control"
                 :class="[shapeClass, { 'enpii-textarea__control--icon': icon, 'enpii-textarea__control--error': Boolean(error), 'enpii-textarea__control--readonly': readonly }]"
                 v-bind="$attrs"
