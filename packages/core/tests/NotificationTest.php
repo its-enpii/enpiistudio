@@ -166,7 +166,14 @@ final class NotificationTest extends TestCase
         $context->run($tenant, fn () => $center->send($user, 'order.paid', 'Order paid', 'Body'));
 
         $this->actingAs($user)->postJson('/api/v1/notifications/mark-all-read')->assertOk()->assertJsonPath('count', 0);
-        self::assertSame(0, $context->run($tenant, fn () => $center->unreadCountFor($user)));
+
+        // Scoped container bindings are flushed at request termination (see
+        // CoreServiceProvider::boot). Re-resolve fresh instances instead of
+        // holding pre-request references — queries resolve TenantContext via
+        // app() at apply time, so a stale instance would diverge.
+        $freshContext = app(TenantContext::class);
+        $freshCenter = app(NotificationCenter::class);
+        self::assertSame(0, $freshContext->run($tenant, fn () => $freshCenter->unreadCountFor($user)));
     }
 
     public function test_user_cannot_mark_another_notifiable_notification_read(): void
