@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-08-30
+
+### Added
+- EnpiiImageUpload (grid preview, client-side crop modal, validation),
+  EnpiiMentionInput (combobox ARIA, parseMentions), EnpiiWhatsAppPreview
+  (chat log preview, statuses, media bubble).
+
+### Changed
+- Full style-layer & theme conformance audit pass (high-reasoning):
+  9 components had missing style-layer coverage — now 82/82 components
+  covered across all five layers; 23 missing dark/theme-scoped tokens
+  added to all 7 themes; 38+ hardcoded colors in base CSS converted to
+  --enpii-* tokens; typography verified (zero weight-cap violations).
+
 ## [0.6.0] - 2026-08-30
 
 ### Added
