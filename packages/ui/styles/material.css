@@ -737,3 +737,26 @@
 .enpii-file-upload__dropzone-text {
   font-weight: 400;
 }
+
+/* ===== EnpiiTagInput & EnpiiOtpInput ===== */
+.enpii-tag-input__tag,
+.enpii-otp-input__field {
+  border-radius: 0.5rem;
+  font-weight: 400;
+}
+
+.enpii-tag-input__suggestion {
+  font-weight: 400;
+}
+
+.enpii-tag-input__field:focus-visible,
+.enpii-otp-input__field:focus-visible {
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0 3px var(--enpii-color-primary-soft);
+}
+
+.enpii-tag-input__remove:focus-visible {
+  border-radius: 9999px;
+  outline: 3px solid var(--enpii-color-focus);
+  outline-offset: 2px;
+}

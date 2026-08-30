@@ -1107,3 +1107,43 @@
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), var(--enpii-shadow-control);
   }
 }
+
+/* ===== EnpiiTagInput & EnpiiOtpInput ===== */
+.enpii-tag-input__control,
+.enpii-tag-input__suggestions,
+.enpii-otp-input__field {
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-control);
+  border-radius: 1rem;
+}
+
+.enpii-tag-input__suggestions {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(12px) saturate(180%);
+  box-shadow: var(--enpii-shadow-overlay);
+}
+
+.enpii-otp-input__field:focus-visible,
+.enpii-tag-input__control:focus-within {
+  border-radius: 1rem;
+  box-shadow: 0 0 0 3px var(--enpii-color-primary-soft);
+}
+
+.enpii-tag-input__remove {
+  border-radius: 9999px;
+}
+
+.enpii-tag-input__remove:focus-visible {
+  outline: 3px solid var(--enpii-color-focus);
+  outline-offset: 2px;
+}
+
+[data-theme='dark'] .enpii-tag-input__suggestions {
+  background: rgba(20, 24, 32, 0.72);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .enpii-tag-input__suggestions {
+    background: rgba(20, 24, 32, 0.72);
+  }
+}
