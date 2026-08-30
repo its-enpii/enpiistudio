@@ -937,3 +937,35 @@
 .enpii-file-upload__dropzone-text {
   font-weight: 500;
 }
+
+/* ===== EnpiiTagInput & EnpiiOtpInput ===== */
+.enpii-tag-input__control,
+.enpii-tag-input__suggestions,
+.enpii-otp-input__field {
+  border: 2px solid var(--neobrutalism-ink);
+  border-radius: 0.5rem;
+}
+
+.enpii-tag-input__control:focus-within,
+.enpii-otp-input__field:focus-visible {
+  box-shadow: 3px 3px 0 var(--neobrutalism-primary, var(--enpii-color-primary));
+}
+
+.enpii-tag-input__tag {
+  border-radius: 9999px;
+  font-weight: 600;
+}
+
+.enpii-otp-input__field,
+.enpii-otp-input__separator {
+  font-weight: 600;
+}
+
+.enpii-tag-input__remove {
+  border-radius: 9999px;
+}
+
+.enpii-tag-input__remove:focus-visible {
+  outline: 3px solid var(--enpii-color-focus);
+  outline-offset: 2px;
+}

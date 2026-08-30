@@ -73,6 +73,16 @@ const id: TranslationDictionary = {
   // --- Input ---
   'input.placeholder': 'Masukkan {label}',
 
+  // --- TagInput ---
+  'tagInput.label': 'Tag',
+  'tagInput.placeholder': 'Tambah tag',
+  'tagInput.addTagLabel': 'Tambah tag',
+  'tagInput.removeTag': 'Hapus tag {tag}',
+
+  // --- OtpInput ---
+  'otpInput.label': 'Kode OTP',
+  'otpInput.digit': 'Digit OTP {index}',
+
   // --- Textarea ---
   'textarea.placeholder': 'Masukkan {label}',
 
@@ -316,6 +326,16 @@ const en: TranslationDictionary = {
 
   // --- Input ---
   'input.placeholder': 'Enter {label}',
+
+  // --- TagInput ---
+  'tagInput.label': 'Tags',
+  'tagInput.placeholder': 'Add tag',
+  'tagInput.addTagLabel': 'Add tag',
+  'tagInput.removeTag': 'Remove tag {tag}',
+
+  // --- OtpInput ---
+  'otpInput.label': 'OTP code',
+  'otpInput.digit': 'OTP digit {index}',
 
   // --- Textarea ---
   'textarea.placeholder': 'Enter {label}',
