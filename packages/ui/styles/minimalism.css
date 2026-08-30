@@ -1078,3 +1078,10 @@
 .enpii-sparkline {
   filter: none;
 }
+
+/* Motion character: faster, shorter */
+:root {
+  --enpii-duration-fast: 100ms;
+  --enpii-duration-normal: 180ms;
+  --enpii-duration-slow: 240ms;
+}

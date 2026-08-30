@@ -1716,3 +1716,21 @@
   -webkit-backdrop-filter: blur(16px);
   box-shadow: var(--enpii-shadow-control);
 }
+
+/* Motion character: slightly slower, with blur-in */
+:root {
+  --enpii-duration-normal: 280ms;
+  --enpii-duration-slow: 400ms;
+  --enpii-ease-standard: cubic-bezier(.2, 0, 0, 1);
+  --enpii-ease-decelerate: cubic-bezier(0, 0, 0, 1);
+}
+.enpii-bottom-sheet__panel,
+.enpii-modal__panel,
+.enpii-drawer__panel {
+  transition-property: opacity, transform, backdrop-filter;
+  transition-timing-function: var(--enpii-ease-decelerate);
+}
+.enpii-tooltip__bubble {
+  backdrop-filter: blur(4px);
+  transition-property: opacity, transform, visibility;
+}

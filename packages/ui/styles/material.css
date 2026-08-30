@@ -1174,3 +1174,18 @@
 .enpii-sparkline {
   filter: none;
 }
+
+/* Motion character: emphasized, with slight blur-in for depth */
+:root {
+  --enpii-ease-emphasized: cubic-bezier(.16, 1, .3, 1);
+}
+.enpii-bottom-sheet__panel,
+.enpii-modal__panel,
+.enpii-drawer__panel,
+.enpii-assistant-widget__panel {
+  animation: enpii-material-panel-in var(--enpii-duration-normal) var(--enpii-ease-decelerate);
+}
+@keyframes enpii-material-panel-in {
+  from { opacity: 0; transform: scale(.98); }
+  to { opacity: 1; transform: scale(1); }
+}

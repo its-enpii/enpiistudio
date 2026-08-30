@@ -1289,3 +1289,12 @@
 .enpii-sparkline {
   filter: drop-shadow(2px 2px 4px rgba(163, 177, 198, .45));
 }
+
+/* Motion character: soft, slightly longer */
+:root {
+  --enpii-duration-normal: 280ms;
+  --enpii-duration-slow: 400ms;
+  --enpii-ease-standard: cubic-bezier(.25, 0, .25, 1);
+  --enpii-ease-decelerate: cubic-bezier(.25, 0, .25, 1);
+  --enpii-ease-accelerate: cubic-bezier(.25, 0, .25, 1);
+}

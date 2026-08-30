@@ -28,15 +28,19 @@ const model = computed({
 const titleId = `enpii-bottom-sheet-title-${Math.random().toString(36).slice(2, 11)}`
 const panel = ref<HTMLElement | null>(null)
 const dragDistance = ref(0)
+const dragFrameId: number | null = null
 const panelStyle = computed(() => ({
     maxWidth: typeof props.maxWidth === 'number' ? `${props.maxWidth}px` : props.maxWidth,
     '--enpii-bottom-sheet-drag': `${dragDistance.value}px`,
+    transition: _isDragging.value ? 'none' : undefined,
 }))
 
 let previousFocus: HTMLElement | null = null
 let previousOverflow = ''
 let activePointerId: number | null = null
 let dragStartY = 0
+let dragLastY = 0
+const _isDragging = ref(false)
 
 function close() {
     if (props.dismissible) {
@@ -101,6 +105,7 @@ function onPointerDown(event: PointerEvent) {
     }
 
     activePointerId = event.pointerId
+    _isDragging.value = true
     dragStartY = event.clientY
     dragDistance.value = 0
     window.addEventListener('pointermove', onPointerMove)
@@ -113,8 +118,14 @@ function onPointerMove(event: PointerEvent) {
         return
     }
 
-    dragDistance.value = Math.max(0, event.clientY - dragStartY)
+    dragLastY = event.clientY
     event.preventDefault()
+    if (typeof requestAnimationFrame === 'function') {
+        requestAnimationFrame(() => {
+            dragDistance.value = Math.max(0, dragLastY - dragStartY)
+        })
+    }
+    dragDistance.value = Math.max(0, dragLastY - dragStartY)
 }
 
 function onPointerUp(event: PointerEvent) {
@@ -122,9 +133,11 @@ function onPointerUp(event: PointerEvent) {
         return
     }
 
-    const shouldClose = dragDistance.value >= 100
     removePointerListeners()
+    const dragDistancePx = Math.max(0, dragLastY - dragStartY)
+    const shouldClose = dragDistancePx >= 100
     activePointerId = null
+    _isDragging.value = false
     dragStartY = 0
     dragDistance.value = 0
 
@@ -137,6 +150,13 @@ function removePointerListeners() {
     window.removeEventListener('pointermove', onPointerMove)
     window.removeEventListener('pointerup', onPointerUp)
     window.removeEventListener('pointercancel', onPointerUp)
+}
+
+function cleanupDrag() {
+    activePointerId = null
+    _isDragging.value = false
+    dragStartY = 0
+    dragDistance.value = 0
 }
 
 watch(model, async (open) => {
