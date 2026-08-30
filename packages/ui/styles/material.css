@@ -759,4 +759,17 @@
   border-radius: 9999px;
   outline: 3px solid var(--enpii-color-focus);
   outline-offset: 2px;
+.enpii-popover__panel,
+.enpii-command-palette__dialog {
+  border-radius: var(--enpii-radius-control);
+  box-shadow: var(--enpii-shadow-overlay);
+}
+
+.enpii-popover__trigger,
+.enpii-command-palette__command {
+  border-radius: var(--enpii-radius-control);
+}
+
+.enpii-command-palette__group-title {
+  font-weight: 500;
 }

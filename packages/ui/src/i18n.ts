@@ -255,6 +255,19 @@ const id: TranslationDictionary = {
   // --- TrendBarChart ---
   'trendChart.ariaLabel': 'Tren pencairan dan penerimaan angsuran 6 bulan',
 
+  // --- Popover ---
+  'popover.open': 'Buka popover',
+  'popover.close': 'Tutup popover',
+
+  // --- CommandPalette ---
+  'commandPalette.title': 'Palet perintah',
+  'commandPalette.searchPlaceholder': 'Cari perintah...',
+  'commandPalette.searchLabel': 'Cari perintah',
+  'commandPalette.otherGroup': 'Lainnya',
+  'commandPalette.noResults': 'Tidak ada perintah yang cocok.',
+  'commandPalette.select': 'Jalankan {label}',
+  'commandPalette.close': 'Tutup palet perintah',
+
   // --- AssistantPollCard ---
   'pollCard.pollingLabel': 'Polling: {question}',
 }
@@ -508,6 +521,19 @@ const en: TranslationDictionary = {
 
   // --- TrendBarChart ---
   'trendChart.ariaLabel': 'Disbursement and installment receipt trend for 6 months',
+
+  // --- Popover ---
+  'popover.open': 'Open popover',
+  'popover.close': 'Close popover',
+
+  // --- CommandPalette ---
+  'commandPalette.title': 'Command palette',
+  'commandPalette.searchPlaceholder': 'Search commands...',
+  'commandPalette.searchLabel': 'Search commands',
+  'commandPalette.otherGroup': 'Other',
+  'commandPalette.noResults': 'No matching commands.',
+  'commandPalette.select': 'Run {label}',
+  'commandPalette.close': 'Close command palette',
 
   // --- AssistantPollCard ---
   'pollCard.pollingLabel': 'Polling: {question}',

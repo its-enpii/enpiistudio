@@ -836,4 +836,22 @@
 .enpii-tag-input__remove:focus-visible {
   outline: 3px solid var(--enpii-color-focus);
   outline-offset: 2px;
+.enpii-popover__panel,
+.enpii-command-palette__dialog {
+  border: 0;
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-overlay);
+}
+
+.enpii-command-palette__input {
+  border-bottom-color: transparent;
+}
+
+.enpii-command-palette__command {
+  border-radius: .75rem;
+}
+
+.enpii-command-palette__command:hover,
+.enpii-command-palette__command--active {
+  box-shadow: var(--enpii-shadow-inset);
 }
