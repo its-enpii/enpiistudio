@@ -50,6 +50,14 @@
   }
 }
 
+/* Charts */
+.enpii-line-chart,
+.enpii-area-chart,
+.enpii-donut-chart,
+.enpii-sparkline {
+  box-shadow: none;
+}
+
 .enpii-navbar,
 .enpii-sidebar,
 .enpii-footer,

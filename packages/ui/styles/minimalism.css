@@ -508,6 +508,13 @@
   }
 }
 
+/* Charts */
+.enpii-line-chart__axis-text,
+.enpii-area-chart__axis-text,
+.enpii-donut-chart__legend-value {
+  font-weight: 400;
+}
+
 /* Late-added families: banner, shortcuts, assistant, currency, chart, tables, icons */
 .enpii-offline-banner,
 .enpii-keyboard-shortcuts__group,
