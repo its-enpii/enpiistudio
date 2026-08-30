@@ -92,6 +92,7 @@ curl -f http://localhost:<port>/health || echo down
 
 ## 7. Dokumentasi Terkait
 
+- `docs/platform-conventions.md` — **KONTRAK arsitektur & API platform (WAJIB baca sebelum module/package baru)** — prinsip: konsisten, jangan tampil beda
 - `docs/setup.md` — setup & runbook baseline
 - `docs/enpii-studio-roadmap.md` — roadmap
 - `DESIGN.md` — spesifikasi desain/token UI
