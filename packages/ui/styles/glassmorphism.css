@@ -1675,4 +1675,44 @@
 
 .enpii-whatsapp-preview__media {
   border-radius: calc(var(--enpii-radius-card) + .25rem);
+/* ===== EnpiiAssistantActionButton ===== */
+.enpii-assistant-action-button__button.enpii-button {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* ===== EnpiiAssistantArtifactModal ===== */
+.enpii-assistant-artifact-modal__body code {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* ===== EnpiiDesktopSplashScreen ===== */
+.enpii-desktop-splash-screen__splash,
+.enpii-desktop-splash-screen__exit {
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+}
+
+/* ===== EnpiiPagination ===== */
+.enpii-pagination__control--active {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* ===== EnpiiRating ===== */
+.enpii-rating__star--active {
+  color: var(--enpii-color-primary);
+}
+
+/* ===== EnpiiSparkline ===== */
+.enpii-sparkline {
+  filter: drop-shadow(0 2px 8px rgb(0 0 0 / 8%));
+}
+
+/* ===== EnpiiDesktopTitleBar ===== */
+.enpii-desktop-title-bar {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--enpii-shadow-control);
 }
