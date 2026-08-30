@@ -46,6 +46,15 @@ describe('EnpiiTreeView', () => {
     expect(wrapper.emitted('select')?.[0]).toEqual([nodes[0].children![0]])
   })
 
+  it('allows selectable parents to be selected without collapsing them', async () => {
+    const wrapper = mount(EnpiiTreeView, { props: { nodes, modelValue: null, defaultExpanded: ['root'] } })
+
+    await wrapper.findAll('[role="treeitem"]')[0].trigger('click')
+    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['root'])
+    expect(wrapper.emitted('select')?.[0]).toEqual([nodes[0]])
+    expect(wrapper.emitted('expand')).toBeUndefined()
+  })
+
   it('moves visible focus with ArrowDown and ArrowUp', async () => {
     const wrapper = mount(EnpiiTreeView, { props: { nodes, modelValue: null, defaultExpanded: ['root'] } })
     const treeItems = wrapper.findAll('[role="treeitem"]')

@@ -69,6 +69,8 @@ const id: TranslationDictionary = {
 
   // --- TreeView ---
   'treeView.ariaLabel': 'Pohon navigasi',
+  'treeView.collapse': 'Tutup',
+  'treeView.expand': 'Buka',
 
   // --- DateRange ---
   'dateRange.placeholder': 'Pilih rentang tanggal',
@@ -328,6 +330,8 @@ const en: TranslationDictionary = {
 
   // --- TreeView ---
   'treeView.ariaLabel': 'Navigation tree',
+  'treeView.collapse': 'Collapse',
+  'treeView.expand': 'Expand',
 
   // --- DateRange ---
   'dateRange.placeholder': 'Select date range',

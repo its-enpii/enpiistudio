@@ -1303,7 +1303,7 @@ button.enpii-stepper__trigger{cursor:pointer}
 
 /* ===== EnpiiTreeView ===== */
 .enpii-tree-view{position:relative;width:100%;border:1px solid var(--enpii-color-outline-variant);border-radius:var(--enpii-radius-control);background:var(--enpii-color-surface-container-lowest);box-shadow:var(--enpii-shadow-control);color:var(--enpii-color-on-surface)}
-.enpii-tree-view__list{position:relative}
+.enpii-tree-view__list{position:relative;overflow:hidden;transition:height var(--enpii-duration-base) var(--enpii-ease-emphasized)}
 .enpii-tree-view__list{margin:0;padding:.25rem;list-style:none}
 .enpii-tree-view__item+.enpii-tree-view__item{margin-top:.125rem}
 .enpii-tree-view__node{display:flex;align-items:center;gap:.5rem;width:100%;min-height:2.5rem;padding-block:.5rem;padding-inline-end:.75rem;border:0;border-radius:calc(var(--enpii-radius-control) - .25rem);background:none;color:var(--enpii-color-on-surface);font-family:inherit;font-size:.875rem;font-weight:500;text-align:left;cursor:pointer;transition:background var(--enpii-duration-fast) var(--enpii-ease-emphasized),color var(--enpii-duration-fast) var(--enpii-ease-emphasized),box-shadow var(--enpii-duration-fast) var(--enpii-ease-emphasized),transform var(--enpii-duration-fast) var(--enpii-ease-emphasized)}
@@ -1318,4 +1318,4 @@ button.enpii-stepper__trigger{cursor:pointer}
 .enpii-tree-view-node-enter-active,.enpii-tree-view-node-leave-active{transition:opacity var(--enpii-duration-base) var(--enpii-ease-emphasized),transform var(--enpii-duration-base) var(--enpii-ease-emphasized)}
 .enpii-tree-view-node-enter-from,.enpii-tree-view-node-leave-to{opacity:0;transform:translateY(-.25rem)}
 .enpii-tree-view-node-leave-active{position:absolute;width:100%}
-@media (prefers-reduced-motion:reduce){.enpii-tree-view__node,.enpii-tree-view__chevron,.enpii-tree-view-node-enter-active,.enpii-tree-view-node-leave-active{transition:none}}
+@media (prefers-reduced-motion:reduce){.enpii-tree-view__list,.enpii-tree-view__node,.enpii-tree-view__chevron,.enpii-tree-view-node-enter-active,.enpii-tree-view-node-leave-active{transition:none}}

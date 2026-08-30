@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import AppIcon from './EnpiiIcon.vue'
 import { useT } from '../composables/useT'
 
@@ -27,6 +27,8 @@ const emit = defineEmits(['select', 'expand'])
 const t = useT()
 const expandedIds = ref(new Set(props.defaultExpanded))
 const focusedId = ref(props.nodes[0]?.id ?? null)
+const listHeight = ref<number | null>(null)
+const listElement = ref<{ $el: HTMLElement } | null>(null)
 
 interface VisibleNode {
     node: EnpiiTreeNode
@@ -81,6 +83,10 @@ function focusNode(id: string | number) {
     })
 }
 
+function updateListHeight() {
+    listHeight.value = listElement.value?.$el.scrollHeight ?? null
+}
+
 function onKeydown(event: KeyboardEvent, visible: VisibleNode) {
     const index = visibleNodes.value.findIndex((item) => item.node.id === visible.node.id)
     const moveFocus = (offset: number) => {
@@ -114,12 +120,24 @@ function nodeId(id: string | number) {
 
 watch(() => props.defaultExpanded, (value) => {
     expandedIds.value = new Set(value)
+    updateListHeight()
 })
+
+onMounted(updateListHeight)
 </script>
 
 <template>
     <div class="enpii-tree-view" role="tree" :aria-label="t('treeView.ariaLabel')">
-        <TransitionGroup v-if="visibleNodes.length" tag="ul" name="enpii-tree-view-node" class="enpii-tree-view__list">
+        <TransitionGroup
+            v-if="visibleNodes.length"
+            tag="ul"
+            ref="listElement"
+            name="enpii-tree-view-node"
+            class="enpii-tree-view__list"
+            :style="{ height: listHeight ? `${listHeight}px` : undefined }"
+            @enter="updateListHeight"
+            @after-leave="updateListHeight"
+        >
             <li v-for="visible in visibleNodes" :key="visible.node.id" role="none" class="enpii-tree-view__item">
                 <button
                     :id="nodeId(visible.node.id)"
@@ -134,13 +152,20 @@ watch(() => props.defaultExpanded, (value) => {
                     :aria-level="visible.depth + 1"
                     :aria-expanded="visible.hasChildren ? visible.isExpanded : undefined"
                     :aria-selected="props.selectable ? isSelected(visible.node) : undefined"
+                    :aria-label="visible.hasChildren ? `${visible.node.label} ${t(visible.isExpanded ? 'treeView.collapse' : 'treeView.expand')}` : undefined"
                     :tabindex="isFocused(visible.node) ? 0 : -1"
                     :style="{ paddingInlineStart: `${0.75 + visible.depth * 1.25}rem` }"
                     @keydown="onKeydown($event, visible)"
-                    @click="visible.hasChildren && expandable ? toggleNode(visible.node, visible) : selectNode(visible.node)"
+                    @click="selectNode(visible.node)"
                 >
                     <AppIcon v-if="visible.node.icon" :name="visible.node.icon" class="enpii-tree-view__icon" />
-                    <AppIcon v-if="visible.hasChildren" name="chevron_right" class="enpii-tree-view__chevron" :class="{ 'enpii-tree-view__chevron--expanded': visible.isExpanded }" />
+                    <AppIcon
+                        v-if="visible.hasChildren"
+                        name="chevron_right"
+                        class="enpii-tree-view__chevron"
+                        :class="{ 'enpii-tree-view__chevron--expanded': visible.isExpanded }"
+                        @click.stop="toggleNode(visible.node, visible)"
+                    />
                     <span class="enpii-tree-view__label">{{ visible.node.label }}</span>
                 </button>
             </li>
