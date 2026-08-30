@@ -937,3 +937,27 @@
 .enpii-file-upload__dropzone-text {
   font-weight: 500;
 }
+
+.enpii-segmented-control,
+.enpii-rating__control {
+  border: 2px solid var(--neobrutalism-ink);
+  border-radius: var(--enpii-radius-control);
+  background: var(--neobrutalism-surface);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-segmented-control__option {
+  color: var(--neobrutalism-ink);
+}
+
+.enpii-segmented-control__option--active {
+  color: var(--neobrutalism-ink);
+}
+
+.enpii-segmented-control__indicator {
+  background: color-mix(in srgb, var(--enpii-color-warning-border) 75%, var(--neobrutalism-surface));
+}
+
+.enpii-rating__star--active {
+  color: var(--enpii-color-warning-text);
+}

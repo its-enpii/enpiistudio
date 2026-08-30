@@ -645,3 +645,22 @@
 .enpii-file-upload__dropzone-text {
   font-weight: 400;
 }
+
+.enpii-segmented-control,
+.enpii-rating__control {
+  border: 1px solid rgba(229, 231, 235, .65);
+  background: transparent;
+  box-shadow: none;
+}
+
+.enpii-segmented-control__indicator {
+  background: color-mix(in srgb, var(--enpii-color-primary) 8%, transparent);
+}
+
+.enpii-segmented-control__option--active {
+  color: var(--enpii-color-primary-text);
+}
+
+.enpii-rating__star--active {
+  color: var(--enpii-color-primary);
+}

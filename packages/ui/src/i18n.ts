@@ -238,6 +238,14 @@ const id: TranslationDictionary = {
   // --- AssistantPollCard ---
   'pollCard.placeholder': 'Tulis jawaban…',
 
+  // --- Rating ---
+  'rating.ariaLabel': 'Nilai bintang',
+  'rating.valueAria': '{value} dari {max} bintang',
+  'rating.setAria': 'Beri nilai {value} dari {max}',
+
+  // --- SegmentedControl ---
+  'segmentedControl.ariaLabel': 'Pilihan segmented',
+
   // --- ThemeMenu ---
   'themeMenu.ariaLabel': 'Pilih tema tampilan',
   'themeMenu.selectTheme': 'Pilih tema {label}',
@@ -481,6 +489,14 @@ const en: TranslationDictionary = {
 
   // --- AssistantPollCard ---
   'pollCard.placeholder': 'Write your answer…',
+
+  // --- Rating ---
+  'rating.ariaLabel': 'Star rating',
+  'rating.valueAria': '{value} of {max} stars',
+  'rating.setAria': 'Set rating to {value} of {max}',
+
+  // --- SegmentedControl ---
+  'segmentedControl.ariaLabel': 'Segmented options',
 
   // --- ThemeMenu ---
   'themeMenu.ariaLabel': 'Select display theme',
