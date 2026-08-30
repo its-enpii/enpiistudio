@@ -29,6 +29,7 @@ export { default as EnpiiDropdownMenu } from './components/EnpiiDropdownMenu.vue
 export { default as EnpiiDesktopSplashScreen } from './components/EnpiiDesktopSplashScreen.vue'
 export { default as EnpiiDesktopTitleBar } from './components/EnpiiDesktopTitleBar.vue'
 export { default as EnpiiEmptyState } from './components/EnpiiEmptyState.vue'
+export { default as EnpiiFileUpload } from './components/EnpiiFileUpload.vue'
 export { default as EnpiiFilterPill } from './components/EnpiiFilterPill.vue'
 export { default as EnpiiFormActions } from './components/EnpiiFormActions.vue'
 export { default as EnpiiFormRow } from './components/EnpiiFormRow.vue'

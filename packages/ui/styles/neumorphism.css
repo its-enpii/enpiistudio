@@ -778,3 +778,25 @@
     box-shadow: none;
   }
 }
+
+.enpii-file-upload__dropzone {
+  border: 0;
+  box-shadow: var(--enpii-shadow-inset);
+  background: var(--enpii-color-surface-container-lowest);
+}
+
+.enpii-file-upload__dropzone:focus-visible {
+  outline: 3px solid var(--enpii-color-focus);
+  outline-offset: 3px;
+}
+
+.enpii-file-upload__item {
+  border: 0;
+  box-shadow: var(--enpii-shadow-control);
+  background: var(--enpii-color-surface-container-lowest);
+}
+
+.enpii-file-upload__name,
+.enpii-file-upload__dropzone-text {
+  font-weight: 400;
+}

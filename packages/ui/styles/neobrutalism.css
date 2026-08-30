@@ -914,3 +914,18 @@
     box-shadow: none;
   }
 }
+
+.enpii-file-upload__dropzone,
+.enpii-file-upload__item {
+  border: 2px solid var(--neobrutalism-ink);
+}
+
+.enpii-file-upload__dropzone:focus-visible {
+  outline: 3px solid var(--enpii-color-focus);
+  outline-offset: 3px;
+}
+
+.enpii-file-upload__name,
+.enpii-file-upload__dropzone-text {
+  font-weight: 500;
+}
