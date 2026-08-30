@@ -40,7 +40,7 @@ describe('EnpiiButton', () => {
 describe('enpiiUi plugin', () => {
   it('provides injectable configuration', () => {
     const navigate = vi.fn()
-    const app = { config: { globalProperties: {} }, provide: vi.fn() }
+    const app = { config: { globalProperties: {} }, provide: vi.fn(), directive: vi.fn() }
     enpiiUi.install(app as never, {
       permissions: ['loans.view', '*'],
       appMode: { isDesktop: true },

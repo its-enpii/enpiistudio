@@ -51,7 +51,7 @@ describe('i18n', () => {
   })
 
   it('plugin provides t function via injection', () => {
-    const app = { provide: vi.fn(), config: { globalProperties: {} } }
+    const app = { provide: vi.fn(), directive: vi.fn(), config: { globalProperties: {} } }
     enpiiUi.install(app as never, {
       locale: 'en',
       translations: { en: { 'modal.close': 'Custom close' } },
