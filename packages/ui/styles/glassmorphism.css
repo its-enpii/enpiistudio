@@ -1410,6 +1410,95 @@
   :root:not([data-theme='light']) .enpii-transfer-list__panel,
   :root:not([data-theme='light']) .enpii-timeline__marker {
     background: rgba(20, 24, 32, 0.42);
+/* ===== EnpiiColorPicker & EnpiiSignaturePad ===== */
+.enpii-color-picker {
+  border: 1px solid rgba(255, 255, 255, .4);
+  border-radius: var(--enpii-radius-overlay);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  background: rgba(255, 255, 255, .28);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-color-picker__area {
+  border-radius: calc(var(--enpii-radius-overlay) - .25rem);
+}
+
+.enpii-color-picker__preview,
+.enpii-color-picker__swatch {
+  border-radius: .75rem;
+}
+
+.enpii-color-picker__hex-input {
+  border: 1px solid rgba(255, 255, 255, .38);
+  border-radius: .75rem;
+  background: rgba(255, 255, 255, .34);
+  font-weight: 500;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35);
+}
+
+.enpii-color-picker__hex-input:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--enpii-color-primary-container) 26%, transparent);
+}
+
+.enpii-color-picker__slider {
+  border-radius: .5rem;
+}
+
+.enpii-color-picker__swatch:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, .52);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-signature-pad__canvas {
+  border: 1px solid rgba(255, 255, 255, .4);
+  border-radius: var(--enpii-radius-overlay);
+  border-style: solid;
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  background: rgba(255, 255, 255, .28);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-signature-pad__action {
+  border-radius: 999px;
+  font-weight: 500;
+  background: rgba(255, 255, 255, .38);
+}
+
+.enpii-signature-pad__action:hover:not(:disabled) {
+  background: rgba(255, 255, 255, .52);
+}
+
+[data-theme='dark'] .enpii-color-picker,
+[data-theme='dark'] .enpii-signature-pad__canvas {
+  border-color: rgba(255, 255, 255, .16);
+  background: rgba(20, 24, 32, .46);
+}
+
+[data-theme='dark'] .enpii-color-picker__hex-input {
+  background: rgba(20, 24, 32, .46);
+  border-color: rgba(255, 255, 255, .16);
+}
+
+[data-theme='dark'] .enpii-signature-pad__action {
+  background: rgba(20, 24, 32, .46);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .enpii-color-picker,
+  :root:not([data-theme='light']) .enpii-signature-pad__canvas {
+    border-color: rgba(255, 255, 255, .16);
+    background: rgba(20, 24, 32, .46);
+  }
+
+  :root:not([data-theme='light']) .enpii-color-picker__hex-input {
+    background: rgba(20, 24, 32, .46);
+    border-color: rgba(255, 255, 255, .16);
+  }
+
+  :root:not([data-theme='light']) .enpii-signature-pad__action {
+    background: rgba(20, 24, 32, .46);
   }
 }
 
@@ -1418,6 +1507,9 @@
   .enpii-transfer-list__button,
   .enpii-transfer-list__search,
   .enpii-timeline__marker {
+  .enpii-color-picker__swatch,
+  .enpii-color-picker__hex-input,
+  .enpii-signature-pad__action {
     transition: none;
   }
 }

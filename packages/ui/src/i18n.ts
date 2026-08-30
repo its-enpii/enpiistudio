@@ -325,6 +325,21 @@ const id: TranslationDictionary = {
   'transferList.moveAllLeft': 'Pindahkan semua ke kiri',
   'transferList.controlsLabel': 'Kontrol pemindahan',
   'transferList.noOptions': 'Tidak ada opsi.',
+  // --- ColorPicker ---
+  'colorPicker.areaLabel': 'Area pilihan warna',
+  'colorPicker.thumbLabel': 'Penanda warna terpilih',
+  'colorPicker.hueLabel': 'Hue',
+  'colorPicker.alphaLabel': 'Transparansi',
+  'colorPicker.hexLabel': 'Kode warna hex',
+  'colorPicker.hexPlaceholder': '#RRGGBB',
+  'colorPicker.previewLabel': 'Pratinjau warna',
+  'colorPicker.swatchesLabel': 'Warna preset',
+  'colorPicker.selectSwatch': 'Pilih warna {color}',
+
+  // --- SignaturePad ---
+  'signaturePad.canvasLabel': 'Area tanda tangan',
+  'signaturePad.undo': 'Batalkan',
+  'signaturePad.clear': 'Hapus tanda tangan',
 }
 
 const en: TranslationDictionary = {
@@ -647,6 +662,21 @@ const en: TranslationDictionary = {
   'transferList.moveAllLeft': 'Move all left',
   'transferList.controlsLabel': 'Transfer controls',
   'transferList.noOptions': 'No options.',
+  // --- ColorPicker ---
+  'colorPicker.areaLabel': 'Color selection area',
+  'colorPicker.thumbLabel': 'Selected color marker',
+  'colorPicker.hueLabel': 'Hue',
+  'colorPicker.alphaLabel': 'Transparency',
+  'colorPicker.hexLabel': 'Hex color code',
+  'colorPicker.hexPlaceholder': '#RRGGBB',
+  'colorPicker.previewLabel': 'Color preview',
+  'colorPicker.swatchesLabel': 'Preset colors',
+  'colorPicker.selectSwatch': 'Select color {color}',
+
+  // --- SignaturePad ---
+  'signaturePad.canvasLabel': 'Signature area',
+  'signaturePad.undo': 'Undo',
+  'signaturePad.clear': 'Clear signature',
 }
 
 export const builtinDictionaries: TranslationMap = { id, en }
