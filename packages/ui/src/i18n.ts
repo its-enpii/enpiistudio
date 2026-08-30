@@ -362,6 +362,17 @@ const id: TranslationDictionary = {
   'whatsappPreview.status.delivered': 'Tersampaikan',
   'whatsappPreview.status.read': 'Dibaca',
   'whatsappPreview.status.failed': 'Gagal',
+
+  // --- Form Validation ---
+  'validation.required': 'Wajib diisi',
+  'validation.email': 'Format email tidak valid',
+  'validation.minLength': 'Minimal {count} karakter',
+  'validation.maxLength': 'Maksimal {count} karakter',
+  'validation.min': 'Minimal {value}',
+  'validation.max': 'Maksimal {value}',
+  'validation.pattern': 'Format tidak valid',
+  'validation.sameAs': 'Harus sama dengan {field}',
+  'validation.invalid': 'Nilai tidak valid',
 }
 
 const en: TranslationDictionary = {
@@ -734,6 +745,17 @@ const en: TranslationDictionary = {
   'whatsappPreview.status.delivered': 'Delivered',
   'whatsappPreview.status.read': 'Read',
   'whatsappPreview.status.failed': 'Failed',
+
+  // --- Form Validation ---
+  'validation.required': 'This field is required',
+  'validation.email': 'Please enter a valid email address',
+  'validation.minLength': 'Must be at least {count} characters',
+  'validation.maxLength': 'Must be at most {count} characters',
+  'validation.min': 'Must be at least {value}',
+  'validation.max': 'Must be at most {value}',
+  'validation.pattern': 'Invalid format',
+  'validation.sameAs': 'Must match {field}',
+  'validation.invalid': 'Invalid value',
 }
 
 export const builtinDictionaries: TranslationMap = { id, en }
