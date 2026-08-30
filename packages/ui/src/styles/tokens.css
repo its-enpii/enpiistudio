@@ -41,6 +41,7 @@
   --enpii-color-error: #ba1a1a;
   --enpii-color-error-container: #ffdad6;
   --enpii-color-on-error: #ffffff;
+  --enpii-color-inverse: #ffffff;
   --enpii-color-on-error-container: #93000a;
   --enpii-color-tertiary: #372100;
   --enpii-color-tertiary-container: #543400;
@@ -110,6 +111,7 @@
     --enpii-color-error: #ffb4ab;
     --enpii-color-error-container: #93000a;
     --enpii-color-on-error: #690005;
+    --enpii-color-inverse: #ffffff;
     --enpii-color-shadow: rgb(0 0 0 / 35%);
     --enpii-shadow-control: 0 1px 2px rgb(0 0 0 / 30%);
     --enpii-shadow-overlay: 0 24px 60px rgb(0 0 0 / 55%);
@@ -154,6 +156,7 @@
   --enpii-color-error: #ffb4ab;
   --enpii-color-error-container: #93000a;
   --enpii-color-on-error: #690005;
+  --enpii-color-inverse: #ffffff;
   --enpii-color-shadow: rgb(0 0 0 / 35%);
   --enpii-shadow-control: 0 1px 2px rgb(0 0 0 / 30%);
   --enpii-shadow-overlay: 0 24px 60px rgb(0 0 0 / 55%);
@@ -226,6 +229,7 @@
   --enpii-color-error: #bf616a;
   --enpii-color-error-container: #bf616a;
   --enpii-color-on-error: #2e3440;
+  --enpii-color-inverse: #eceff4;
   --enpii-color-on-error-container: #2e3440;
   --enpii-color-tertiary: #ebcb8b;
   --enpii-color-tertiary-container: #ebcb8b;
@@ -286,6 +290,7 @@
   --enpii-color-error: #ff5555;
   --enpii-color-error-container: #ff5555;
   --enpii-color-on-error: #282a36;
+  --enpii-color-inverse: #f8f8f2;
   --enpii-color-on-error-container: #282a36;
   --enpii-color-tertiary: #ffb86c;
   --enpii-color-tertiary-container: #ffb86c;
@@ -346,6 +351,7 @@
   --enpii-color-error: #dc322f;
   --enpii-color-error-container: #dc322f;
   --enpii-color-on-error: #fdf6e3;
+  --enpii-color-inverse: #fdf6e3;
   --enpii-color-on-error-container: #fdf6e3;
   --enpii-color-tertiary: #cb4b16;
   --enpii-color-tertiary-container: #cb4b16;
@@ -406,6 +412,7 @@
   --enpii-color-error: #fb4934;
   --enpii-color-error-container: #fb4934;
   --enpii-color-on-error: #1d2021;
+  --enpii-color-inverse: #fbf1c7;
   --enpii-color-on-error-container: #1d2021;
   --enpii-color-tertiary: #d3869b;
   --enpii-color-tertiary-container: #d3869b;
@@ -466,6 +473,7 @@
   --enpii-color-error: #eb6f92;
   --enpii-color-error-container: #eb6f92;
   --enpii-color-on-error: #191724;
+  --enpii-color-inverse: #e0def4;
   --enpii-color-on-error-container: #191724;
   --enpii-color-tertiary: #c4a7e7;
   --enpii-color-tertiary-container: #c4a7e7;

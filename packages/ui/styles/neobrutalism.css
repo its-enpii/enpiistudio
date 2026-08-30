@@ -1,8 +1,8 @@
 /* Neobrutalist style layer. Import after @its-enpii/ui/styles.css. */
 :root {
   --enpii-logical-x: 1;
-  --neobrutalism-surface: #fffdf5;
-  --neobrutalism-ink: #000;
+  --neobrutalism-surface: rgb(255 253 245);
+  --neobrutalism-ink: rgb(0 0 0);
   --enpii-radius-control: .25rem;
   --enpii-radius-card: .25rem;
   --enpii-radius-overlay: .25rem;
@@ -367,7 +367,7 @@
 .enpii-spinner { inline-size: 2rem; block-size: 2rem; border: 3px solid currentColor; }
 .enpii-spinner--sm { inline-size: 1rem; block-size: 1rem; }
 .enpii-spinner--lg { inline-size: 3rem; block-size: 3rem; }
-.enpii-spinner--inverse { color: #fff; }
+.enpii-spinner--inverse { color: var(--enpii-color-inverse); }
 
 .enpii-skeleton--circle .enpii-skeleton__item { border-radius: 50%; }
 .enpii-empty-state { border: 0; background: transparent; box-shadow: none; }

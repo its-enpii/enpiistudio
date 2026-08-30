@@ -1167,7 +1167,7 @@
 .enpii-spinner{display:inline-flex;border-radius:50%;animation:enpii-spin .8s linear infinite}
 .enpii-spinner--primary{border:3px solid color-mix(in srgb,var(--enpii-color-primary) 22%,transparent);border-top-color:var(--enpii-color-primary)}
 .enpii-spinner--neutral{border:3px solid var(--enpii-color-outline-variant);border-top-color:var(--enpii-color-on-surface)}
-.enpii-spinner--inverse{border:3px solid rgb(255 255 255 / 30%);border-top-color:#fff}
+.enpii-spinner--inverse{border:3px solid rgb(255 255 255 / 30%);border-top-color:var(--enpii-color-inverse)}
 .enpii-spinner--sm{width:1rem;height:1rem;border-width:2px}.enpii-spinner--md{width:1.5rem;height:1.5rem}.enpii-spinner--lg{width:2.25rem;height:2.25rem}
 @media (prefers-reduced-motion:reduce){.enpii-spinner{animation-duration:2.4s}}
 

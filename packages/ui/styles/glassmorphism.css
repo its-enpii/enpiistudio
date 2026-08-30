@@ -272,7 +272,7 @@
 .enpii-spinner { inline-size: 2rem; block-size: 2rem; }
 .enpii-spinner--sm { inline-size: 1rem; block-size: 1rem; }
 .enpii-spinner--lg { inline-size: 3rem; block-size: 3rem; }
-.enpii-spinner--inverse { color: #fff; }
+.enpii-spinner--inverse { color: var(--enpii-color-inverse); }
 
 /* Explicit high-priority variants and sizes */
 .enpii-button--primary,

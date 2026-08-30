@@ -13,7 +13,7 @@ const props = withDefaults(defineProps<{
   penColor: '#191c1e',
   penWidth: 2,
   disabled: false,
-  backgroundColor: '#ffffff',
+  backgroundColor: undefined,
 })
 
 const canvasRef = ref<HTMLCanvasElement | null>(null)
@@ -80,6 +80,8 @@ function drawBackground() {
   if (!ctx || !canvasRef.value) return
   const rect = canvasRef.value.getBoundingClientRect()
   ctx.fillStyle = props.backgroundColor
+    ?? getComputedStyle(document.documentElement).getPropertyValue('--enpii-color-surface-container-lowest').trim()
+    ?? 'rgb(255 255 255)'
   ctx.fillRect(0, 0, rect.width, rect.height)
 }
 
