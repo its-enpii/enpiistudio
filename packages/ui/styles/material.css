@@ -830,3 +830,63 @@
     transition: none;
   }
 }
+
+/* Late-added families: kanban and QR code */
+.enpii-kanban {
+  border-radius: var(--enpii-radius-card);
+}
+
+.enpii-kanban__column,
+.enpii-kanban__card {
+  border-radius: 999px;
+}
+
+.enpii-kanban__column-title,
+.enpii-kanban__card-title,
+.enpii-kanban__menu-item {
+  font-weight: 500;
+}
+
+.enpii-kanban__card {
+  border-radius: calc(999px - .25rem);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-kanban__card:hover:not(:active) {
+  box-shadow: var(--enpii-shadow-raised);
+}
+
+.enpii-kanban__card-menu {
+  border-radius: 999px;
+}
+
+.enpii-kanban__menu {
+  border-radius: calc(999px - .25rem);
+  box-shadow: var(--enpii-shadow-overlay);
+}
+
+.enpii-kanban__menu-item {
+  border-radius: calc(999px - .5rem);
+}
+
+.enpii-kanban__card-menu:hover,
+.enpii-kanban__menu-item:hover:not(:disabled) {
+  background-color: color-mix(in srgb, currentColor 8%, transparent);
+}
+
+.enpii-qr-code {
+  border-radius: var(--enpii-radius-card);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-qr-code__canvas {
+  border-radius: calc(999px - .25rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enpii-kanban__card,
+  .enpii-kanban__card-menu,
+  .enpii-kanban__menu-item {
+    transition: none;
+  }
+}

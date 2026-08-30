@@ -295,6 +295,11 @@ const id: TranslationDictionary = {
 
   // --- AssistantPollCard ---
   'pollCard.pollingLabel': 'Polling: {question}',
+
+  // --- KanbanBoard ---
+  'kanban.ariaLabel': 'Papan kanban',
+  'kanban.cardCount': '{count} kartu',
+  'kanban.moveCard': 'Pindah kartu {title}',
 }
 
 const en: TranslationDictionary = {
@@ -587,6 +592,11 @@ const en: TranslationDictionary = {
 
   // --- AssistantPollCard ---
   'pollCard.pollingLabel': 'Polling: {question}',
+
+  // --- KanbanBoard ---
+  'kanban.ariaLabel': 'Kanban board',
+  'kanban.cardCount': '{count} cards',
+  'kanban.moveCard': 'Move card {title}',
 }
 
 export const builtinDictionaries: TranslationMap = { id, en }

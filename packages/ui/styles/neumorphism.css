@@ -924,3 +924,54 @@
     transform: none;
   }
 }
+
+/* Late-added families: kanban and QR code */
+.enpii-kanban__column,
+.enpii-kanban__card {
+  border: 0;
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-kanban__card:hover:not(:active) {
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-raised);
+  transform: translateY(-1px);
+}
+
+.enpii-kanban__card:active {
+  box-shadow: var(--enpii-shadow-inset);
+}
+
+.enpii-kanban__column-title,
+.enpii-kanban__card-title,
+.enpii-kanban__menu-item {
+  font-weight: 500;
+}
+
+.enpii-kanban__menu {
+  border: 0;
+  box-shadow: var(--enpii-shadow-raised);
+}
+
+.enpii-kanban__menu-item:hover:not(:disabled) {
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-qr-code {
+  border: 0;
+  box-shadow: var(--enpii-shadow-control);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enpii-kanban__card,
+  .enpii-kanban__card-menu,
+  .enpii-kanban__menu-item {
+    transition: none;
+  }
+
+  .enpii-kanban__card:hover:not(:active) {
+    transform: none;
+  }
+}

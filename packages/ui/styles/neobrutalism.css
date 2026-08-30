@@ -1079,3 +1079,73 @@
     transform: none;
   }
 }
+
+/* Late-added families: kanban and QR code */
+.enpii-kanban__column,
+.enpii-kanban__card {
+  border: 2px solid var(--neobrutalism-ink);
+  background: var(--neobrutalism-surface);
+  color: var(--neobrutalism-ink);
+  box-shadow: 2px 2px 0 var(--neobrutalism-ink);
+}
+
+.enpii-kanban__card:hover:not(:active) {
+  border-color: var(--neobrutalism-ink);
+  transform: translate(calc(-1px * var(--enpii-logical-x, 1)), -1px);
+  box-shadow: 3px 3px 0 var(--neobrutalism-ink);
+}
+
+.enpii-kanban__card:active {
+  box-shadow: 1px 1px 0 var(--neobrutalism-ink);
+}
+
+.enpii-kanban__column-title,
+.enpii-kanban__card-title {
+  font-weight: 600;
+}
+
+.enpii-kanban__card-menu,
+.enpii-kanban__menu {
+  border: 2px solid var(--neobrutalism-ink);
+  box-shadow: 2px 2px 0 var(--neobrutalism-ink);
+}
+
+.enpii-kanban__menu-item {
+  font-weight: 600;
+}
+
+.enpii-kanban__card-menu:hover,
+.enpii-kanban__menu-item:hover:not(:disabled) {
+  border-color: var(--neobrutalism-ink);
+  transform: translate(calc(-1px * var(--enpii-logical-x, 1)), -1px);
+  box-shadow: 2px 2px 0 var(--neobrutalism-ink);
+}
+
+.enpii-kanban__menu-item:focus-visible {
+  outline: 3px solid var(--enpii-color-focus);
+  outline-offset: 3px;
+  box-shadow: 3px 3px 0 var(--neobrutalism-ink);
+}
+
+.enpii-kanban__menu-item:disabled {
+  opacity: .5;
+}
+
+.enpii-qr-code {
+  border: 2px solid var(--neobrutalism-ink);
+  box-shadow: 2px 2px 0 var(--neobrutalism-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enpii-kanban__card,
+  .enpii-kanban__card-menu,
+  .enpii-kanban__menu-item {
+    transition: none;
+  }
+
+  .enpii-kanban__card:hover:not(:active),
+  .enpii-kanban__card-menu:hover,
+  .enpii-kanban__menu-item:hover:not(:disabled) {
+    transform: none;
+  }
+}
