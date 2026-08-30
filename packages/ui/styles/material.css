@@ -634,6 +634,15 @@
   box-shadow: var(--enpii-shadow-overlay);
 }
 
+.enpii-line-chart__axis-text,
+.enpii-area-chart__axis-text {
+  font-weight: 500;
+}
+
+.enpii-donut-chart__legend-value {
+  font-weight: 500;
+}
+
 .enpii-report-period-filter__export {
   border-radius: 999px;
   font-weight: 500;

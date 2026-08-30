@@ -39,6 +39,15 @@
   }
 }
 
+/* Charts */
+.enpii-line-chart,
+.enpii-area-chart,
+.enpii-donut-chart,
+.enpii-sparkline {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
 .enpii-assistant-widget__panel,
 .enpii-navbar,
 .enpii-sidebar,
