@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace EnpiiStudio\Core\Identity\Models;
 
 use EnpiiStudio\Core\Authorization\Models\Role;
+use EnpiiStudio\Core\Notification\Concerns\HasNotifications;
 use EnpiiStudio\Core\Tenancy\Concerns\BelongsToTenant;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -14,6 +15,7 @@ use Illuminate\Notifications\Notifiable;
 final class User extends Authenticatable
 {
     use BelongsToTenant;
+    use HasNotifications;
     use HasUuids;
     use Notifiable;
 
