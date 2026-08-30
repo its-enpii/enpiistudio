@@ -195,6 +195,7 @@
 .enpii-theme-menu__panel,
 .enpii-date-picker__popup,
 .enpii-smart-select__menu,
+.enpii-dropdown-menu__panel,
 .enpii-tabs,
 .enpii-accordion,
 .enpii-smart-select__trigger,
@@ -219,6 +220,7 @@
 .enpii-theme-menu__panel,
 .enpii-date-picker__popup,
 .enpii-smart-select__menu,
+.enpii-dropdown-menu__panel,
 .enpii-rich-editor__surface,
 .enpii-table-wrapper,
 .enpii-csv-import-export__columns,
@@ -505,6 +507,7 @@
 .enpii-date-picker__popup,
 .enpii-date-range__popup,
 .enpii-smart-select__menu,
+.enpii-dropdown-menu__panel,
 .enpii-notification-dropdown__panel,
 .enpii-tooltip__bubble {
   border: 2px solid var(--enpii-color-on-surface);
@@ -548,7 +551,8 @@
 .enpii-date-range__preset,
 .enpii-date-range__day,
 .enpii-smart-select__option,
-.enpii-smart-select__empty-action {
+.enpii-smart-select__empty-action,
+.enpii-dropdown-menu__item {
   border: 2px solid transparent;
   border-radius: .25rem;
 }
@@ -558,7 +562,9 @@
 .enpii-date-range__preset:hover:not(:disabled),
 .enpii-date-range__day:hover:not(:disabled),
 .enpii-smart-select__option:hover:not(:disabled),
-.enpii-smart-select__empty-action:hover:not(:disabled) {
+.enpii-smart-select__empty-action:hover:not(:disabled),
+.enpii-dropdown-menu__item:hover:not(:disabled),
+.enpii-dropdown-menu__item--highlighted {
   border-color: var(--enpii-color-on-surface);
   transform: translate(calc(-1px * var(--enpii-logical-x, 1)), -1px);
   box-shadow: 2px 2px 0 var(--enpii-color-on-surface);
@@ -593,7 +599,8 @@
 .enpii-date-range__day--outside,
 .enpii-date-picker__day:disabled,
 .enpii-date-range__day:disabled,
-.enpii-smart-select__option:disabled {
+.enpii-smart-select__option:disabled,
+.enpii-dropdown-menu__item:disabled {
   color: var(--enpii-color-outline);
   cursor: not-allowed;
 }
@@ -901,7 +908,8 @@
   .enpii-theme-menu__panel,
   .enpii-date-picker__popup,
   .enpii-date-range__popup,
-  .enpii-smart-select__menu {
+  .enpii-smart-select__menu,
+  .enpii-dropdown-menu__panel {
     border-color: CanvasText !important;
     box-shadow: none;
   }

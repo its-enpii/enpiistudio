@@ -189,7 +189,8 @@
 .enpii-notification-dropdown__panel,
 .enpii-theme-menu__panel,
 .enpii-date-picker__popup,
-.enpii-smart-select__menu {
+.enpii-smart-select__menu,
+.enpii-dropdown-menu__panel {
   border-radius: var(--enpii-radius-card);
 }
 
@@ -450,6 +451,7 @@
 .enpii-date-range__popup,
 .enpii-smart-select__menu,
 .enpii-notification-dropdown__panel,
+.enpii-dropdown-menu__panel,
 .enpii-tooltip__bubble {
   border: 0;
   border-radius: var(--enpii-radius-card);
@@ -490,6 +492,7 @@
 .enpii-date-range__day,
 .enpii-smart-select__option,
 .enpii-smart-select__empty-action,
+.enpii-dropdown-menu__item,
 .enpii-notification-dropdown__item {
   border-radius: var(--enpii-radius-control);
 }
@@ -501,6 +504,8 @@
 .enpii-smart-select__option:hover:not(:disabled),
 .enpii-smart-select__option--highlighted,
 .enpii-smart-select__empty-action:hover:not(:disabled),
+.enpii-dropdown-menu__item:hover:not(:disabled),
+.enpii-dropdown-menu__item--highlighted,
 .enpii-notification-dropdown__item:hover {
   background: var(--enpii-color-surface-container-lowest);
   box-shadow: var(--enpii-shadow-raised);
@@ -536,7 +541,8 @@
 .enpii-date-range__day--outside,
 .enpii-date-picker__day:disabled,
 .enpii-date-range__day:disabled,
-.enpii-smart-select__option:disabled {
+.enpii-smart-select__option:disabled,
+.enpii-dropdown-menu__item:disabled {
   color: var(--enpii-color-outline);
   cursor: not-allowed;
 }
@@ -767,6 +773,7 @@
 
   .enpii-modal__panel,
   .enpii-drawer__panel,
+  .enpii-dropdown-menu__panel,
   .enpii-tooltip__bubble {
     box-shadow: none;
   }

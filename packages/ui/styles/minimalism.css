@@ -129,6 +129,7 @@
 .enpii-theme-menu__panel,
 .enpii-date-picker__popup,
 .enpii-smart-select__menu,
+.enpii-dropdown-menu__panel,
 .enpii-table-wrapper,
 .enpii-rich-editor__surface,
 .enpii-csv-import-export__columns,
@@ -143,7 +144,8 @@
 .enpii-notification-dropdown__panel,
 .enpii-theme-menu__panel,
 .enpii-date-picker__popup,
-.enpii-smart-select__menu {
+.enpii-smart-select__menu,
+.enpii-dropdown-menu__panel {
   box-shadow: 0 12px 32px rgba(15, 23, 42, .08);
 }
 
@@ -354,6 +356,7 @@
 .enpii-date-picker__popup,
 .enpii-date-range__popup,
 .enpii-smart-select__menu,
+.enpii-dropdown-menu__panel,
 .enpii-notification-dropdown__panel,
 .enpii-tooltip__bubble {
   border: 1px solid var(--enpii-color-outline-variant);
@@ -378,7 +381,8 @@
 .enpii-date-range__preset,
 .enpii-date-range__day,
 .enpii-smart-select__option,
-.enpii-smart-select__empty-action {
+.enpii-smart-select__empty-action,
+.enpii-dropdown-menu__item {
   border-radius: .375rem;
 }
 
@@ -389,6 +393,8 @@
 .enpii-smart-select__option:hover:not(:disabled),
 .enpii-smart-select__option--highlighted,
 .enpii-smart-select__empty-action:hover:not(:disabled),
+.enpii-dropdown-menu__item:hover:not(:disabled),
+.enpii-dropdown-menu__item--highlighted,
 .enpii-notification-dropdown__item:hover {
   background: color-mix(in srgb, var(--enpii-color-on-surface) 4%, transparent);
 }
@@ -421,7 +427,8 @@
 .enpii-date-range__day--outside,
 .enpii-date-picker__day:disabled,
 .enpii-date-range__day:disabled,
-.enpii-smart-select__option:disabled {
+.enpii-smart-select__option:disabled,
+.enpii-dropdown-menu__item:disabled {
   color: var(--enpii-color-outline);
   cursor: not-allowed;
 }
@@ -614,7 +621,8 @@
   .enpii-theme-menu__panel,
   .enpii-date-picker__popup,
   .enpii-date-range__popup,
-  .enpii-smart-select__menu {
+  .enpii-smart-select__menu,
+  .enpii-dropdown-menu__panel {
     border-color: CanvasText;
     box-shadow: none;
   }

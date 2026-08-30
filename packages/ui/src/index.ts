@@ -25,6 +25,7 @@ export { default as EnpiiCurrencyInput } from './components/EnpiiCurrencyInput.v
 export { default as EnpiiDrawer } from './components/EnpiiDrawer.vue'
 export { default as EnpiiDatePicker } from './components/EnpiiDatePicker.vue'
 export { default as EnpiiDateRange } from './components/EnpiiDateRange.vue'
+export { default as EnpiiDropdownMenu } from './components/EnpiiDropdownMenu.vue'
 export { default as EnpiiDesktopSplashScreen } from './components/EnpiiDesktopSplashScreen.vue'
 export { default as EnpiiDesktopTitleBar } from './components/EnpiiDesktopTitleBar.vue'
 export { default as EnpiiEmptyState } from './components/EnpiiEmptyState.vue'
