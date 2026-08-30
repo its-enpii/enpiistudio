@@ -28,8 +28,8 @@ function formatCurrencyImpl(value: number, locale: string, options: Omit<Currenc
         return new Intl.NumberFormat(locale, {
             style: 'currency',
             currency: options.currency ?? 'IDR',
-            minimumFractionDigits: options.minimumFractionDigits,
-            maximumFractionDigits: options.maximumFractionDigits,
+            minimumFractionDigits: options.minimumFractionDigits ?? (options.currency === undefined || options.currency === 'IDR' ? 0 : undefined),
+            maximumFractionDigits: options.maximumFractionDigits ?? (options.currency === undefined || options.currency === 'IDR' ? 0 : undefined),
         }).format(value)
     } catch {
         return String(value)
