@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-08-30
+
+### Added
+- EnpiiDropdownMenu — generic action menu: keyboard nav
+  (ArrowUp/Down/Home/End/Escape/Enter/Space + typeahead), ARIA
+  menu/menuitem, click-outside close, teleport, auto-flip placement,
+  danger/disabled/divider items.
+- EnpiiFileUpload — drag & drop + browse, multiple files, client-side
+  type/size validation with inline errors, image thumbnails, v-model.
+- Chart suite (pure SVG, zero deps): EnpiiLineChart, EnpiiAreaChart
+  (multi-series), EnpiiDonutChart (legend + %), EnpiiSparkline.
+- i18n layer — ~180 keys ID/EN dictionaries, createT/useT, plugin options
+  `locale` + `translations`, all components refactored to t() (default
+  stays Indonesian — backward compatible).
+
+### Changed
+- plugin.ts now provides enpiiI18nKey (5 provided keys total).
+
 ## [0.3.0] - 2026-08-24
 
 ### Added
