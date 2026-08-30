@@ -27,6 +27,15 @@ Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7.
 
 ## Log Progress
 
+### 2026-08-30 — Core modules Media + Notification MERGED & PUSHED (CI hijau)
+- Agent `task-enpiistudio-core-media` (reasoning high): module Media — model+manager+API CRUD+validasi (mimes whitelist, max 10MB), storage per-tenant `{tenant_id}/yyyy/mm/uuid.ext`, config `enpii-core.php`, lang id/en, 12 test. Commit `1637a84` (16 files, +649). Efek samping: refactor `TenantScope` → resolve context via `app()` at apply-time (late binding, sesuai kontrak flush).
+- Agent `task-enpiistudio-core-notif` (reasoning high): module Notification center — model tenant-scoped + morphTo notifiable, trait `HasNotifications` di User, `NotificationCenter` (send/markRead/markAllRead/unreadCount), API endpoints, lang id/en, 8 test. Commit `890a601`.
+- Verifikasi mandiri per worktree: phpunit 43 & 45 OK, pint passed.
+- Merge ke main: konflik TestCase.php + CoreServiceProvider.php (keep-both). **1 test gagal pasca-merge** (`NotificationTest::test_mark_all_read_endpoint` — TenantContextMissing): root cause = test memegang instance scoped pra-request padahal kontrak flush `03b2954` mengganti instance post-request; TenantScope baru (app() at apply-time) ekspos divergence. Fix test: re-resolve instance fresh post-request (commit `cd69fab`). **Bukan bug tenancy; kontrak flush dipertahankan (fail-closed).**
+- Final: **51 tests / 137 assertions OK**, pint passed, push `e1c008c..cd69fab`, **CI success + Publish Composer success**.
+- Worktree + branch dibersihkan. Roadmap berikutnya: docs site VitePress → Bridge → App Skeleton → (brief user utk #6).
+
+
 ### 2026-08-30 — ui-sandbox demo upgrade SELESAI (3 agent + 1 bugfix Hermes)
 - Agent A (routing): multi-page hash router per kategori, 82 komponen ter-cover, 14 route — commit `6ae9e1a`
 - Agent C (playground): DemoShowcase + PropsPlayground + halaman Motion/Formatting — commit `af28af2`
