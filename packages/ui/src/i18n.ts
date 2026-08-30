@@ -55,6 +55,21 @@ const id: TranslationDictionary = {
   'datePicker.previousMonth': 'Bulan sebelumnya',
   'datePicker.nextMonth': 'Bulan berikutnya',
 
+  // --- Calendar ---
+  'calendar.previousMonth': 'Bulan sebelumnya',
+  'calendar.nextMonth': 'Bulan berikutnya',
+  'calendar.weekday.sunday': 'Min',
+  'calendar.weekday.monday': 'Sen',
+  'calendar.weekday.tuesday': 'Sel',
+  'calendar.weekday.wednesday': 'Rab',
+  'calendar.weekday.thursday': 'Kam',
+  'calendar.weekday.friday': 'Jum',
+  'calendar.weekday.saturday': 'Sab',
+  'calendar.eventCount': '{count} acara',
+
+  // --- TreeView ---
+  'treeView.ariaLabel': 'Pohon navigasi',
+
   // --- DateRange ---
   'dateRange.placeholder': 'Pilih rentang tanggal',
   'dateRange.clear': 'Hapus',
@@ -298,6 +313,21 @@ const en: TranslationDictionary = {
   'datePicker.nextYear': 'Next year',
   'datePicker.previousMonth': 'Previous month',
   'datePicker.nextMonth': 'Next month',
+
+  // --- Calendar ---
+  'calendar.previousMonth': 'Previous month',
+  'calendar.nextMonth': 'Next month',
+  'calendar.weekday.sunday': 'Sun',
+  'calendar.weekday.monday': 'Mon',
+  'calendar.weekday.tuesday': 'Tue',
+  'calendar.weekday.wednesday': 'Wed',
+  'calendar.weekday.thursday': 'Thu',
+  'calendar.weekday.friday': 'Fri',
+  'calendar.weekday.saturday': 'Sat',
+  'calendar.eventCount': '{count} events',
+
+  // --- TreeView ---
+  'treeView.ariaLabel': 'Navigation tree',
 
   // --- DateRange ---
   'dateRange.placeholder': 'Select date range',
