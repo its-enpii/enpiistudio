@@ -1357,3 +1357,42 @@
     transform: none;
   }
 }
+
+/* ===== EnpiiMentionInput ===== */
+.enpii-mention-input__control,
+.enpii-mention-input__suggestions,
+.enpii-mention-input__preview {
+  border: 2px solid var(--neobrutalism-ink);
+  border-radius: 0.5rem;
+}
+
+.enpii-mention-input__control {
+  box-shadow: 2px 2px 0 var(--neobrutalism-ink);
+}
+
+.enpii-mention-input__control:focus-visible {
+  box-shadow: 3px 3px 0 var(--neobrutalism-primary, var(--enpii-color-primary));
+}
+
+.enpii-mention-input__suggestion,
+.enpii-mention-input__mark,
+.enpii-mention-input__preview {
+  font-weight: 600;
+}
+
+.enpii-mention-input__control:hover:not(:disabled):not([readonly]),
+.enpii-mention-input__control:active:not(:disabled):not([readonly]) {
+  border-color: var(--neobrutalism-ink);
+}
+
+.enpii-mention-input__suggestion:hover,
+.enpii-mention-input__suggestion[data-active='true'] {
+  background: var(--enpii-color-neutral-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enpii-mention-input__control,
+  .enpii-mention-input__suggestion {
+    transition: none;
+  }
+}
