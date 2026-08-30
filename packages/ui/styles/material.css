@@ -772,4 +772,18 @@
 
 .enpii-command-palette__group-title {
   font-weight: 500;
+.enpii-segmented-control {
+  border: 0;
+  border-radius: 999px;
+  background: var(--enpii-color-surface-container-low);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-segmented-control__option,
+.enpii-segmented-control__indicator {
+  border-radius: 999px;
+}
+
+.enpii-segmented-control__indicator {
+  background: var(--enpii-color-primary-container);
 }

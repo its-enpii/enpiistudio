@@ -854,4 +854,22 @@
 .enpii-command-palette__command:hover,
 .enpii-command-palette__command--active {
   box-shadow: var(--enpii-shadow-inset);
+.enpii-segmented-control,
+.enpii-rating__control {
+  border: 0;
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-inset);
+}
+
+.enpii-segmented-control__indicator {
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-segmented-control__option--active {
+  color: var(--enpii-color-primary-text);
+}
+
+.enpii-rating__star--active {
+  color: var(--enpii-color-tertiary-fixed-dim);
 }
