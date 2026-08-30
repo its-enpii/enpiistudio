@@ -32,6 +32,9 @@ abstract class TestCase extends Orchestra
         $migration = require __DIR__.'/../database/migrations/0001_01_01_000000_create_enpii_core_tables.php';
         $migration->up();
 
+        $mediaMigration = require __DIR__.'/../database/migrations/2026_01_01_000001_create_media_table.php';
+        $mediaMigration->up();
+
         Schema::create('test_records', function (Blueprint $table): void {
             $table->id();
             $table->uuid('tenant_id');

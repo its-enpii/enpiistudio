@@ -6,6 +6,8 @@ namespace EnpiiStudio\Core;
 
 use EnpiiStudio\Core\Authorization\AuthorizationService;
 use EnpiiStudio\Core\FeatureFlags\FeatureFlags;
+use EnpiiStudio\Core\Media\Contracts\MediaManager as MediaManagerContract;
+use EnpiiStudio\Core\Media\MediaManager;
 use EnpiiStudio\Core\Settings\SettingsRepository;
 use EnpiiStudio\Core\Tenancy\Middleware\ResolveTenantContext;
 use EnpiiStudio\Core\Tenancy\TenantContext;
@@ -21,6 +23,8 @@ final class CoreServiceProvider extends ServiceProvider
         $this->app->scoped(AuthorizationService::class);
         $this->app->scoped(SettingsRepository::class);
         $this->app->scoped(FeatureFlags::class);
+        $this->mergeConfigFrom(__DIR__.'/../config/enpii-core.php', 'enpii-core');
+        $this->app->singleton(MediaManagerContract::class, MediaManager::class);
     }
 
     public function boot(): void
@@ -43,7 +47,19 @@ final class CoreServiceProvider extends ServiceProvider
             $kernel->prependToMiddlewarePriority(ResolveTenantContext::class);
         });
 
+        if (isset($this->app['router'])) {
+            $this->app['router']->middlewarePriority = array_values(array_unique(array_merge(
+                [ResolveTenantContext::class],
+                $this->app['router']->middlewarePriority ?? []
+            )));
+        }
+
+        $this->app['router']->aliasMiddleware('tenant', ResolveTenantContext::class);
+
         Gate::define('enpii.permission', fn ($user, string $permission) => app(AuthorizationService::class)->allow($user, $permission));
+
+        $this->loadTranslationsFrom(__DIR__.'/../lang', 'core');
+        $this->loadRoutesFrom(__DIR__.'/../routes/core-media.php');
 
         $this->publishes([
             __DIR__.'/../database/migrations/0001_01_01_000000_create_enpii_core_tables.php' => database_path('migrations/0001_01_01_000000_create_enpii_core_tables.php'),

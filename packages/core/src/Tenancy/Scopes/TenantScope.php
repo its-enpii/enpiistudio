@@ -11,13 +11,15 @@ use Illuminate\Database\Eloquent\Scope;
 
 final readonly class TenantScope implements Scope
 {
-    public function __construct(private TenantContext $context) {}
+    public function __construct(private ?TenantContext $context = null) {}
 
     public function apply(Builder $builder, Model $model): void
     {
+        $context = app(TenantContext::class);
+
         $builder->where(
             $model->qualifyColumn($model->getTenantColumn()),
-            $this->context->id(),
+            $context->id(),
         );
     }
 }
