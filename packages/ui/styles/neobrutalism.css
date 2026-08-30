@@ -937,3 +937,26 @@
 .enpii-file-upload__dropzone-text {
   font-weight: 500;
 }
+
+.enpii-popover__panel,
+.enpii-command-palette__dialog {
+  border: 2px solid var(--neobrutalism-ink);
+  border-radius: .25rem;
+  background: var(--neobrutalism-surface);
+  box-shadow: 4px 4px 0 var(--enpii-color-on-surface);
+}
+
+.enpii-command-palette__input {
+  border-bottom: 2px solid var(--neobrutalism-ink);
+  font-weight: 500;
+}
+
+.enpii-command-palette__command {
+  border-radius: .25rem;
+  font-weight: 500;
+}
+
+.enpii-command-palette__command:hover,
+.enpii-command-palette__command--active {
+  background: color-mix(in srgb, var(--enpii-color-primary-container) 80%, var(--neobrutalism-surface));
+}

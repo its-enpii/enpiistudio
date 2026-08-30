@@ -645,3 +645,18 @@
 .enpii-file-upload__dropzone-text {
   font-weight: 400;
 }
+
+.enpii-popover__panel,
+.enpii-command-palette__dialog {
+  border: 1px solid rgba(229, 231, 235, .65);
+  box-shadow: none;
+}
+
+.enpii-command-palette__input {
+  border-bottom-color: rgba(229, 231, 235, .65);
+}
+
+.enpii-command-palette__command:hover,
+.enpii-command-palette__command--active {
+  background: color-mix(in srgb, var(--enpii-color-neutral-soft) 72%, transparent);
+}
