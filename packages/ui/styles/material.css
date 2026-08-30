@@ -786,4 +786,47 @@
 
 .enpii-segmented-control__indicator {
   background: var(--enpii-color-primary-container);
+/* Late-added families: calendar and tree */
+.enpii-calendar,
+.enpii-tree-view {
+  border: 0;
+  border-radius: var(--enpii-radius-card);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-calendar__month,
+.enpii-tree-view__node {
+  font-weight: 500;
+}
+
+.enpii-calendar__nav,
+.enpii-calendar__day,
+.enpii-tree-view__node {
+  border-radius: 999px;
+}
+
+.enpii-calendar__nav:hover:not(:disabled),
+.enpii-calendar__day:hover:not(:disabled),
+.enpii-calendar__day--focused,
+.enpii-tree-view__node:hover,
+.enpii-tree-view__node--focused {
+  background-color: color-mix(in srgb, currentColor 8%, transparent);
+}
+
+.enpii-calendar__day--today {
+  box-shadow: inset 0 0 0 1px var(--enpii-color-primary-border), var(--enpii-shadow-control);
+}
+
+.enpii-calendar__week,
+.enpii-tree-view__list {
+  color: var(--enpii-color-on-surface);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enpii-calendar__nav,
+  .enpii-calendar__day,
+  .enpii-tree-view__node,
+  .enpii-tree-view__chevron {
+    transition: none;
+  }
 }

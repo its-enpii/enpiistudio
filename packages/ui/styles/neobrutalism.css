@@ -1011,4 +1011,71 @@
 
 .enpii-rating__star--active {
   color: var(--enpii-color-warning-text);
+/* Late-added families: calendar and tree */
+.enpii-calendar,
+.enpii-tree-view {
+  border: 2px solid var(--neobrutalism-ink);
+  border-radius: var(--enpii-radius-control);
+  background: var(--neobrutalism-surface);
+  color: var(--neobrutalism-ink);
+  box-shadow: var(--enpii-shadow-control);
+}
+
+.enpii-calendar__nav,
+.enpii-calendar__day,
+.enpii-tree-view__node {
+  border: 2px solid transparent;
+  border-radius: .25rem;
+}
+
+.enpii-calendar__nav:hover:not(:disabled),
+.enpii-calendar__day:hover:not(:disabled),
+.enpii-calendar__day--focused,
+.enpii-tree-view__node:hover,
+.enpii-tree-view__node--focused {
+  border-color: var(--enpii-color-on-surface);
+  transform: translate(calc(-1px * var(--enpii-logical-x, 1)), -1px);
+  box-shadow: 2px 2px 0 var(--enpii-color-on-surface);
+}
+
+.enpii-calendar__day--selected,
+.enpii-tree-view__node--selected {
+  background: var(--enpii-color-on-surface);
+  border-color: var(--enpii-color-on-surface);
+  color: var(--enpii-color-surface-container-lowest);
+  font-weight: 600;
+}
+
+.enpii-calendar__day--today {
+  border-color: var(--enpii-color-primary);
+}
+
+.enpii-calendar__nav:focus-visible,
+.enpii-calendar__day:focus-visible,
+.enpii-tree-view__node:focus-visible {
+  outline: 3px solid var(--enpii-color-focus);
+  outline-offset: 3px;
+  box-shadow: 3px 3px 0 var(--neobrutalism-ink);
+}
+
+.enpii-calendar__weekday,
+.enpii-calendar__week-number,
+.enpii-calendar__week,
+.enpii-tree-view__list {
+  color: var(--neobrutalism-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enpii-calendar__nav,
+  .enpii-calendar__day,
+  .enpii-tree-view__node,
+  .enpii-tree-view__chevron {
+    transition: none;
+  }
+
+  .enpii-calendar__nav:hover:not(:disabled),
+  .enpii-calendar__day:hover:not(:disabled),
+  .enpii-tree-view__node:hover {
+    transform: none;
+  }
 }

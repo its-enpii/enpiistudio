@@ -862,6 +862,11 @@
 }
 
 .enpii-segmented-control__indicator {
+/* Late-added families: calendar and tree */
+.enpii-calendar,
+.enpii-tree-view {
+  border: 0;
+  border-radius: var(--enpii-radius-card);
   background: var(--enpii-color-surface-container-lowest);
   box-shadow: var(--enpii-shadow-control);
 }
@@ -872,4 +877,50 @@
 
 .enpii-rating__star--active {
   color: var(--enpii-color-tertiary-fixed-dim);
+.enpii-calendar__nav,
+.enpii-calendar__day,
+.enpii-tree-view__node {
+  border-radius: var(--enpii-radius-control);
+}
+
+.enpii-calendar__nav:hover:not(:disabled),
+.enpii-calendar__day:hover:not(:disabled),
+.enpii-calendar__day--focused,
+.enpii-tree-view__node:hover,
+.enpii-tree-view__node--focused {
+  background: var(--enpii-color-surface-container-lowest);
+  box-shadow: var(--enpii-shadow-raised);
+  transform: translateY(-1px);
+}
+
+.enpii-calendar__day--selected,
+.enpii-tree-view__node--selected {
+  background: var(--enpii-color-surface-container-highest);
+  box-shadow: var(--enpii-shadow-inset);
+  color: var(--enpii-color-primary-text);
+  transform: translateY(0);
+}
+
+.enpii-calendar__day--today {
+  box-shadow: var(--enpii-shadow-inset), inset 0 0 0 2px var(--enpii-color-primary-border);
+}
+
+.enpii-calendar__week,
+.enpii-tree-view__list {
+  color: var(--enpii-color-on-surface);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enpii-calendar__nav,
+  .enpii-calendar__day,
+  .enpii-tree-view__node,
+  .enpii-tree-view__chevron {
+    transition: none;
+  }
+
+  .enpii-calendar__nav:hover:not(:disabled),
+  .enpii-calendar__day:hover:not(:disabled),
+  .enpii-tree-view__node:hover {
+    transform: none;
+  }
 }

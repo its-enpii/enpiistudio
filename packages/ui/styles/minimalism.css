@@ -688,6 +688,11 @@
 .enpii-segmented-control,
 .enpii-rating__control {
   border: 1px solid rgba(229, 231, 235, .65);
+/* Late-added families: calendar and tree */
+.enpii-calendar,
+.enpii-tree-view {
+  border: 1px solid rgba(229, 231, 235, .55);
+  border-radius: var(--enpii-radius-card);
   background: transparent;
   box-shadow: none;
 }
@@ -702,4 +707,43 @@
 
 .enpii-rating__star--active {
   color: var(--enpii-color-primary);
+.enpii-calendar__nav,
+.enpii-calendar__day,
+.enpii-tree-view__node {
+  border-radius: .375rem;
+}
+
+.enpii-calendar__nav:hover:not(:disabled),
+.enpii-calendar__day:hover:not(:disabled),
+.enpii-calendar__day--focused,
+.enpii-tree-view__node:hover,
+.enpii-tree-view__node--focused {
+  background: color-mix(in srgb, var(--enpii-color-on-surface) 4%, transparent);
+}
+
+.enpii-calendar__day--selected,
+.enpii-tree-view__node--selected {
+  background: color-mix(in srgb, var(--enpii-color-primary) 7%, transparent);
+  color: var(--enpii-color-primary-text);
+  font-weight: 500;
+}
+
+.enpii-calendar__day--today {
+  box-shadow: inset 0 -2px 0 var(--enpii-color-primary);
+}
+
+.enpii-calendar__weekday,
+.enpii-calendar__week-number,
+.enpii-calendar__week,
+.enpii-tree-view__list {
+  font-weight: 400;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enpii-calendar__nav,
+  .enpii-calendar__day,
+  .enpii-tree-view__node,
+  .enpii-tree-view__chevron {
+    transition: none;
+  }
 }
