@@ -183,24 +183,26 @@ onBeforeUnmount(() => {
     </div>
 
     <Teleport to="body">
-      <div
-        v-if="isOpen"
-        :id="popoverId"
-        ref="panelRef"
-        role="dialog"
-        :aria-modal="props.persistent"
-        :class="[
-          'enpii-popover__panel',
-          `enpii-popover__panel--${activePlacement}`,
-          `enpii-popover__panel--align-${props.alignment}`,
-        ]"
-        :style="panelStyle"
-      >
-        <span v-if="props.arrow" class="enpii-popover__arrow" aria-hidden="true" />
-        <div class="enpii-popover__content">
-          <slot name="content" />
+      <Transition name="enpii-popover">
+        <div
+          v-if="isOpen"
+          :id="popoverId"
+          ref="panelRef"
+          role="dialog"
+          :aria-modal="props.persistent"
+          :class="[
+            'enpii-popover__panel',
+            `enpii-popover__panel--${activePlacement}`,
+            `enpii-popover__panel--align-${props.alignment}`,
+          ]"
+          :style="panelStyle"
+        >
+          <span v-if="props.arrow" class="enpii-popover__arrow" aria-hidden="true" />
+          <div class="enpii-popover__content">
+            <slot name="content" />
+          </div>
         </div>
-      </div>
+      </Transition>
     </Teleport>
   </div>
 </template>

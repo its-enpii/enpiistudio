@@ -1521,3 +1521,14 @@
 .enpii-sparkline {
   filter: drop-shadow(3px 3px 0 var(--neobrutalism-ink));
 }
+
+/* Motion character: snappy, no eased bounce */
+:root {
+  --enpii-duration-fast: 80ms;
+  --enpii-duration-normal: 120ms;
+  --enpii-duration-slow: 160ms;
+  --enpii-ease-standard: cubic-bezier(0, 0, 1, 1);
+  --enpii-ease-decelerate: cubic-bezier(0, 0, 1, 1);
+  --enpii-ease-accelerate: cubic-bezier(0, 0, 1, 1);
+  --enpii-ease-emphasized: cubic-bezier(0, 0, 1, 1);
+}
