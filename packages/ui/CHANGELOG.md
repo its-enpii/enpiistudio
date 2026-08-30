@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-08-30
+
+### Added
+- EnpiiTagInput (suggestions, maxTags, keyboard) and EnpiiOtpInput
+  (auto-advance, paste distribution, complete event).
+- EnpiiRating (keyboard slider, allowClear) and EnpiiSegmentedControl
+  (radiogroup, animated indicator).
+- EnpiiPopover (placement, flip, click-outside) and EnpiiCommandPalette
+  (mod+k, fuzzy filter, grouped commands).
+- EnpiiCalendar (month grid, event markers, week start, min/max) and
+  EnpiiTreeView (expand/collapse, keyboard navigation, ARIA tree).
+- All new components use the i18n t() layer (ID/EN).
+
 ## [0.4.0] - 2026-08-30
 
 ### Added
