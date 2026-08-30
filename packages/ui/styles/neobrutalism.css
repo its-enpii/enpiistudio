@@ -1,8 +1,8 @@
 /* Neobrutalist style layer. Import after @its-enpii/ui/styles.css. */
 :root {
   --enpii-logical-x: 1;
-  --neobrutalism-surface: rgb(255 253 245);
-  --neobrutalism-ink: rgb(0 0 0);
+  --neobrutalism-surface: rgb(253 251 243);
+  --neobrutalism-ink: rgb(17 17 17);
   --enpii-radius-control: .25rem;
   --enpii-radius-card: .25rem;
   --enpii-radius-overlay: .25rem;

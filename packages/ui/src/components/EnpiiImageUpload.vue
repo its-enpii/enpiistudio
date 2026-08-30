@@ -220,7 +220,7 @@ function drawCrop() {
   canvas.height = size * dpr
   context.scale(dpr, dpr)
   const surface = getComputedStyle(document.documentElement).getPropertyValue('--enpii-color-surface-container-lowest').trim()
-  context.fillStyle = surface || 'rgb(255 255 255)'
+  context.fillStyle = surface || 'rgb(253 253 252)'
   context.fillRect(0, 0, size, size)
   const scaledWidth = image.width * zoom.value
   const scaledHeight = image.height * zoom.value

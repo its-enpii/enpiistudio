@@ -14,7 +14,7 @@ const props = withDefaults(defineProps<{
   showAlpha: false,
   swatches: () => [
     '#4f46e5', '#4338ca', '#006d3d', '#ba1a1a',
-    '#b45309', '#334155', 'rgb(255 255 255)', '#191c1e',
+    '#b45309', '#334155', 'rgb(253 253 252)', '#191c1e',
   ],
   disabled: false,
 })
@@ -206,7 +206,7 @@ onBeforeUnmount(() => {
     <div
       ref="areaRef"
       class="enpii-color-picker__area"
-      :style="{ background: `linear-gradient(to top, rgb(0 0 0), transparent), linear-gradient(to right, rgb(255 255 255), ${hueColor})` }"
+      :style="{ background: `linear-gradient(to top, rgb(13 13 13), transparent), linear-gradient(to right, rgb(253 253 252), ${hueColor})` }"
       :aria-label="t('colorPicker.areaLabel')"
       @pointerdown="onPointerDown('area', $event)"
     >

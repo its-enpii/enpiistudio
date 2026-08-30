@@ -81,7 +81,7 @@ function drawBackground() {
   const rect = canvasRef.value.getBoundingClientRect()
   ctx.fillStyle = props.backgroundColor
     ?? getComputedStyle(document.documentElement).getPropertyValue('--enpii-color-surface-container-lowest').trim()
-    ?? 'rgb(255 255 255)'
+    ?? 'rgb(253 253 252)'
   ctx.fillRect(0, 0, rect.width, rect.height)
 }
 

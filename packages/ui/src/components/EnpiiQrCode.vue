@@ -21,7 +21,7 @@ function render() {
     width: props.size,
     margin: props.includeMargin ? 4 : 0,
     errorCorrectionLevel: props.level,
-    color: { dark: 'rgb(0 0 0)', light: 'rgb(255 255 255)' },
+    color: { dark: 'rgb(15 15 15)', light: 'rgb(250 250 250)' },
   })
 }
 
