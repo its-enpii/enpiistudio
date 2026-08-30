@@ -956,3 +956,43 @@
 .enpii-qr-code {
   box-shadow: none;
 }
+
+/* Late-added family: EnpiiImageUpload */
+.enpii-image-upload__label,
+.enpii-image-upload__name {
+  font-weight: 400;
+}
+
+.enpii-image-upload__dropzone,
+.enpii-image-upload__item,
+.enpii-image-upload__crop-panel {
+  border-radius: var(--enpii-radius-control);
+}
+
+.enpii-image-upload__dropzone {
+  border-style: dashed;
+}
+
+.enpii-image-upload__action,
+.enpii-image-upload__button {
+  border-radius: calc(var(--enpii-radius-control) - .25rem);
+}
+
+.enpii-image-upload__dropzone,
+.enpii-image-upload__item,
+.enpii-image-upload__crop-panel {
+  border-style: solid;
+  border-color: var(--enpii-color-outline-variant);
+  border-radius: var(--enpii-radius-control);
+  box-shadow: none;
+}
+
+.enpii-image-upload__dropzone:hover:not(.enpii-image-upload__dropzone--disabled) {
+  border-color: var(--enpii-color-outline);
+  box-shadow: none;
+}
+
+.enpii-image-upload__action:hover:not(:disabled),
+.enpii-image-upload__button:hover:not(:disabled) {
+  box-shadow: 0 0 0 2px var(--enpii-color-primary-soft);
+}
