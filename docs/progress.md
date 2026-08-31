@@ -103,3 +103,9 @@ Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7.
 <!-- TAMBAHKAN ENTRI BARU DI BAWAH, FORMAT: -->
 <!-- ### YYYY-MM-DD HH:MM TZ — <judul>
 - <status & bukti: commit sha, hasil verifikasi, link> -->
+
+### 2026-08-31 — Deploy POS live di VPS + bug E2E login ditemukan
+- Deploy docker compose 6 service di deploy/ (nginx :8089, php8.4-fpm, mysql8, redis, queue, reverb). Tenant demo 'Demo Cafe' + owner owner@demo.pos. Migrasi + 14 permission seeded.
+- Fix selama deploy: image php 8.4 (vendor butuh >=8.4.1), bake enpii-studio/core ke image (path-repo), predis + REDIS_CLIENT, laravel/reverb ternyata belum ter-install oleh agent KDS (baru config) → di-install.
+- BUG AKTIF: login HTTP 500 TenantContextMissing — catch-22: Authenticate middleware lookup user by session id kena TenantScope SEBELUM ResolveTenantContext jalan (resolver butuh Auth::user() = model tenant-scoped = butuh context). Patch titik manual di-revert (90882ef reverted) — fix arsitektur didelegasikan ke Codex (task-pos-tenant, feat/fix-tenant-auth): session-carried tenant_id dipilih saat login (milik app, bukan request eksternal), resolver prioritas session → fallback Auth::user().
+- Keputusan styling: project POS pakai Tailwind v4 CSS-first @theme bind --enpii-* (docs v4.3 diverifikasi); rework semua halaman incl. auth (Breeze stock ilang) — delegasi berikutnya.
