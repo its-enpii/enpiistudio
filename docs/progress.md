@@ -27,6 +27,13 @@ Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7.
 
 ## Log Progress
 
+### 2026-08-31 — POS batch2 SELESAI + merge (tables/shift + orders/payments)
+- Agent tables-shift (commit faaeafe): pos_tables + pos_shift_sessions, CRUD meja, open/close shift + cash_variance, AuditWriter manual, 6 test baru -> verifikasi mandiri 47 tests/193 assertions OK + pint. MERGED (dba7caf).
+- Agent orders-payments (commit 7dde03d): 5 tabel transaksional + OrderService/PaymentService (lockForUpdate, split payment harus menutup grand_total, paid order immutable, snapshot harga, void+audit, sync status meja) -> test align + fix. Konflik routes/api.php keep-both; MenuModuleTest & OrdersPaymentsTest di-align ke migrasi nyata (drop shadow schema, opening_cash ditambah). Final 53 tests/217 assertions OK + pint + build. MERGED (ec9ba35 -> 116f556).
+- Integration gap dicatat: ShiftController::close() menghitung closing_cash_expected = opening_cash saja - belum termasuk transaksi tunai selama shift. WAJIB diperbaiki di batch3 (setelah payments ada): expected = opening_cash + sum(pos_payments.cash_received) shift terkait.
+- Worktree & branch feature dihapus. Batch3 next: KDS realtime (Reverb) || Reporting; perbaiki shift expected calculation.
+
+
 ### 2026-08-31 — POS batch1 SELESAI + merge (verifikasi mandiri)
 - Agent foundation: 29 tests/97 assertions OK; menu: 37 tests/119 assertions OK; pint bersih keduanya. Spot-check rules: resolver hanya baca Auth::user()->tenant_id (throw TenantContextMissing), 5 model menu pakai BelongsToTenant, authorization via Gate 'enpii.permission' di FormRequest authorize() + MenuController.
 - Merge ke main: konflik TestCase.php + routes/web.php + bootstrap/app.php + AppServiceProvider di-resolve keep-both; duplikat ProductTenantResolver (agent B buat ulang di App\Http\Resolvers) dihapus, keep varian app/Tenancy (final readonly + TenantContextMissing).
