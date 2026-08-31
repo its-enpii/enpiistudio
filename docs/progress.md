@@ -27,6 +27,11 @@ Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7.
 
 ## Log Progress
 
+### 2026-08-31 — POS batch4 (frontend kasir) diluncurkan
+- task-pos-cashier (~/tasks/pos-g-work, feat/pos-cashier-frontend, reasoning high): pos-theme.css (override token persis design 2/3: primary sky #87CEEB, accent sunflower #F4B740, surface #F7F9FA, ink #14202B, shadow ringan 2px 2px 0 ink, hover translate), 4 komponen custom di atas primitif package (PosMenuGrid, PosCart, PosTableMap, PosPaymentSheet), Orders/Index layout kasir + gate buka shift, konsumsi API merged batch2/3 tanpa ubah backend.
+- Setelah agent ini: E2E alur order->bayar + laporan akhir vertical demo #6.
+
+
 ### 2026-08-31 — POS batch3 + docs-site SELESAI & merged (verifikasi mandiri)
 - KDS realtime (79e430a -> merge 1819fa9): Reverb setup, OrderCreated/OrderItemStatusUpdated ShouldBroadcast, channel privat tenant-scoped (route channels.php: Gate kitchen.view + user->tenant_id === tenantId, fail-closed), Board.vue kolom Baru/Diproses/Siap. Verifikasi: 59 tests/237 assertions OK + pint + build.
 - Reporting + shift fix (c927f34 -> merge 7c3c02f): closing_cash_expected = opening_cash + SUM(cash completed payments shift tsb, tenant filter eksplisit di raw query - rules 1.3), ReportingService (salesSummary/topProducts from snapshot/busyHours/shiftRecap), /reports API (Gate reports.view), Reports/Index.vue. Verifikasi: 60 tests/245 assertions OK + pint + build.
