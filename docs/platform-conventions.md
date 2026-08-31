@@ -86,6 +86,10 @@ Semua endpoint JSON mengembalikan envelope:
 - Skeleton memilih layout preset saat install (admin-sidebar | minimal | blank); TIDAK memaksa satu layout.
 - App identitas = file `resources/css/brand.css` yang menimpa token `--enpii-*` (primary, radius, font, spacing).
 - Skeleton TIDAK mendefinisikan warna brand; hanya menyediakan brand.css kosong + komentar petunjuk.
+- Aplikasi konsumen BOLEH memakai Tailwind CSS: `tailwind.config` WAJIB mengikat palette/spacing ke
+  token `--enpii-*` yang sama (contoh: `primary: 'var(--enpii-primary)'`), sehingga utility classes
+  (`bg-primary`, `sm:`/`md:`/`lg:`) selalu mengonsumsi sumber token package — bukan warna literal baru.
+  Token design dan Tailwind bukan alternatif: package = sumber token, project = konsumsi via utility.
 - Bila ada keraguan tampilan: default ke tampilan bawaan @its-enpii/ui (konsisten), bukan custom baru.
 
 ## 7. Testing & Verifikasi (sama seperti AGENTS.md §3/§5)
