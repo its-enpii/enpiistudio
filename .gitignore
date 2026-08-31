@@ -39,6 +39,9 @@ composer.phar
 /packages/*/coverage/
 /packages/*/.vite/
 /packages/*/.vitest/
+/docs-site/.vitepress/dist/
+/docs-site/.vitepress/.temp/
+/docs-site/node_modules/
 *.tgz
 npm-debug.log*
 yarn-debug.log*

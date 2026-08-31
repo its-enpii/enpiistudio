@@ -1,0 +1,11 @@
+{
+  "name": "enpii-studio-docs-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "npm run generate && vitepress build",
+    "generate": "node .scripts/generate-ui-components.mjs",
+    "preview": "vitepress preview"
+  }
+}
