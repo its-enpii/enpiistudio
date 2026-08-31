@@ -27,6 +27,15 @@ Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7.
 
 ## Log Progress
 
+### 2026-08-31 — POS batch1 SELESAI + merge (verifikasi mandiri)
+- Agent foundation: 29 tests/97 assertions OK; menu: 37 tests/119 assertions OK; pint bersih keduanya. Spot-check rules: resolver hanya baca Auth::user()->tenant_id (throw TenantContextMissing), 5 model menu pakai BelongsToTenant, authorization via Gate 'enpii.permission' di FormRequest authorize() + MenuController.
+- Merge ke main: konflik TestCase.php + routes/web.php + bootstrap/app.php + AppServiceProvider di-resolve keep-both; duplikat ProductTenantResolver (agent B buat ulang di App\Http\Resolvers) dihapus, keep varian app/Tenancy (final readonly + TenantContextMissing).
+- BUG DITEMUKAN & FIXED post-merge: 6 test gagal TenantContextMissing saat implicit route-model binding — root cause: agent A OVERWRITE middleware priority (bukan prepend), sehingga SubstituteBindings keluar dari priority map; binding unlisted = tetap di posisi stack → jalan SEBELUM 'tenant' middleware. Fix: prependToPriorityList(SubstituteBindings, ResolveTenantContext). 41 tests/155 assertions OK + pint + build. Commit a1bb312.
+- Dokumentasi brief dipindah ke ~/projects/pos-resto/docs/ (5 file, commit 4eb7377) sesuai instruksi user.
+- Worktree pos-a/pos-b & branch feature dihapus. Lessons: agent wajib dilarang overwrite $middleware->priority (prepend saja); cek duplikasi class lintas-agent saat batch paralel.
+- Batch2 next: Tables+Shift ∥ Orders+Payments.
+
+
 ### 2026-08-30 — VERTICAL DEMO DIMULAI: POS Resto/Cafe (brief user diterima)
 - User kirim 5 dokumen brief: 01-architecture, 02-design, 03-prd, 04-rules, 05-schema (tersimpan di ~/tasks/pos/). Aplikasi standalone (BUKAN bagian monorepo) mengonsumsi core + ui.
 - Scaffold `~/projects/pos-resto`: Laravel 12 + Breeze Inertia Vue, composer path-repo `enpii-studio/core` (@dev, symlink), npm file-dep `@its-enpii/ui`. Core migrations published + migrated (sqlite dev; target prod MySQL 8 per brief). Build sukses. Commit `b7b252a`.
