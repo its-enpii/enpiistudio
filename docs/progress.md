@@ -27,6 +27,13 @@ Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7.
 
 ## Log Progress
 
+### 2026-08-31 — POS batch4 SELESAI & merged — frontend kasir lengkap
+- task-pos-cashier (14cbb3f -> merge 8e63228): pos-theme.css (token override persis design 3: sky/sunflower/surface/ink, 0 hardcoded #000/#FFF), PosMenuGrid/PosCart/PosTableMap/PosPaymentSheet (semua composed di atas primitif @its-enpii/ui, dicek manual), useCart/usePosToast composable, Orders/Index layout kasir + gate buka shift (shifts/current), OrderController web props, bundle app 275KB (gzip 90KB).
+- Verifikasi mandiri: 66 tests/265 assertions OK (worktree sempat 65 warnings - .env hilang di worktree, bukan bug kode), pint bersih, build sukses, spot-check: palet token sesuai design, 4 komponen pakai primitif package, shift gate terpasang.
+- POS main final: 66 tests/265 assertions + pint + build. Worktree & branch dihapus.
+- Sisa: E2E alur order->bayar (playwright) + laporan akhir vertical demo #6 + keputusan hosting/deploy dari user.
+
+
 ### 2026-08-31 — POS batch4 (frontend kasir) diluncurkan
 - task-pos-cashier (~/tasks/pos-g-work, feat/pos-cashier-frontend, reasoning high): pos-theme.css (override token persis design 2/3: primary sky #87CEEB, accent sunflower #F4B740, surface #F7F9FA, ink #14202B, shadow ringan 2px 2px 0 ink, hover translate), 4 komponen custom di atas primitif package (PosMenuGrid, PosCart, PosTableMap, PosPaymentSheet), Orders/Index layout kasir + gate buka shift, konsumsi API merged batch2/3 tanpa ubah backend.
 - Setelah agent ini: E2E alur order->bayar + laporan akhir vertical demo #6.
