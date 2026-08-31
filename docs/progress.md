@@ -27,6 +27,14 @@ Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7.
 
 ## Log Progress
 
+### 2026-08-31 — POS batch3 + docs-site SELESAI & merged (verifikasi mandiri)
+- KDS realtime (79e430a -> merge 1819fa9): Reverb setup, OrderCreated/OrderItemStatusUpdated ShouldBroadcast, channel privat tenant-scoped (route channels.php: Gate kitchen.view + user->tenant_id === tenantId, fail-closed), Board.vue kolom Baru/Diproses/Siap. Verifikasi: 59 tests/237 assertions OK + pint + build.
+- Reporting + shift fix (c927f34 -> merge 7c3c02f): closing_cash_expected = opening_cash + SUM(cash completed payments shift tsb, tenant filter eksplisit di raw query - rules 1.3), ReportingService (salesSummary/topProducts from snapshot/busyHours/shiftRecap), /reports API (Gate reports.view), Reports/Index.vue. Verifikasi: 60 tests/245 assertions OK + pint + build.
+- Docs-site VitePress (a7562d9 -> merge f50487a di monorepo): docs-site/ folder, 16 halaman ter-build, UI components list di-generate dari src/index.ts = 84 komponen (bukan 82 - angka lama stale, agent jujur menandai discrepancy), npm scripts docs:dev/build/preview di root. Build sukses tanpa dead link.
+- Fix pasca-merge POS: laravel-echo + pusher-js belum ada di main checkout (agent install di worktree sendiri) -> npm install + commit 6f23acc. Final POS main: 66 tests/265 assertions OK + pint + build. Final monorepo: docs-site merged, push f50487a.
+- Worktree/branch semua dihapus. Sisa roadmap POS: batch4 frontend POS lengkap (Menu Grid, Table Map, Payment Sheet, theme neobrutalism-ringan) + E2E.
+
+
 ### 2026-08-31 — ui-sandbox merged+published; batch3 POS + docs-site diluncurkan (3 agent paralel)
 - ui-sandbox: merge feat/demo-upgrade-v2 -> main (65b7b51, build sukses pre-merge). Repo TERNYATA belum punya remote -> buat github.com/its-enpii/ui-sandbox (private) + push main. Branch feature dihapus.
 - Batch3 POS (2 agent, reasoning high): task-pos-kds (~/tasks/pos-e-work, feat/kds-realtime) — Reverb setup, OrderCreated/OrderItemStatusUpdated, channel privat tenant-scoped + Gate kitchen.view, Board.vue kolom Baru/Diproses/Siap; task-pos-reports (~/tasks/pos-f-work, feat/reporting) — FIX shift closing_cash_expected (opening + cash payments), ReportingService (salesSummary/topProducts/busyHours/shiftRecap, tenant-scoped), /reports API + Inertia page, refund accounting.
