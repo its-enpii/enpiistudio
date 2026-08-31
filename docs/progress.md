@@ -27,6 +27,13 @@ Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7.
 
 ## Log Progress
 
+### 2026-08-30 — VERTICAL DEMO DIMULAI: POS Resto/Cafe (brief user diterima)
+- User kirim 5 dokumen brief: 01-architecture, 02-design, 03-prd, 04-rules, 05-schema (tersimpan di ~/tasks/pos/). Aplikasi standalone (BUKAN bagian monorepo) mengonsumsi core + ui.
+- Scaffold `~/projects/pos-resto`: Laravel 12 + Breeze Inertia Vue, composer path-repo `enpii-studio/core` (@dev, symlink), npm file-dep `@its-enpii/ui`. Core migrations published + migrated (sqlite dev; target prod MySQL 8 per brief). Build sukses. Commit `b7b252a`.
+- Delegasi batch 1 (2 agent Codex, reasoning high): `task-pos-foundation` (~/tasks/pos-a, branch feat/foundation-tenancy) — ProductTenantResolver, StaffProfile, onboarding tenant+owner, login gate nonaktif, role/permission/settings/flag seed; `task-pos-menu` (~/tasks/pos-b, branch feat/menu-module) — 5 tabel pos_menu_* + models + CRUD + Inertia pages + tests.
+- Roadmap batch berikutnya: tables+shift → orders+payments → KDS realtime+reporting → frontend POS (menu grid/table map/KDS/payment sheet) + theme override neobrutalism-ringan.
+
+
 ### 2026-08-30 — Core modules Media + Notification MERGED & PUSHED (CI hijau)
 - Agent `task-enpiistudio-core-media` (reasoning high): module Media — model+manager+API CRUD+validasi (mimes whitelist, max 10MB), storage per-tenant `{tenant_id}/yyyy/mm/uuid.ext`, config `enpii-core.php`, lang id/en, 12 test. Commit `1637a84` (16 files, +649). Efek samping: refactor `TenantScope` → resolve context via `app()` at apply-time (late binding, sesuai kontrak flush).
 - Agent `task-enpiistudio-core-notif` (reasoning high): module Notification center — model tenant-scoped + morphTo notifiable, trait `HasNotifications` di User, `NotificationCenter` (send/markRead/markAllRead/unreadCount), API endpoints, lang id/en, 8 test. Commit `890a601`.
