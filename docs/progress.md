@@ -27,6 +27,13 @@ Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7.
 
 ## Log Progress
 
+### 2026-08-31 — ui-sandbox merged+published; batch3 POS + docs-site diluncurkan (3 agent paralel)
+- ui-sandbox: merge feat/demo-upgrade-v2 -> main (65b7b51, build sukses pre-merge). Repo TERNYATA belum punya remote -> buat github.com/its-enpii/ui-sandbox (private) + push main. Branch feature dihapus.
+- Batch3 POS (2 agent, reasoning high): task-pos-kds (~/tasks/pos-e-work, feat/kds-realtime) — Reverb setup, OrderCreated/OrderItemStatusUpdated, channel privat tenant-scoped + Gate kitchen.view, Board.vue kolom Baru/Diproses/Siap; task-pos-reports (~/tasks/pos-f-work, feat/reporting) — FIX shift closing_cash_expected (opening + cash payments), ReportingService (salesSummary/topProducts/busyHours/shiftRecap, tenant-scoped), /reports API + Inertia page, refund accounting.
+- Docs-site VitePress (1 agent): task-enpiistudio-docs (~/tasks/docs-site-work, feat/docs-site di monorepo) — docs-site/ folder, konten Core per-module + UI 82 komponen auto-gen dari index.ts, npm scripts docs:build/dev/preview.
+- Pola konflik batch2 diconsole: prompt batch3 larangan eksplisit (bootstrap/app.php, Tenancy, logic payment) + arah "edit MINIMAL service yang ada / listener terpisah".
+
+
 ### 2026-08-31 — POS batch2 SELESAI + merge (tables/shift + orders/payments)
 - Agent tables-shift (commit faaeafe): pos_tables + pos_shift_sessions, CRUD meja, open/close shift + cash_variance, AuditWriter manual, 6 test baru -> verifikasi mandiri 47 tests/193 assertions OK + pint. MERGED (dba7caf).
 - Agent orders-payments (commit 7dde03d): 5 tabel transaksional + OrderService/PaymentService (lockForUpdate, split payment harus menutup grand_total, paid order immutable, snapshot harga, void+audit, sync status meja) -> test align + fix. Konflik routes/api.php keep-both; MenuModuleTest & OrdersPaymentsTest di-align ke migrasi nyata (drop shadow schema, opening_cash ditambah). Final 53 tests/217 assertions OK + pint + build. MERGED (ec9ba35 -> 116f556).
