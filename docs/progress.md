@@ -12,7 +12,7 @@
 3. [x] Module core **Notification** - in-app center, mark-read (merged 890a601)
 4. [x] Docs site **VitePress** - docs-site/ (merged f50487a)
 5. [x] **Bridge** - OpenAPI per module + TS types generate + fetch wrapper (merged 41d4925)
-6. [ ] **App Skeleton** (layout presets + brand.css, anti "serupa" design)
+6. [x] **App Skeleton** (layout presets + brand.css, anti "serupa" design)
 7. [ ] **Vertical demo** — MENUNGGU BRIEF dari pemilik; jangan dikerjakan tanpa brief
 
 Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7.
