@@ -1,0 +1,74 @@
+/*
+ * =============================================================
+ *  brand.css — Enpii App Skeleton identity template
+ * =============================================================
+ *  Purpose:
+ *    This is the ONLY file a consumer app should copy to
+ *    resources/css/brand.css to customize its app identity.
+ *
+ *  Import order (IMPORTANT):
+ *      1. @its-enpii/ui/styles.css
+ *      2. Optional style layer
+ *      3. This file (brand.css) LAST
+ *
+ *  Rules:
+ *    - Override only --enpii-* custom properties.
+ *    - No hex/rgb/hsl literals should be active in this template by default.
+ *    - Examples are commented out intentionally.
+ *    - Each app keeps its own visual identity via tokens, not new CSS rules.
+ *
+ *  Recommended override groups:
+ *    1) Primary color & semantic tokens
+ *    2) Radius / shape
+ *    3) Typography
+ *    4) Spacing
+ * =============================================================
+ */
+
+/* ------------------------------------------------------------------
+   1. Primary / identity colors
+   Use semantic token values only. Do not define alternate palettes.
+   Example:
+
+:root {
+  --enpii-color-primary: #0f766e;
+  --enpii-color-primary-hover: #115e59;
+  --enpii-color-on-primary: #ffffff;
+  --enpii-color-primary-soft: #ccfbf1;
+  --enpii-color-primary-border: #99f6e4;
+  --enpii-color-primary-text: #0f766e;
+}
+------------------------------------------------------------------- */
+
+/* ------------------------------------------------------------------
+   2. Radius / shape identity
+   Example:
+
+:root {
+  --enpii-radius-control: 0.25rem;
+  --enpii-radius-card: 0.5rem;
+  --enpii-radius-overlay: 0.75rem;
+}
+------------------------------------------------------------------- */
+
+/* ------------------------------------------------------------------
+   3. Typography identity
+   Example:
+
+:root {
+  --enpii-font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --enpii-control-font-size: 1rem;
+}
+------------------------------------------------------------------- */
+
+/* ------------------------------------------------------------------
+   4. Spacing identity
+   Example:
+
+:root {
+  --enpii-space-field-gap: 0.5rem;
+  --enpii-space-form-row-gap: 1.5rem;
+  --enpii-space-control-block: 0.5rem;
+  --enpii-space-control-inline: 1.5rem;
+}
+------------------------------------------------------------------- */

@@ -1,0 +1,150 @@
+/*
+ * Enpii App Skeleton — Layout presets stylesheet
+ *
+ * Provides structural layout primitives for application presets.
+ * All visual attributes (colors, radius, shadows, typography) are
+ * strictly token-driven via --enpii-* variables from @its-enpii/ui
+ * and the consumer brand.css overrides.
+ */
+
+.enpii-skeleton {
+  display: flex;
+  min-height: 100dvh;
+  width: 100%;
+  background: var(--enpii-color-surface);
+  color: var(--enpii-color-on-surface);
+}
+
+.enpii-skeleton--minimal {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.enpii-skeleton--blank {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  width: 100%;
+}
+
+.enpii-skeleton--centered {
+  display: grid;
+  place-items: center;
+}
+
+.enpii-skeleton--centered .enpii-skeleton__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.enpii-skeleton__background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.enpii-skeleton__sidebar {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  min-width: 0;
+  border-right: 1px solid var(--enpii-color-outline-variant);
+  background: var(--enpii-color-surface-container-lowest);
+  transition: width var(--enpii-duration-normal) var(--enpii-ease-emphasized);
+}
+
+.enpii-skeleton__sidebar-header,
+.enpii-skeleton__sidebar-footer {
+  padding: 0.75rem 1rem;
+}
+
+.enpii-skeleton__sidebar-header {
+  border-bottom: 1px solid var(--enpii-color-outline-variant);
+}
+
+.enpii-skeleton__sidebar-footer {
+  margin-top: auto;
+  border-top: 1px solid var(--enpii-color-outline-variant);
+}
+
+.enpii-skeleton__sidebar--collapsed {
+  flex-basis: 4rem;
+}
+
+.enpii-skeleton__main {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.enpii-skeleton__header {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding-inline: 1.5rem;
+  padding-top: 1.5rem;
+}
+
+.enpii-skeleton__content {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding: 1.5rem;
+}
+
+.enpii-skeleton__content--fluid {
+  max-width: none;
+}
+
+.enpii-skeleton__content--unpadded {
+  padding: 0;
+}
+
+.enpii-skeleton__footer {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+@media (max-width: 47.99rem) {
+  .enpii-skeleton--admin-sidebar {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .enpii-skeleton__sidebar {
+    border-right: 0;
+    border-bottom: 1px solid var(--enpii-color-outline-variant);
+  }
+
+  .enpii-skeleton__header {
+    padding-inline: 1rem;
+    padding-top: 1rem;
+  }
+
+  .enpii-skeleton__content {
+    padding: 1rem;
+  }
+
+  .enpii-skeleton__content--unpadded {
+    padding: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enpii-skeleton,
+  .enpii-skeleton__sidebar,
+  .enpii-skeleton__main,
+  .enpii-skeleton__content {
+    transition: none;
+  }
+}

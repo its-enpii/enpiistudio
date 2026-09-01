@@ -6,7 +6,8 @@
   },
   "workspaces": [
     "packages/bridge",
-    "packages/ui"
+    "packages/ui",
+    "packages/skeleton"
   ],
   "scripts": {
     "docs:dev": "npm run dev --prefix docs-site",
@@ -16,6 +17,10 @@
     "ui:check": "npm run check --workspace @its-enpii/ui",
     "ui:test": "npm run test --workspace @its-enpii/ui",
     "ui:pack": "npm pack --workspace @its-enpii/ui --dry-run",
+    "skeleton:build": "npm run build --workspace @its-enpii/skeleton",
+    "skeleton:check": "npm run check --workspace @its-enpii/skeleton",
+    "skeleton:test": "npm run test --workspace @its-enpii/skeleton",
+    "skeleton:pack": "npm pack --workspace @its-enpii/skeleton --dry-run",
     "contract:check": "redocly lint contracts/whatsapp-gateway/openapi.yaml contracts/core/media.yaml contracts/core/notification.yaml",
     "contract:check:core": "redocly lint contracts/core/media.yaml contracts/core/notification.yaml",
     "bridge:generate": "openapi-typescript contracts/core/media.yaml -c /dev/null -o packages/bridge/src/generated/media.d.ts && openapi-typescript contracts/core/notification.yaml -c /dev/null -o packages/bridge/src/generated/notification.d.ts && openapi-typescript contracts/whatsapp-gateway/openapi.yaml -c /dev/null -o packages/bridge/src/generated/whatsapp-gateway.d.ts"
