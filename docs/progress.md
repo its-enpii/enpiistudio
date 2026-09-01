@@ -8,9 +8,9 @@
 ## Ringkasan Roadmap (agreed 2026-08-30)
 
 1. [x] Konvensi platform tertulis — `docs/platform-conventions.md` (push d0a2e8e, CI hijau)
-2. [ ] Module core **Media** (storage abstraction, tenant-scoped, /api/v1/media)
-3. [ ] Module core **Notification** (in-app center, mark-read)
-4. [ ] Docs site **VitePress** (`docs-site/`)
+2. [x] Module core **Media** - storage abstraction, tenant-scoped, /api/v1/media (merged 1637a84)
+3. [x] Module core **Notification** - in-app center, mark-read (merged 890a601)
+4. [x] Docs site **VitePress** - docs-site/ (merged f50487a)
 5. [ ] **Bridge** (OpenAPI per module + TS types generate + fetch wrapper)
 6. [ ] **App Skeleton** (layout presets + brand.css, anti "serupa" design)
 7. [ ] **Vertical demo** — MENUNGGU BRIEF dari pemilik; jangan dikerjakan tanpa brief
