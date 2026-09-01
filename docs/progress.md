@@ -1,5 +1,7 @@
 # Status Progress — Enpii Studio Platform Expansion
 
+> 2026-09-01: Roadmap 7/7 SELESAI. Item7 vertical demo = encanteen (konfirmasi pemilik).
+
 > File status kerja lintas-sesi. Setiap milestone WAJIB dicatat di sini (append-style per bagian).
 > Update oleh: Hermes (orchestrator) + watchdog cron `enpii-platform-watchdog` (e41ab6e1e2b6).
 > Konvensi kerja: `docs/platform-conventions.md` (prinsip: konsisten, jangan tampil beda).
@@ -13,9 +15,9 @@
 4. [x] Docs site **VitePress** - docs-site/ (merged f50487a)
 5. [x] **Bridge** - OpenAPI per module + TS types generate + fetch wrapper (merged 41d4925)
 6. [x] **App Skeleton** (layout presets + brand.css, anti "serupa" design)
-7. [ ] **Vertical demo** — MENUNGGU BRIEF dari pemilik; jangan dikerjakan tanpa brief
+7. [x] **Vertical demo** — = **encanteen** (POS, konfirmasi pemilik 2026-09-01): konsumen nyata `enpii-studio/core` (tenancy) + `@its-enpii/ui` + bridge-ready, batch1 scaffold + batch2 payment/shift/KDS/reports selesai (ecb063a), 20 tests/98 assertions, pint+build OK, live smoke 5 halaman 200
 
-Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7.
+Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7. Semua item selesai.
 
 ## Snapshot selesai sebelum file ini ada (2026-08-30)
 
