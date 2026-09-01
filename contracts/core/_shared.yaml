@@ -1,0 +1,128 @@
+openapi: 3.1.0
+info:
+  title: Enpii Studio Core shared contract
+  version: 1.0.0
+paths: {}
+components:
+  parameters:
+    Page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    PerPage:
+      name: per_page
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+  responses:
+    ValidationError:
+      description: Validation failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ValidationErrorResponse'
+    Unauthorized:
+      description: Unauthenticated
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    Uuid:
+      type: string
+      format: uuid
+    PaginationLinks:
+      type: object
+      additionalProperties: true
+      properties:
+        first:
+          anyOf:
+            - type: string
+            - type: 'null'
+        last:
+          anyOf:
+            - type: string
+            - type: 'null'
+        prev:
+          anyOf:
+            - type: string
+            - type: 'null'
+        next:
+          anyOf:
+            - type: string
+            - type: 'null'
+    PaginationMeta:
+      type: object
+      additionalProperties: true
+      required: [current_page, from, last_page, per_page, to, total]
+      properties:
+        current_page:
+          type: integer
+          minimum: 1
+        from:
+          anyOf:
+            - type: integer
+            - type: 'null'
+        last_page:
+          type: integer
+          minimum: 1
+        per_page:
+          type: integer
+          minimum: 1
+        to:
+          anyOf:
+            - type: integer
+            - type: 'null'
+        total:
+          type: integer
+          minimum: 0
+    ValidationError:
+      type: object
+      additionalProperties: true
+      required: [code, message, fields]
+      properties:
+        code:
+          type: string
+          enum: [validation_failed]
+        message:
+          type: string
+        fields:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    ValidationErrorResponse:
+      type: object
+      additionalProperties: false
+      required: [error]
+      properties:
+        error:
+          $ref: '#/components/schemas/ValidationError'
+    ErrorResponse:
+      type: object
+      additionalProperties: false
+      required: [message]
+      properties:
+        message:
+          type: string

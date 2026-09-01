@@ -1,0 +1,40 @@
+{
+  "name": "@its-enpii/bridge",
+  "version": "0.1.0",
+  "description": "Typed native-fetch API bridge for Enpii Studio services",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/its-enpii/enpiistudio.git",
+    "directory": "packages/bridge"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "type": "module",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "check": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "devDependencies": {
+    "openapi-typescript": "^7.10.1",
+    "typescript": "^5.8.0",
+    "vitest": "^3.2.0"
+  }
+}

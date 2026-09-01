@@ -1,0 +1,308 @@
+openapi: 3.1.0
+info:
+  title: Enpii Studio Core Media API
+  version: 1.0.0
+  license:
+    name: Proprietary
+    url: https://enpii.com
+    identifier: LicenseRef-Proprietary
+servers:
+  - url: /
+tags:
+  - name: Media
+    description: Tenant-scoped uploaded media files.
+security:
+  - bearerAuth: []
+paths:
+  /api/v1/media:
+    get:
+      summary: List media files
+      operationId: listMedia
+      tags: [Media]
+      parameters:
+        - name: mime
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Prefix matched against mime_type.
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Matched against original_name and title.
+        - $ref: './_shared.yaml#/components/parameters/Page'
+        - $ref: './_shared.yaml#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: Paginated media files
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaCollection'
+        '401':
+          $ref: './_shared.yaml#/components/responses/Unauthorized'
+        '403':
+          $ref: './_shared.yaml#/components/responses/Forbidden'
+        '422':
+          $ref: './_shared.yaml#/components/responses/ValidationError'
+    post:
+      summary: Upload a media file
+      operationId: createMedia
+      tags: [Media]
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StoreMediaRequest'
+            encoding:
+              meta:
+                contentType: application/json
+      responses:
+        '201':
+          description: Uploaded media
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaWithTenantMeta'
+        '401':
+          $ref: './_shared.yaml#/components/responses/Unauthorized'
+        '403':
+          $ref: './_shared.yaml#/components/responses/Forbidden'
+        '422':
+          $ref: './_shared.yaml#/components/responses/ValidationError'
+  /api/v1/media/{media}:
+    parameters:
+      - $ref: '#/components/parameters/MediaId'
+    get:
+      summary: Show a media file
+      operationId: getMedia
+      tags: [Media]
+      responses:
+        '200':
+          description: Media details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaEnvelope'
+        '401':
+          $ref: './_shared.yaml#/components/responses/Unauthorized'
+        '403':
+          $ref: './_shared.yaml#/components/responses/Forbidden'
+        '404':
+          $ref: './_shared.yaml#/components/responses/NotFound'
+    put:
+      summary: Update a media file
+      operationId: updateMedia
+      tags: [Media]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMediaRequest'
+      responses:
+        '200':
+          description: Updated media
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaEnvelope'
+        '401':
+          $ref: './_shared.yaml#/components/responses/Unauthorized'
+        '403':
+          $ref: './_shared.yaml#/components/responses/Forbidden'
+        '404':
+          $ref: './_shared.yaml#/components/responses/NotFound'
+        '422':
+          $ref: './_shared.yaml#/components/responses/ValidationError'
+    patch:
+      summary: Partially update a media file
+      operationId: patchMedia
+      tags: [Media]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMediaRequest'
+      responses:
+        '200':
+          description: Updated media
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaEnvelope'
+        '401':
+          $ref: './_shared.yaml#/components/responses/Unauthorized'
+        '403':
+          $ref: './_shared.yaml#/components/responses/Forbidden'
+        '404':
+          $ref: './_shared.yaml#/components/responses/NotFound'
+        '422':
+          $ref: './_shared.yaml#/components/responses/ValidationError'
+    delete:
+      summary: Delete a media file
+      operationId: deleteMedia
+      tags: [Media]
+      responses:
+        '200':
+          description: Delete result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeletedEnvelope'
+        '401':
+          $ref: './_shared.yaml#/components/responses/Unauthorized'
+        '403':
+          $ref: './_shared.yaml#/components/responses/Forbidden'
+        '404':
+          $ref: './_shared.yaml#/components/responses/NotFound'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  parameters:
+    MediaId:
+      name: media
+      in: path
+      required: true
+      schema:
+        $ref: './_shared.yaml#/components/schemas/Uuid'
+  schemas:
+    MediaMeta:
+      type: object
+      required: [disk, path, filename, original_name, mime_type, size, title, alt, meta, created_at, updated_at]
+      properties:
+        disk:
+          type: string
+        path:
+          type: string
+        filename:
+          type: string
+        original_name:
+          type: string
+        mime_type:
+          type: string
+        size:
+          type: integer
+        title:
+          anyOf:
+            - type: string
+            - type: 'null'
+        alt:
+          anyOf:
+            - type: string
+            - type: 'null'
+        meta:
+          anyOf:
+            - type: object
+              additionalProperties: true
+            - type: array
+              items:
+                type: object
+                additionalProperties: true
+            - type: 'null'
+          additionalProperties: true
+          items:
+            type: object
+            additionalProperties: true
+        created_at:
+          anyOf:
+            - type: string
+              format: date-time
+            - type: 'null'
+          format: date-time
+        updated_at:
+          anyOf:
+            - type: string
+              format: date-time
+            - type: 'null'
+          format: date-time
+    Media:
+      allOf:
+        - type: object
+          required: [id]
+          properties:
+            id:
+              $ref: './_shared.yaml#/components/schemas/Uuid'
+        - $ref: '#/components/schemas/MediaMeta'
+    MediaEnvelope:
+      type: object
+      additionalProperties: false
+      required: [data]
+      properties:
+        data:
+          $ref: '#/components/schemas/Media'
+    MediaWithTenantMeta:
+      type: object
+      additionalProperties: false
+      required: [data, meta]
+      properties:
+        data:
+          $ref: '#/components/schemas/Media'
+        meta:
+          type: object
+          additionalProperties: false
+          required: [tenant]
+          properties:
+            tenant:
+              $ref: './_shared.yaml#/components/schemas/Uuid'
+    MediaCollection:
+      type: object
+      additionalProperties: false
+      required: [data, meta, links]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Media'
+        meta:
+          $ref: './_shared.yaml#/components/schemas/PaginationMeta'
+        links:
+          $ref: './_shared.yaml#/components/schemas/PaginationLinks'
+    DeletedEnvelope:
+      type: object
+      additionalProperties: false
+      required: [data]
+      properties:
+        data:
+          type: object
+          additionalProperties: false
+          required: [deleted]
+          properties:
+            deleted:
+              type: boolean
+              enum: [true]
+    StoreMediaRequest:
+      type: object
+      required: [file]
+      properties:
+        file:
+          type: string
+          format: binary
+        title:
+          type: string
+          maxLength: 255
+        alt:
+          type: string
+          maxLength: 255
+        meta:
+          type: object
+          additionalProperties: true
+    UpdateMediaRequest:
+      type: object
+      minProperties: 1
+      properties:
+        title:
+          type: string
+          maxLength: 255
+        alt:
+          type: string
+          maxLength: 255
+        meta:
+          type: object
+          additionalProperties: true

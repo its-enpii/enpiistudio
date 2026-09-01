@@ -1,0 +1,173 @@
+openapi: 3.1.0
+info:
+  title: Enpii Studio Core Notification API
+  version: 1.0.0
+  license:
+    name: Proprietary
+    url: https://enpii.com
+    identifier: LicenseRef-Proprietary
+servers:
+  - url: /
+tags:
+  - name: Notifications
+    description: In-app notifications for the authenticated user.
+security:
+  - bearerAuth: []
+paths:
+  /api/v1/notifications:
+    get:
+      summary: List notifications for the authenticated user
+      operationId: listNotifications
+      tags: [Notifications]
+      parameters:
+        - name: unread
+          in: query
+          required: false
+          schema:
+            type: [boolean, string]
+            enum: [true, false, '0', '1']
+        - $ref: './_shared.yaml#/components/parameters/Page'
+        - $ref: './_shared.yaml#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: Paginated notifications
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationCollection'
+        '401':
+          $ref: './_shared.yaml#/components/responses/Unauthorized'
+        '422':
+          $ref: './_shared.yaml#/components/responses/ValidationError'
+  /api/v1/notifications/unread-count:
+    get:
+      summary: Count unread notifications
+      operationId: getUnreadNotificationCount
+      tags: [Notifications]
+      responses:
+        '200':
+          description: Unread notification count
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required: [count]
+                properties:
+                  count:
+                    type: integer
+                    minimum: 0
+        '401':
+          $ref: './_shared.yaml#/components/responses/Unauthorized'
+  /api/v1/notifications/mark-all-read:
+    post:
+      summary: Mark all notifications as read
+      operationId: markAllNotificationsRead
+      tags: [Notifications]
+      responses:
+        '200':
+          description: Remaining unread count
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required: [count]
+                properties:
+                  count:
+                    type: integer
+                    enum: [0]
+        '401':
+          $ref: './_shared.yaml#/components/responses/Unauthorized'
+  /api/v1/notifications/{id}/mark-read:
+    post:
+      summary: Mark one notification as read
+      operationId: markNotificationRead
+      tags: [Notifications]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $ref: './_shared.yaml#/components/schemas/Uuid'
+      responses:
+        '200':
+          description: Notification marked as read
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationEnvelope'
+        '401':
+          $ref: './_shared.yaml#/components/responses/Unauthorized'
+        '403':
+          $ref: './_shared.yaml#/components/responses/Forbidden'
+        '404':
+          $ref: './_shared.yaml#/components/responses/NotFound'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    Notification:
+      type: object
+      additionalProperties: false
+      required: [id, type, title, body, data, read_at, created_at]
+      properties:
+        id:
+          $ref: './_shared.yaml#/components/schemas/Uuid'
+        type:
+          type: string
+        title:
+          type: string
+        body:
+          type: string
+        data:
+          anyOf:
+            - type: object
+              additionalProperties: true
+            - type: array
+              items:
+                type: object
+                additionalProperties: true
+            - type: 'null'
+          additionalProperties: true
+          items:
+            type: object
+            additionalProperties: true
+        read_at:
+          anyOf:
+            - type: string
+              format: date-time
+            - type: 'null'
+          format: date-time
+        created_at:
+          anyOf:
+            - type: string
+              format: date-time
+            - type: 'null'
+          format: date-time
+    NotificationEnvelope:
+      type: object
+      additionalProperties: false
+      required: [data]
+      properties:
+        data:
+          $ref: '#/components/schemas/Notification'
+    NotificationCollection:
+      type: object
+      additionalProperties: true
+      required: [data, meta, links]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Notification'
+        meta:
+          type: object
+          additionalProperties: true
+          properties:
+            locale:
+              type: string
+        links:
+          $ref: './_shared.yaml#/components/schemas/PaginationLinks'
