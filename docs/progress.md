@@ -11,7 +11,7 @@
 2. [x] Module core **Media** - storage abstraction, tenant-scoped, /api/v1/media (merged 1637a84)
 3. [x] Module core **Notification** - in-app center, mark-read (merged 890a601)
 4. [x] Docs site **VitePress** - docs-site/ (merged f50487a)
-5. [ ] **Bridge** (OpenAPI per module + TS types generate + fetch wrapper)
+5. [x] **Bridge** - OpenAPI per module + TS types generate + fetch wrapper (merged 41d4925)
 6. [ ] **App Skeleton** (layout presets + brand.css, anti "serupa" design)
 7. [ ] **Vertical demo** — MENUNGGU BRIEF dari pemilik; jangan dikerjakan tanpa brief
 
@@ -116,3 +116,8 @@ Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7.
 - HASIL LIVE (localhost:8089): LOGIN=302; /dashboard /orders /kitchen /reports /tables /menu = 200; /api/v1/shifts/current = 200.
 - E2E order→bayar via API: open shift (opening 500k) → create table T01 → category Kopi → item Americano 25k → order dine_in T01 → add item qty2 (subtotal 50k) → pay cash 60k (kembalian 10k) → **status=paid, payment completed**. 
 - Commits: 4c53683, a8244e3, 840ce35 (pos-resto main). Core TIDAK diubah (fail-closed tetap). pos-resto masih tanpa remote (push menyusul setelah remote dibuat).
+
+### 2026-09-01 - Roadmap item 5 Bridge SELESAI (Codex task-enpiistudio-bridge, verified Hermes)
+- contracts/core/{_shared,media,notification}.yaml (3 API redocly clean) + packages/bridge (@its-enpii/bridge): openapi-typescript generated types, native fetch wrapper (envelope unwrap, BridgeError 422/401/403/404 normalize, X-Tenant-Id + Accept-Language), tanpa axios.
+- Verifikasi mandiri Hermes (bukan self-report): contract:check 3 API clean, bridge:generate OK, 3/3 bridge tests, tsc --noEmit clean, ui 250/250 tests, ui build OK.
+- Merge 6ffb88c -> 41d4925, push main, worktree+branch cleaned. Roadmap berikutnya: item 6 App Skeleton.
