@@ -15,7 +15,7 @@
 4. [x] Docs site **VitePress** - docs-site/ (merged f50487a)
 5. [x] **Bridge** - OpenAPI per module + TS types generate + fetch wrapper (merged 41d4925)
 6. [x] **App Skeleton** (layout presets + brand.css, anti "serupa" design)
-7. [x] **Vertical demo** — = **encanteen** (POS, konfirmasi pemilik 2026-09-01): konsumen nyata `enpii-studio/core` (tenancy) + `@its-enpii/ui` + bridge-ready, batch1 scaffold + batch2 payment/shift/KDS/reports selesai (ecb063a), 20 tests/98 assertions, pint+build OK, live smoke 5 halaman 200
+7. [~] **Vertical demo** — encanteen **DIHAPUS oleh pemilik 2026-09-01** ("SAMPAH"): repo lokal + GitHub remote dihapus, task logs/screenshots dibersihkan, port 8097 ditutup. Item kembali terbuka; brief baru dari pemilik dulu sebelum diputuskan.
 
 Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7. Semua item selesai.
 
