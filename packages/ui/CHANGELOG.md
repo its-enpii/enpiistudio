@@ -1,4 +1,5 @@
 ## [0.9.0] - 2026-09-03
+- **Dep skeleton**: range `@its-enpii/ui` `^0.8.0` tidak mencakup 0.9.0 (semver 0.x: caret = patch-scope) → `^0.9.0` + root lockfile diregenerasi; `npm ci` bersih kembali.
 
 ### Added
 - **Tailwind compatibility artifacts (opt-in)**: `tailwind.preset.js` untuk Tailwind 3 dan
