@@ -673,6 +673,7 @@
 .enpii-tag-input__remove:focus-visible {
   outline: 3px solid var(--enpii-color-focus);
   outline-offset: 2px;
+}
 .enpii-popover__panel,
 .enpii-command-palette__dialog {
   border: 1px solid rgba(229, 231, 235, .65);
@@ -686,10 +687,12 @@
 .enpii-command-palette__command:hover,
 .enpii-command-palette__command--active {
   background: color-mix(in srgb, var(--enpii-color-neutral-soft) 72%, transparent);
+}
 .enpii-segmented-control,
 .enpii-rating__control {
   border: 1px solid rgba(229, 231, 235, .65);
 /* Late-added families: calendar and tree */
+}
 .enpii-calendar,
 .enpii-tree-view {
   border: 1px solid rgba(229, 231, 235, .55);
@@ -708,6 +711,7 @@
 
 .enpii-rating__star--active {
   color: var(--enpii-color-primary);
+}
 .enpii-calendar__nav,
 .enpii-calendar__day,
 .enpii-tree-view__node {
@@ -789,6 +793,7 @@
   .enpii-bottom-sheet__panel {
     transform: none;
   }
+}
 /* ===== EnpiiTransferList & EnpiiTimeline ===== */
 .enpii-transfer-list__panel {
   border-color: color-mix(in srgb, var(--enpii-color-on-surface) 10%, transparent);
@@ -852,6 +857,9 @@
   .enpii-transfer-list__button,
   .enpii-transfer-list__search,
   .enpii-timeline__marker {
+    transition: none;
+  }
+}
 /* ===== EnpiiColorPicker & EnpiiSignaturePad ===== */
 .enpii-color-picker {
   border-color: rgba(229, 231, 235, .65);
@@ -996,6 +1004,7 @@
 .enpii-image-upload__button:hover:not(:disabled) {
   box-shadow: 0 0 0 2px var(--enpii-color-primary-soft);
 /* ===== EnpiiMentionInput ===== */
+}
 .enpii-mention-input__control,
 .enpii-mention-input__suggestions,
 .enpii-mention-input__preview {
@@ -1017,6 +1026,7 @@
 .enpii-mention-input__suggestion[data-active='true'] {
   background: color-mix(in srgb, var(--enpii-color-neutral-soft) 72%, transparent);
 /* Late-added family: WhatsApp preview */
+}
 .enpii-whatsapp-preview {
   border-radius: .5rem;
   border-color: var(--enpii-color-outline-variant);
@@ -1035,6 +1045,7 @@
 .enpii-whatsapp-preview__media {
   border-radius: .5rem;
 /* ===== EnpiiAssistantActionButton ===== */
+}
 .enpii-assistant-action-button__button.enpii-button {
   font-weight: 500;
 }
