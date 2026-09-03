@@ -1,3 +1,8 @@
+## [0.8.1] - 2026-09-03
+
+### Fixed
+- **Dark-mode token specificity**: blok `@media (prefers-color-scheme: dark)` di `tokens.css` & `glassmorphism.css` memakai selector `:root:not([data-theme='light'])` (specificity 0,2,0) yang selalu mengalahkan override token consumer via `:root` (0,1,0) — melanggar kontrak override-via-token. Kini dibungkus `:where()` (0,0,0); perilaku matching identik (auto-dark + escape `data-theme='light'`). Diverifikasi live di aplikasi consumer: computed `box-shadow`/`surface` dark kini mengikuti override consumer di kedua tema.
+
 ## [0.8.0] - 2026-08-30
 
 ### Added
