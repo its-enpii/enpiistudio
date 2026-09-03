@@ -1,0 +1,30 @@
+@theme inline {
+  --color-primary: var(--enpii-color-primary);
+  --color-primary-hover: var(--enpii-color-primary-hover);
+  --color-primary-text: var(--enpii-color-primary-text);
+  --color-primary-border: var(--enpii-color-primary-border);
+  --color-accent: var(--enpii-color-tertiary);
+  --color-surface: var(--enpii-color-surface);
+  --color-ink: var(--enpii-color-on-surface);
+  --color-on-surface: var(--enpii-color-on-surface);
+  --color-on-surface-variant: var(--enpii-color-on-surface-variant);
+  --color-outline: var(--enpii-color-outline);
+  --color-error: var(--enpii-color-error);
+  --color-danger: var(--enpii-color-error);
+  --color-warning: var(--enpii-color-warning-text);
+  --color-success: var(--enpii-color-success-text);
+  --color-neutral: var(--enpii-color-neutral-text);
+
+  --font-sans: var(--enpii-font-sans);
+
+  --radius-control: var(--enpii-radius-control);
+  --radius-card: var(--enpii-radius-card);
+  --radius-overlay: var(--enpii-radius-overlay);
+
+  --shadow-control: var(--enpii-shadow-control);
+  --shadow-raised: var(--enpii-shadow-raised);
+  --shadow-overlay: var(--enpii-shadow-overlay);
+  --shadow-md: var(--enpii-shadow-md);
+  --shadow-lg: var(--enpii-shadow-lg);
+  --shadow-xl: var(--enpii-shadow-xl);
+}

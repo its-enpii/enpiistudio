@@ -1,3 +1,18 @@
+## [0.9.0] - 2026-09-03
+
+### Added
+- **Tailwind compatibility artifacts (opt-in)**: `tailwind.preset.js` untuk Tailwind 3 dan
+  `tailwind.v4.css` untuk Tailwind 4; keduanya memetakan utility ke token `--enpii-*` yang ada
+  tanpa menambahkan warna/nilai baru atau dependensi Tailwind ke package.
+- **Hardening preflight Tailwind 3**: deklarasi font/line-height/color eksplisit pada
+  `EnpiiInput`, `EnpiiBadge`, `EnpiiCard`, dan konten paragraf Card agar komponen tetap konsisten
+  saat preflight aktif.
+  Audit empiris Playwright membandingkan kondisi tanpa Tailwind vs preflight + utilities.
+- **Panduan consumer**: `docs/tailwind-compat.md` mencakup urutan import, preflight, dark mode
+  `data-theme="dark"`, dan contoh mapping utility ke token.
+- **Exports & packaging**: `./tailwind.preset` dan `./tailwind.v4.css` kini tersedia via exports
+  map dan ikut ke `dist/`.
+
 ## [0.8.2] - 2026-09-03
 
 ### Fixed

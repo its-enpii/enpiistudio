@@ -19,6 +19,14 @@ export default defineConfig({
           fileURLToPath(new URL('./dist/assets', import.meta.url)),
           { recursive: true },
         )
+        await cp(
+          fileURLToPath(new URL('./tailwind.v4.css', import.meta.url)),
+          fileURLToPath(new URL('./dist/tailwind.v4.css', import.meta.url)),
+        )
+        await cp(
+          fileURLToPath(new URL('./tailwind.preset.js', import.meta.url)),
+          fileURLToPath(new URL('./dist/tailwind.preset.js', import.meta.url)),
+        )
       },
     },
   ],
