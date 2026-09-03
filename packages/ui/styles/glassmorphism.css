@@ -26,7 +26,9 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) {
+  /* :where() menurunkan specificity ke (0,0,0) agar override token consumer
+     via :root menang di dark mode sesuai kontrak override-via-token. */
+  :where(:root:not([data-theme='light'])) {
     --enpii-color-surface-container-lowest: rgba(20, 24, 32, .55);
     --enpii-color-surface-container-low: rgba(20, 24, 32, .52);
     --enpii-color-surface-container: rgba(20, 24, 32, .48);

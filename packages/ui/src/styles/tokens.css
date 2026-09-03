@@ -85,7 +85,10 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) {
+  /* :where() menurunkan specificity ke (0,0,0) agar override token consumer
+     via :root (0,1,0) menang di dark mode sesuai kontrak override-via-token.
+     Matching tetap identik: auto-dark + escape data-theme='light'. */
+  :where(:root:not([data-theme='light'])) {
     --enpii-color-primary-soft: #26264a;
     --enpii-color-primary-border: #3f3f74;
     --enpii-color-primary-text: #c7d2fe;
