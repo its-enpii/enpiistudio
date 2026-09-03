@@ -843,6 +843,7 @@
 .enpii-tag-input__remove:focus-visible {
   outline: 3px solid var(--enpii-color-focus);
   outline-offset: 2px;
+}
 .enpii-popover__panel,
 .enpii-command-palette__dialog {
   border: 0;
@@ -861,6 +862,7 @@
 .enpii-command-palette__command:hover,
 .enpii-command-palette__command--active {
   box-shadow: var(--enpii-shadow-inset);
+}
 .enpii-segmented-control,
 .enpii-rating__control {
   border: 0;
@@ -870,6 +872,7 @@
 
 .enpii-segmented-control__indicator {
 /* Late-added families: calendar and tree */
+}
 .enpii-calendar,
 .enpii-tree-view {
   border: 0;
@@ -884,6 +887,7 @@
 
 .enpii-rating__star--active {
   color: var(--enpii-color-tertiary-fixed-dim);
+}
 .enpii-calendar__nav,
 .enpii-calendar__day,
 .enpii-tree-view__node {
@@ -971,7 +975,10 @@
   }
 
   .enpii-bottom-sheet__panel {
+    transform: none;
+  }
 /* ===== EnpiiTransferList & EnpiiTimeline ===== */
+}
 .enpii-transfer-list__panel {
   border: 0;
   box-shadow: var(--enpii-shadow-raised);
@@ -980,6 +987,7 @@
 .enpii-transfer-list__option:hover:not(.enpii-transfer-list__option--disabled),
 .enpii-transfer-list__button:hover:not(:disabled) {
 /* Late-added families: kanban and QR code */
+}
 .enpii-kanban__column,
 .enpii-kanban__card {
   border: 0;
@@ -1002,6 +1010,7 @@
 
 .enpii-transfer-list__search,
 .enpii-transfer-list__button {
+}
 .enpii-kanban__card:active {
   box-shadow: var(--enpii-shadow-inset);
 }
@@ -1074,6 +1083,7 @@
   .enpii-transfer-list__button:hover:not(:disabled) {
     transform: none;
   }
+}
 /* ===== EnpiiColorPicker & EnpiiSignaturePad ===== */
 .enpii-color-picker {
   border: 0;
@@ -1148,6 +1158,7 @@
   .enpii-signature-pad__action {
     transition: none;
   }
+}
 @media (prefers-reduced-motion: reduce) {
   .enpii-kanban__card,
   .enpii-kanban__card-menu,
@@ -1207,6 +1218,7 @@
   border-radius: var(--enpii-radius-overlay);
   box-shadow: var(--enpii-shadow-inset);
 /* ===== EnpiiMentionInput ===== */
+}
 .enpii-mention-input__control,
 .enpii-mention-input__suggestions,
 .enpii-mention-input__preview {
@@ -1234,6 +1246,7 @@
   .enpii-mention-input__suggestion {
     transition: none;
   }
+}
 /* Late-added family: WhatsApp preview */
 .enpii-whatsapp-preview {
   border-radius: var(--enpii-radius-card);
@@ -1248,6 +1261,7 @@
 .enpii-whatsapp-preview__media {
   border-radius: calc(var(--enpii-radius-card) + .25rem);
 /* ===== EnpiiAssistantActionButton ===== */
+}
 .enpii-assistant-action-button__button.enpii-button {
   font-weight: 500;
 }

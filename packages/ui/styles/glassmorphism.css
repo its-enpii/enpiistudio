@@ -1360,6 +1360,7 @@
   :root:not([data-theme='light']) .enpii-tag-input__suggestions {
     background: rgba(20, 24, 32, 0.72);
   }
+}
 .enpii-popover__panel,
 .enpii-command-palette__dialog {
   border: 1px solid rgba(255, 255, 255, .28);
@@ -1375,6 +1376,7 @@
 .enpii-command-palette__command:hover,
 .enpii-command-palette__command--active {
   background: rgba(255, 255, 255, .38);
+}
 .enpii-segmented-control,
 .enpii-segmented-control__indicator {
   background: rgba(255, 255, 255, .34);
@@ -1459,6 +1461,8 @@
   :root:not([data-theme='light']) .enpii-transfer-list__panel,
   :root:not([data-theme='light']) .enpii-timeline__marker {
     background: rgba(20, 24, 32, 0.42);
+}
+}
 /* ===== EnpiiColorPicker & EnpiiSignaturePad ===== */
 .enpii-color-picker {
   border: 1px solid rgba(255, 255, 255, .4);
@@ -1556,9 +1560,14 @@
   .enpii-transfer-list__button,
   .enpii-transfer-list__search,
   .enpii-timeline__marker {
+    transition: none;
+}
   .enpii-color-picker__swatch,
   .enpii-color-picker__hex-input,
   .enpii-signature-pad__action {
+    transition: none;
+  }
+}
 /* Late-added families: kanban and QR code */
 .enpii-kanban__column,
 .enpii-kanban__card {
@@ -1655,6 +1664,7 @@
   :root:not([data-theme='light']) .enpii-image-upload__crop-panel {
     background: rgba(20, 24, 32, .42);
   }
+}
 /* Late-added family: WhatsApp preview */
 .enpii-whatsapp-preview {
   border-radius: var(--enpii-radius-card);
@@ -1676,6 +1686,7 @@
 .enpii-whatsapp-preview__media {
   border-radius: calc(var(--enpii-radius-card) + .25rem);
 /* ===== EnpiiAssistantActionButton ===== */
+}
 .enpii-assistant-action-button__button.enpii-button {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -1733,4 +1744,48 @@
 .enpii-tooltip__bubble {
   backdrop-filter: blur(4px);
   transition-property: opacity, transform, visibility;
+}
+
+/* ===== Micro-press interaction (soft press character) ===== */
+.enpii-button:not(:disabled),
+.enpii-icon-button:not(:disabled),
+.enpii-filter-pill__button:not(:disabled) {
+  transition: transform var(--enpii-duration-normal) var(--enpii-ease-standard), filter var(--enpii-duration-normal) var(--enpii-ease-standard);
+}
+
+.enpii-button:not(:disabled) {
+  will-change: transform;
+}
+
+.enpii-button:hover:not(:disabled),
+.enpii-icon-button:hover:not(:disabled),
+.enpii-filter-pill__button:hover:not(:disabled) {
+  transform: translate(calc(-1px * var(--enpii-logical-x, 1)), -1px);
+}
+
+.enpii-button:active:not(:disabled),
+.enpii-icon-button:active:not(:disabled),
+.enpii-filter-pill__button:active:not(:disabled) {
+  transform: translate(calc(1px * var(--enpii-logical-x, 1)), 1px);
+}
+
+.enpii-button--primary:active:not(:disabled) {
+  filter: brightness(.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enpii-button,
+  .enpii-icon-button,
+  .enpii-filter-pill__button {
+    transition: none;
+  }
+
+  .enpii-button:hover:not(:disabled),
+  .enpii-icon-button:hover:not(:disabled),
+  .enpii-filter-pill__button:hover:not(:disabled),
+  .enpii-button:active:not(:disabled),
+  .enpii-icon-button:active:not(:disabled),
+  .enpii-filter-pill__button:active:not(:disabled) {
+    transform: none;
+  }
 }
