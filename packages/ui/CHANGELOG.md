@@ -1,3 +1,8 @@
+## [0.8.2] - 2026-09-03
+
+### Fixed
+- **Ikon meluber dari kotaknya**: default `.material-symbols-outlined` di `icon-font.css` (font-size 24px, line-height 1) di-import terakhir dan menimpa semua rule ukuran ikon per-komponen yang sama-specificity (0,1,0) — ikon dengan box < 24px (currency action ±, smart-select chevron, date-picker icon/chevron, icon-button sm/md, input icon, switch, accordion, tabs) digambar dengan metrik 24px sehingga glyph bergeser ke kanan-bawah dari kotak pembungkusnya. Default kini dibungkus `:where()` (0,0,0); rule per-komponen menang; icon "telanjang" tetap 24px. Diverifikasi live via ink-bounds @3× di aplikasi consumer: offset ikon turun dari (+8,+10) ke (0,0..1) device-px.
+
 ## [0.8.1] - 2026-09-03
 
 ### Fixed

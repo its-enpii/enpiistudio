@@ -6,7 +6,11 @@
   src: url('./assets/material-symbols-outlined.woff2') format('woff2');
 }
 
-.material-symbols-outlined {
+/* :where() menurunkan specificity ke (0,0,0) agar rule ukuran ikon per-komponen
+   di components.css (0,1,0) selalu menang atas default ini meski urutan import
+   menempatkan file ini terakhir — perbaikan ikon meluber dari kotaknya
+   (currency action, smart-select chevron, date-picker, icon-button sm/md). */
+:where(.material-symbols-outlined) {
   font-family: 'Material Symbols Outlined';
   font-weight: normal;
   font-style: normal;
