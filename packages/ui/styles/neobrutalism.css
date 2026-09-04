@@ -540,9 +540,11 @@
 .enpii-date-range__chevron,
 .enpii-smart-select__chevron,
 .enpii-notification-dropdown__chevron {
-  border: 2px solid var(--enpii-color-on-surface);
+  border: 2px solid var(--neobrutalism-ink);
   border-radius: .25rem;
-  box-shadow: 2px 2px 0 var(--enpii-color-on-surface);
+  background: var(--neobrutalism-surface);
+  box-shadow: 2px 2px 0 var(--neobrutalism-ink);
+  color: var(--enpii-color-on-surface);
 }
 
 .enpii-date-picker__weekdays,
