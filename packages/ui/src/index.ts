@@ -89,6 +89,7 @@ export { default as EnpiiTrendBarChart } from './components/EnpiiTrendBarChart.v
 export { useShape } from './composables/useShape'
 export { THEMES, useTheme } from './composables/useTheme'
 export { useConfirm } from './composables/useConfirm'
+export { useToast } from './composables/useToast'
 export { useFormSubmitProvider } from './composables/useFormSubmit'
 export { useFormSubmitState } from './composables/useFormSubmitState'
 export * from './composables/useForm'

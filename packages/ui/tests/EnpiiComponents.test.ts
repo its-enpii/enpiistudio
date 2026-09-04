@@ -3,6 +3,7 @@ import { describe, expect, it, vi } from 'vitest'
 import {
   EnpiiAlert,
   EnpiiAvatar,
+  EnpiiBadge,
   EnpiiBreadcrumb,
   EnpiiDrawer,
   EnpiiFooter,
@@ -157,6 +158,13 @@ describe('form and feedback components', () => {
 })
 
 describe('navigation indicators', () => {
+  it('renders badge sizes without breaking tone semantics', () => {
+    const badge = mount(EnpiiBadge, { props: { tone: 'warning', size: 'lg' }, slots: { default: 'Meja 07' } })
+
+    expect(badge.classes()).toEqual(expect.arrayContaining(['enpii-badge--warning', 'enpii-badge--lg']))
+    expect(badge.text()).toBe('Meja 07')
+  })
+
   it('marks the breadcrumb current page and emits navigation', async () => {
     const items = [
       { key: 'home', label: 'Home' },

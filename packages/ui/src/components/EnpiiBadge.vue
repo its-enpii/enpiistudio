@@ -18,11 +18,16 @@ const props = defineProps({
         default: 'rounded',
         validator: (value) => ['rounded', 'pill', 'sharp'].includes(value),
     },
+    size: {
+        type: String,
+        default: 'sm',
+        validator: (value) => ['sm', 'md', 'lg'].includes(value),
+    },
 });
 
 const shapeClass = useShape(props);
 </script>
 
 <template>
-    <span class="enpii-badge" :class="[`enpii-badge--${tone}`, tone.endsWith('-soft') && 'enpii-badge--pill', shapeClass]"><slot /></span>
+    <span class="enpii-badge" :class="[`enpii-badge--${tone}`, `enpii-badge--${size}`, tone.endsWith('-soft') && 'enpii-badge--pill', shapeClass]"><slot /></span>
 </template>

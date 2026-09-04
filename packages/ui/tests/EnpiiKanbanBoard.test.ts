@@ -85,6 +85,41 @@ describe('EnpiiKanbanBoard', () => {
     wrapper.unmount()
   })
 
+  it('renders custom card slot content', () => {
+    const wrapper = mount(EnpiiKanbanBoard, {
+      props: { columns, cards },
+      slots: {
+        card: `<template #card="{ card }"><p class="custom-card">{{ card.title }} custom</p></template>`,
+      },
+    })
+
+    expect(wrapper.findAll('.custom-card')).toHaveLength(4)
+    expect(wrapper.find('.custom-card').text()).toContain('Task A custom')
+  })
+
+  it('emits invalid-drop and prevents the move during native drop', async () => {
+    const wrapper = mount(EnpiiKanbanBoard, {
+      props: {
+        columns,
+        cards,
+        modelValue: [...cards],
+        validateMove: ({ fromColumn, toColumn }) => !(fromColumn === 'done' && toColumn === 'doing'),
+      },
+    })
+
+    const renderedColumns = wrapper.findAll('.enpii-kanban__column')
+    await renderedColumns[2].find('.enpii-kanban__card').trigger('dragstart')
+    await renderedColumns[1].trigger('dragover')
+    await renderedColumns[1].trigger('drop')
+
+    expect(wrapper.emitted('invalid-drop')?.[0][0]).toMatchObject({
+      cardId: 'c4',
+      fromColumn: 'done',
+      toColumn: 'doing',
+    })
+    expect(wrapper.emitted('move')).toBeUndefined()
+  })
+
   it('cards are focusable when draggable is true', () => {
     const wrapper = mount(EnpiiKanbanBoard, {
       props: { columns, cards, draggable: true },

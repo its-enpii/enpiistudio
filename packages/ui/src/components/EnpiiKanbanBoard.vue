@@ -24,19 +24,33 @@ export interface EnpiiKanbanMoveEvent {
   index: number
 }
 
+export interface EnpiiKanbanInvalidDropEvent {
+  cardId: string
+  fromColumn: string
+  toColumn: string
+}
+
+export interface EnpiiKanbanCardSlotProps {
+  card: EnpiiKanbanCard
+  column: EnpiiKanbanColumn
+}
+
 const props = withDefaults(defineProps<{
   columns: EnpiiKanbanColumn[]
   cards: EnpiiKanbanCard[]
   draggable?: boolean
+  validateMove?: (event: EnpiiKanbanMoveEvent) => boolean
   modelValue?: EnpiiKanbanCard[]
 }>(), {
   draggable: true,
+  validateMove: undefined,
   modelValue: undefined,
 })
 
 const emit = defineEmits<{
   (e: 'update:modelValue', cards: EnpiiKanbanCard[]): void
   (e: 'move', event: EnpiiKanbanMoveEvent): void
+  (e: 'invalid-drop', event: EnpiiKanbanInvalidDropEvent): void
 }>()
 
 const t = useT()
@@ -103,6 +117,13 @@ function selectMoveTarget(toColumn: string) {
   closeMenu()
 }
 
+function isDropValid(toColumn: string) {
+  const card = internalCards.value.find(item => item.id === dragCardId.value)
+  if (!card) return true
+
+  return props.validateMove?.({ cardId: card.id, fromColumn: card.columnId, toColumn, index: 0 }) ?? true
+}
+
 function closeMenu() {
   menuCard.value = null
 }
@@ -133,7 +154,11 @@ function onDrop(event: DragEvent, columnId: string) {
   const cardId = dragCardId.value ?? event.dataTransfer?.getData('text/plain')
   if (!cardId) return
   const card = internalCards.value.find(c => c.id === cardId)
-  if (card) moveCard(card, columnId)
+  if (card && !props.validateMove?.({ cardId: card.id, fromColumn: card.columnId, toColumn: columnId, index: 0 })) {
+    emit('invalid-drop', { cardId: card.id, fromColumn: card.columnId, toColumn: columnId })
+  } else if (card) {
+    moveCard(card, columnId)
+  }
   dragCardId.value = null
 }
 
@@ -162,7 +187,13 @@ watch(() => menuCard.value, (value) => {
           v-for="column in columnsWithCards"
           :key="column.id"
           class="enpii-kanban__column"
-          :class="[`enpii-kanban__column--${column.tone || 'neutral'}`, { 'enpii-kanban__column--drag-over': dragOverColumn === column.id }]"
+          :class="[
+            `enpii-kanban__column--${column.tone || 'neutral'}`,
+            {
+              'enpii-kanban__column--drag-over': dragOverColumn === column.id && isDropValid(column.id),
+              'enpii-kanban__column--drag-over-invalid': dragOverColumn === column.id && !isDropValid(column.id),
+            },
+          ]"
           :data-column-id="column.id"
           @dragover="onDragOver($event, column.id)"
           @dragleave="onDragLeave(column.id)"
@@ -186,9 +217,14 @@ watch(() => menuCard.value, (value) => {
               @dragstart="onDragStart($event, card)"
               @keydown.enter="openMenuForCard(card, $event)"
             >
-              <p class="enpii-kanban__card-title">{{ card.title }}</p>
-              <p v-if="card.label" class="enpii-kanban__card-label">{{ card.label }}</p>
-              <p v-if="card.assignee" class="enpii-kanban__card-assignee">{{ card.assignee }}</p>
+              <slot
+                name="card"
+                v-bind="{ card, column } as EnpiiKanbanCardSlotProps"
+              >
+                <p class="enpii-kanban__card-title">{{ card.title }}</p>
+                <p v-if="card.label" class="enpii-kanban__card-label">{{ card.label }}</p>
+                <p v-if="card.assignee" class="enpii-kanban__card-assignee">{{ card.assignee }}</p>
+              </slot>
               <button
                 v-if="draggable"
                 type="button"
