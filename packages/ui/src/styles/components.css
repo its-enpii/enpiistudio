@@ -1766,3 +1766,12 @@ button.enpii-stepper__trigger{cursor:pointer}
 @media (max-width:480px){.enpii-whatsapp-preview{padding:.75rem}.enpii-whatsapp-preview__bubble{max-width:88%}}
 @media (max-width:360px){.enpii-whatsapp-preview__avatar{width:2.25rem;height:2.25rem}.enpii-whatsapp-preview__bubble{padding:.625rem .75rem}}
 @media (forced-colors:active){.enpii-whatsapp-preview{border-color:CanvasText}.enpii-whatsapp-preview__item--out .enpii-whatsapp-preview__bubble,.enpii-whatsapp-preview__bubble{border-color:CanvasText;color:CanvasText}.enpii-whatsapp-preview__item--out .enpii-whatsapp-preview__bubble{background:Highlight}}
+
+/* ===== EnpiiBarChart ===== */
+.enpii-bar-chart{position:relative;width:100%}
+.enpii-bar-chart__svg{display:block;width:100%;height:auto;user-select:none}
+.enpii-bar-chart__grid{stroke:var(--enpii-color-outline-variant);stroke-width:1;opacity:.5}
+.enpii-bar-chart__axis-text{fill:var(--enpii-color-on-surface-variant);font-size:11px;font-weight:500}
+.enpii-bar-chart__bar{transition:opacity var(--enpii-duration-fast) var(--enpii-ease-emphasized)}
+.enpii-bar-chart__bar:hover{opacity:.85;cursor:pointer}
+@media (prefers-reduced-motion:reduce){.enpii-bar-chart__bar{transition:none}}

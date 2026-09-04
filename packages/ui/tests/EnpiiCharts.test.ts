@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 import {
   EnpiiLineChart,
+  EnpiiBarChart,
   EnpiiAreaChart,
   EnpiiDonutChart,
   EnpiiSparkline,
@@ -197,5 +198,26 @@ describe('EnpiiSparkline', () => {
 
     const line = wrapper.find('.enpii-sparkline__line')
     expect(line.attributes('style')).toContain('var(--enpii-color-secondary)')
+  })
+})
+
+describe('EnpiiBarChart', () => {
+  it('renders rect bars matching data count', () => {
+    const wrapper = mount(EnpiiBarChart, {
+      props: { data: multiSeriesData, labels: multiSeriesLabels },
+    })
+
+    expect(wrapper.findAll('.enpii-bar-chart__bar')).toHaveLength(10)
+  })
+
+  it('renders gridlines and accessible svg', () => {
+    const wrapper = mount(EnpiiBarChart, {
+      props: { data: multiSeriesData, labels: multiSeriesLabels },
+    })
+
+    expect(wrapper.findAll('.enpii-bar-chart__grid').length).toBeGreaterThanOrEqual(4)
+    const svg = wrapper.find('.enpii-bar-chart__svg')
+    expect(svg.attributes('role')).toBe('img')
+    expect(svg.attributes('aria-label')).toContain('Bar chart')
   })
 })
