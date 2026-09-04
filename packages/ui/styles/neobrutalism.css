@@ -61,8 +61,8 @@
 .enpii-button--default,
 .enpii-button--md,
 .enpii-icon-button--filled-primary {
-  background: color-mix(in srgb, var(--enpii-color-warning-border) 75%, var(--neobrutalism-surface));
-  color: var(--neobrutalism-ink);
+  background: var(--enpii-color-primary);
+  color: var(--enpii-color-on-primary);
 }
 
 .enpii-button--success,
