@@ -88,6 +88,7 @@ export { default as EnpiiSignaturePad } from './components/EnpiiSignaturePad.vue
 export { default as EnpiiTrendBarChart } from './components/EnpiiTrendBarChart.vue'
 export { useShape } from './composables/useShape'
 export { THEMES, useTheme } from './composables/useTheme'
+export { useConfirm } from './composables/useConfirm'
 export { useFormSubmitProvider } from './composables/useFormSubmit'
 export { useFormSubmitState } from './composables/useFormSubmitState'
 export * from './composables/useForm'
