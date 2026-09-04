@@ -1,14 +1,26 @@
 /* Neobrutalist style layer. Import after @its-enpii/ui/styles.css. */
 :root {
   --enpii-logical-x: 1;
-  --neobrutalism-surface: rgb(253 251 243);
-  --neobrutalism-ink: rgb(17 17 17);
+  --neobrutalism-surface: var(--enpii-color-surface-container-lowest, rgb(253 251 243));
+  --neobrutalism-ink: var(--enpii-color-ink, rgb(17 17 17));
   --enpii-radius-control: 0rem;
   --enpii-radius-card: 0rem;
   --enpii-radius-overlay: 0rem;
   --enpii-shadow-control: 5px 5px 0 var(--neobrutalism-ink);
   --enpii-shadow-raised: 8px 8px 0 var(--neobrutalism-ink);
   --enpii-shadow-overlay: 8px 8px 0 var(--neobrutalism-ink);
+}
+
+@media (prefers-color-scheme: dark) {
+  :where(:root:not([data-theme='light'])) {
+    --neobrutalism-surface: var(--enpii-color-surface-container-lowest, #1A2332);
+    --neobrutalism-ink: var(--enpii-color-ink, #F0F4F8);
+  }
+}
+
+[data-theme='dark'] {
+  --neobrutalism-surface: var(--enpii-color-surface-container-lowest, #1A2332);
+  --neobrutalism-ink: var(--enpii-color-ink, #F0F4F8);
 }
 
 [dir='rtl'] {
@@ -27,7 +39,7 @@
 
 .enpii-modal__panel {
   border: 3px solid var(--neobrutalism-ink);
-  border-radius: var(--enpii-radius-overlay);
+  border-radius: var(--enpii-radius-overlay, 1rem);
   background: var(--neobrutalism-surface);
   box-shadow: var(--enpii-shadow-overlay);
 }
