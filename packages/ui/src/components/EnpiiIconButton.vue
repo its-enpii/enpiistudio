@@ -4,7 +4,8 @@ import AppTooltip from './EnpiiTooltip.vue';
 import { useShape } from '../composables/useShape';
 
 const props = defineProps({
-    name: { type: String, required: true },
+    name: { type: String, default: null },
+    icon: { type: String, default: null },
     tone: {
         type: String,
         default: 'neutral',
@@ -35,6 +36,8 @@ const props = defineProps({
 
 const shapeClass = useShape(props);
 
+const iconName = props.name || props.icon || '';
+
 function buttonClass() {
     return [
         'enpii-icon-button',
@@ -57,10 +60,10 @@ function iconClass() {
             :type="type"
             :class="buttonClass()"
             :disabled="disabled || loading"
-            :aria-label="ariaLabel || name"
+            :aria-label="ariaLabel || iconName"
             :aria-busy="loading || undefined"
         >
-            <AppIcon v-if="!loading" :name="name" :class="iconClass()" />
+            <AppIcon v-if="!loading" :name="iconName" :class="iconClass()" />
             <span v-else class="material-symbols-outlined enpii-icon-button__spinner" :class="iconClass()">progress_activity</span>
         </button>
     </AppTooltip>
@@ -69,10 +72,10 @@ function iconClass() {
         :type="type"
         :class="buttonClass()"
         :disabled="disabled || loading"
-        :aria-label="ariaLabel || name"
+        :aria-label="ariaLabel || iconName"
         :aria-busy="loading || undefined"
     >
-        <AppIcon v-if="!loading" :name="name" :class="iconClass()" />
+        <AppIcon v-if="!loading" :name="iconName" :class="iconClass()" />
         <span v-else class="material-symbols-outlined enpii-icon-button__spinner" :class="iconClass()">progress_activity</span>
     </button>
 </template>
