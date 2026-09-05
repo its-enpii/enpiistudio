@@ -1462,11 +1462,12 @@ button.enpii-stepper__trigger{cursor:pointer}
 @media (prefers-reduced-motion:reduce){.enpii-rating__star{transition:none}}
 
 /* ===== EnpiiSegmentedControl ===== */
-.enpii-segmented-control{position:relative;display:flex;width:100%;padding:.25rem;border:1px solid var(--enpii-color-outline-variant);border-radius:var(--enpii-radius-control);background:var(--enpii-color-surface-container-lowest);isolation:isolate}
+.enpii-segmented-control{position:relative;display:flex;box-sizing:border-box;width:100%;height:var(--enpii-control-height);padding:.25rem;border:1px solid var(--enpii-color-outline-variant);border-radius:var(--enpii-radius-control);background:var(--enpii-color-surface-container-lowest);isolation:isolate}
+.enpii-segmented-control--sm{height:var(--enpii-control-height-sm)}
 .enpii-segmented-control--block{display:flex;width:100%}
 .enpii-segmented-control--inline{display:inline-flex;width:max-content}
 .enpii-segmented-control--sm .enpii-segmented-control__option{min-height:2.25rem;font-size:.8125rem;align-items:center}
-.enpii-segmented-control__option{position:relative;z-index:1;display:inline-flex;flex:1 1 0;align-items:center;justify-content:center;gap:.375rem;min-height:2.5rem;padding:.5rem .75rem;border:0;border-radius:calc(var(--enpii-radius-control) - .25rem);background:transparent;color:var(--enpii-color-on-surface-variant);font-size:var(--enpii-control-font-size);font-weight:500;line-height:1;cursor:pointer;transition:color var(--enpii-duration-fast) var(--enpii-ease-emphasized)}
+.enpii-segmented-control__option{position:relative;z-index:1;display:inline-flex;flex:1 1 0;align-items:center;justify-content:center;gap:.375rem;align-self:stretch;height:auto;padding:.5rem .75rem;border:0;border-radius:calc(var(--enpii-radius-control) - .25rem);background:transparent;color:var(--enpii-color-on-surface-variant);font-size:var(--enpii-control-font-size);font-weight:500;line-height:1;cursor:pointer;transition:color var(--enpii-duration-fast) var(--enpii-ease-emphasized)}
 .enpii-segmented-control--inline .enpii-segmented-control__option{flex:0 0 auto}
 .enpii-segmented-control--block .enpii-segmented-control__option{flex:1 1 0}
 .enpii-segmented-control__option--active{color:var(--enpii-color-on-primary)}
