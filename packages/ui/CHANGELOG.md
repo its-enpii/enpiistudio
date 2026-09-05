@@ -1,3 +1,12 @@
+## [0.10.0] - 2026-09-05
+
+### Changed (BREAKING di 0.x)
+- **Field width contract**: semua field component (`EnpiiInput`, `EnpiiTextarea`, `EnpiiCurrencyInput`, `EnpiiSmartSelect`, `EnpiiDatePicker`, `EnpiiInputMask`, `EnpiiTagInput`) kini **full-width secara default** di root-nya. Konsumen tidak lagi perlu menambah class width manual (mis. `w-full`) agar field memenuhi panelnya. Untuk pemakaian inline/shrink, gunakan utilitas `.enpii-fit-content` atau bungkus dengan container sendiri.
+- **`EnpiiSegmentedControl` default block**: default kini `width:100%` dengan option `flex:1` (proporsional). Pemakaian shrink/inline memakai modifier baru `inline`. Prop `block` tetap ada (no-op, backward compatible).
+
+### Fixed
+- **Control height contract**: `.enpii-input-mask__control` dan `.enpii-tag-input__control` kini memakai `var(--enpii-control-height)` (bukan hard-code `2.5rem`), sehingga semua field control yang sebaris (Input, SmartSelect, DatePicker, CurrencyInput, InputMask, TagInput, SegmentedControl, Button) memiliki tinggi seragam `3rem` (sm: `2.5rem` via modifier). Test kontrak baru: `control-height.test.ts` (assert tinggi identik dalam satu row) dan `alignment-conformance.test.ts` (kontrak lebar).
+
 ## [0.9.0] - 2026-09-03
 - **Dep skeleton**: range `@its-enpii/ui` `^0.8.0` tidak mencakup 0.9.0 (semver 0.x: caret = patch-scope) → `^0.9.0` + root lockfile diregenerasi; `npm ci` bersih kembali.
 
