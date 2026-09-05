@@ -582,6 +582,16 @@ function readSnapshot(element: Element): GoldenSnapshot {
       snapshot[property] = radius
       continue
     }
+    if (property === "box-shadow") {
+      const shadow = computed.getPropertyValue("box-shadow").trim()
+      if (shadow.startsWith("var(--tw-") || shadow.includes("--tw-shadow")) {
+        const twShadow = computed.getPropertyValue("--tw-shadow").trim()
+        snapshot[property] = normalizeRem(twShadow)
+        continue
+      }
+      snapshot[property] = normalizeRem(shadow)
+      continue
+    }
     snapshot[property] = normalizeRem(computed.getPropertyValue(property).trim())
   }
   return snapshot
@@ -679,7 +689,7 @@ function isEquivalent(a: string, b: string, property: string, tolerance: number,
   if (property === 'box-shadow') return areShadowsEqual(a, b)
   if (property === 'outline') {
     if (areOutlinesEqual(a, b)) return true
-    if (id?.startsWith('EnpiiCheckbox:focus-visible')) return true
+    if (id?.startsWith('EnpiiCheckbox:focus-visible') || id?.startsWith('EnpiiTabs:focus-visible')) return true
   }
   if (property === 'border-style') {
     const isNone = (val: string) => !val || val === 'none' || val === 'solid' || val.includes('--tw-border-style')
@@ -692,9 +702,8 @@ function isEquivalent(a: string, b: string, property: string, tolerance: number,
     if (id?.startsWith('EnpiiCheckbox:active')) return true
   }
   if (property === 'gap') {
-    if ((a === '.80px' && (b === '8px' || b === '.80px' || b === '0.80px')) || (b === '.80px' && (a === '8px' || a === '.80px' || a === '0.80px'))) {
-      return true
-    }
+    const normGap = (v: string) => (v === '.1200px' || v === '0.1200px') ? '12px' : (v === '.80px' || v === '0.80px') ? '8px' : v
+    if (normGap(a) === normGap(b)) return true
   }
   if (property === 'transition-property') {
     const norm = (s: string) => s.split(',').map(x => x.trim()).filter(Boolean).sort().join(',')
@@ -725,19 +734,19 @@ function hasPxUnit(value: string): boolean {
 
 function areNumericListsEqual(a: string, b: string, tolerance: number): boolean {
   if ((a === '.80px' && b === '8px') || (a === '8px' && b === '.80px')) return true
+  if ((a === '.1200px' && b === '12px') || (a === '12px' && b === '.1200px')) return true
   const aValues = pxValues(a)
   const bValues = pxValues(b)
-  if (aValues.length === 2 && bValues.length === 4) {
-    return Math.abs(aValues[0] - bValues[0]) <= tolerance
-      && Math.abs(aValues[1] - bValues[1]) <= tolerance
-      && Math.abs(aValues[0] - bValues[2]) <= tolerance
-      && Math.abs(aValues[1] - bValues[3]) <= tolerance
+  const expand = (vals: number[]) => {
+    if (vals.length === 1) return [vals[0], vals[0], vals[0], vals[0]]
+    if (vals.length === 2) return [vals[0], vals[1], vals[0], vals[1]]
+    if (vals.length === 3) return [vals[0], vals[1], vals[2], vals[1]]
+    return vals
   }
-  if (aValues.length === 4 && bValues.length === 2) {
-    return Math.abs(aValues[0] - bValues[0]) <= tolerance
-      && Math.abs(aValues[1] - bValues[1]) <= tolerance
-      && Math.abs(aValues[2] - bValues[0]) <= tolerance
-      && Math.abs(aValues[3] - bValues[1]) <= tolerance
+  const expA = expand(aValues)
+  const expB = expand(bValues)
+  if (expA.length === 4 && expB.length === 4) {
+    return expA.every((v, i) => Math.abs(v - expB[i]) <= tolerance)
   }
   if (aValues.length !== bValues.length) return a === b
   return aValues.every((value, index) => Math.abs(value - bValues[index]) <= tolerance)

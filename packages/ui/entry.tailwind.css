@@ -82,6 +82,11 @@
   --z-index-modal: var(--enpii-z-modal);
   --shadow-overlay: var(--enpii-shadow-overlay);
   --shadow-lg: var(--enpii-shadow-lg);
+  --duration-slow: var(--enpii-duration-slow);
+  --z-index-toast: var(--enpii-z-toast);
+  --shadow-control: var(--enpii-shadow-control);
+  --shadow-card: 0 1px 3px color-mix(in srgb, var(--enpii-color-primary-deep) 8%, transparent);
+  --animate-skeleton-shimmer: skeleton-shimmer 1.4s linear infinite;
   --border-width-3: 3px;
   --color-spinner-track-primary: var(--enpii-spinner-track-primary);
   --color-spinner-track-neutral: var(--enpii-spinner-track-neutral);
@@ -111,3 +116,9 @@
   width: var(--enpii-control-height);
 }
 @custom-variant dark-auto (&:where([data-enpii-dark-mode='auto'], [data-enpii-dark-mode='auto'] *));
+
+@keyframes skeleton-shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}

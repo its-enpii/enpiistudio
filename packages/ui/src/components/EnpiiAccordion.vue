@@ -122,44 +122,54 @@ function toggleItem(key) {
     emit('toggle', { key, open: !isOpen });
 }
 
+const variantClasses = {
+    surface: 'bg-surface-container-lowest',
+    filled: 'bg-surface-container-low',
+    ghost: 'bg-transparent',
+};
 </script>
 
 <template>
     <!-- Single Collapsible Mode -->
     <div
         v-if="isSingleMode"
-        class="enpii-accordion"
-        :class="[`enpii-accordion--${variant}`, bordered && 'enpii-accordion--bordered', shapeClass]"
+        class="enpii-accordion overflow-hidden rounded-control [transition-property:all] duration-base ease-emphasized"
+        :class="[
+            `enpii-accordion--${variant}`,
+            variantClasses[variant],
+            bordered ? 'enpii-accordion--bordered border border-solid border-outline-variant' : '',
+            shapeClass,
+        ]"
     >
         <button
             :id="`accordion-header-${generatedId}`"
             type="button"
-            class="enpii-accordion__trigger"
+            class="enpii-accordion__trigger flex w-full items-center justify-between gap-3 p-4 border-0 bg-transparent text-primary-text font-semibold text-left cursor-pointer transition-[background] duration-fast ease-emphasized hover:[background:color-mix(in_srgb,var(--enpii-color-surface-container-low)_60%,transparent)] focus-visible:outline-none focus-visible:[box-shadow:inset_0_0_0_2px_var(--enpii-color-primary)]"
             :aria-expanded="isItemOpen('single')"
             :aria-controls="`accordion-panel-${generatedId}`"
             @click="toggleSingle"
         >
-            <div class="enpii-accordion__heading">
-                <AppIcon v-if="icon" :name="icon" class="enpii-accordion__item-icon" />
-                <div class="enpii-accordion__heading-text">
+            <div class="enpii-accordion__heading flex flex-1 min-w-0 items-center gap-3">
+                <AppIcon v-if="icon" :name="icon" class="enpii-accordion__item-icon shrink-0 w-5 h-5 text-primary-text text-[1.25rem] leading-none" />
+                <div class="enpii-accordion__heading-text flex-1 min-w-0">
                     <slot name="title">
-                        <span class="enpii-accordion__title">{{ title }}</span>
+                        <span class="enpii-accordion__title block overflow-hidden text-ellipsis whitespace-nowrap text-primary-text text-sm sm:text-base font-semibold">{{ title }}</span>
                     </slot>
-                    <p v-if="subtitle" class="enpii-accordion__subtitle">
+                    <p v-if="subtitle" class="enpii-accordion__subtitle mt-1 mb-0 overflow-hidden text-ellipsis whitespace-nowrap text-on-surface-variant text-xs font-normal">
                         {{ subtitle }}
                     </p>
                 </div>
                 <span
                     v-if="badge !== null && badge !== undefined"
-                    class="enpii-accordion__badge"
+                    class="enpii-accordion__badge shrink-0 py-1 px-2 rounded-[9999px] bg-primary-container text-on-primary-container text-xs font-semibold"
                 >
                     {{ badge }}
                 </span>
             </div>
             <AppIcon
                 name="expand_more"
-                class="enpii-accordion__chevron"
-                :class="{ 'enpii-accordion__chevron--open': isItemOpen('single') }"
+                class="enpii-accordion__chevron shrink-0 w-5 h-5 text-on-surface-variant text-[1.25rem] leading-none transition-transform duration-normal ease-standard"
+                :class="{ 'enpii-accordion__chevron--open rotate-180 text-primary-text': isItemOpen('single') }"
             />
         </button>
 
@@ -167,11 +177,11 @@ function toggleItem(key) {
             :id="`accordion-panel-${generatedId}`"
             role="region"
             :aria-labelledby="`accordion-header-${generatedId}`"
-            class="enpii-accordion__panel-wrap"
-            :class="{ 'enpii-accordion__panel-wrap--open': isItemOpen('single') }"
+            class="enpii-accordion__panel-wrap grid grid-rows-[0fr] transition-[grid-template-rows] duration-slow ease-standard"
+            :class="{ 'enpii-accordion__panel-wrap--open grid-rows-[1fr]': isItemOpen('single') }"
         >
-            <div class="enpii-accordion__panel-clip">
-                <div class="enpii-accordion__panel">
+            <div class="enpii-accordion__panel-clip overflow-hidden">
+                <div class="enpii-accordion__panel p-4 pt-3 border-t border-solid border-[color-mix(in_srgb,var(--enpii-color-outline-variant)_60%,transparent)] text-on-surface-variant text-sm leading-[1.55]">
                     <slot />
                 </div>
             </div>
@@ -179,40 +189,45 @@ function toggleItem(key) {
     </div>
 
     <!-- Multi-Item List Accordion Mode -->
-    <div v-else class="enpii-accordion-list">
+    <div v-else class="enpii-accordion-list grid gap-2 [&>*+*]:mt-2">
         <div
             v-for="(item, index) in items"
             :key="item.key ?? item.id ?? index"
-            class="enpii-accordion"
-            :class="[`enpii-accordion--${variant}`, bordered && 'enpii-accordion--bordered', shapeClass]"
+            class="enpii-accordion overflow-hidden rounded-control [transition-property:all] duration-base ease-emphasized"
+            :class="[
+                `enpii-accordion--${variant}`,
+                variantClasses[variant],
+                bordered ? 'enpii-accordion--bordered border border-solid border-outline-variant' : '',
+                shapeClass,
+            ]"
         >
             <button
                 :id="`accordion-header-${generatedId}-${item.key ?? index}`"
                 type="button"
-                class="enpii-accordion__trigger"
+                class="enpii-accordion__trigger flex w-full items-center justify-between gap-3 p-4 border-0 bg-transparent text-primary-text font-semibold text-left cursor-pointer transition-[background] duration-fast ease-emphasized hover:[background:color-mix(in_srgb,var(--enpii-color-surface-container-low)_60%,transparent)] focus-visible:outline-none focus-visible:[box-shadow:inset_0_0_0_2px_var(--enpii-color-primary)]"
                 :aria-expanded="isItemOpen(item.key ?? item.id ?? item.title)"
                 :aria-controls="`accordion-panel-${generatedId}-${item.key ?? index}`"
                 @click="toggleItem(item.key ?? item.id ?? item.title)"
             >
-                <div class="enpii-accordion__heading">
-                    <AppIcon v-if="item.icon" :name="item.icon" class="enpii-accordion__item-icon" />
-                    <div class="enpii-accordion__heading-text">
-                        <span class="enpii-accordion__title">{{ item.title }}</span>
-                        <p v-if="item.subtitle" class="enpii-accordion__subtitle">
+                <div class="enpii-accordion__heading flex flex-1 min-w-0 items-center gap-3">
+                    <AppIcon v-if="item.icon" :name="item.icon" class="enpii-accordion__item-icon shrink-0 w-5 h-5 text-primary-text text-[1.25rem] leading-none" />
+                    <div class="enpii-accordion__heading-text flex-1 min-w-0">
+                        <span class="enpii-accordion__title block overflow-hidden text-ellipsis whitespace-nowrap text-primary-text text-sm sm:text-base font-semibold">{{ item.title }}</span>
+                        <p v-if="item.subtitle" class="enpii-accordion__subtitle mt-1 mb-0 overflow-hidden text-ellipsis whitespace-nowrap text-on-surface-variant text-xs font-normal">
                             {{ item.subtitle }}
                         </p>
                     </div>
                     <span
                         v-if="item.badge !== null && item.badge !== undefined"
-                        class="enpii-accordion__badge"
+                        class="enpii-accordion__badge shrink-0 py-1 px-2 rounded-[9999px] bg-primary-container text-on-primary-container text-xs font-semibold"
                     >
                         {{ item.badge }}
                     </span>
                 </div>
                 <AppIcon
                     name="expand_more"
-                    class="enpii-accordion__chevron"
-                    :class="{ 'enpii-accordion__chevron--open': isItemOpen(item.key ?? item.id ?? item.title) }"
+                    class="enpii-accordion__chevron shrink-0 w-5 h-5 text-on-surface-variant text-[1.25rem] leading-none transition-transform duration-normal ease-standard"
+                    :class="{ 'enpii-accordion__chevron--open rotate-180 text-primary-text': isItemOpen(item.key ?? item.id ?? item.title) }"
                 />
             </button>
 
@@ -220,11 +235,11 @@ function toggleItem(key) {
                 :id="`accordion-panel-${generatedId}-${item.key ?? index}`"
                 role="region"
                 :aria-labelledby="`accordion-header-${generatedId}-${item.key ?? index}`"
-                class="enpii-accordion__panel-wrap"
-                :class="{ 'enpii-accordion__panel-wrap--open': isItemOpen(item.key ?? item.id ?? item.title) }"
+                class="enpii-accordion__panel-wrap grid grid-rows-[0fr] transition-[grid-template-rows] duration-slow ease-standard"
+                :class="{ 'enpii-accordion__panel-wrap--open grid-rows-[1fr]': isItemOpen(item.key ?? item.id ?? item.title) }"
             >
-                <div class="enpii-accordion__panel-clip">
-                    <div class="enpii-accordion__panel">
+                <div class="enpii-accordion__panel-clip overflow-hidden">
+                    <div class="enpii-accordion__panel p-4 pt-3 border-t border-solid border-[color-mix(in_srgb,var(--enpii-color-outline-variant)_60%,transparent)] text-on-surface-variant text-sm leading-[1.55]">
                         <slot :name="`content-${item.key ?? index}`" :item="item">
                             <div v-if="item.content">{{ item.content }}</div>
                         </slot>
