@@ -55,7 +55,9 @@
     "build": "vite build && vue-tsc --emitDeclarationOnly",
     "build:tailwind": "vite --config vite.config.tailwind.ts build",
     "check": "vue-tsc --noEmit",
-    "test": "vitest run --exclude tests/config-loader.test.ts --exclude tests/tailwind-theme.test.ts",
+    "test": "vitest run --exclude tests/config-loader.test.ts --exclude tests/tailwind-theme.test.ts --exclude tests/golden-master.parity.spec.ts",
+    "golden:record": "GOLDEN_RECORD=1 vitest run tests/golden-master.parity.spec.ts",
+    "golden:check": "vitest run tests/golden-master.parity.spec.ts",
     "test:tailwind": "npm run build:tailwind && vitest run tests/tailwind-theme.test.ts tests/config-loader.test.ts --config vitest.config.tailwind.ts && node scripts/tailwind-smoke.mjs",
     "pack:check": "npm pack --dry-run"
   },
