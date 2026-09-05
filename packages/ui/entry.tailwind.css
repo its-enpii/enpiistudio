@@ -64,10 +64,44 @@
   --radius-control: var(--enpii-radius-control);
   --radius-card: var(--enpii-radius-card);
   --radius-overlay: var(--enpii-radius-overlay);
-  --spacing-control: var(--enpii-spacing-control);
   --spacing-control-height: var(--enpii-control-height);
+  --spacing-control-height-sm: var(--enpii-control-height-sm);
+  --spacing-control-block: var(--enpii-space-control-block);
+  --spacing-control-inline: var(--enpii-space-control-inline);
+  --text-control: var(--enpii-control-font-size);
+  --font-sans: var(--enpii-font-sans);
+  --ease-emphasized: var(--enpii-ease-emphasized);
+  --duration-fast: var(--enpii-duration-fast);
+  --duration-base: var(--enpii-duration-base);
+  --border-width-3: 3px;
+  --color-spinner-track-primary: var(--enpii-spinner-track-primary);
+  --color-spinner-track-neutral: var(--enpii-spinner-track-neutral);
+  --color-spinner-track-inverse: var(--enpii-spinner-track-inverse);
+  --color-badge-success-soft: var(--enpii-badge-bg-success-soft);
+  --color-badge-warning-soft: var(--enpii-badge-bg-warning-soft);
+  --color-badge-error-soft: var(--enpii-badge-bg-error-soft);
+  --color-badge-primary-soft: var(--enpii-badge-bg-primary-soft);
 }
 
+@utility rounded-full {
+  border-radius: 50%;
+}
 @utility control {
   height: var(--enpii-control-height);
 }
+@utility min-h-control {
+  min-height: var(--enpii-control-height);
+}
+@utility min-h-control-sm {
+  min-height: var(--enpii-control-height-sm);
+}
+@utility py-control-block {
+  padding-block: var(--enpii-space-control-block);
+}
+@utility px-control-inline {
+  padding-inline: var(--enpii-space-control-inline);
+}
+@utility w-control-height {
+  width: var(--enpii-control-height);
+}
+@custom-variant dark-auto (&:where([data-enpii-dark-mode='auto'], [data-enpii-dark-mode='auto'] *));

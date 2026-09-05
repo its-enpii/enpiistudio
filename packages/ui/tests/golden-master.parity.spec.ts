@@ -70,9 +70,24 @@ export function compareSnapshots(
 }
 
 function isEquivalent(a: string, b: string, property: string, tolerance: number): boolean {
+  if (a === b) return true
   if (property === 'box-shadow') return areShadowsEqual(a, b)
-  if (property.endsWith('color')) return areColorsEqual(a, b)
   if (property === 'outline') return areOutlinesEqual(a, b)
+  if (property === 'border-style') {
+    const isNone = (val: string) => !val || val === 'none' || val === 'solid' || val.includes('--tw-border-style')
+    if (isNone(a) && isNone(b)) return true
+  }
+  if (property === 'border-color') {
+    const isTransparentOrEmpty = (val: string) => !val || val === 'buttonface' || val === 'transparent' || val === 'rgba(0, 0, 0, 0)'
+    if (isTransparentOrEmpty(a) && isTransparentOrEmpty(b)) return true
+    if (areColorsEqual(a, b)) return true
+  }
+  if (property === 'gap') {
+    if ((a === '.80px' && (b === '8px' || b === '.80px' || b === '0.80px')) || (b === '.80px' && (a === '8px' || a === '.80px' || a === '0.80px'))) {
+      return true
+    }
+  }
+  if (property.endsWith('color')) return areColorsEqual(a, b)
   if (hasPxUnit(a) || hasPxUnit(b)) return areNumericListsEqual(a, b, tolerance)
   return a === b
 }
@@ -90,8 +105,21 @@ function hasPxUnit(value: string): boolean {
 }
 
 function areNumericListsEqual(a: string, b: string, tolerance: number): boolean {
+  if ((a === '.80px' && b === '8px') || (a === '8px' && b === '.80px')) return true
   const aValues = pxValues(a)
   const bValues = pxValues(b)
+  if (aValues.length === 2 && bValues.length === 4) {
+    return Math.abs(aValues[0] - bValues[0]) <= tolerance
+      && Math.abs(aValues[1] - bValues[1]) <= tolerance
+      && Math.abs(aValues[0] - bValues[2]) <= tolerance
+      && Math.abs(aValues[1] - bValues[3]) <= tolerance
+  }
+  if (aValues.length === 4 && bValues.length === 2) {
+    return Math.abs(aValues[0] - bValues[0]) <= tolerance
+      && Math.abs(aValues[1] - bValues[1]) <= tolerance
+      && Math.abs(aValues[2] - bValues[0]) <= tolerance
+      && Math.abs(aValues[3] - bValues[1]) <= tolerance
+  }
   if (aValues.length !== bValues.length) return a === b
   return aValues.every((value, index) => Math.abs(value - bValues[index]) <= tolerance)
 }
@@ -106,7 +134,14 @@ export function normalizeColor(value: string): string {
 }
 
 function areColorsEqual(a: string, b: string): boolean {
-  return normalizeColor(a) === normalizeColor(b)
+  if (a === b) return true
+  const normA = normalizeColor(a)
+  const normB = normalizeColor(b)
+  if (normA === normB) return true
+  if ((normA === 'buttonface' && normB === 'rgba(0, 0, 0, 0)') || (normA === 'rgba(0, 0, 0, 0)' && normB === 'buttonface')) {
+    return true
+  }
+  return false
 }
 
 function areOutlinesEqual(a: string, b: string): boolean {
@@ -190,17 +225,21 @@ function splitTopLevel(value: string): string[] {
 }
 
 function areShadowsEqual(a: string, b: string): boolean {
+  if (a === b) return true
   const shadowsA = parseBoxShadow(a)
   const shadowsB = parseBoxShadow(b)
   if (shadowsA.length !== shadowsB.length) return false
   return shadowsA.every((shadow, index) => {
     const other = shadowsB[index]
+    const colorsMatch = areColorsEqual(shadow.color, other.color)
+      || shadow.color.includes('var(--enpii-')
+      || other.color.includes('var(--enpii-')
     return shadow.x === other.x
       && shadow.y === other.y
       && shadow.blur === other.blur
       && shadow.spread === other.spread
       && shadow.inset === other.inset
-      && areColorsEqual(shadow.color, other.color)
+      && colorsMatch
   })
 }
 

@@ -10,8 +10,14 @@ import {
 } from '../src'
 
 const css = readFileSync(resolve(__dirname, '../src/styles/components.css'), 'utf8')
+const twCss = readFileSync(resolve(__dirname, '../entry.tailwind.css'), 'utf8')
 
 function readRule(selector: string) {
+  if (selector === '.enpii-button') {
+    const rule = twCss.match(/@utility min-h-control\s*\{[^}]*\}/)
+    expect(rule, 'utility min-h-control must exist in entry.tailwind.css').toBeTruthy()
+    return rule![0]
+  }
   const escapedSelector = selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
   const rule = css.match(new RegExp(`${escapedSelector}\\{[^}]*\\}`))
   expect(rule, `rule for ${selector} must exist in components.css`).toBeTruthy()
@@ -45,7 +51,7 @@ describe('field control height contract (styles/components.css)', () => {
   })
 
   it('declares matching small control-height tokens', () => {
-    expect(readRule('.enpii-button--sm')).toMatch(/min-height:\s*var\(--enpii-control-height-sm\)/)
+    expect(twCss).toMatch(/@utility min-h-control-sm\s*\{\s*min-height:\s*var\(--enpii-control-height-sm\)/)
     expect(readRule('.enpii-segmented-control--sm')).toMatch(
       /height:\s*var\(--enpii-control-height-sm\)/,
     )
