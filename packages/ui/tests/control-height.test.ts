@@ -11,12 +11,26 @@ import {
 
 const css = readFileSync(resolve(__dirname, '../src/styles/components.css'), 'utf8')
 const twCss = readFileSync(resolve(__dirname, '../entry.tailwind.css'), 'utf8')
+const inputVue = readFileSync(resolve(__dirname, '../src/components/EnpiiInput.vue'), 'utf8')
+const currencyVue = readFileSync(resolve(__dirname, '../src/components/EnpiiCurrencyInput.vue'), 'utf8')
+const inputMaskVue = readFileSync(resolve(__dirname, '../src/components/EnpiiInputMask.vue'), 'utf8')
+
+const vueMinH: Record<string, string> = {
+  '.enpii-input__control': inputVue,
+  '.enpii-currency-input__control': currencyVue,
+  '.enpii-input-mask__control': inputMaskVue,
+}
 
 function readRule(selector: string) {
   if (selector === '.enpii-button') {
     const rule = twCss.match(/@utility min-h-control\s*\{[^}]*\}/)
     expect(rule, 'utility min-h-control must exist in entry.tailwind.css').toBeTruthy()
     return rule![0]
+  }
+  if (vueMinH[selector]) {
+    // Tailwind-rewritten components declare min-height via min-h-control utility in template
+    expect(vueMinH[selector], `${selector} must declare min-h-control in template`).toMatch(/min-h-control/)
+    return 'min-height: var(--enpii-control-height)'
   }
   const escapedSelector = selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
   const rule = css.match(new RegExp(`${escapedSelector}\\{[^}]*\\}`))

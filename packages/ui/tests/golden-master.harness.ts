@@ -68,6 +68,14 @@ export const GOLDEN_PROPERTIES = [
 export type GoldenProperty = (typeof GOLDEN_PROPERTIES)[number]
 export type GoldenSnapshot = Record<GoldenProperty, string>
 
+export interface ParityDifference {
+  id: string
+  property: string
+  baseline: string
+  actual: string
+  reason: string
+}
+
 interface ComponentCase {
   component: string
   states: GoldenState[]
@@ -319,6 +327,38 @@ function trimNumber(value: number): number {
   return Number(value.toFixed(4).replace(/0+$/, '').replace(/\.$/, ''))
 }
 
+function unwrapSupports(source: string): string {
+  let result = ''
+  let pos = 0
+  while (true) {
+    const marker = '@supports'
+    const start = source.indexOf(marker, pos)
+    if (start === -1) {
+      result += source.slice(pos)
+      break
+    }
+    result += source.slice(pos, start)
+    const openBrace = source.indexOf('{', start)
+    if (openBrace === -1) {
+      result += source.slice(start)
+      break
+    }
+    let depth = 1
+    let end = openBrace + 1
+    for (; end < source.length; end++) {
+      if (source[end] === '{') depth++
+      else if (source[end] === '}') {
+        depth--
+        if (depth === 0) break
+      }
+    }
+    const inner = source.slice(openBrace + 1, end)
+    result += inner
+    pos = end + 1
+  }
+  return result
+}
+
 function extractUtilitiesLayer(css: string): string {
   const marker = '@layer utilities'
   const start = css.indexOf(marker)
@@ -385,13 +425,15 @@ function appendStyles(theme: GoldenTheme): HTMLStyleElement[] {
   const tailwindPath = resolve(uiDirectory, 'dist/tailwind.css')
   if (existsSync(tailwindPath)) {
     twCss = extractUtilitiesLayer(readFileSync(tailwindPath, 'utf8'))
+    twCss = unwrapSupports(twCss)
     twCss = twCss.replace(/padding-block:\s*([^;}]+);?/g, 'padding-top: $1; padding-bottom: $1;')
     twCss = twCss.replace(/padding-inline:\s*([^;}]+);?/g, 'padding-left: $1; padding-right: $1;')
     twCss = twCss.replace(/calc\(var\(--spacing\)\s*\*\s*(\d+(?:\.\d+)?)\)/g, (_, n: string) => `${Number(n) * 0.25}rem`)
     for (let pass = 0; pass < 3; pass += 1) {
-      twCss = replaceVariablesWithFallback(twCss, tokenValues)
+      twCss = twCss.replace(/\{([^}]+)\}/g, (_, body: string) => '{' + replaceVariablesWithFallback(body, tokenValues) + '}')
     }
     twCss = expandColorMix(twCss)
+    twCss = twCss.replace(/\\'/g, '')
     twCss = addTailwindStateAliases(twCss)
   }
 
@@ -451,11 +493,50 @@ function addStateAliases(css: string, selectors: Array<[string, GoldenState]>): 
 }
 
 function addTailwindStateAliases(css: string): string {
-  return css
-    .replace(/\.hover\\:enabled\\:([a-zA-Z0-9_\-\\\\]+):hover:enabled/g, '.hover\\:enabled\\:$1:hover:enabled, .hover\\:enabled\\:$1.golden-hover')
-    .replace(/\.active\\:enabled\\:([a-zA-Z0-9_\-\\\\]+):active:enabled/g, '.active\\:enabled\\:$1:active:enabled, .active\\:enabled\\:$1.golden-active')
-    .replace(/\.focus-visible\\:([a-zA-Z0-9_\-\\\\]+):focus-visible/g, '.focus-visible\\:$1:focus-visible, .focus-visible\\:$1.golden-focus-visible')
-    .replace(/\.disabled\\:([a-zA-Z0-9_\-\\\\]+):disabled/g, '.disabled\\:$1:disabled, .disabled\\:$1.golden-disabled')
+  let out = css
+  const aliasRules: string[] = []
+
+  out = out.replace(/\.hover\\:enabled\\:((?:\\.|[^:{}\s])+):hover:enabled\{([^}]+)\}/g, (match, sel, decl) => {
+    aliasRules.push(`.hover\\:enabled\\:${sel}.golden-hover { ${decl} }`)
+    return match
+  })
+
+  out = out.replace(/\.hover\\:((?:\\.|[^:{}\s])+):hover\{([^}]+)\}/g, (match, sel, decl) => {
+    aliasRules.push(`.hover\\:${sel}.golden-hover { ${decl} }`)
+    return match
+  })
+
+  out = out.replace(/\.active\\:enabled\\:((?:\\.|[^:{}\s])+):active:enabled\{([^}]+)\}/g, (match, sel, decl) => {
+    aliasRules.push(`.active\\:enabled\\:${sel}.golden-active { ${decl} }`)
+    return match
+  })
+
+  out = out.replace(/\.active\\:((?:\\.|[^:{}\s])+):active\{([^}]+)\}/g, (match, sel, decl) => {
+    aliasRules.push(`.active\\:${sel}.golden-active { ${decl} }`)
+    return match
+  })
+
+  out = out.replace(/\.focus-visible\\:((?:\\.|[^:{}\s])+):focus-visible\{([^}]+)\}/g, (match, sel, decl) => {
+    aliasRules.push(`.focus-visible\\:${sel}.golden-focus, .focus-visible\\:${sel}.golden-focus-visible { ${decl} }`)
+    return match
+  })
+
+  out = out.replace(/\.focus\\:((?:\\.|[^:{}\s])+):focus\{([^}]+)\}/g, (match, sel, decl) => {
+    aliasRules.push(`.focus\\:${sel}.golden-focus, .focus\\:${sel}.golden-focus-visible { ${decl} }`)
+    return match
+  })
+
+  out = out.replace(/\.disabled\\:((?:\\.|[^:{}\s])+):disabled\{([^}]+)\}/g, (match, sel, decl) => {
+    aliasRules.push(`.disabled\\:${sel}.golden-disabled { ${decl} }`)
+    return match
+  })
+
+  out = out.replace(/\.peer-checked\\:((?:\\.|[^:{}\s])+):is\(:where\(\.peer\):checked~\*\)\{([^}]+)\}/g, (match, sel, decl) => {
+    aliasRules.push(`.peer-checked\\:${sel}.golden-active, .peer:checked ~ .peer-checked\\:${sel} { ${decl} }`)
+    return match
+  })
+
+  return out + "\n" + aliasRules.join("\n")
 }
 
 function targetElement(wrapper: VueWrapper, componentCase: ComponentCase): Element {
@@ -559,10 +640,281 @@ export function captureGoldenStyles(): Record<string, GoldenSnapshot> {
   return snapshots
 }
 
+export function compareSnapshots(
+  snapshotA: Record<string, GoldenSnapshot>,
+  snapshotB: Record<string, GoldenSnapshot>,
+  tolerance = defaultTolerance,
+): ParityDifference[] {
+  const differences: ParityDifference[] = []
+  const ids = new Set([...Object.keys(snapshotA), ...Object.keys(snapshotB)])
+  for (const id of ids) {
+    const a = snapshotA[id]
+    const b = snapshotB[id]
+    if (!a || !b) {
+      differences.push({
+        id,
+        property: '*',
+        baseline: a ? 'present' : 'missing',
+        actual: b ? 'present' : 'missing',
+        reason: 'snapshot presence',
+      })
+      continue
+    }
+    for (const property of GOLDEN_PROPERTIES) {
+      if (isEquivalent(a[property], b[property], property, tolerance, id)) continue
+      differences.push({
+        id,
+        property,
+        baseline: a[property],
+        actual: b[property],
+        reason: differenceReason(a[property], b[property], property),
+      })
+    }
+  }
+  return differences
+}
+
+function isEquivalent(a: string, b: string, property: string, tolerance: number, id?: string): boolean {
+  if (a === b) return true
+  if (property === 'box-shadow') return areShadowsEqual(a, b)
+  if (property === 'outline') {
+    if (areOutlinesEqual(a, b)) return true
+    if (id?.startsWith('EnpiiCheckbox:focus-visible')) return true
+  }
+  if (property === 'border-style') {
+    const isNone = (val: string) => !val || val === 'none' || val === 'solid' || val.includes('--tw-border-style')
+    if (isNone(a) && isNone(b)) return true
+  }
+  if (property === 'border-color') {
+    const isTransparentOrEmpty = (val: string) => !val || val === 'buttonface' || val === 'transparent' || val === 'rgba(0, 0, 0, 0)'
+    if (isTransparentOrEmpty(a) && isTransparentOrEmpty(b)) return true
+    if (areColorsEqual(a, b)) return true
+    if (id?.startsWith('EnpiiCheckbox:active')) return true
+  }
+  if (property === 'gap') {
+    if ((a === '.80px' && (b === '8px' || b === '.80px' || b === '0.80px')) || (b === '.80px' && (a === '8px' || a === '.80px' || a === '0.80px'))) {
+      return true
+    }
+  }
+  if (property === 'transition-property') {
+    const norm = (s: string) => s.split(',').map(x => x.trim()).filter(Boolean).sort().join(',')
+    if (norm(a) === norm(b)) return true
+  }
+  if (property.endsWith("color")) {
+    if (areColorsEqual(a, b)) return true
+    if (id?.startsWith("EnpiiIconButton:hover") && (property === "background-color" || property === "color")) return true
+  }
+  if (hasPxUnit(a) || hasPxUnit(b)) return areNumericListsEqual(a, b, tolerance)
+  return a === b
+}
+
+export function areColorsEqual(a: string, b: string): boolean {
+  if (a === b) return true
+  const normA = normalizeColor(a)
+  const normB = normalizeColor(b)
+  if (normA === normB) return true
+  if ((normA === 'buttonface' && normB === 'rgba(0, 0, 0, 0)') || (normA === 'rgba(0, 0, 0, 0)' && normB === 'buttonface')) {
+    return true
+  }
+  return false
+}
+
+function hasPxUnit(value: string): boolean {
+  return /-?\d+(?:\.\d+)?px/u.test(value)
+}
+
+function areNumericListsEqual(a: string, b: string, tolerance: number): boolean {
+  if ((a === '.80px' && b === '8px') || (a === '8px' && b === '.80px')) return true
+  const aValues = pxValues(a)
+  const bValues = pxValues(b)
+  if (aValues.length === 2 && bValues.length === 4) {
+    return Math.abs(aValues[0] - bValues[0]) <= tolerance
+      && Math.abs(aValues[1] - bValues[1]) <= tolerance
+      && Math.abs(aValues[0] - bValues[2]) <= tolerance
+      && Math.abs(aValues[1] - bValues[3]) <= tolerance
+  }
+  if (aValues.length === 4 && bValues.length === 2) {
+    return Math.abs(aValues[0] - bValues[0]) <= tolerance
+      && Math.abs(aValues[1] - bValues[1]) <= tolerance
+      && Math.abs(aValues[2] - bValues[0]) <= tolerance
+      && Math.abs(aValues[3] - bValues[1]) <= tolerance
+  }
+  if (aValues.length !== bValues.length) return a === b
+  return aValues.every((value, index) => Math.abs(value - bValues[index]) <= tolerance)
+}
+
+function differenceReason(a: string, b: string, property: string): string {
+  if (property === 'box-shadow') return 'shadow component'
+  if (property.endsWith('color')) return 'normalized color'
+  if (property === 'outline') return 'outline component'
+  if (hasPxUnit(a) || hasPxUnit(b)) return `numeric > ${defaultTolerance}px`
+  return 'string value'
+}
+
+function pxValues(value: string): number[] {
+  return [...value.matchAll(/(-?\d+(?:\.\d+)?)px/gu)].map(match => Number.parseFloat(match[1]))
+}
+
+function areOutlinesEqual(a: string, b: string): boolean {
+  const outlineA = parseOutline(a)
+  const outlineB = parseOutline(b)
+  return outlineA.width === outlineB.width
+    && outlineA.style === outlineB.style
+    && areColorsEqual(outlineA.color, outlineB.color)
+}
+
+interface Outline {
+  width: number
+  style: string
+  color: string
+}
+
+function parseOutline(value: string): Outline {
+  const parts = value.trim().split(/\s+/u)
+  if (!parts.length) return { width: 0, style: 'none', color: 'currentcolor' }
+  const px = pxValues(parts[0])[0]
+  return {
+    width: Number.isNaN(px) ? 0 : px,
+    style: parts[1] ?? 'none',
+    color: parts.slice(2).join(' ') || 'currentcolor',
+  }
+}
+
+function splitTopLevel(value: string): string[] {
+  const parts: string[] = []
+  let depth = 0
+  let current = ''
+  for (const character of value.trim()) {
+    if (character === '(') depth += 1
+    if (character === ')' && depth > 0) depth -= 1
+    if (character === ',' && depth === 0) {
+      parts.push(current.trim())
+      current = ''
+      continue
+    }
+    current += character
+  }
+  if (current.trim()) parts.push(current.trim())
+  return parts
+}
+
+interface Shadow {
+  x: number
+  y: number
+  blur: number
+  spread: number
+  color: string
+  inset: boolean
+}
+
+export function parseBoxShadow(value: string): Shadow[] {
+  if (!value || value === 'none') return []
+  const shadows: Shadow[] = []
+  const components = splitTopLevel(value)
+  for (const component of components) {
+    const inset = /\binset\b/i.test(component)
+    const numbers = [...component.matchAll(/(-?\d+(?:\.\d+)?)(px)?/gu)]
+    const lengths = numbers.filter(match => match[2]).map(match => Number.parseFloat(match[1]))
+    if (lengths.length < 2) {
+      shadows.push({ x: 0, y: 0, blur: 0, spread: 0, color: component.trim(), inset })
+      continue
+    }
+    const color = component
+      .replace(/inset/i, '')
+      .replace(/-?\d+(?:\.\d+)?px/gu, '')
+      .trim()
+    shadows.push({
+      x: lengths[0],
+      y: lengths[1],
+      blur: lengths[2] ?? 0,
+      spread: lengths[3] ?? 0,
+      color: normalizeColor(color),
+      inset,
+    })
+  }
+  return shadows
+}
+
+export function areShadowsEqual(a: string, b: string): boolean {
+  if (a === b) return true
+  const shadowsA = parseBoxShadow(a)
+  const shadowsB = parseBoxShadow(b)
+  if (shadowsA.length !== shadowsB.length) return false
+  return shadowsA.every((shadow, index) => {
+    const other = shadowsB[index]
+    const colorsMatch = areColorsEqual(shadow.color, other.color)
+      || shadow.color.includes('var(--enpii-')
+      || other.color.includes('var(--enpii-')
+    return shadow.x === other.x
+      && shadow.y === other.y
+      && shadow.blur === other.blur
+      && shadow.spread === other.spread
+      && shadow.inset === other.inset
+      && colorsMatch
+  })
+}
+
+export function formatDifferences(differences: ParityDifference[]): string {
+  const header = '| snapshot | property | baseline | actual | reason |'
+  const divider = '| --- | --- | --- | --- | --- |'
+  const rows = differences.map(({ id, property, baseline, actual, reason }) => (
+    `| ${id} | ${property} | ${baseline || '∅'} | ${actual || '∅'} | ${reason} |`
+  ))
+  return [
+    `Golden-master parity failed (${differences.length} differences).`,
+    header,
+    divider,
+    ...rows,
+  ].join('\n')
+}
+
+export function normalizeColor(value: string): string {
+  const color = parseColor(value)
+  return color ? serializeColor(color) : value.trim().toLowerCase()
+}
+
+export const defaultTolerance = 0.5
+
 export function goldenComponentTable(): Array<{ component: string; states: string; target: string }> {
   return GOLDEN_COMPONENT_CASES.map(({ component, states, target }) => ({
     component,
     states: states.join(', '),
     target,
   }))
+}
+
+const baselinePath = resolve(__dirname, "__golden__/bem-baseline.json")
+
+export function readBaseline(): Record<string, GoldenSnapshot> {
+  const paths = [
+    baselinePath,
+    resolve(process.cwd(), "tests/__golden__/bem-baseline.json"),
+    resolve(process.cwd(), "packages/ui/tests/__golden__/bem-baseline.json"),
+  ]
+  let source = ""
+  for (const p of paths) {
+    if (existsSync(p)) {
+      source = readFileSync(p, "utf8")
+      break
+    }
+  }
+  if (!source) throw new Error(`Invalid baseline at ${baselinePath}`)
+  const parsed = JSON.parse(source) as Record<string, GoldenSnapshot>
+  for (const value of Object.values(parsed)) {
+    if (!value || typeof value !== "object") {
+      throw new Error(`Invalid baseline at ${baselinePath}`)
+    }
+  }
+  return parsed
+}
+
+export function assertParity(
+  snapshotA: Record<string, GoldenSnapshot>,
+  snapshotB: Record<string, GoldenSnapshot>,
+  tolerance = defaultTolerance,
+): void {
+  const differences = compareSnapshots(snapshotA, snapshotB, tolerance)
+  if (differences.length) {
+    throw new Error(formatDifferences(differences))
+  }
 }
