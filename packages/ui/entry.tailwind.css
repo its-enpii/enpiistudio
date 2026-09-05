@@ -68,11 +68,20 @@
   --spacing-control-height-sm: var(--enpii-control-height-sm);
   --spacing-control-block: var(--enpii-space-control-block);
   --spacing-control-inline: var(--enpii-space-control-inline);
+  --spacing-field-gap: var(--enpii-space-field-gap);
   --text-control: var(--enpii-control-font-size);
   --font-sans: var(--enpii-font-sans);
+  --duration-normal: var(--enpii-duration-normal);
   --ease-emphasized: var(--enpii-ease-emphasized);
+  --ease-standard: var(--enpii-ease-standard);
+  --ease-decelerate: var(--enpii-ease-decelerate);
+  --ease-accelerate: var(--enpii-ease-accelerate);
   --duration-fast: var(--enpii-duration-fast);
   --duration-base: var(--enpii-duration-base);
+  --z-index-raised: var(--enpii-z-raised);
+  --z-index-modal: var(--enpii-z-modal);
+  --shadow-overlay: var(--enpii-shadow-overlay);
+  --shadow-lg: var(--enpii-shadow-lg);
   --border-width-3: 3px;
   --color-spinner-track-primary: var(--enpii-spinner-track-primary);
   --color-spinner-track-neutral: var(--enpii-spinner-track-neutral);
@@ -83,9 +92,6 @@
   --color-badge-primary-soft: var(--enpii-badge-bg-primary-soft);
 }
 
-@utility rounded-full {
-  border-radius: 50%;
-}
 @utility control {
   height: var(--enpii-control-height);
 }

@@ -14,11 +14,15 @@ const twCss = readFileSync(resolve(__dirname, '../entry.tailwind.css'), 'utf8')
 const inputVue = readFileSync(resolve(__dirname, '../src/components/EnpiiInput.vue'), 'utf8')
 const currencyVue = readFileSync(resolve(__dirname, '../src/components/EnpiiCurrencyInput.vue'), 'utf8')
 const inputMaskVue = readFileSync(resolve(__dirname, '../src/components/EnpiiInputMask.vue'), 'utf8')
+const smartSelectVue = readFileSync(resolve(__dirname, '../src/components/EnpiiSmartSelect.vue'), 'utf8')
+const datePickerVue = readFileSync(resolve(__dirname, '../src/components/EnpiiDatePicker.vue'), 'utf8')
 
 const vueMinH: Record<string, string> = {
   '.enpii-input__control': inputVue,
   '.enpii-currency-input__control': currencyVue,
   '.enpii-input-mask__control': inputMaskVue,
+  '.enpii-smart-select__trigger': smartSelectVue,
+  '.enpii-date-picker__control': datePickerVue,
 }
 
 function readRule(selector: string) {
