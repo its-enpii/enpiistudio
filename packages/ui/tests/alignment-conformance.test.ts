@@ -15,6 +15,11 @@ import { resolve } from 'node:path';
 describe('icon+text alignment conformance (styles/components.css)', () => {
     const css = readFileSync(resolve(__dirname, '../src/styles/components.css'), 'utf8');
     const buttonVue = readFileSync(resolve(__dirname, '../src/components/EnpiiButton.vue'), 'utf8');
+    const switchVue = readFileSync(resolve(__dirname, '../src/components/EnpiiSwitch.vue'), 'utf8');
+    const inputVue = readFileSync(resolve(__dirname, '../src/components/EnpiiInput.vue'), 'utf8');
+    const textareaVue = readFileSync(resolve(__dirname, '../src/components/EnpiiTextarea.vue'), 'utf8');
+    const currencyVue = readFileSync(resolve(__dirname, '../src/components/EnpiiCurrencyInput.vue'), 'utf8');
+    const inputMaskVue = readFileSync(resolve(__dirname, '../src/components/EnpiiInputMask.vue'), 'utf8');
 
     // Rows that are known to host `__icon` next to a label/text.
     const iconRows = [
@@ -42,6 +47,10 @@ describe('icon+text alignment conformance (styles/components.css)', () => {
     ];
 
     it.each(iconRows)('%s vertically centers its content', (selector) => {
+        if (selector.startsWith('.enpii-switch')) {
+            expect(switchVue).toMatch(/items-center/);
+            return;
+        }
         if (selector === '.enpii-button') {
             expect(buttonVue).toMatch(/items-center/);
             return;
@@ -72,6 +81,10 @@ describe('icon+text alignment conformance (styles/components.css)', () => {
 
 describe('field width contract (styles/components.css)', () => {
     const css = readFileSync(resolve(__dirname, "../src/styles/components.css"), "utf8");
+    const inputVue = readFileSync(resolve(__dirname, "../src/components/EnpiiInput.vue"), "utf8");
+    const textareaVue = readFileSync(resolve(__dirname, "../src/components/EnpiiTextarea.vue"), "utf8");
+    const currencyVue = readFileSync(resolve(__dirname, "../src/components/EnpiiCurrencyInput.vue"), "utf8");
+    const inputMaskVue = readFileSync(resolve(__dirname, "../src/components/EnpiiInputMask.vue"), "utf8");
 
     const fieldSelectors = [
         ".enpii-input",
@@ -84,6 +97,11 @@ describe('field width contract (styles/components.css)', () => {
     ];
 
     it.each(fieldSelectors)("%s declares width: 100%", (selector) => {
+        const vueMap: Record<string, string> = { '.enpii-input': inputVue, '.enpii-textarea': textareaVue, '.enpii-currency-input': currencyVue, '.enpii-input-mask': inputMaskVue };
+        if (vueMap[selector]) {
+            expect(vueMap[selector], `${selector} must declare w-full in its template (Tailwind rewrite)`).toMatch(/w-full/);
+            return;
+        }
         const rule = css.match(new RegExp(`${selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\{[^}]*\\}`));
         expect(rule, `rule for ${selector} must exist in components.css`).toBeTruthy();
         expect(rule![0]).toMatch(/width:\s*100%/);

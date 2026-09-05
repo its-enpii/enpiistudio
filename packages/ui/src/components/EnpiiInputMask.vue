@@ -37,6 +37,18 @@ const draftDisplay = ref(formatMask(String(model.value ?? ''), props.showMask))
 const inputPlaceholder = computed(() => activeMask.value.replace(/9|a|\*/g, props.placeholderChar))
 const isComplete = computed(() => activeMask.value.length > 0 && draftDisplay.value.length >= activeMask.value.length)
 
+const shapeUtility = computed(() => {
+    if (props.shape === 'pill') return 'rounded-full';
+    if (props.shape === 'sharp') return 'rounded-none';
+    return 'rounded-control';
+});
+
+const controlStateClass = computed(() => {
+    if (props.disabled) return 'opacity-60 cursor-not-allowed';
+    if (props.error) return 'border-danger-border';
+    return 'border-outline-variant';
+});
+
 function extractRaw(value) {
     let output = ''
     let valueIndex = 0
@@ -104,9 +116,9 @@ watch(() => model.value, (value) => {
 </script>
 
 <template>
-    <div class="enpii-input-mask" :class="[shapeClass, { 'enpii-input-mask--error': Boolean(error) }]">
-        <label :for="inputId" class="enpii-input-mask__label">{{ label }}</label>
-        <div class="enpii-input-mask__control-wrap">
+    <div class="enpii-input-mask w-full grid gap-[var(--enpii-space-field-gap)]" :class="[shapeClass, { 'enpii-input-mask--error': Boolean(error) }]">
+        <label :for="inputId" class="enpii-input-mask__label text-on-surface-variant text-sm font-medium">{{ label }}</label>
+        <div class="enpii-input-mask__control-wrap relative">
             <input
                 :id="inputId"
                 ref="input"
@@ -119,13 +131,14 @@ watch(() => model.value, (value) => {
                 :inputmode="inputmode ?? (preset === 'currency' ? 'numeric' : undefined)"
                 :aria-invalid="Boolean(error)"
                 :aria-describedby="error ? `${inputId}-error` : hint ? `${inputId}-hint` : undefined"
-                class="enpii-input-mask__control"
+                class="enpii-input-mask__control w-full min-h-control px-3 py-1 border border-solid bg-surface-container-lowest text-on-surface font-inherit placeholder:text-outline [transition-property:border-color,box-shadow] duration-fast ease-emphasized hover:enabled:border-primary-border focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--enpii-focus-ring)] disabled:opacity-60 disabled:cursor-not-allowed"
+                :class="[shapeClass, shapeUtility, controlStateClass]"
                 @input="onInput"
                 @change="$emit('change', model)"
             >
-            <span v-if="isComplete" class="enpii-input-mask__status" aria-hidden="true">✓</span>
+            <span v-if="isComplete" class="enpii-input-mask__status absolute top-1/2 right-3 text-success-text -translate-y-1/2" aria-hidden="true">✓</span>
         </div>
-        <p v-if="error" :id="`${inputId}-error`" class="enpii-input-mask__help enpii-input-mask__help--error">{{ error }}</p>
-        <p v-else-if="hint || activeMask" class="enpii-input-mask__help">{{ hint || `Format: ${inputPlaceholder}` }}</p>
+        <p v-if="error" :id="`${inputId}-error`" class="enpii-input-mask__help enpii-input-mask__help--error m-0 text-danger-text text-xs">{{ error }}</p>
+        <p v-else-if="hint || activeMask" class="enpii-input-mask__help m-0 text-on-surface-variant text-xs">{{ hint || `Format: ${inputPlaceholder}` }}</p>
     </div>
 </template>
