@@ -16,6 +16,7 @@
     "CHANGELOG.md",
     "dist",
     "README.md",
+    "src",
     "tailwind.preset.js",
     "tailwind.v4.css"
   ],
@@ -30,6 +31,14 @@
     },
     "./styles.css": "./dist/enpii-ui.css",
     "./tokens.css": "./dist/enpii-ui.css",
+    "./config": "./src/config.ts",
+    "./config/node": "./src/config-node.ts",
+    "./vite": {
+      "types": "./dist/vite-plugin/enpii-ui.d.ts",
+      "import": "./dist/vite-plugin/enpii-ui.js"
+    },
+    "./tailwind.css": "./dist/tailwind.css",
+    "./theme/sky/tokens.css": "./src/theme/sky/tokens.css",
     "./tailwind.preset": {
       "import": "./dist/tailwind.preset.js",
       "require": "./dist/tailwind.preset.js"
@@ -44,8 +53,10 @@
   },
   "scripts": {
     "build": "vite build && vue-tsc --emitDeclarationOnly",
+    "build:tailwind": "vite --config vite.config.tailwind.ts build",
     "check": "vue-tsc --noEmit",
-    "test": "vitest run",
+    "test": "vitest run --exclude tests/config-loader.test.ts --exclude tests/tailwind-theme.test.ts",
+    "test:tailwind": "npm run build:tailwind && vitest run tests/tailwind-theme.test.ts tests/config-loader.test.ts --config vitest.config.tailwind.ts && node scripts/tailwind-smoke.mjs",
     "pack:check": "npm pack --dry-run"
   },
   "engines": {
@@ -60,14 +71,16 @@
     "qrcode": "^1.5.4"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/qrcode": "^1.5.6",
     "@vitejs/plugin-vue": "^6.0.0",
     "@vue/test-utils": "^2.4.6",
     "jsdom": "^26.0.0",
+    "tailwindcss": "^4.3.3",
     "typescript": "^5.8.0",
     "vite": "^7.0.0",
     "vitest": "^3.2.0",
     "vue": "^3.5.0",
-    "vue-tsc": "^3.0.0",
-    "@types/qrcode": "^1.5.6"
+    "vue-tsc": "^3.0.0"
   }
 }
