@@ -340,15 +340,15 @@ const triggerIcon = computed(() => props.mode === 'year' ? 'event' : 'calendar_m
 </script>
 
 <template>
-    <div ref="root" class="enpii-date-picker">
-        <label v-if="!hideLabel" :for="inputId" class="enpii-date-picker__label">{{ label }}</label>
+    <div ref="root" class="enpii-date-picker w-full [&>*+*]:mt-field-gap">
+        <label v-if="!hideLabel" :for="inputId" class="enpii-date-picker__label block ml-1 text-on-surface-variant text-[0.8125rem] font-semibold tracking-[0.02em]">{{ label }}</label>
         <label v-else :for="inputId" class="enpii-sr-only">{{ label }}</label>
-        <div class="enpii-date-picker__control-wrap">
+        <div class="enpii-date-picker__control-wrap relative">
             <button
                 :id="inputId"
                 ref="trigger"
                 type="button"
-                class="enpii-date-picker__control"
+                class="enpii-date-picker__control flex w-full h-auto min-h-control items-center px-4 border border-solid border-outline-variant rounded-control bg-surface-container-lowest text-primary font-sans text-control text-left [transition-property:all] duration-fast ease-emphasized hover:enabled:[border-color:color-mix(in_srgb,var(--enpii-color-primary)_40%,transparent)] active:enabled:scale-[0.99] focus:outline-none focus-visible:outline-none focus:border-primary-container focus-visible:border-primary-container focus:[box-shadow:var(--enpii-focus-ring)] focus-visible:[box-shadow:var(--enpii-focus-ring)] disabled:opacity-60 disabled:cursor-not-allowed"
                 :class="[shapeClass, { 'enpii-date-picker__control--error': Boolean(error) }]"
                 :disabled="disabled"
                 :aria-expanded="open"
@@ -358,11 +358,10 @@ const triggerIcon = computed(() => props.mode === 'year' ? 'event' : 'calendar_m
                 @click="open ? closeCalendar() : openCalendar()"
                 @keydown.esc="closeCalendar(true)"
             >
-                <AppIcon v-if="icon" :name="icon" class="enpii-date-picker__icon" />
-                <span class="enpii-date-picker__value"
+                <AppIcon v-if="icon" :name="icon" class="enpii-date-picker__icon absolute left-4 w-5 h-5 text-outline pointer-events-none text-xl leading-none" />
+                <span class="enpii-date-picker__value overflow-hidden text-ellipsis whitespace-nowrap pl-10 flex-1"
                       :class="{ 'enpii-date-picker__value--placeholder': !displayValue }">{{ displayValue || (placeholder ?? t('datePicker.selectPlaceholder', { label: label.toLowerCase() })) }}</span>
-                <AppIcon :name="triggerIcon" class="enpii-date-picker__chevron"
-                      :class="{ 'enpii-date-picker__chevron--open': open }" />
+                <AppIcon :name="triggerIcon" class="enpii-date-picker__chevron absolute top-1/2 right-4 w-5 h-5 -translate-y-1/2 text-outline text-xl leading-none transition-[transform,color] duration-base ease-emphasized" :class="{ 'enpii-date-picker__chevron--open -translate-y-1/2 scale-110 text-primary-text': open }" />
             </button>
 
             <Teleport to="body">
@@ -374,61 +373,61 @@ const triggerIcon = computed(() => props.mode === 'year' ? 'event' : 'calendar_m
                         role="dialog"
                         aria-modal="false"
                         :aria-label="t('datePicker.selectPlaceholder', { label: label.toLowerCase() })"
-                        class="enpii-date-picker__popup"
+                        class="enpii-date-picker__popup min-w-[18rem] p-3 border border-solid border-outline-variant rounded-control bg-surface-container-lowest shadow-overlay select-none origin-top"
                         :class="[
                             { 'enpii-date-picker__popup--above': placeAbove },
-                            placeAbove ? 'enpii-date-picker__popup--above-origin' : 'enpii-date-picker__popup--below-origin',
+                            placeAbove ? 'enpii-date-picker__popup--above-origin origin-bottom' : 'enpii-date-picker__popup--below-origin',
                         ]"
                         :style="popupStyle"
                         @keydown="onCalendarKeydown"
                     >
-                        <div class="enpii-date-picker__header">
-                            <div class="enpii-date-picker__nav-group">
-                                <button type="button" class="enpii-date-picker__nav-button" :aria-label="t('datePicker.previousYear')" @click="moveView(0, -1)"><AppIcon name="keyboard_double_arrow_left" class="enpii-date-picker__nav-icon" /></button>
-                                <button type="button" class="enpii-date-picker__nav-button" :aria-label="t('datePicker.previousMonth')" @click="moveView(-1)"><AppIcon name="chevron_left" class="enpii-date-picker__nav-icon" /></button>
+                        <div class="enpii-date-picker__header flex items-center justify-between gap-1 mb-3">
+                            <div class="enpii-date-picker__nav-group flex items-center gap-1">
+                                <button type="button" class="enpii-date-picker__nav-button grid place-items-center w-8 h-8 p-1 border-0 rounded-lg bg-transparent text-outline cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:bg-surface-container-low hover:text-primary-text active:scale-90 focus-visible:outline-none focus-visible:[box-shadow:0_0_0_3px_color-mix(in_srgb,var(--enpii-color-primary-container)_30%,transparent)]" :aria-label="t('datePicker.previousYear')" @click="moveView(0, -1)"><AppIcon name="keyboard_double_arrow_left" class="enpii-date-picker__nav-icon w-5 h-5 text-xl leading-none" /></button>
+                                <button type="button" class="enpii-date-picker__nav-button grid place-items-center w-8 h-8 p-1 border-0 rounded-lg bg-transparent text-outline cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:bg-surface-container-low hover:text-primary-text active:scale-90 focus-visible:outline-none focus-visible:[box-shadow:0_0_0_3px_color-mix(in_srgb,var(--enpii-color-primary-container)_30%,transparent)]" :aria-label="t('datePicker.previousMonth')" @click="moveView(-1)"><AppIcon name="chevron_left" class="enpii-date-picker__nav-icon w-5 h-5 text-xl leading-none" /></button>
                             </div>
-                            <p class="enpii-date-picker__header-title" aria-live="polite">{{ mode === 'year' ? yearRangeLabel : monthLabel }}</p>
-                            <div class="enpii-date-picker__nav-group">
-                                <button type="button" class="enpii-date-picker__nav-button" :aria-label="t('datePicker.nextMonth')" @click="moveView(1)"><AppIcon name="chevron_right" class="enpii-date-picker__nav-icon" /></button>
-                                <button type="button" class="enpii-date-picker__nav-button" :aria-label="t('datePicker.nextYear')" @click="moveView(0, 1)"><AppIcon name="keyboard_double_arrow_right" class="enpii-date-picker__nav-icon" /></button>
+                            <p class="enpii-date-picker__header-title m-0 text-primary-text text-sm font-semibold capitalize" aria-live="polite">{{ mode === 'year' ? yearRangeLabel : monthLabel }}</p>
+                            <div class="enpii-date-picker__nav-group flex items-center gap-1">
+                                <button type="button" class="enpii-date-picker__nav-button grid place-items-center w-8 h-8 p-1 border-0 rounded-lg bg-transparent text-outline cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:bg-surface-container-low hover:text-primary-text active:scale-90 focus-visible:outline-none focus-visible:[box-shadow:0_0_0_3px_color-mix(in_srgb,var(--enpii-color-primary-container)_30%,transparent)]" :aria-label="t('datePicker.nextMonth')" @click="moveView(1)"><AppIcon name="chevron_right" class="enpii-date-picker__nav-icon w-5 h-5 text-xl leading-none" /></button>
+                                <button type="button" class="enpii-date-picker__nav-button grid place-items-center w-8 h-8 p-1 border-0 rounded-lg bg-transparent text-outline cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:bg-surface-container-low hover:text-primary-text active:scale-90 focus-visible:outline-none focus-visible:[box-shadow:0_0_0_3px_color-mix(in_srgb,var(--enpii-color-primary-container)_30%,transparent)]" :aria-label="t('datePicker.nextYear')" @click="moveView(0, 1)"><AppIcon name="keyboard_double_arrow_right" class="enpii-date-picker__nav-icon w-5 h-5 text-xl leading-none" /></button>
                             </div>
                         </div>
 
                         <Transition name="calendar-view" mode="out-in">
                             <div v-if="mode === 'date'" key="view-date" role="grid" :aria-label="monthLabel">
-                                <div role="row" class="enpii-date-picker__weekdays"><span v-for="weekday in weekdays" :key="weekday" role="columnheader" class="enpii-date-picker__weekday">{{ weekday }}</span></div>
-                                <div class="enpii-date-picker__days">
-                                    <button v-for="day in days" :key="day.iso" type="button" role="gridcell" :data-date="day.iso" :tabindex="day.iso === toIso(focusedDate) ? 0 : -1" :aria-selected="day.iso === model" :aria-current="day.iso === today ? 'date' : undefined" :disabled="day.disabled" class="enpii-date-picker__day" :class="{
-                                        'enpii-date-picker__day--selected': day.iso === model,
-                                        'enpii-date-picker__day--today': day.iso !== model && day.iso === today,
-                                        'enpii-date-picker__day--outside': day.currentMonth === false,
+                                <div role="row" class="enpii-date-picker__weekdays grid grid-cols-7 mb-1"><span v-for="weekday in weekdays" :key="weekday" role="columnheader" class="enpii-date-picker__weekday py-1 text-on-surface-variant text-xs font-semibold text-center">{{ weekday }}</span></div>
+                                <div class="enpii-date-picker__days grid grid-cols-7 row-gap-1">
+                                    <button v-for="day in days" :key="day.iso" type="button" role="gridcell" :data-date="day.iso" :tabindex="day.iso === toIso(focusedDate) ? 0 : -1" :aria-selected="day.iso === model" :aria-current="day.iso === today ? 'date' : undefined" :disabled="day.disabled" class="enpii-date-picker__day grid place-items-center w-9 h-9 mx-auto border-0 rounded-[9999px] bg-transparent text-on-surface text-sm cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:enabled:bg-surface-container-low focus-visible:outline-none focus-visible:[box-shadow:0_0_0_3px_color-mix(in_srgb,var(--enpii-color-primary-container)_30%,transparent)] disabled:cursor-not-allowed disabled:opacity-40" :class="{
+                                        'enpii-date-picker__day--selected !bg-primary !text-on-primary font-semibold': day.iso === model,
+                                        'enpii-date-picker__day--today bg-secondary-container text-secondary font-semibold': day.iso !== model && day.iso === today,
+                                        'enpii-date-picker__day--outside text-outline': day.currentMonth === false,
                                     }" @click="choose(day)">{{ day.day }}</button>
                                 </div>
                             </div>
 
                             <div v-else-if="mode === 'month'" key="view-month" role="grid" :aria-label="monthLabel">
-                                <div class="enpii-date-picker__cells">
-                                    <button v-for="item in months" :key="item.value" type="button" role="gridcell" :aria-selected="item.isSelected" class="enpii-date-picker__cell" :class="{ 'enpii-date-picker__cell--selected': item.isSelected, 'enpii-date-picker__cell--current': !item.isSelected && item.isCurrent }" @click="chooseMonth(item)">{{ item.label }}</button>
+                                <div class="enpii-date-picker__cells grid grid-cols-3 gap-2">
+                                    <button v-for="item in months" :key="item.value" type="button" role="gridcell" :aria-selected="item.isSelected" class="enpii-date-picker__cell py-3 px-3 border-0 rounded-lg bg-transparent text-on-surface text-sm font-semibold cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:bg-surface-container-low focus-visible:outline-none focus-visible:[box-shadow:0_0_0_3px_color-mix(in_srgb,var(--enpii-color-primary-container)_30%,transparent)] active:scale-95" :class="{ 'enpii-date-picker__cell--selected bg-primary text-on-primary': item.isSelected, 'enpii-date-picker__cell--current bg-secondary-container text-secondary': !item.isSelected && item.isCurrent }" @click="chooseMonth(item)">{{ item.label }}</button>
                                 </div>
                             </div>
 
                             <div v-else key="view-year" role="grid" :aria-label="yearLabel">
-                                <div class="enpii-date-picker__cells">
-                                    <button v-for="year in yearColumn" :key="year.value" type="button" role="gridcell" :aria-selected="year.isSelected" class="enpii-date-picker__cell" :class="{ 'enpii-date-picker__cell--selected': year.isSelected, 'enpii-date-picker__cell--current': !year.isSelected && year.isCurrent }" @click="chooseYear(year)">{{ year.label }}</button>
+                                <div class="enpii-date-picker__cells grid grid-cols-3 gap-2">
+                                    <button v-for="year in yearColumn" :key="year.value" type="button" role="gridcell" :aria-selected="year.isSelected" class="enpii-date-picker__cell py-3 px-3 border-0 rounded-lg bg-transparent text-on-surface text-sm font-semibold cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:bg-surface-container-low focus-visible:outline-none focus-visible:[box-shadow:0_0_0_3px_color-mix(in_srgb,var(--enpii-color-primary-container)_30%,transparent)] active:scale-95" :class="{ 'enpii-date-picker__cell--selected bg-primary text-on-primary': year.isSelected, 'enpii-date-picker__cell--current bg-secondary-container text-secondary': !year.isSelected && year.isCurrent }" @click="chooseYear(year)">{{ year.label }}</button>
                                 </div>
                             </div>
                         </Transition>
 
-                        <div class="enpii-date-picker__footer">
-                            <button v-if="clearable && model" type="button" class="enpii-date-picker__footer-button enpii-date-picker__footer-button--clear" @click="clear">{{ t('datePicker.clear') }}</button>
-                            <span v-else class="enpii-date-picker__footer-spacer" />
-                            <button type="button" class="enpii-date-picker__footer-button" @click="selectToday">{{ todayActionLabel }}</button>
+                        <div class="enpii-date-picker__footer flex items-center justify-between mt-3 pt-3 border-t border-solid border-outline-variant text-sm font-semibold">
+                            <button v-if="clearable && model" type="button" class="enpii-date-picker__footer-button enpii-date-picker__footer-button--clear py-2 px-3 border-0 rounded-lg bg-transparent text-danger-text cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:bg-error-container active:scale-95" @click="clear">{{ t('datePicker.clear') }}</button>
+                            <span v-else class="enpii-date-picker__footer-spacer w-16" />
+                            <button type="button" class="enpii-date-picker__footer-button py-2 px-3 border-0 rounded-lg bg-transparent text-primary-text cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:bg-surface-container-low active:scale-95" @click="selectToday">{{ todayActionLabel }}</button>
                         </div>
                     </div>
                 </Transition>
             </Teleport>
         </div>
-        <p v-if="error" :id="`${inputId}-error`" class="enpii-date-picker__help enpii-date-picker__help--error">{{ error }}</p>
-        <p v-else-if="hint" :id="`${inputId}-hint`" class="enpii-date-picker__help">{{ hint }}</p>
+        <p v-if="error" :id="`${inputId}-error`" class="enpii-date-picker__help enpii-date-picker__help--error ml-1 text-danger-text text-[0.8125rem]">{{ error }}</p>
+        <p v-else-if="hint" :id="`${inputId}-hint`" class="enpii-date-picker__help ml-1 text-on-surface-variant text-[0.8125rem]">{{ hint }}</p>
     </div>
 </template>

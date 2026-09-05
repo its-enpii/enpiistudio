@@ -20,6 +20,7 @@ describe('icon+text alignment conformance (styles/components.css)', () => {
     const textareaVue = readFileSync(resolve(__dirname, '../src/components/EnpiiTextarea.vue'), 'utf8');
     const currencyVue = readFileSync(resolve(__dirname, '../src/components/EnpiiCurrencyInput.vue'), 'utf8');
     const inputMaskVue = readFileSync(resolve(__dirname, '../src/components/EnpiiInputMask.vue'), 'utf8');
+    const confirmDialogVue = readFileSync(resolve(__dirname, '../src/components/EnpiiConfirmDialog.vue'), 'utf8');
 
     // Rows that are known to host `__icon` next to a label/text.
     const iconRows = [
@@ -55,6 +56,10 @@ describe('icon+text alignment conformance (styles/components.css)', () => {
             expect(buttonVue).toMatch(/items-center/);
             return;
         }
+        if (selector === '.enpii-confirm-dialog') {
+            expect(confirmDialogVue).toMatch(/items-center/);
+            return;
+        }
         const rule = css.match(new RegExp(`${selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\{[^}]*\\}`));
         expect(rule, `rule for ${selector} must exist in components.css`).toBeTruthy();
         const body = rule![0];
@@ -85,6 +90,8 @@ describe('field width contract (styles/components.css)', () => {
     const textareaVue = readFileSync(resolve(__dirname, "../src/components/EnpiiTextarea.vue"), "utf8");
     const currencyVue = readFileSync(resolve(__dirname, "../src/components/EnpiiCurrencyInput.vue"), "utf8");
     const inputMaskVue = readFileSync(resolve(__dirname, "../src/components/EnpiiInputMask.vue"), "utf8");
+    const smartSelectVue = readFileSync(resolve(__dirname, "../src/components/EnpiiSmartSelect.vue"), "utf8");
+    const datePickerVue = readFileSync(resolve(__dirname, "../src/components/EnpiiDatePicker.vue"), "utf8");
 
     const fieldSelectors = [
         ".enpii-input",
@@ -97,7 +104,7 @@ describe('field width contract (styles/components.css)', () => {
     ];
 
     it.each(fieldSelectors)("%s declares width: 100%", (selector) => {
-        const vueMap: Record<string, string> = { '.enpii-input': inputVue, '.enpii-textarea': textareaVue, '.enpii-currency-input': currencyVue, '.enpii-input-mask': inputMaskVue };
+        const vueMap: Record<string, string> = { '.enpii-input': inputVue, '.enpii-textarea': textareaVue, '.enpii-currency-input': currencyVue, '.enpii-input-mask': inputMaskVue, '.enpii-smart-select': smartSelectVue, '.enpii-date-picker': datePickerVue };
         if (vueMap[selector]) {
             expect(vueMap[selector], `${selector} must declare w-full in its template (Tailwind rewrite)`).toMatch(/w-full/);
             return;
