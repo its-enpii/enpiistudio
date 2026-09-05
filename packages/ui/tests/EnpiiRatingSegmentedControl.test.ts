@@ -78,4 +78,22 @@ describe('EnpiiSegmentedControl', () => {
     expect(wrapper.emitted('update:modelValue')?.at(-1)).toEqual(['day'])
     expect(radios[2].attributes('tabindex')).toBe('-1')
   })
+
+  it('supports inline modifier prop and backward-compatible block prop', () => {
+    const defaultWrapper = mount(EnpiiSegmentedControl, {
+      props: { options: segmentedOptions, modelValue: 'day' },
+    })
+    expect(defaultWrapper.classes()).toContain('enpii-segmented-control')
+    expect(defaultWrapper.classes()).not.toContain('enpii-segmented-control--inline')
+
+    const inlineWrapper = mount(EnpiiSegmentedControl, {
+      props: { options: segmentedOptions, modelValue: 'day', inline: true },
+    })
+    expect(inlineWrapper.classes()).toContain('enpii-segmented-control--inline')
+
+    const blockWrapper = mount(EnpiiSegmentedControl, {
+      props: { options: segmentedOptions, modelValue: 'day', block: true },
+    })
+    expect(blockWrapper.classes()).toContain('enpii-segmented-control--block')
+  })
 })

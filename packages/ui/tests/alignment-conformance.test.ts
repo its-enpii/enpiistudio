@@ -63,3 +63,47 @@ describe('icon+text alignment conformance (styles/components.css)', () => {
         }
     });
 });
+
+describe('field width contract (styles/components.css)', () => {
+    const css = readFileSync(resolve(__dirname, "../src/styles/components.css"), "utf8");
+
+    const fieldSelectors = [
+        ".enpii-input",
+        ".enpii-textarea",
+        ".enpii-currency-input",
+        ".enpii-smart-select",
+        ".enpii-date-picker",
+        ".enpii-input-mask",
+        ".enpii-segmented-control",
+    ];
+
+    it.each(fieldSelectors)("%s declares width: 100%", (selector) => {
+        const rule = css.match(new RegExp(`${selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\{[^}]*\\}`));
+        expect(rule, `rule for ${selector} must exist in components.css`).toBeTruthy();
+        expect(rule![0]).toMatch(/width:\s*100%/);
+    });
+
+    it(".enpii-fit-content helper sets width:fit-content and margin-inline:auto", () => {
+        const rule = css.match(/\.enpii-fit-content\{[^}]*\}/);
+        expect(rule, "rule for .enpii-fit-content must exist in components.css").toBeTruthy();
+        expect(rule![0]).toMatch(/width:\s*fit-content/);
+        expect(rule![0]).toMatch(/margin-inline:\s*auto/);
+    });
+
+    it(".enpii-segmented-control--inline sets display:inline-flex and width:max-content", () => {
+        const rule = css.match(/\.enpii-segmented-control--inline\{[^}]*\}/);
+        expect(rule, "rule for .enpii-segmented-control--inline must exist in components.css").toBeTruthy();
+        expect(rule![0]).toMatch(/display:\s*inline-flex/);
+        expect(rule![0]).toMatch(/width:\s*max-content/);
+    });
+
+    it(".enpii-segmented-control__option defaults to flex:1 1 0 and inline modifier resets to flex:0 0 auto", () => {
+        const defaultOptionRule = css.match(/(?:^|\n)\.enpii-segmented-control__option\{[^}]*\}/);
+        expect(defaultOptionRule).toBeTruthy();
+        expect(defaultOptionRule![0]).toMatch(/flex:\s*1 1 0/);
+
+        const inlineOptionRule = css.match(/\.enpii-segmented-control--inline\s+\.enpii-segmented-control__option\{[^}]*\}/);
+        expect(inlineOptionRule).toBeTruthy();
+        expect(inlineOptionRule![0]).toMatch(/flex:\s*0 0 auto/);
+    });
+});
