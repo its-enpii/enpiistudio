@@ -25,16 +25,30 @@ describe('field control height contract (styles/components.css)', () => {
     '.enpii-date-picker__control',
     '.enpii-input__control',
     '.enpii-input-mask__control',
+    '.enpii-segmented-control',
     '.enpii-smart-select__trigger',
     '.enpii-tag-input__control',
   ]
 
   it.each(controlSelectors)('%s uses the base control-height token', (selector) => {
-    expect(readRule(selector)).toMatch(/min-height:\s*var\(--enpii-control-height\)/)
+    expect(readRule(selector)).toMatch(/(min-height|height):\s*var\(--enpii-control-height\)/)
+  })
+
+  it('bounds SegmentedControl to the rendered control-height tokens', () => {
+    const baseRule = readRule('.enpii-segmented-control')
+    expect(baseRule).toMatch(/box-sizing:\s*border-box/)
+    expect(baseRule).toMatch(/height:\s*var\(--enpii-control-height\)/)
+    expect(css).toMatch(
+      /\.enpii-segmented-control__option\{[^}]*align-self:\s*stretch;height:\s*auto/,
+    )
+    expect(readRule('.enpii-segmented-control__indicator')).toMatch(/inset-block:\s*\.25rem/)
   })
 
   it('declares matching small control-height tokens', () => {
     expect(readRule('.enpii-button--sm')).toMatch(/min-height:\s*var\(--enpii-control-height-sm\)/)
+    expect(readRule('.enpii-segmented-control--sm')).toMatch(
+      /height:\s*var\(--enpii-control-height-sm\)/,
+    )
   })
 
   it('mounts the default one-row controls covered by the base height contract', () => {
