@@ -5,15 +5,21 @@ import {
   EnpiiAvatar,
   EnpiiBadge,
   EnpiiBreadcrumb,
+  EnpiiCurrencyInput,
+  EnpiiDatePicker,
   EnpiiDrawer,
   EnpiiFooter,
+  EnpiiInput,
+  EnpiiInputMask,
   EnpiiNavbar,
   EnpiiPagination,
   EnpiiRange,
   EnpiiSidebar,
   EnpiiSkeleton,
+  EnpiiSmartSelect,
   EnpiiSpinner,
   EnpiiStepper,
+  EnpiiTextarea,
 } from '../src'
 
 import EnpiiProgressDirect from '../src/components/EnpiiProgress.vue'
@@ -154,6 +160,26 @@ describe('form and feedback components', () => {
     const wrapper = mount(EnpiiSkeleton, { props: { variant: 'rectangle', repeat: 3 } })
     expect(wrapper.findAll('.enpii-skeleton__item')).toHaveLength(3)
     expect(getComputedStyle(document.documentElement).getPropertyValue('animation')).toBeDefined()
+  })
+
+  it('renders field components with root BEM classes conforming to full-width contract', () => {
+    const input = mount(EnpiiInput, { props: { label: 'Name' } })
+    expect(input.classes()).toContain('enpii-input')
+
+    const textarea = mount(EnpiiTextarea, { props: { label: 'Bio' } })
+    expect(textarea.classes()).toContain('enpii-textarea')
+
+    const currency = mount(EnpiiCurrencyInput, { props: { label: 'Amount' } })
+    expect(currency.classes()).toContain('enpii-currency-input')
+
+    const select = mount(EnpiiSmartSelect, { props: { label: 'Role', options: [{ value: 'admin', label: 'Admin' }] } })
+    expect(select.classes()).toContain('enpii-smart-select')
+
+    const date = mount(EnpiiDatePicker, { props: { label: 'Birthdate' } })
+    expect(date.classes()).toContain('enpii-date-picker')
+
+    const mask = mount(EnpiiInputMask, { props: { label: 'Phone', mask: '####-####' } })
+    expect(mask.classes()).toContain('enpii-input-mask')
   })
 })
 

@@ -13,6 +13,7 @@ const props = defineProps({
         validator: (value) => ['sm', 'md', 'lg'].includes(value),
     },
     block: { type: Boolean, default: false },
+    inline: { type: Boolean, default: false },
 });
 
 const model = defineModel({ type: [String, Number], default: '' });
@@ -81,7 +82,7 @@ function onKeydown(event) {
     <div
         v-bind="$attrs"
         class="enpii-segmented-control"
-        :class="[`enpii-segmented-control--${size}`, { 'enpii-segmented-control--block': block }]"
+        :class="[`enpii-segmented-control--${size}`, { 'enpii-segmented-control--block': block, 'enpii-segmented-control--inline': inline }]"
         role="radiogroup"
         :aria-label="t('segmentedControl.ariaLabel')"
         @keydown="onKeydown"
