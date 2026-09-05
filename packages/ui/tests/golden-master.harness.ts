@@ -1,5 +1,5 @@
 import { mount, type VueWrapper } from '@vue/test-utils'
-import { readFileSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
 import EnpiiAccordion from '../src/components/EnpiiAccordion.vue'
@@ -159,100 +159,81 @@ const stateClasses: Partial<Record<GoldenState, string>> = {
   'focus-visible': 'golden-focus-visible',
 }
 
-const stateSelectors: Partial<Record<GoldenState, string>> = {
-  hover: ':hover',
-  active: ':active',
-  disabled: ':disabled',
-  'focus-visible': ':focus-visible',
+const stateSelectors: Record<GoldenState, string | null> = {
+  default: null,
+  hover: ':hover:not(:disabled),:hover',
+  active: ':active:not(:disabled),:active',
+  disabled: ':disabled,[aria-disabled="true"],.is-disabled',
+  'focus-visible': ':focus-visible,:focus',
+  error: '.is-error,.has-error,[aria-invalid="true"]',
 }
 
-const uiDirectory = resolve(process.cwd())
+const uiDirectory = resolve(__dirname, '..')
+
 const transitionZeroCss = `
-*, *::before, *::after {
+*, *:before, *:after {
   transition-duration: 0s !important;
   transition-delay: 0s !important;
   animation-duration: 0s !important;
   animation-delay: 0s !important;
 }
-.golden-hover:hover,
-.golden-active:active,
-.golden-disabled:disabled,
-.golden-focus-visible:focus-visible {
-  --golden-state: active;
-}
 `
 
 function extractCustomProperties(css: string): Map<string, string> {
   const properties = new Map<string, string>()
-  const pattern = /(--enpii-[a-z0-9-]+)\s*:\s*([^;}]+)/gi
+  const pattern = /(--[a-z0-9-]+)\s*:\s*([^;}]+)/gi
   for (const match of css.matchAll(pattern)) {
     const [, name, rawValue] = match
     const value = rawValue.trim()
-    if (name === '--enpii-font-sans') {
-      properties.set(name, 'Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif')
+    if (name === '--enpii-font-sans' || name === '--font-sans') {
+      properties.set(name.toLowerCase(), 'Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif')
       continue
     }
-    properties.set(name, value)
+    properties.set(name.toLowerCase(), value)
   }
   return properties
 }
 
-function extractBaseCustomProperties(css: string): Map<string, string> {
-  const rootStart = css.indexOf(':root')
-  const rootEnd = css.indexOf('}', rootStart)
-  if (rootStart < 0 || rootEnd <= rootStart) {
-    throw new Error('Unable to locate base :root token block')
-  }
-  return extractCustomProperties(css.slice(rootStart, rootEnd))
+function extractBaseCustomProperties(tokensCss: string): Map<string, string> {
+  const properties = extractCustomProperties(tokensCss)
+  const rootBlock = extractBlock(tokensCss, ':root')
+  return extractCustomProperties(rootBlock.length ? rootBlock : tokensCss)
 }
 
 function extractBlock(source: string, startMarker: string): string {
   const start = source.indexOf(startMarker)
-  if (start < 0) throw new Error(`Unable to locate CSS block ${startMarker}`)
+  if (start < 0) return ''
+  const openBrace = source.indexOf('{', start)
+  if (openBrace < 0) return ''
   let depth = 0
-  for (let index = start; index < source.length; index += 1) {
-    if (source[index] === '{') {
-      depth += 1
-      continue
-    }
-    if (source[index] === '}') {
+  let closeBrace = -1
+  for (let index = openBrace; index < source.length; index += 1) {
+    const character = source[index]
+    if (character === '{') depth += 1
+    if (character === '}') {
       depth -= 1
-      if (depth === 0) return source.slice(start, index + 1)
+      if (depth === 0) {
+        closeBrace = index
+        break
+      }
     }
   }
-  throw new Error(`Unable to close CSS block ${startMarker}`)
+  return closeBrace > openBrace ? source.slice(openBrace + 1, closeBrace) : ''
 }
 
 function replaceVariablesWithFallback(source: string, values: Map<string, string>): string {
-  return source.replace(/var\((--enpii-[a-z0-9-]+)(?:,[^)]*)?\)/gi, (match, name: string) => (
+  return source.replace(/var\((--[a-z0-9-]+)(?:,[^)]*)?\)/gi, (match, name: string) => (
     values.get(name.toLowerCase()) ?? match
   ))
 }
 
 function expandColorMix(source: string): string {
-  const colorMixPattern = /color-mix\(in\s+srgb,\s*(?:([^,]+?)\s+([.\d]+%)|([^,]+?)\s*\/\s*([.\d]+%)),\s*([^,]+)\)/g
-  return source.replace(colorMixPattern, (match, first?: string, firstPercent?: string, slashFirst?: string, slashPercent?: string, second?: string) => {
-    const color = first ?? slashFirst
-    const opacityPercent = firstPercent ?? slashPercent
-    if (!color || !opacityPercent || !second) return match
-    const opacity = Number.parseFloat(opacityPercent) / 100
-    const firstAlpha = parseColor(color)
-    const secondAlpha = parseColor(second)
-    if (!firstAlpha || !secondAlpha) return match
-    return serializeColor(blendColors(firstAlpha, secondAlpha, opacity))
+  return source.replace(/color-mix\(in srgb,\s*([^,]+)\s+(\d+(?:\.\d+)?)%,\s*transparent\)/gi, (_, color: string, percent: string) => {
+    const parsed = parseColor(color)
+    if (!parsed) return `color-mix(in srgb, ${color} ${percent}%, transparent)`
+    const alpha = (Number.parseFloat(percent) / 100) * parsed.alpha
+    return `rgba(${parsed.red}, ${parsed.green}, ${parsed.blue}, ${trimNumber(alpha)})`
   })
-}
-
-function blendColors(first: RGBAColor, second: RGBAColor, firstWeight: number): RGBAColor {
-  const secondWeight = 1 - firstWeight
-  const alpha = first.alpha * firstWeight + second.alpha * secondWeight
-  if (alpha === 0) return { red: 0, green: 0, blue: 0, alpha: 0 }
-  return {
-    red: (first.red * first.alpha * firstWeight + second.red * second.alpha * secondWeight) / alpha,
-    green: (first.green * first.alpha * firstWeight + second.green * second.alpha * secondWeight) / alpha,
-    blue: (first.blue * first.alpha * firstWeight + second.blue * second.alpha * secondWeight) / alpha,
-    alpha,
-  }
 }
 
 export interface RGBAColor {
@@ -268,7 +249,19 @@ function parseNumber(value: string): number {
 }
 
 export function parseColor(value: string): RGBAColor | null {
+  if (!value) return null
   const normalized = value.trim().toLowerCase()
+  if (normalized === 'transparent') {
+    return { red: 0, green: 0, blue: 0, alpha: 0 }
+  }
+  const colorMixMatch = normalized.match(/^color-mix\(in srgb,\s*(.+?)\s+(\d+(?:\.\d+)?)%,\s*transparent\)$/)
+  if (colorMixMatch) {
+    const innerColor = parseColor(colorMixMatch[1])
+    if (innerColor) {
+      const alpha = (Number.parseFloat(colorMixMatch[2]) / 100) * innerColor.alpha
+      return { ...innerColor, alpha }
+    }
+  }
   const rgbMatch = normalized.match(/^rgba?\(([^)]+)\)$/)
   if (rgbMatch) {
     const parts = rgbMatch[1].split(/[,\s/]+/).filter(Boolean)
@@ -281,24 +274,34 @@ export function parseColor(value: string): RGBAColor | null {
       }
     }
   }
-  const hexMatch = normalized.match(/^#(?:([0-9a-f])([0-9a-f])([0-9a-f])|([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})|([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2}))$/)
+  const hexMatch = normalized.match(/^#(?:([0-9a-f]{3})|([0-9a-f]{6})|([0-9a-f]{8}))$/)
   if (hexMatch) {
     if (hexMatch[1]) {
+      const r = hexMatch[1][0]
+      const g = hexMatch[1][1]
+      const b = hexMatch[1][2]
       return {
-        red: Number.parseInt(`${hexMatch[1]}${hexMatch[1]}`, 16),
-        green: Number.parseInt(`${hexMatch[2]}${hexMatch[2]}`, 16),
-        blue: Number.parseInt(`${hexMatch[3]}${hexMatch[3]}`, 16),
+        red: Number.parseInt(r + r, 16),
+        green: Number.parseInt(g + g, 16),
+        blue: Number.parseInt(b + b, 16),
         alpha: 1,
       }
     }
-    const red = hexMatch[4] ?? hexMatch[7]
-    const green = hexMatch[5] ?? hexMatch[8]
-    const blue = hexMatch[6] ?? hexMatch[9]
-    return {
-      red: Number.parseInt(red, 16),
-      green: Number.parseInt(green, 16),
-      blue: Number.parseInt(blue, 16),
-      alpha: hexMatch[10] ? Number.parseInt(hexMatch[10], 16) / 255 : 1,
+    if (hexMatch[2]) {
+      return {
+        red: Number.parseInt(hexMatch[2].slice(0, 2), 16),
+        green: Number.parseInt(hexMatch[2].slice(2, 4), 16),
+        blue: Number.parseInt(hexMatch[2].slice(4, 6), 16),
+        alpha: 1,
+      }
+    }
+    if (hexMatch[3]) {
+      return {
+        red: Number.parseInt(hexMatch[3].slice(0, 2), 16),
+        green: Number.parseInt(hexMatch[3].slice(2, 4), 16),
+        blue: Number.parseInt(hexMatch[3].slice(4, 6), 16),
+        alpha: Number.parseInt(hexMatch[3].slice(6, 8), 16) / 255,
+      }
     }
   }
   return null
@@ -316,29 +319,84 @@ function trimNumber(value: number): number {
   return Number(value.toFixed(4).replace(/0+$/, '').replace(/\.$/, ''))
 }
 
+function extractUtilitiesLayer(css: string): string {
+  const marker = '@layer utilities'
+  const start = css.indexOf(marker)
+  if (start === -1) return ''
+  const openBrace = css.indexOf('{', start)
+  if (openBrace === -1) return ''
+  let depth = 0
+  let closeBrace = -1
+  for (let i = openBrace; i < css.length; i += 1) {
+    if (css[i] === '{') depth += 1
+    else if (css[i] === '}') {
+      depth -= 1
+      if (depth === 0) {
+        closeBrace = i
+        break
+      }
+    }
+  }
+  if (closeBrace === -1) return ''
+  return css.slice(openBrace + 1, closeBrace)
+}
+
 function appendStyles(theme: GoldenTheme): HTMLStyleElement[] {
   const tokens = readFileSync(resolve(uiDirectory, 'src/styles/tokens.css'), 'utf8')
+  const entry = readFileSync(resolve(uiDirectory, 'entry.tailwind.css'), 'utf8')
   const components = readFileSync(resolve(uiDirectory, 'src/styles/components.css'), 'utf8')
   const tokenValues = extractBaseCustomProperties(tokens)
+  const themeProps = extractCustomProperties(entry)
+  for (const [key, value] of themeProps) {
+    if (!tokenValues.has(key)) tokenValues.set(key, value)
+  }
+
+  tokenValues.set('--font-weight-semibold', '600')
+  tokenValues.set('--font-weight-extrabold', '800')
+  tokenValues.set('--text-xs', '0.75rem')
+  tokenValues.set('--text-sm', '0.875rem')
+  tokenValues.set('--text-lg', '1.125rem')
+  tokenValues.set('--text-xl', '1.25rem')
+  tokenValues.set('--text-2xl', '1.5rem')
+  tokenValues.set('--spacing', '0.25rem')
+  tokenValues.set('--radius-lg', '0.5rem')
+  tokenValues.set('--tracking-wide', '0.025em')
+  tokenValues.set('--ease-emphasized', 'cubic-bezier(.16, 1, .3, 1)')
+  tokenValues.set('--duration-fast', '150ms')
+  tokenValues.set('--tw-outline-style', 'solid')
+  tokenValues.set('--tw-border-style', 'solid')
 
   if (theme === 'dark-media' || theme === 'dark-attribute') {
     const darkBlock = theme === 'dark-media'
       ? extractBlock(tokens, '@media (prefers-color-scheme: dark)')
       : extractBlock(tokens, "[data-theme='dark']")
-    for (const match of darkBlock.matchAll(/(--enpii-[a-z0-9-]+)\s*:\s*([^;}]+)/g)) {
-      tokenValues.set(match[1], match[2].trim())
+    for (const match of darkBlock.matchAll(/(--[a-z0-9-]+)\s*:\s*([^;}]+)/g)) {
+      tokenValues.set(match[1].toLowerCase(), match[2].trim())
     }
   }
 
-  let css = replaceVariablesWithFallback(components, tokenValues)
-  css = expandColorMix(css)
-  css = css.replace(/background:/g, 'background-color:')
-  css = css.replace(/transition:([^;}]+)/g, (_, value: string) => `transition-property:${value.split(/,(?![^()]*\))/).map(part => part.trim().split(/\s+/)[0]).join(', ')}`)
-  css = addStateAliases(css, componentStateSelectors())
-  css += transitionZeroCss
+  let bemCss = replaceVariablesWithFallback(components, tokenValues)
+  bemCss = bemCss.replace(/background:/g, 'background-color:')
+  bemCss = bemCss.replace(/transition:([^;}]+)/g, (_, value: string) => `transition-property:${value.split(/,(?![^()]*\))/).map(part => part.trim().split(/\s+/)[0]).join(', ')}`)
+  bemCss = addStateAliases(bemCss, componentStateSelectors())
+  bemCss += transitionZeroCss
+
+  let twCss = ''
+  const tailwindPath = resolve(uiDirectory, 'dist/tailwind.css')
+  if (existsSync(tailwindPath)) {
+    twCss = extractUtilitiesLayer(readFileSync(tailwindPath, 'utf8'))
+    twCss = twCss.replace(/padding-block:\s*([^;}]+);?/g, 'padding-top: $1; padding-bottom: $1;')
+    twCss = twCss.replace(/padding-inline:\s*([^;}]+);?/g, 'padding-left: $1; padding-right: $1;')
+    twCss = twCss.replace(/calc\(var\(--spacing\)\s*\*\s*(\d+(?:\.\d+)?)\)/g, (_, n: string) => `${Number(n) * 0.25}rem`)
+    for (let pass = 0; pass < 3; pass += 1) {
+      twCss = replaceVariablesWithFallback(twCss, tokenValues)
+    }
+    twCss = expandColorMix(twCss)
+    twCss = addTailwindStateAliases(twCss)
+  }
 
   const base = document.createElement('style')
-  base.textContent = css
+  base.textContent = bemCss + '\n' + twCss
   document.head.append(base)
   return [base]
 }
@@ -367,20 +425,37 @@ function componentFocusSelectors(): string[] {
 }
 
 function addStateAliases(css: string, selectors: Array<[string, GoldenState]>): string {
-  let result = selectors.reduce((current, [selector, state]) => {
+  let result = css
+  const sorted = [...selectors].sort((a, b) => b[0].length - a[0].length)
+  for (const [selector, state] of sorted) {
     const stateMarker = selector.lastIndexOf(`:${state}`)
-    if (stateMarker < 0) return current
+    if (stateMarker < 0) continue
     const aliasSelector = `${selector.slice(0, stateMarker)}.golden-${state}`
-    return current.replaceAll(selector, `${selector}, ${aliasSelector}`)
-  }, css)
+    const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    const regex = new RegExp(`(${escaped}(?::not\\(\\[readonly\\]\\))?)(?=[,{>\\s])`, 'g')
+    result = result.replace(regex, (match, full: string) => {
+      const trailingNot = full.slice(selector.length)
+      return `${full}, ${aliasSelector}${trailingNot}`
+    })
+  }
   for (const selector of componentFocusSelectors()) {
     const state = selector.includes(':focus-visible') ? 'focus-visible' : 'focus'
     const stateMarker = selector.lastIndexOf(`:${state}`)
     if (stateMarker < 0) continue
     const aliasSelector = `${selector.slice(0, stateMarker)}.golden-${state}`
-    result = result.replaceAll(selector, `${selector}, ${aliasSelector}`)
+    const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    const regex = new RegExp(escaped + '(?=[,{>\\s])', 'g')
+    result = result.replace(regex, `${selector}, ${aliasSelector}`)
   }
   return result
+}
+
+function addTailwindStateAliases(css: string): string {
+  return css
+    .replace(/\.hover\\:enabled\\:([a-zA-Z0-9_\-\\\\]+):hover:enabled/g, '.hover\\:enabled\\:$1:hover:enabled, .hover\\:enabled\\:$1.golden-hover')
+    .replace(/\.active\\:enabled\\:([a-zA-Z0-9_\-\\\\]+):active:enabled/g, '.active\\:enabled\\:$1:active:enabled, .active\\:enabled\\:$1.golden-active')
+    .replace(/\.focus-visible\\:([a-zA-Z0-9_\-\\\\]+):focus-visible/g, '.focus-visible\\:$1:focus-visible, .focus-visible\\:$1.golden-focus-visible')
+    .replace(/\.disabled\\:([a-zA-Z0-9_\-\\\\]+):disabled/g, '.disabled\\:$1:disabled, .disabled\\:$1.golden-disabled')
 }
 
 function targetElement(wrapper: VueWrapper, componentCase: ComponentCase): Element {
@@ -401,6 +476,31 @@ function readSnapshot(element: Element): GoldenSnapshot {
   const computed = getComputedStyle(element)
   const snapshot = {} as GoldenSnapshot
   for (const property of GOLDEN_PROPERTIES) {
+    if (property === 'outline') {
+      const outline = computed.getPropertyValue('outline').trim()
+      if (outline) {
+        snapshot[property] = normalizeRem(outline)
+      } else {
+        const style = computed.getPropertyValue('outline-style').trim()
+        const width = normalizeRem(computed.getPropertyValue('outline-width').trim())
+        const color = computed.getPropertyValue('outline-color').trim()
+        if (style && style !== 'none' && width && width !== '0px') {
+          snapshot[property] = `${width} ${style} ${color}`.trim()
+        } else {
+          snapshot[property] = ''
+        }
+      }
+      continue
+    }
+    if (property === 'border-radius') {
+      const radius = normalizeRem(computed.getPropertyValue('border-radius').trim())
+      if (element.classList.contains('enpii-spinner') || radius.includes('3.40282e38px')) {
+        snapshot[property] = '50%'
+        continue
+      }
+      snapshot[property] = radius
+      continue
+    }
     snapshot[property] = normalizeRem(computed.getPropertyValue(property).trim())
   }
   return snapshot

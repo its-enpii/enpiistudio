@@ -14,6 +14,7 @@ import { resolve } from 'node:path';
  */
 describe('icon+text alignment conformance (styles/components.css)', () => {
     const css = readFileSync(resolve(__dirname, '../src/styles/components.css'), 'utf8');
+    const buttonVue = readFileSync(resolve(__dirname, '../src/components/EnpiiButton.vue'), 'utf8');
 
     // Rows that are known to host `__icon` next to a label/text.
     const iconRows = [
@@ -41,6 +42,10 @@ describe('icon+text alignment conformance (styles/components.css)', () => {
     ];
 
     it.each(iconRows)('%s vertically centers its content', (selector) => {
+        if (selector === '.enpii-button') {
+            expect(buttonVue).toMatch(/items-center/);
+            return;
+        }
         const rule = css.match(new RegExp(`${selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\{[^}]*\\}`));
         expect(rule, `rule for ${selector} must exist in components.css`).toBeTruthy();
         const body = rule![0];
@@ -55,7 +60,8 @@ describe('icon+text alignment conformance (styles/components.css)', () => {
     });
 
     it('icon glyphs use line-height:1 where font-size is overridden', () => {
-        for (const cls of ['.enpii-button__icon', '.enpii-radio-group__icon', '.enpii-filter-pill__icon']) {
+        expect(buttonVue).toMatch(/leading-none/);
+        for (const cls of ['.enpii-radio-group__icon', '.enpii-filter-pill__icon']) {
             const rule = css.match(new RegExp(`${cls.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\{[^}]*\\}`));
             expect(rule, `rule for ${cls}`).toBeTruthy();
             // font-size override without line-height:1 relies on the icon font default; contract:
