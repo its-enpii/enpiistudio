@@ -1,0 +1,73 @@
+@import "tailwindcss";
+@source "./src";
+@import "./src/theme/sky/tokens.css";
+
+@theme {
+  --color-primary: var(--enpii-color-primary);
+  --color-on-primary: var(--enpii-color-on-primary);
+  --color-primary-hover: var(--enpii-color-primary-hover);
+  --color-primary-soft: var(--enpii-color-primary-soft);
+  --color-primary-border: var(--enpii-color-primary-border);
+  --color-primary-text: var(--enpii-color-primary-text);
+  --color-primary-container: var(--enpii-color-primary-container);
+  --color-on-primary-container: var(--enpii-color-on-primary-container);
+  --color-on-primary-container-soft: var(--enpii-color-on-primary-container-soft);
+  --color-primary-deep: var(--enpii-color-primary-deep);
+  --color-primary-fixed: var(--enpii-color-primary-fixed);
+  --color-primary-fixed-dim: var(--enpii-color-primary-fixed-dim);
+  --color-focus: var(--enpii-color-focus);
+  --color-accent: var(--enpii-color-accent);
+  --color-on-accent: var(--enpii-color-on-accent);
+  --color-ink: var(--enpii-color-ink);
+  --color-surface: var(--enpii-color-surface);
+  --color-surface-container-lowest: var(--enpii-color-surface-container-lowest);
+  --color-surface-container-low: var(--enpii-color-surface-container-low);
+  --color-surface-container: var(--enpii-color-surface-container);
+  --color-surface-container-high: var(--enpii-color-surface-container-high);
+  --color-surface-container-highest: var(--enpii-color-surface-container-highest);
+  --color-on-surface: var(--enpii-color-on-surface);
+  --color-on-surface-variant: var(--enpii-color-on-surface-variant);
+  --color-outline: var(--enpii-color-outline);
+  --color-outline-variant: var(--enpii-color-outline-variant);
+  --color-secondary: var(--enpii-color-secondary);
+  --color-on-secondary: var(--enpii-color-on-secondary);
+  --color-secondary-container: var(--enpii-color-secondary-container);
+  --color-tertiary: var(--enpii-color-tertiary);
+  --color-on-tertiary: var(--enpii-color-on-tertiary);
+  --color-tertiary-container: var(--enpii-color-tertiary-container);
+  --color-tertiary-fixed: var(--enpii-color-tertiary-fixed);
+  --color-tertiary-fixed-dim: var(--enpii-color-tertiary-fixed-dim);
+  --color-success: var(--enpii-color-success-text);
+  --color-success-soft: var(--enpii-color-success-soft);
+  --color-success-border: var(--enpii-color-success-border);
+  --color-success-text: var(--enpii-color-success-text);
+  --color-warning: var(--enpii-color-warning-text);
+  --color-warning-soft: var(--enpii-color-warning-soft);
+  --color-warning-border: var(--enpii-color-warning-border);
+  --color-warning-text: var(--enpii-color-warning-text);
+  --color-danger: var(--enpii-color-danger-text);
+  --color-danger-soft: var(--enpii-color-danger-soft);
+  --color-danger-border: var(--enpii-color-danger-border);
+  --color-danger-text: var(--enpii-color-danger-text);
+  --color-neutral: var(--enpii-color-neutral-text);
+  --color-neutral-soft: var(--enpii-color-neutral-soft);
+  --color-neutral-border: var(--enpii-color-neutral-border);
+  --color-neutral-text: var(--enpii-color-neutral-text);
+  --color-error: var(--enpii-color-error);
+  --color-error-border: var(--enpii-color-error-border);
+  --color-error-container: var(--enpii-color-error-container);
+  --color-on-error: var(--enpii-color-on-error);
+  --color-on-error-container: var(--enpii-color-on-error-container);
+  --color-inverse: var(--enpii-color-inverse);
+  --color-surface-inverse: var(--enpii-color-surface-inverse);
+  --color-shadow: var(--enpii-color-shadow);
+  --radius-control: var(--enpii-radius-control);
+  --radius-card: var(--enpii-radius-card);
+  --radius-overlay: var(--enpii-radius-overlay);
+  --spacing-control: var(--enpii-spacing-control);
+  --spacing-control-height: var(--enpii-control-height);
+}
+
+@utility control {
+  height: var(--enpii-control-height);
+}

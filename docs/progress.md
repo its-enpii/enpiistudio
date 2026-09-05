@@ -123,3 +123,8 @@ Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7. Semua item selesai.
 - contracts/core/{_shared,media,notification}.yaml (3 API redocly clean) + packages/bridge (@its-enpii/bridge): openapi-typescript generated types, native fetch wrapper (envelope unwrap, BridgeError 422/401/403/404 normalize, X-Tenant-Id + Accept-Language), tanpa axios.
 - Verifikasi mandiri Hermes (bukan self-report): contract:check 3 API clean, bridge:generate OK, 3/3 bridge tests, tsc --noEmit clean, ui 250/250 tests, ui build OK.
 - Merge 6ffb88c -> 41d4925, push main, worktree+branch cleaned. Roadmap berikutnya: item 6 App Skeleton.
+
+### 2026-09-05 — F71-1 Tailwind v4 Foundation (paralel BEM)
+- packages/ui: Tailwind v4.3.3 devDependencies, build `dist/tailwind.css` terpisah, tema sky first-class (`src/theme/sky/tokens.css`), config loader (`enpii.ui.config.js`), plugin Vite `enpiiUi()`, dan smoke browser Playwright.
+- Kontrak paralel dijaga: 0 perubahan file `src/components/*.vue`, `src/styles/components.css`, atau `src/styles/tokens.css` BEM lama.
+- Verifikasi F1: `npm run check` 0 error, `npm run test` 309/309 lama tetap hijau, `npm run build` sukses, `npm run test:tailwind` 7/7 + smoke `bg-primary=rgb(135, 206, 235)`, `npm run build:tailwind` menghasilkan `dist/tailwind.css` dengan `.bg-primary`.
