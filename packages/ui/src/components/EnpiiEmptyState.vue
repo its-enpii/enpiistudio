@@ -17,12 +17,12 @@ const shapeClass = useShape(props);
 </script>
 
 <template>
-    <div class="enpii-empty-state" :class="shapeClass">
-        <div class="enpii-empty-state__inner">
-            <AppIcon :name="icon" class="enpii-empty-state__icon" />
-            <p class="enpii-empty-state__title">{{ title }}</p>
-            <p v-if="description" class="enpii-empty-state__description">{{ description }}</p>
-            <div v-if="$slots.default" class="enpii-empty-state__actions"><slot /></div>
+    <div class="enpii-empty-state grid min-h-40 place-items-center p-6 rounded-control bg-surface-container-low text-on-surface-variant text-center" :class="shapeClass">
+        <div class="enpii-empty-state__inner max-w-[28rem]">
+            <AppIcon :name="icon" class="enpii-empty-state__icon text-[2.25rem] leading-none text-outline" />
+            <p class="enpii-empty-state__title mt-2 mb-0 text-inherit text-base font-semibold">{{ title }}</p>
+            <p v-if="description" class="enpii-empty-state__description mt-1 mb-0 text-sm">{{ description }}</p>
+            <div v-if="$slots.default" class="enpii-empty-state__actions mt-4"><slot /></div>
         </div>
     </div>
 </template>

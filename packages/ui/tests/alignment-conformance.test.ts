@@ -21,6 +21,9 @@ describe('icon+text alignment conformance (styles/components.css)', () => {
     const currencyVue = readFileSync(resolve(__dirname, '../src/components/EnpiiCurrencyInput.vue'), 'utf8');
     const inputMaskVue = readFileSync(resolve(__dirname, '../src/components/EnpiiInputMask.vue'), 'utf8');
     const confirmDialogVue = readFileSync(resolve(__dirname, '../src/components/EnpiiConfirmDialog.vue'), 'utf8');
+    const alertVue = readFileSync(resolve(__dirname, '../src/components/EnpiiAlert.vue'), 'utf8');
+    const tabsVue = readFileSync(resolve(__dirname, '../src/components/EnpiiTabs.vue'), 'utf8');
+    const toastVue = readFileSync(resolve(__dirname, '../src/components/EnpiiToast.vue'), 'utf8');
 
     // Rows that are known to host `__icon` next to a label/text.
     const iconRows = [
@@ -58,6 +61,18 @@ describe('icon+text alignment conformance (styles/components.css)', () => {
         }
         if (selector === '.enpii-confirm-dialog') {
             expect(confirmDialogVue).toMatch(/items-center/);
+            return;
+        }
+        if (selector === '.enpii-alert') {
+            expect(alertVue).toMatch(/items-center/);
+            return;
+        }
+        if (selector === '.enpii-tabs__tab') {
+            expect(tabsVue).toMatch(/items-center/);
+            return;
+        }
+        if (selector === '.enpii-toast') {
+            expect(toastVue).toMatch(/items-center/);
             return;
         }
         const rule = css.match(new RegExp(`${selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\{[^}]*\\}`));
