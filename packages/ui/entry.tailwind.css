@@ -80,7 +80,9 @@
   --duration-base: var(--enpii-duration-base);
   --z-index-raised: var(--enpii-z-raised);
   --z-index-modal: var(--enpii-z-modal);
+  --z-index-overlay: var(--enpii-z-overlay);
   --shadow-overlay: var(--enpii-shadow-overlay);
+  --shadow-raised: var(--enpii-shadow-raised);
   --shadow-lg: var(--enpii-shadow-lg);
   --duration-slow: var(--enpii-duration-slow);
   --z-index-toast: var(--enpii-z-toast);

@@ -16,6 +16,7 @@ const currencyVue = readFileSync(resolve(__dirname, '../src/components/EnpiiCurr
 const inputMaskVue = readFileSync(resolve(__dirname, '../src/components/EnpiiInputMask.vue'), 'utf8')
 const smartSelectVue = readFileSync(resolve(__dirname, '../src/components/EnpiiSmartSelect.vue'), 'utf8')
 const datePickerVue = readFileSync(resolve(__dirname, '../src/components/EnpiiDatePicker.vue'), 'utf8')
+const segmentedVue = readFileSync(resolve(__dirname, '../src/components/EnpiiSegmentedControl.vue'), 'utf8')
 
 const vueMinH: Record<string, string> = {
   '.enpii-input__control': inputVue,
@@ -31,13 +32,16 @@ function readRule(selector: string) {
     expect(rule, 'utility min-h-control must exist in entry.tailwind.css').toBeTruthy()
     return rule![0]
   }
+  if (selector === '.enpii-segmented-control') {
+    expect(segmentedVue, '.enpii-segmented-control must declare h-control-height in template').toMatch(/h-control-height/)
+    return 'height: var(--enpii-control-height)'
+  }
   if (vueMinH[selector]) {
-    // Tailwind-rewritten components declare min-height via min-h-control utility in template
     expect(vueMinH[selector], `${selector} must declare min-h-control in template`).toMatch(/min-h-control/)
     return 'min-height: var(--enpii-control-height)'
   }
   const escapedSelector = selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-  const rule = css.match(new RegExp(`${escapedSelector}\\{[^}]*\\}`))
+  const rule = css.match(new RegExp(`${escapedSelector}\{[^}]*\}`))
   expect(rule, `rule for ${selector} must exist in components.css`).toBeTruthy()
   return rule![0]
 }
@@ -59,20 +63,16 @@ describe('field control height contract (styles/components.css)', () => {
   })
 
   it('bounds SegmentedControl to the rendered control-height tokens', () => {
-    const baseRule = readRule('.enpii-segmented-control')
-    expect(baseRule).toMatch(/box-sizing:\s*border-box/)
-    expect(baseRule).toMatch(/height:\s*var\(--enpii-control-height\)/)
-    expect(css).toMatch(
-      /\.enpii-segmented-control__option\{[^}]*align-self:\s*stretch;height:\s*auto/,
-    )
-    expect(readRule('.enpii-segmented-control__indicator')).toMatch(/inset-block:\s*\.25rem/)
+    expect(segmentedVue).toMatch(/box-border/)
+    expect(segmentedVue).toMatch(/h-control-height/)
+    expect(segmentedVue).toMatch(/self-stretch/)
+    expect(segmentedVue).toMatch(/h-auto/)
+    expect(segmentedVue).toMatch(/inset-y-1/)
   })
 
   it('declares matching small control-height tokens', () => {
     expect(twCss).toMatch(/@utility min-h-control-sm\s*\{\s*min-height:\s*var\(--enpii-control-height-sm\)/)
-    expect(readRule('.enpii-segmented-control--sm')).toMatch(
-      /height:\s*var\(--enpii-control-height-sm\)/,
-    )
+    expect(segmentedVue).toMatch(/h-control-height-sm/)
   })
 
   it('mounts the default one-row controls covered by the base height contract', () => {

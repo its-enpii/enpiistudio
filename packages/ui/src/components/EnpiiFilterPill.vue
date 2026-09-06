@@ -1,6 +1,6 @@
 <script setup>
-import AppIcon from './EnpiiIcon.vue';
-import { useShape } from '../composables/useShape';
+import AppIcon from "./EnpiiIcon.vue";
+import { useShape } from "../composables/useShape";
 
 defineOptions({ inheritAttrs: false });
 
@@ -17,47 +17,55 @@ const props = defineProps({
     modelValue: { type: [String, Number, Boolean], default: null },
     /**
      * Layout:
-     * - 'outline' (default): rounded control outline, active primary background
-     * - 'solid': fully rounded neutral surface, active primary background
-     * - 'segment': medium radius, active primary background
+     * - "outline" (default): rounded control outline, active primary background
+     * - "solid": fully rounded neutral surface, active primary background
+     * - "segment": medium radius, active primary background
      */
     variant: {
         type: String,
-        default: 'outline',
-        validator: (value) => ['outline', 'solid', 'segment'].includes(value),
+        default: "outline",
+        validator: (value) => ["outline", "solid", "segment"].includes(value),
     },
     size: {
         type: String,
-        default: 'default',
-        validator: (value) => ['default', 'compact'].includes(value),
+        default: "default",
+        validator: (value) => ["default", "compact"].includes(value),
     },
-    ariaLabel: { type: String, default: 'Filter' },
+    ariaLabel: { type: String, default: "Filter" },
     shape: {
         type: String,
-        default: 'rounded',
-        validator: (value) => ['rounded', 'pill', 'sharp'].includes(value),
+        default: "rounded",
+        validator: (value) => ["rounded", "pill", "sharp"].includes(value),
     },
 });
 
 const shapeClass = useShape(props);
 
-defineEmits(['update:modelValue']);
+defineEmits(["update:modelValue"]);
+
+const variantClasses = {
+    outline: "py-2 px-3 border border-solid border-outline-variant rounded-control bg-surface-container-lowest text-primary-text",
+    solid: "py-2 px-3 border-0 rounded-full bg-surface-container-high text-on-surface-variant",
+    segment: "py-2 px-3 border-0 rounded-lg bg-surface-container-low text-on-surface-variant",
+};
 
 function pillClass(item) {
     const active = props.modelValue === item.value;
+    const isCompact = props.size === "compact";
     return [
-        'enpii-filter-pill__button',
+        "enpii-filter-pill__button inline-flex items-center gap-1 text-sm font-semibold cursor-pointer [transition-property:all] duration-fast ease-emphasized focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-focus focus-visible:outline-offset-2 active:enabled:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none",
         `enpii-filter-pill__button--${props.variant}`,
-        props.size === 'compact' ? 'enpii-filter-pill__button--compact' : '',
+        variantClasses[props.variant] || variantClasses.outline,
+        isCompact ? "enpii-filter-pill__button--compact !py-1 !px-3 !text-xs" : "",
         shapeClass.value,
-        active ? 'enpii-filter-pill__button--active' : '',
-        item.disabled ? 'enpii-filter-pill__button--disabled' : ''
+        active ? "enpii-filter-pill__button--active !bg-primary !border-primary !text-on-primary shadow-control" : "",
+        item.disabled ? "enpii-filter-pill__button--disabled" : "",
     ];
 }
 </script>
 
 <template>
-    <div class="enpii-filter-pill" :class="shapeClass" role="group" :aria-label="ariaLabel">
+    <div class="enpii-filter-pill flex flex-wrap gap-2" :class="shapeClass" role="group" :aria-label="ariaLabel">
         <button
             v-for="item in items"
             :key="item.value"
@@ -66,7 +74,7 @@ function pillClass(item) {
             :class="pillClass(item)"
             @click="!item.disabled && $emit('update:modelValue', item.value)"
         >
-            <AppIcon v-if="item.icon" :name="item.icon" class="enpii-filter-pill__icon" />
+            <AppIcon v-if="item.icon" :name="item.icon" class="enpii-filter-pill__icon text-base leading-none" />
             <span>{{ item.label }}<span v-if="item.count !== undefined && item.count !== null"> ({{ item.count }})</span></span>
         </button>
     </div>

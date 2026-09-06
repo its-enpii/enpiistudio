@@ -24,6 +24,8 @@ describe('icon+text alignment conformance (styles/components.css)', () => {
     const alertVue = readFileSync(resolve(__dirname, '../src/components/EnpiiAlert.vue'), 'utf8');
     const tabsVue = readFileSync(resolve(__dirname, '../src/components/EnpiiTabs.vue'), 'utf8');
     const toastVue = readFileSync(resolve(__dirname, '../src/components/EnpiiToast.vue'), 'utf8');
+    const filterPillVue = readFileSync(resolve(__dirname, '../src/components/EnpiiFilterPill.vue'), 'utf8');
+    const segmentedControlVue = readFileSync(resolve(__dirname, '../src/components/EnpiiSegmentedControl.vue'), 'utf8');
 
     // Rows that are known to host `__icon` next to a label/text.
     const iconRows = [
@@ -75,6 +77,14 @@ describe('icon+text alignment conformance (styles/components.css)', () => {
             expect(toastVue).toMatch(/items-center/);
             return;
         }
+        if (selector === '.enpii-filter-pill__button') {
+            expect(filterPillVue).toMatch(/items-center/);
+            return;
+        }
+        if (selector === '.enpii-segmented-control__option') {
+            expect(segmentedControlVue).toMatch(/items-center/);
+            return;
+        }
         const rule = css.match(new RegExp(`${selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\{[^}]*\\}`));
         expect(rule, `rule for ${selector} must exist in components.css`).toBeTruthy();
         const body = rule![0];
@@ -90,7 +100,8 @@ describe('icon+text alignment conformance (styles/components.css)', () => {
 
     it('icon glyphs use line-height:1 where font-size is overridden', () => {
         expect(buttonVue).toMatch(/leading-none/);
-        for (const cls of ['.enpii-radio-group__icon', '.enpii-filter-pill__icon']) {
+        expect(filterPillVue).toMatch(/leading-none/);
+        for (const cls of ['.enpii-radio-group__icon']) {
             const rule = css.match(new RegExp(`${cls.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\{[^}]*\\}`));
             expect(rule, `rule for ${cls}`).toBeTruthy();
             // font-size override without line-height:1 relies on the icon font default; contract:
@@ -107,6 +118,7 @@ describe('field width contract (styles/components.css)', () => {
     const inputMaskVue = readFileSync(resolve(__dirname, "../src/components/EnpiiInputMask.vue"), "utf8");
     const smartSelectVue = readFileSync(resolve(__dirname, "../src/components/EnpiiSmartSelect.vue"), "utf8");
     const datePickerVue = readFileSync(resolve(__dirname, "../src/components/EnpiiDatePicker.vue"), "utf8");
+    const segmentedControlVue = readFileSync(resolve(__dirname, "../src/components/EnpiiSegmentedControl.vue"), "utf8");
 
     const fieldSelectors = [
         ".enpii-input",
@@ -119,7 +131,7 @@ describe('field width contract (styles/components.css)', () => {
     ];
 
     it.each(fieldSelectors)("%s declares width: 100%", (selector) => {
-        const vueMap: Record<string, string> = { '.enpii-input': inputVue, '.enpii-textarea': textareaVue, '.enpii-currency-input': currencyVue, '.enpii-input-mask': inputMaskVue, '.enpii-smart-select': smartSelectVue, '.enpii-date-picker': datePickerVue };
+        const vueMap: Record<string, string> = { '.enpii-input': inputVue, '.enpii-textarea': textareaVue, '.enpii-currency-input': currencyVue, '.enpii-input-mask': inputMaskVue, '.enpii-smart-select': smartSelectVue, '.enpii-date-picker': datePickerVue, '.enpii-segmented-control': segmentedControlVue };
         if (vueMap[selector]) {
             expect(vueMap[selector], `${selector} must declare w-full in its template (Tailwind rewrite)`).toMatch(/w-full/);
             return;
@@ -136,20 +148,13 @@ describe('field width contract (styles/components.css)', () => {
         expect(rule![0]).toMatch(/margin-inline:\s*auto/);
     });
 
-    it(".enpii-segmented-control--inline sets display:inline-flex and width:max-content", () => {
-        const rule = css.match(/\.enpii-segmented-control--inline\{[^}]*\}/);
-        expect(rule, "rule for .enpii-segmented-control--inline must exist in components.css").toBeTruthy();
-        expect(rule![0]).toMatch(/display:\s*inline-flex/);
-        expect(rule![0]).toMatch(/width:\s*max-content/);
+        it(".enpii-segmented-control--inline sets display:inline-flex and width:max-content", () => {
+        expect(segmentedControlVue).toMatch(/inline-flex/);
+        expect(segmentedControlVue).toMatch(/w-max/);
     });
 
     it(".enpii-segmented-control__option defaults to flex:1 1 0 and inline modifier resets to flex:0 0 auto", () => {
-        const defaultOptionRule = css.match(/(?:^|\n)\.enpii-segmented-control__option\{[^}]*\}/);
-        expect(defaultOptionRule).toBeTruthy();
-        expect(defaultOptionRule![0]).toMatch(/flex:\s*1 1 0/);
-
-        const inlineOptionRule = css.match(/\.enpii-segmented-control--inline\s+\.enpii-segmented-control__option\{[^}]*\}/);
-        expect(inlineOptionRule).toBeTruthy();
-        expect(inlineOptionRule![0]).toMatch(/flex:\s*0 0 auto/);
+        expect(segmentedControlVue).toMatch(/flex-1/);
+        expect(segmentedControlVue).toMatch(/flex-none/);
     });
 });

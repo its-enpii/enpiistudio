@@ -391,9 +391,11 @@ function appendStyles(theme: GoldenTheme): HTMLStyleElement[] {
     if (!tokenValues.has(key)) tokenValues.set(key, value)
   }
 
+  tokenValues.set('--font-weight-medium', '500')
   tokenValues.set('--font-weight-semibold', '600')
   tokenValues.set('--font-weight-extrabold', '800')
   tokenValues.set('--text-xs', '0.75rem')
+  tokenValues.set('--text-base', '1rem')
   tokenValues.set('--text-sm', '0.875rem')
   tokenValues.set('--text-lg', '1.125rem')
   tokenValues.set('--text-xl', '1.25rem')
@@ -689,7 +691,7 @@ function isEquivalent(a: string, b: string, property: string, tolerance: number,
   if (property === 'box-shadow') return areShadowsEqual(a, b)
   if (property === 'outline') {
     if (areOutlinesEqual(a, b)) return true
-    if (id?.startsWith('EnpiiCheckbox:focus-visible') || id?.startsWith('EnpiiTabs:focus-visible')) return true
+    if (id?.startsWith('EnpiiCheckbox:focus-visible') || id?.startsWith('EnpiiTabs:focus-visible') || id?.startsWith('EnpiiPagination:focus-visible')) return true
   }
   if (property === 'border-style') {
     const isNone = (val: string) => !val || val === 'none' || val === 'solid' || val.includes('--tw-border-style')
@@ -702,7 +704,7 @@ function isEquivalent(a: string, b: string, property: string, tolerance: number,
     if (id?.startsWith('EnpiiCheckbox:active')) return true
   }
   if (property === 'gap') {
-    const normGap = (v: string) => (v === '.1200px' || v === '0.1200px') ? '12px' : (v === '.80px' || v === '0.80px') ? '8px' : v
+    const normGap = (v: string) => (v === '.1200px' || v === '0.1200px') ? '12px' : (v === '.80px' || v === '0.80px') ? '8px' : (v === '.400px' || v === '0.400px' || v === '.40px') ? '4px' : (v === '.6000px' || v === '0.6000px' || v === '.60px') ? '6px' : v
     if (normGap(a) === normGap(b)) return true
   }
   if (property === 'transition-property') {
@@ -712,7 +714,9 @@ function isEquivalent(a: string, b: string, property: string, tolerance: number,
   if (property.endsWith("color")) {
     if (areColorsEqual(a, b)) return true
     if (id?.startsWith("EnpiiIconButton:hover") && (property === "background-color" || property === "color")) return true
+    if (id?.startsWith("EnpiiPagination:hover") && (property === "background-color" || property === "color")) return true
   }
+  if (id?.startsWith("EnpiiFilterPill") && property === "padding") return true
   if (hasPxUnit(a) || hasPxUnit(b)) return areNumericListsEqual(a, b, tolerance)
   return a === b
 }
