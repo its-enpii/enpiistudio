@@ -29,6 +29,11 @@ Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7. Semua item selesai.
 
 ## Log Progress
 
+### 2026-09-06 — UI comprehensive control & accessibility correction selesai
+- packages/ui v1.1.1: Badge besar diturunkan ke font-weight 600; RadioGroup diselaraskan ke `h-control-sm`; Range/SegmentedControl/Switch field/root mengikuti kontrak full-width; NotificationDropdown item menjadi button-semantics dengan keyboard support; CommandPalette memberi state `aria-current`; fokus ring token ditambahkan pada aksi sekunder TimePicker, DateRange, SmartTable, CurrencyInput, ThemeMenu, Switch, RadioGroup, PollCard, dan NotificationDropdown; overlay Navbar/OfflineBanner memakai `z-dropdown`/`z-toast`; SignaturePad default ink memakai token; FormRow/InputMask memakai spacing token; golden baseline diperbarui untuk tinggi RadioGroup 40px.
+- Audit regex: 0 `font-extrabold`/weight >600, 0 raw hex di template, 0 alias `z-index-*`, 0 arbitrary field-gap utility; static BEM marker dipertahankan pada 86 komponen.
+- Verifikasi: `check`, `test` (311 passed), `test:tailwind` (3 passed + smoke), `golden:check` (4 passed, 0 diff), `build` sukses.
+
 ### 2026-09-06 — UI Tailwind batch 5d SELESAI
 - Komponen BarChart, LineChart, DonutChart, Sparkline, Avatar, Progress, QrCode, dan ImageUpload ditulis ulang ke Tailwind utility dengan marker BEM statis tetap dipertahankan; selector BEM lama hanya untuk kedelapan komponen itu dihapus.
 - Token baru: `--color-canvas-text` dan `--animate-progress-indeterminate` didefinisikan di `packages/ui/entry.tailwind.css`.

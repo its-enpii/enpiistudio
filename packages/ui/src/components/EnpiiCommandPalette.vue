@@ -160,7 +160,8 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onGlobalKeydown));
                 <button
                   type="button"
                   class="enpii-command-palette__command flex w-full min-h-10 items-center gap-2.5 py-2 px-2.5 border-0 rounded-[calc(var(--radius-control)-0.125rem)] bg-none text-on-surface font-inherit text-left cursor-pointer [transition-property:background] duration-fast ease-emphasized motion-reduce:transition-none hover:bg-neutral-soft focus-visible:outline-3 focus-visible:-outline-offset-2 focus-visible:outline-focus"
-                  :class="{ 'enpii-command-palette__command--active': filteredCommands[activeIndex]?.id === item.id }"
+                  :aria-current="filteredCommands[activeIndex]?.id === item.id ? 'true' : undefined"
+                  :class="{ 'enpii-command-palette__command--active bg-primary-soft': filteredCommands[activeIndex]?.id === item.id }"
                   :aria-label="t('commandPalette.select', { label: item.label })"
                   @click="selectCommand(item)"
                 >

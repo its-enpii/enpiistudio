@@ -262,7 +262,7 @@ onBeforeUnmount(() => {
                     <button
                         v-if="unreadCount > 0"
                         type="button"
-                        class="enpii-notification-dropdown__mark-read border-0 bg-none text-primary-text text-xs font-semibold"
+                        class="enpii-notification-dropdown__mark-read inline-flex min-h-10 items-center border-0 bg-none text-primary-text text-xs font-semibold cursor-pointer focus-visible:outline-none focus-visible:[box-shadow:var(--shadow-focus)]"
                         @click.stop="markAsRead(null)"
                     >
                         {{ t('notification.markAllRead') }}
@@ -273,7 +273,7 @@ onBeforeUnmount(() => {
                 <div class="enpii-notification-dropdown__tabs flex border-b border-outline-variant bg-surface-container-lowest px-2">
                     <button
                         type="button"
-                        class="enpii-notification-dropdown__tab flex-1 border-0 border-b-2 border-b-transparent bg-none pb-2 pt-2 text-on-surface-variant text-xs font-semibold"
+                        class="enpii-notification-dropdown__tab flex-1 min-h-11 cursor-pointer border-0 border-b-2 border-b-transparent bg-none pb-2 pt-2 text-on-surface-variant text-xs font-semibold focus-visible:outline-none focus-visible:[box-shadow:inset_0_0_0_2px_var(--color-focus)]"
                         :class="{ 'border-b-primary text-primary-text': activeTab === 'all' }"
                         @click.stop="activeTab = 'all'"
                     >
@@ -281,7 +281,7 @@ onBeforeUnmount(() => {
                     </button>
                     <button
                         type="button"
-                        class="enpii-notification-dropdown__tab flex-1 border-0 border-b-2 border-b-transparent bg-none pb-2 pt-2 text-on-surface-variant text-xs font-semibold"
+                        class="enpii-notification-dropdown__tab flex-1 min-h-11 cursor-pointer border-0 border-b-2 border-b-transparent bg-none pb-2 pt-2 text-on-surface-variant text-xs font-semibold focus-visible:outline-none focus-visible:[box-shadow:inset_0_0_0_2px_var(--color-focus)]"
                         :class="{ 'border-b-primary text-primary-text': activeTab === 'unread' }"
                         @click.stop="activeTab = 'unread'"
                     >
@@ -300,7 +300,12 @@ onBeforeUnmount(() => {
                     <div
                         v-for="item in filteredItems"
                         :key="item.id"
-                        class="enpii-notification-dropdown__item group/item flex cursor-pointer items-center gap-3 px-4 py-3 transition-colors duration-fast ease-emphasized hover:bg-surface-container-low"
+                        role="button"
+                        tabindex="0"
+                        :aria-disabled="item.read && undefined"
+                        @keydown.enter.prevent="handleItemClick(item)"
+                        @keydown.space.prevent="handleItemClick(item)"
+                        class="enpii-notification-dropdown__item group/item flex cursor-pointer items-center gap-3 px-4 py-3 text-left transition-colors duration-fast ease-emphasized hover:bg-surface-container-low focus-visible:bg-surface-container-low focus-visible:outline-none focus-visible:[box-shadow:inset_0_0_0_2px_var(--color-focus)]"
                         :class="{ 'bg-primary/5': !item.read }"
                         @click="handleItemClick(item)"
                     >

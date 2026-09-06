@@ -74,7 +74,7 @@ function onSubmitOther() {
                 :key="opt.value"
                 class="enpii-assistant-poll-card__option flex items-center gap-3 px-4 py-3 text-sm transition-all duration-fast ease-emphasized [&+&]:border-t [&+&]:border-outline-variant"
                 :class="{
-                    'cursor-pointer hover:bg-primary-soft/40 focus-visible:bg-primary-soft/70 focus-visible:outline-none': !isSubmitted,
+                    'cursor-pointer hover:bg-primary-soft/40 focus-visible:bg-primary-soft/70 focus-visible:outline-none focus-visible:[box-shadow:inset_0_0_0_2px_var(--color-focus)]': !isSubmitted,
                     'bg-primary-soft/70 focus-visible:outline-none': submittedLabel === opt.label,
                 }"
                 :aria-disabled="isSubmitted"

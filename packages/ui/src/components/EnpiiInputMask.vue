@@ -116,7 +116,7 @@ watch(() => model.value, (value) => {
 </script>
 
 <template>
-    <div class="enpii-input-mask w-full grid gap-[0.5rem]" :class="[shapeClass, { 'enpii-input-mask--error': Boolean(error) }]">
+    <div class="enpii-input-mask w-full grid gap-field-gap" :class="[shapeClass, { 'enpii-input-mask--error': Boolean(error) }]">
         <label :for="inputId" class="enpii-input-mask__label text-on-surface-variant text-sm font-medium">{{ label }}</label>
         <div class="enpii-input-mask__control-wrap relative">
             <input
