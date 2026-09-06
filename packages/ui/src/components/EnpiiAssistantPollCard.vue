@@ -52,7 +52,7 @@ function onSubmitOther() {
 
 <template>
     <section
-        class="enpii-assistant-poll-card overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest text-on-surface"
+        class="enpii-assistant-poll-card overflow-hidden rounded-2xl border border-outline-variant [border-width:var(--overlay-border-width)] bg-surface-container-lowest text-on-surface"
         :aria-label="t('pollCard.pollingLabel', { question: assistantBlock.question })"
     >
         <!-- Header: question + arrow -->
@@ -72,7 +72,7 @@ function onSubmitOther() {
             <li
                 v-for="(opt, i) in assistantBlock.options"
                 :key="opt.value"
-                class="enpii-assistant-poll-card__option flex items-center gap-3 px-4 py-3 text-sm transition-all duration-fast ease-emphasized [&+&]:border-t [&+&]:border-outline-variant"
+                class="enpii-assistant-poll-card__option flex items-center gap-3 px-4 py-3 text-sm transition-all duration-fast ease-emphasized [&+&]:border-t [&+&]:border-outline-variant [&+&]:[border-top-width:var(--overlay-border-width)]"
                 :class="{
                     'cursor-pointer hover:bg-primary-soft/40 focus-visible:bg-primary-soft/70 focus-visible:outline-none focus-visible:[box-shadow:inset_0_0_0_2px_var(--color-focus)]': !isSubmitted,
                     'bg-primary-soft/70 focus-visible:outline-none': submittedLabel === opt.label,
@@ -130,7 +130,7 @@ function onSubmitOther() {
                 v-model="otherText"
                 type="text"
                 :placeholder="t('pollCard.placeholder')"
-                class="enpii-assistant-poll-card__other-input min-h-9 min-w-0 flex-1 rounded-md border border-outline-variant bg-surface px-2 py-1 text-on-surface text-sm focus:border-primary focus:outline-none focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-primary)_30%,transparent)]"
+                class="enpii-assistant-poll-card__other-input min-h-9 min-w-0 flex-1 rounded-md border border-outline-variant [border-width:var(--control-border-width)] bg-surface px-2 py-1 text-on-surface text-sm focus:border-primary focus:outline-none focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-primary)_30%,transparent)]"
                 @keydown.enter.prevent="onSubmitOther"
             />
             <AppButton size="compact" variant="primary" :disabled="!otherText.trim()" @click="onSubmitOther">

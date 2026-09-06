@@ -506,7 +506,7 @@ onBeforeUnmount(() => {
         <Transition name="assistant-panel">
             <div
                 v-if="open"
-                class="enpii-assistant-widget__panel flex h-[min(36rem,75vh)] w-[min(24rem,calc(100vw-2rem))] origin-bottom-right flex-col overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest shadow-overlay"
+                class="enpii-assistant-widget__panel flex h-[min(36rem,75vh)] w-[min(24rem,calc(100vw-2rem))] origin-bottom-right flex-col overflow-hidden rounded-2xl border border-outline-variant [border-width:var(--overlay-border-width)] bg-surface-container-lowest shadow-overlay"
                 role="dialog"
                 :aria-label="displayName()"
             >
@@ -534,9 +534,9 @@ onBeforeUnmount(() => {
                             class="enpii-assistant-widget__bubble max-w-[85%] rounded-2xl px-3 py-2 text-sm leading-relaxed"
                             :class="{
                                 'self-end rounded-br-sm bg-primary text-on-primary whitespace-pre-wrap': msg.role === 'user',
-                                'self-start rounded-bl-sm border border-outline-variant bg-surface-container-lowest text-on-surface': msg.role === 'assistant' || msg.role === 'system',
+                                'self-start rounded-bl-sm border border-outline-variant [border-width:var(--overlay-border-width)] bg-surface-container-lowest text-on-surface': msg.role === 'assistant' || msg.role === 'system',
                                 'self-start rounded-bl-sm bg-error-container text-on-error-container whitespace-pre-wrap': msg.role === 'error',
-                                'self-start rounded-bl-sm border border-dashed border-outline-variant bg-surface-container-low text-on-surface-variant text-xs': msg.role === 'tool',
+                                'self-start rounded-bl-sm border border-dashed border-outline-variant [border-width:var(--overlay-border-width)] bg-surface-container-low text-on-surface-variant text-xs': msg.role === 'tool',
                             }"
                         >
                             <template v-if="msg.role === 'tool'">
@@ -550,7 +550,7 @@ onBeforeUnmount(() => {
                                         :key="i"
                                         :src="att.url"
                                         :alt="att.name || t('assistant.imageAlt')"
-                                        class="enpii-assistant-widget__attachment max-h-36 max-w-full rounded-control border border-white/20 object-cover shadow-control"
+                                        class="enpii-assistant-widget__attachment max-h-36 max-w-full rounded-control border border-white/20 [border-width:var(--control-border-width)] object-cover shadow-control"
                                     />
                                 </div>
                                 <span v-if="msg.content && msg.content !== '(Lampiran Gambar)'">{{ msg.content }}</span>
@@ -589,7 +589,7 @@ onBeforeUnmount(() => {
 
                     <div
                         v-if="typing"
-                        class="enpii-assistant-widget__typing flex max-w-[85%] items-center gap-2 self-start rounded-2xl rounded-bl-sm border border-outline-variant bg-surface-container-lowest px-3 py-2"
+                        class="enpii-assistant-widget__typing flex max-w-[85%] items-center gap-2 self-start rounded-2xl rounded-bl-sm border border-outline-variant [border-width:var(--overlay-border-width)] bg-surface-container-lowest px-3 py-2"
                         :aria-label="typingLabel"
                     >
                         <span class="enpii-assistant-widget__typing-dots flex items-center gap-1">
@@ -602,7 +602,7 @@ onBeforeUnmount(() => {
 
                     <div
                         v-if="pendingConfirmation"
-                        class="enpii-assistant-widget__confirmation self-stretch rounded-control border border-outline-variant bg-surface-container-lowest p-3 text-sm"
+                        class="enpii-assistant-widget__confirmation self-stretch rounded-control border border-outline-variant [border-width:var(--overlay-border-width)] bg-surface-container-lowest p-3 text-sm"
                     >
                         <p class="enpii-assistant-widget__confirmation-title m-0 text-primary-text font-semibold">{{ pendingConfirmation.summary }}</p>
                         <ul v-if="pendingConfirmation.warnings?.length" class="enpii-assistant-widget__warnings mt-2 list-disc pl-4 text-on-surface-variant">
@@ -631,7 +631,7 @@ onBeforeUnmount(() => {
                         <div
                             v-for="(img, idx) in attachedImages"
                             :key="idx"
-                            class="enpii-assistant-widget__thumbnail group relative h-14 w-14 shrink-0 overflow-hidden rounded-control border border-outline-variant bg-surface-container"
+                            class="enpii-assistant-widget__thumbnail group relative h-14 w-14 shrink-0 overflow-hidden rounded-control border border-outline-variant [border-width:var(--control-border-width)] bg-surface-container"
                         >
                             <img :src="img.dataUrl" class="enpii-assistant-widget__thumbnail-image h-full w-full object-cover" :alt="img.name" />
                             <button
@@ -656,7 +656,7 @@ onBeforeUnmount(() => {
                         />
                         <button
                             type="button"
-                            class="enpii-assistant-widget__composer-button grid h-11 w-11 shrink-0 cursor-pointer place-items-center rounded-control border border-outline-variant bg-none text-on-surface-variant transition-all duration-fast ease-emphasized hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-primary)_30%,transparent)] disabled:cursor-not-allowed"
+                            class="enpii-assistant-widget__composer-button grid h-11 w-11 shrink-0 cursor-pointer place-items-center rounded-control border border-outline-variant [border-width:var(--control-border-width)] bg-none text-on-surface-variant transition-all duration-fast ease-emphasized hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-primary)_30%,transparent)] disabled:cursor-not-allowed"
                             :disabled="sending || loading"
                             :aria-label="t('assistant.attachImage')"
                             :title="t('assistant.attachImage')"
@@ -668,7 +668,7 @@ onBeforeUnmount(() => {
                             ref="inputEl"
                             v-model="input"
                             rows="2"
-                            class="enpii-assistant-widget__input max-h-12 min-h-11 flex-1 rounded-control border border-outline-variant bg-surface px-3 py-2 text-on-surface text-sm leading-tight resize-none focus:border-primary focus:outline-none focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-primary)_20%,transparent)]"
+                            class="enpii-assistant-widget__input max-h-12 min-h-11 flex-1 rounded-control border border-outline-variant [border-width:var(--control-border-width)] bg-surface px-3 py-2 text-on-surface text-sm leading-tight resize-none focus:border-primary focus:outline-none focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-primary)_20%,transparent)]"
                             :placeholder="t('assistant.inputPlaceholder', { name: displayName() })"
                             :disabled="sending || loading"
                             @input="afterInputChange"
