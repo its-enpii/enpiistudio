@@ -102,8 +102,8 @@ const ariaLabel = computed(() => {
 </script>
 
 <template>
-  <div class="enpii-bar-chart">
-    <svg :viewBox="`0 0 ${W} ${H}`" class="enpii-bar-chart__svg" role="img" :aria-label="ariaLabel">
+  <div class="enpii-bar-chart relative w-full">
+    <svg :viewBox="`0 0 ${W} ${H}`" class="enpii-bar-chart__svg block w-full h-auto select-none" role="img" :aria-label="ariaLabel">
       <line
         v-for="(tick, i) in gridTicks"
         :key="`grid-${i}`"
@@ -111,7 +111,7 @@ const ariaLabel = computed(() => {
         :x2="W - PAD.right"
         :y1="yAt(tick)"
         :y2="yAt(tick)"
-        class="enpii-bar-chart__grid"
+        class="enpii-bar-chart__grid stroke-outline-variant stroke-1 opacity-50"
       />
       <text
         v-for="(tick, i) in gridTicks"
@@ -120,7 +120,7 @@ const ariaLabel = computed(() => {
         :y="yAt(tick)"
         text-anchor="end"
         dominant-baseline="middle"
-        class="enpii-bar-chart__axis-text"
+        class="enpii-bar-chart__axis-text fill-on-surface-variant text-[11px] font-medium"
       >{{ formatValue(tick) }}</text>
       <template v-for="(g, i) in groups" :key="`x-${i}`">
         <text
@@ -128,7 +128,7 @@ const ariaLabel = computed(() => {
           :x="g.x"
           :y="H - 8"
           text-anchor="middle"
-          class="enpii-bar-chart__axis-text"
+          class="enpii-bar-chart__axis-text fill-on-surface-variant text-[11px] font-medium"
         >{{ g.label }}</text>
       </template>
       <g v-for="g in groups" :key="`group-${g.index}`">
@@ -139,7 +139,7 @@ const ariaLabel = computed(() => {
           :y="b.y"
           :width="b.w"
           :height="b.h"
-          class="enpii-bar-chart__bar"
+          class="enpii-bar-chart__bar [transition-property:opacity] duration-fast ease-emphasized motion-reduce:transition-none hover:opacity-85 hover:cursor-pointer"
           :style="{ fill: b.color }"
           rx="2"
         >

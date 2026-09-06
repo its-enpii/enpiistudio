@@ -29,6 +29,11 @@ Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7. Semua item selesai.
 
 ## Log Progress
 
+### 2026-09-06 — UI Tailwind batch 5d SELESAI
+- Komponen BarChart, LineChart, DonutChart, Sparkline, Avatar, Progress, QrCode, dan ImageUpload ditulis ulang ke Tailwind utility dengan marker BEM statis tetap dipertahankan; selector BEM lama hanya untuk kedelapan komponen itu dihapus.
+- Token baru: `--color-canvas-text` dan `--animate-progress-indeterminate` didefinisikan di `packages/ui/entry.tailwind.css`.
+- Verifikasi: `npm run check` bersih; Tailwind build/dist rerun; `npm run test` 310 passed/0 failed; `npm run test:tailwind` 7 passed; `npm run golden:check` PASS 0 diff; `npm run build` + `node scripts/tailwind-smoke.mjs` hijau.
+
 ### 2026-08-31 — POS batch4 SELESAI & merged — frontend kasir lengkap
 - task-pos-cashier (14cbb3f -> merge 8e63228): pos-theme.css (token override persis design 3: sky/sunflower/surface/ink, 0 hardcoded #000/#FFF), PosMenuGrid/PosCart/PosTableMap/PosPaymentSheet (semua composed di atas primitif @its-enpii/ui, dicek manual), useCart/usePosToast composable, Orders/Index layout kasir + gate buka shift (shifts/current), OrderController web props, bundle app 275KB (gzip 90KB).
 - Verifikasi mandiri: 66 tests/265 assertions OK (worktree sempat 65 warnings - .env hilang di worktree, bukan bug kode), pint bersih, build sukses, spot-check: palet token sesuai design, 4 komponen pakai primitif package, shift gate terpasang.

@@ -70,6 +70,7 @@
   --color-picker-swatch-slate-700: var(--enpii-color-picker-swatch-slate-700);
   --color-picker-swatch-light: var(--enpii-color-picker-swatch-light);
   --color-picker-swatch-ink: var(--enpii-color-picker-swatch-ink);
+  --color-canvas-text: CanvasText;
   --radius-control: var(--enpii-radius-control);
   --radius-card: var(--enpii-radius-card);
   --radius-overlay: var(--enpii-radius-overlay);
@@ -99,6 +100,7 @@
   --shadow-control: var(--enpii-shadow-control);
   --shadow-card: 0 1px 3px color-mix(in srgb, var(--enpii-color-primary-deep) 8%, transparent);
   --animate-skeleton-shimmer: skeleton-shimmer 1.4s linear infinite;
+  --animate-progress-indeterminate: enpii-progress-indeterminate 1.4s ease-in-out infinite;
   --border-width-3: 3px;
   --color-spinner-track-primary: var(--enpii-spinner-track-primary);
   --color-spinner-track-neutral: var(--enpii-spinner-track-neutral);
@@ -132,5 +134,15 @@
 @keyframes skeleton-shimmer {
   to {
     background-position: -200% 0;
+  }
+}
+
+@keyframes enpii-progress-indeterminate {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(300%);
   }
 }
