@@ -56,6 +56,21 @@ Button memakai elemen `<button>`, default `type="button"`, native `disabled`, fo
 
 Tema: tujuh tema bawaan (`classic`, `dark`, `nord`, `dracula`, `solarized`, `gruvbox`, `rosepine`) diaktifkan lewat atribut `data-theme` pada `<html>`; lihat [THEMING.md](THEMING.md). Tanpa atribut, `prefers-color-scheme: dark` mengaktifkan varian gelap otomatis.
 
+Tailwind value-set style layer dapat diaktifkan lewat `enpii.ui.config.js`:
+
+```js
+import { defineEnpiiUiConfig } from '@its-enpii/ui/config'
+
+export default defineEnpiiUiConfig({
+  theme: 'sky',
+  styleLayer: 'neobrutalism',
+})
+```
+
+Nilai valid adalah `none` (default), `material`, `glassmorphism`, `neumorphism`, `neobrutalism`, dan
+`minimalism`. Layer hanya menimpa token visual; warna brand, sizing, dan layout tetap milik tema serta
+utility Tailwind.
+
 Daftar lengkap 43 komponen tersedia pada [`src/index.ts`](src/index.ts). Composable yang diekspor dari root package hanya `useShape` dan `useTheme`; composable lain (`useAppMode`, `useCan`, `useConfirm`, `useKeyboardShortcuts`, `useMarkdown`, `useMoney`, `usePeriodOptions`, `useToast`) berada di dalam bundle dan dipakai oleh komponen.
 
 

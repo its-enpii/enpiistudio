@@ -16,7 +16,7 @@ import { defineEnpiiUiConfig } from '@its-enpii/ui/config'
 
 export default defineEnpiiUiConfig({
   theme: 'sky',
-  styleLayer: 'none',
+  styleLayer: 'neobrutalism',
   darkMode: 'auto',
   overrides: {
     '--enpii-color-primary': '#38BDF8',
@@ -45,8 +45,15 @@ import 'virtual:enpii-ui.css'
 ## Urutan resolusi
 
 1. `theme` — mengimpor token semantik dasar, misalnya `sky`.
-2. `styleLayer` — mengimpor value layer visual jika bukan `none`.
+2. `styleLayer` — mengimpor value-set layer visual jika bukan `none`.
 3. `overrides` — memasang token `:root` paling akhir sehingga selalu menimpa dua lapis sebelumnya.
+
+## Value-set style layer
+
+`styleLayer` menerima `none` (default), `material`, `glassmorphism`, `neumorphism`, `neobrutalism`, atau
+`minimalism`. Layer hanya menimpa token visual (`radius`, `shadow`, `border`, `font-weight`, `duration`, `ease`),
+tanpa mengubah warna brand, sizing, layout, atau selector komponen. Consumer tetap dapat menimpa token pada
+`overrides` karena blok ini dievaluasi paling akhir.
 
 ## Dark mode
 

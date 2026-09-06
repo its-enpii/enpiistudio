@@ -1,0 +1,33 @@
+/* Value-set only: no component selectors and no brand colors. */
+:root,
+[data-enpii-layer="minimalism"] {
+  --enpii-radius-control: 0.375rem;
+  --enpii-radius-card: 0.5rem;
+  --enpii-radius-overlay: 0.75rem;
+  --enpii-border-width: 1px;
+  --enpii-font-weight-medium: 500;
+  --enpii-font-weight-semibold: 500;
+  --enpii-duration-fast: 120ms;
+  --enpii-duration-base: 160ms;
+  --enpii-duration-normal: 180ms;
+  --enpii-duration-slow: 240ms;
+  --enpii-ease-standard: cubic-bezier(.25, .1, .25, 1);
+  --enpii-ease-decelerate: cubic-bezier(.25, .46, .45, .94);
+  --enpii-ease-accelerate: cubic-bezier(.55, 0, 1, .45);
+  --enpii-ease-emphasized: cubic-bezier(.25, .1, .25, 1);
+  --enpii-shadow-control: 0 1px 1px color-mix(in srgb, var(--enpii-color-shadow) 35%, transparent);
+  --enpii-shadow-md: 0 1px 2px color-mix(in srgb, var(--enpii-color-shadow) 30%, transparent);
+  --enpii-shadow-lg: 0 2px 4px color-mix(in srgb, var(--enpii-color-shadow) 25%, transparent);
+  --enpii-shadow-xl: 0 3px 6px color-mix(in srgb, var(--enpii-color-shadow) 22%, transparent);
+  --enpii-shadow-raised: 0 2px 5px color-mix(in srgb, var(--enpii-color-shadow) 25%, transparent);
+  --enpii-shadow-overlay: 0 6px 12px color-mix(in srgb, var(--enpii-color-shadow) 22%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --enpii-duration-fast: 0ms;
+    --enpii-duration-base: 0ms;
+    --enpii-duration-normal: 0ms;
+    --enpii-duration-slow: 0ms;
+  }
+}

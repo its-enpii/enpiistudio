@@ -30,11 +30,18 @@ await new Promise(resolve => server.listen(0, '127.0.0.1', resolve))
 const address = server.address()
 if (typeof address !== 'object' || address === null) throw new Error('Smoke server failed to start')
 await mkdir(distRoot, { recursive: true })
+const layer = process.env.ENPII_UI_STYLE_LAYER
+const layerCss = layer && layer !== 'none'
+  ? await readFile(path.join(packageRoot, '..', 'src', 'styles', 'layers', `${layer}.css`), 'utf8')
+  : ''
 await writeFile(path.join(distRoot, 'tailwind-smoke.html'), [
   '<!doctype html>',
   '<html lang="en"><head><meta charset="utf-8"><title>Tailwind smoke</title>',
   '<link rel="stylesheet" href="./tailwind.css"></head>',
-  '<body><button id="target" class="bg-primary text-on-primary rounded-control px-control">Sky button</button></body></html>',
+  '<body>',
+  '<button id="target" class="bg-primary text-on-primary rounded-control px-control">Sky button</button>',
+  '<div id="layer-probe" class="rounded-control shadow-control font-semibold duration-fast ease-emphasized">Layer</div>',
+  '</body></html>',
 ].join(''), 'utf8')
 
 const browser = await chromium.launch({ executablePath })
@@ -44,7 +51,6 @@ const backgroundColor = await page.locator('#target').evaluate(element => getCom
 const borderRadius = await page.locator('#target').evaluate(element => getComputedStyle(element).borderRadius)
 const controlHeight = await page.locator('#target').evaluate(element => getComputedStyle(element).getPropertyValue('--enpii-control-height').trim())
 await browser.close()
-server.close()
 
 if (backgroundColor !== 'rgb(135, 206, 235)') {
   throw new Error(`Expected sky primary background, received ${backgroundColor}`)
@@ -57,3 +63,36 @@ if (controlHeight !== '3rem') {
 }
 
 console.log(`smoke: bg-primary=${backgroundColor}; radius=${borderRadius}; height=${controlHeight}`)
+
+if (layer) {
+  const browser = await chromium.launch({ executablePath })
+  const page = await browser.newPage()
+  await page.setContent([
+    '<!doctype html><html><head>',
+    `<link rel="stylesheet" href="http://127.0.0.1:${address.port}/tailwind.css">`,
+    `<style>${layerCss}</style>`,
+    '</head><body>',
+    '<div id="layer-probe" class="rounded-control shadow-control font-semibold duration-fast ease-emphasized">Layer</div>',
+    '</body></html>',
+  ].join(''))
+  const probe = page.locator('#layer-probe')
+  const layerRadius = await probe.evaluate(element => getComputedStyle(element).borderRadius)
+  const layerShadow = await probe.evaluate(element => getComputedStyle(element).boxShadow)
+  const layerWeight = await probe.evaluate(element => getComputedStyle(element).fontWeight)
+  const layerDuration = await probe.evaluate(element => getComputedStyle(element).transitionDuration)
+  await browser.close()
+
+  if (layer === 'neobrutalism') {
+    if (layerRadius !== '6px') throw new Error(`Expected 6px neobrutalism control radius, received ${layerRadius}`)
+    if (!/rgb\([^)]+\) 2px 2px 0px/.test(layerShadow)) {
+      throw new Error(`Expected solid 2px 2px 0 neobrutalism shadow, received ${layerShadow}`)
+    }
+    if (layerWeight !== '600') throw new Error(`Expected 600 neobrutalism weight cap, received ${layerWeight}`)
+  } else if (!['none', 'material', 'glassmorphism', 'neumorphism', 'minimalism'].includes(layer)) {
+    throw new Error(`Unknown smoke layer: ${layer}`)
+  }
+
+  console.log(`smoke: layer=${layer}; radius=${layerRadius}; shadow=${layerShadow}; weight=${layerWeight}; duration=${layerDuration}`)
+}
+
+server.close()
