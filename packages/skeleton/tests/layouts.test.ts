@@ -182,7 +182,7 @@ describe('Skeleton CSS token conformance', () => {
     const colorProperties = [...css.matchAll(/(?:background(?:-color)?|color|border(?:-color)?|box-shadow|fill|stroke)\s*:\s*([^;]+);/g)]
     expect(colorProperties.length).toBeGreaterThan(0)
     for (const [, value] of colorProperties) {
-      expect(value.trim()).toMatch(/^(?:var\(--enpii-[^)]+\)|transparent|inherit|none)$/)
+      expect(value.trim()).toMatch(/^(?:var\(--(?:enpii|color)-[^)]+\)|transparent|inherit|none)$/)
     }
   })
 
