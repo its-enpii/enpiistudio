@@ -245,7 +245,7 @@ onBeforeUnmount(() => {
         <Transition name="dropdown">
                         <div
                 ref="panel"
-                class="enpii-notification-dropdown__panel overflow-hidden rounded-control border border-outline-variant bg-surface-container-lowest shadow-overlay transition-opacity transition-transform duration-normal ease-decelerate"
+                class="enpii-notification-dropdown__panel overflow-hidden rounded-control border border-solid [border-width:var(--overlay-border-width)] border-outline-variant bg-surface-container-lowest shadow-overlay transition-opacity transition-transform duration-normal ease-decelerate"
                 :class="[shapeClass, { 'enpii-notification-dropdown__panel--above': placeAbove }]"
                 :style="panelStyle"
                 @click.stop

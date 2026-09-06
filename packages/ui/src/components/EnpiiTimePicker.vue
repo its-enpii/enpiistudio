@@ -71,7 +71,7 @@ const options = computed(() => {
                 :disabled="disabled"
                 :aria-invalid="Boolean(error)"
                 :aria-describedby="describedBy"
-                class="enpii-time-picker__control w-full min-h-control-sm appearance-none text-base py-1 pl-10 pr-3 border border-solid rounded-control bg-surface-container-lowest text-on-surface font-inherit [transition-property:border-color,box-shadow] duration-fast ease-emphasized hover:enabled:border-primary-border focus:outline-none focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--shadow-focus)] disabled:opacity-60 disabled:cursor-not-allowed"
+                class="enpii-time-picker__control w-full min-h-control-sm appearance-none text-base py-1 pl-10 pr-3 border border-solid [border-width:var(--control-border-width)] rounded-control bg-surface-container-lowest text-on-surface font-inherit [transition-property:border-color,box-shadow] duration-fast ease-emphasized hover:enabled:border-primary-border focus:outline-none focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--shadow-focus)] disabled:opacity-60 disabled:cursor-not-allowed"
                 @input="commit($event.target.value)"
             >
             <button v-if="clearable && model && !disabled" type="button" class="enpii-time-picker__clear absolute right-1 grid place-items-center w-8 h-8 border-0 bg-none text-outline cursor-pointer hover:text-danger-text focus-visible:outline-none focus-visible:[box-shadow:var(--shadow-focus)]" :aria-label="t('timePicker.clearTime')" @click="commit('')">

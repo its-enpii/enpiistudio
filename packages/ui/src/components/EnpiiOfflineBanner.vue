@@ -73,7 +73,7 @@ onUnmounted(() => {
         <Transition name="banner">
             <div
                 v-if="isOffline"
-                class="enpii-offline-banner enpii-offline-banner--offline flex w-full max-w-[min(42rem,100%)] items-center justify-between gap-4 p-3 rounded-2xl border border-solid border-error/25 bg-error-container text-on-error-container shadow-xl backdrop-blur-xl pointer-events-auto"
+                class="enpii-offline-banner enpii-offline-banner--offline flex w-full max-w-[min(42rem,100%)] items-center justify-between gap-4 p-3 rounded-2xl border border-solid [border-width:var(--control-border-width)] border-error/25 bg-error-container text-on-error-container shadow-xl backdrop-blur-xl pointer-events-auto"
                 role="alert"
                 aria-live="assertive"
             >

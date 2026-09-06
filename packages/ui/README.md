@@ -54,12 +54,15 @@ Button memakai elemen `<button>`, default `type="button"`, native `disabled`, fo
 
 `styles.css` adalah kontrak CSS publik tunggal. Import Tailwind terlebih dahulu, lalu `@its-enpii/ui/tailwind.css`, lalu `styles.css` hanya jika aplikasi belum memuatnya. Semua token package adalah Tailwind-native `@theme` dengan namespace `--color-*`, `--radius-*`, `--shadow-*`, `--z-index-*`, `--transition-duration-*`, dan `--ease-*`; namespace lama `--enpii-*` sudah dihapus.
 
-Override nilai token di aplikasi dengan mendeklarasikan `@theme` Anda sendiri setelah import package. Nilai khas layer bersifat opsional dan hanya menimpa radius, shadow, serta motion.
+Override nilai token di aplikasi dengan mendeklarasikan `@theme` Anda sendiri setelah import package. Nilai khas layer bersifat opsional dan hanya menimpa radius, border, shadow, serta motion. Layer tidak lagi berisi selector komponen.
 
 ```css
 @import 'tailwindcss';
 @import '@its-enpii/ui/tailwind.css';
 @import '@its-enpii/ui/styles/material.css';
+
+// Atau layer baru "brutal dijinakkan":
+// @import '@its-enpii/ui/styles/neobrutalism-tamed.css';
 
 @theme {
   --color-primary: #0284C7;

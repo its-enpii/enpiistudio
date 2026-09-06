@@ -70,7 +70,7 @@ function messageLabel(message: EnpiiWhatsAppPreviewMessage) {
 
 <template>
   <section
-    class="enpii-whatsapp-preview max-w-144 p-4 bg-surface border border-solid border-outline-variant rounded-card text-on-surface text-base forced-colors:border-canvas-text max-sm:p-3"
+    class="enpii-whatsapp-preview max-w-144 p-4 bg-surface border border-solid [border-width:var(--control-border-width)] border-outline-variant rounded-card text-on-surface text-base forced-colors:border-canvas-text max-sm:p-3"
     :class="[
       `enpii-whatsapp-preview--${size}`,
       `enpii-whatsapp-preview--${tone}`,

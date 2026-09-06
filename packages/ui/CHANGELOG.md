@@ -93,7 +93,22 @@ All notable changes to `@its-enpii/ui` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.2.0] - 2026-09-06
+
+### Changed (BREAKING)
+- Style layers are now value-set only. All component selectors and `!important`
+  declarations were removed from `src/styles/layers/*.css`, including the legacy
+  neobrutalism selector overrides. Consumers that relied on those selectors
+  should migrate to the new structural tokens.
+
+### Added
+- Structural state tokens in the base theme: `--control-border-width`,
+  `--overlay-border-width`, `--press-transform`, and
+  `--shadow-control-pressed`.
+- `./styles/neobrutalism-tamed` layer: soft-corners brutalist value set using
+  base radii and cubic-bezier motion.
+- Style-layer conformance tests for token-only selectors and completeness across
+  all six value sets.
 
 ## [0.7.0] - 2026-08-30
 

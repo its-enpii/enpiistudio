@@ -137,7 +137,7 @@ const variantClasses = {
         :class="[
             `enpii-accordion--${variant}`,
             variantClasses[variant],
-            bordered ? 'enpii-accordion--bordered border border-solid border-outline-variant' : '',
+                bordered ? 'enpii-accordion--bordered border border-solid [border-width:var(--control-border-width)] border-outline-variant' : '',
             shapeClass,
         ]"
     >
@@ -197,7 +197,7 @@ const variantClasses = {
             :class="[
                 `enpii-accordion--${variant}`,
                 variantClasses[variant],
-                bordered ? 'enpii-accordion--bordered border border-solid border-outline-variant' : '',
+                bordered ? 'enpii-accordion--bordered border border-solid [border-width:var(--control-border-width)] border-outline-variant' : '',
                 shapeClass,
             ]"
         >

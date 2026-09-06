@@ -181,7 +181,7 @@ watch(month, () => {
 </script>
 
 <template>
-    <section class="enpii-calendar w-full rounded-control border border-outline-variant bg-surface-container-lowest text-on-surface shadow-control" :aria-label="monthLabel">
+    <section class="enpii-calendar w-full rounded-control border border-solid [border-width:var(--control-border-width)] border-outline-variant bg-surface-container-lowest text-on-surface shadow-control" :aria-label="monthLabel">
         <header class="enpii-calendar__header grid grid-cols-10 items-center gap-1 px-2 py-2 max-[24rem]:px-1">
             <button type="button" class="enpii-calendar__nav grid h-10 w-10 cursor-pointer place-items-center rounded-full border-0 bg-none text-on-surface-variant transition-[background,color,transform] duration-fast ease-emphasized hover:bg-neutral-soft hover:text-primary-text active:scale-94 focus-visible:outline focus-visible:outline-3 focus-visible:outline-focus focus-visible:outline-offset-2" :aria-label="t('calendar.previousMonth')" @click="changeMonth(-1)">
                 <AppIcon name="chevron_left" class="enpii-calendar__nav-icon h-5 w-5 text-xl leading-none" />

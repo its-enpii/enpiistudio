@@ -123,7 +123,7 @@ onBeforeUnmount(() => clearTimeout(timer));
 
 <template>
     <div class="enpii-smart-table [&>*+*]:mt-4" :class="shapeClass">
-        <div v-if="!hideToolbar" class="enpii-smart-table__toolbar flex flex-col gap-4 border-b border-solid border-outline-variant pb-6 lg:flex-row lg:items-center lg:justify-between">
+        <div v-if="!hideToolbar" class="enpii-smart-table__toolbar flex flex-col gap-4 border-b border-solid [border-width:var(--control-border-width)] border-outline-variant pb-6 lg:flex-row lg:items-center lg:justify-between">
             <div class="enpii-smart-table__toolbar-start flex items-center gap-3">
                 <EnpiiSmartSelect
                     v-if="!hidePerPage"
@@ -194,7 +194,7 @@ onBeforeUnmount(() => clearTimeout(timer));
                     <tr
                         v-for="(row, index) in rows"
                         :key="row.row_id || row.id || index"
-                        class="enpii-smart-table__row [&:not(:first-child)]:border-t [&:not(:first-child)]:border-solid [&:not(:first-child)]:border-outline-variant"
+                        class="enpii-smart-table__row [&:not(:first-child)]:border-t [&:not(:first-child)]:border-solid [&:not(:first-child)]:[border-width:var(--control-border-width)] [&:not(:first-child)]:border-outline-variant"
                     >
                         <td
                             v-for="column in columns"

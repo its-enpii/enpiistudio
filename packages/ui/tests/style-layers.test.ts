@@ -2,8 +2,15 @@ import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 
-const styleLayers = ['material', 'glassmorphism', 'neumorphism', 'neobrutalism', 'minimalism'] as const
-const tokenOnlyLayers = ['material', 'glassmorphism', 'neumorphism', 'minimalism'] as const
+const styleLayers = [
+  'material',
+  'glassmorphism',
+  'neumorphism',
+  'neobrutalism',
+  'neobrutalism-tamed',
+  'minimalism',
+] as const
+const tokenOnlyLayers = styleLayers
 
 const layerSources = Object.fromEntries(
   styleLayers.map(layer => [
@@ -24,7 +31,16 @@ describe('Enpii UI style layer value sets', () => {
     expect(source).not.toMatch(/\.enpii-[a-z0-9-]+/)
   })
 
-  it('keeps neobrutalism value set and marker overrides in native tokens', () => {
+  it.each(styleLayers)('%s defines every structural token', (layer) => {
+    const source = layerSources[layer]
+
+    expect(source).toContain('--control-border-width:')
+    expect(source).toContain('--overlay-border-width:')
+    expect(source).toContain('--press-transform:')
+    expect(source).toContain('--shadow-control-pressed:')
+  })
+
+  it('keeps neobrutalism value set in native tokens', () => {
     const source = layerSources.neobrutalism
 
     expect(source).toContain('[data-enpii-layer="neobrutalism"] {')
@@ -33,14 +49,14 @@ describe('Enpii UI style layer value sets', () => {
     expect(source).toContain('--shadow-control: 2px 2px 0 var(--color-ink);')
     expect(source).toContain('--shadow-card: 2px 2px 0 var(--color-ink);')
     expect(source).toContain('--shadow-focus: 0 0 0 2px var(--color-ink);')
-    expect(source).toContain('.enpii-button')
-    expect(source).toContain('.enpii-currency-input__control')
-    expect(source).toContain('.enpii-modal__title')
     expect(source).not.toMatch(/--enpii-/)
   })
 
-  it('enforces font-weight and color constraints in neobrutalism', () => {
-    const source = layerSources.neobrutalism
+  it.each(styleLayers)('%s forbids selectors, !important, overweight and raw color values', (layer) => {
+    const source = layerSources[layer]
+
+    expect(source).not.toMatch(/\.enpii-[a-z0-9-]+/)
+    expect(source).not.toContain('!important')
 
     for (const match of source.matchAll(/font-weight:\s*(\d+)/gi)) {
       expect(Number(match[1])).toBeLessThanOrEqual(600)

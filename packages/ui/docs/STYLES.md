@@ -63,6 +63,19 @@ Bold flat blocks — loud shapes, quiet type.
 
 Best for: creative tools, portfolios, brands that want maximal personality.
 
+## Neobrutalism Tamed
+
+The softened brutalist shape, using the same value-set-only architecture.
+
+- 2px ink borders on controls and overlays
+- Hard 2px/3px/4px offset shadows with zero blur
+- Base radii preserved: 9px controls, 10px cards, 12px overlays
+- Smooth cubic-bezier motion; pressed states move 1px and shrink the shadow to 1px
+- Ink-focused focus ring; typography ≤ 600
+
+Best for: expressive product UIs that need the brutalist identity without the
+raw hard-corner effect.
+
 ## Minimalism
 
 Quiet hairline aesthetic.
