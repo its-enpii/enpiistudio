@@ -128,3 +128,8 @@ Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7. Semua item selesai.
 - packages/ui: Tailwind v4.3.3 devDependencies, build `dist/tailwind.css` terpisah, tema sky first-class (`src/theme/sky/tokens.css`), config loader (`enpii.ui.config.js`), plugin Vite `enpiiUi()`, dan smoke browser Playwright.
 - Kontrak paralel dijaga: 0 perubahan file `src/components/*.vue`, `src/styles/components.css`, atau `src/styles/tokens.css` BEM lama.
 - Verifikasi F1: `npm run check` 0 error, `npm run test` 309/309 lama tetap hijau, `npm run build` sukses, `npm run test:tailwind` 7/7 + smoke `bg-primary=rgb(135, 206, 235)`, `npm run build:tailwind` menghasilkan `dist/tailwind.css` dengan `.bg-primary`.
+
+### 2026-09-05 22:08 EDT — F71-2b Batch 5b Tailwind rewrite SELESAI
+- packages/ui: 8 komponen navigasi/overlay (Navbar, Sidebar, Breadcrumb, PageHeader, Popover, DropdownMenu, Drawer, BottomSheet) direwrite ke Tailwind utility dengan marker BEM dipertahankan; rule BEM terkait dihapus dari components.css.
+- Token tambahan: `--enpii-color-scrim` untuk overlay scrim dan `--z-index-dropdown` mapping; Sidebar collapsed width/transisi tetap berbasis token dan v-model tidak berubah.
+- Verifikasi: check clean, 310/310 tests, test:tailwind 7/7 + smoke sky/radius/height hijau, golden parity 0 diff, build sukses.

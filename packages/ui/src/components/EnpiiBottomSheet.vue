@@ -189,10 +189,10 @@ onBeforeUnmount(() => {
 <template>
     <Teleport to="body">
         <Transition name="bottom-sheet">
-            <div v-if="model" class="enpii-bottom-sheet__overlay" @click.self="close">
+            <div v-if="model" class="enpii-bottom-sheet__overlay fixed inset-0 z-index-modal flex items-end justify-center bg-scrim" @click.self="close">
                 <section
                     ref="panel"
-                    class="enpii-bottom-sheet__panel"
+                    class="enpii-bottom-sheet__panel relative flex w-full flex-col max-h-[min(88dvh,52rem)] border border-solid border-outline-variant rounded-t-[1.25rem] bg-surface-container-lowest text-on-surface shadow-overlay transition-transform duration-normal ease-decelerate"
                     role="dialog"
                     aria-modal="true"
                     :aria-labelledby="title ? titleId : undefined"
@@ -203,27 +203,27 @@ onBeforeUnmount(() => {
                 >
                     <button
                         type="button"
-                        class="enpii-bottom-sheet__handle"
+                        class="enpii-bottom-sheet__handle w-12 h-10 mx-auto rounded-xl border-0 bg-none cursor-grab touch-none focus-visible:outline-3 focus-visible:outline-offset-[-2px] focus-visible:outline-focus"
                         :aria-label="t('bottomSheet.dragHandle')"
                         @click="close"
                         @pointerdown="onPointerDown"
                     />
-                    <header class="enpii-bottom-sheet__header">
-                        <h2 v-if="title" :id="titleId" class="enpii-bottom-sheet__title">{{ title }}</h2>
+                    <header class="enpii-bottom-sheet__header flex flex-none items-center justify-between gap-4 pt-1 px-4">
+                        <h2 v-if="title" :id="titleId" class="enpii-bottom-sheet__title m-0 text-on-surface font-sans text-lg font-medium leading-[1.35]">{{ title }}</h2>
                         <button
                             v-if="dismissible"
                             type="button"
-                            class="enpii-bottom-sheet__close"
+                            class="enpii-bottom-sheet__close inline-flex w-10 h-10 flex-none items-center justify-center -mt-1 -mr-1 rounded-full border-0 bg-transparent text-on-surface-variant cursor-pointer [transition-property:background,color] duration-fast ease-emphasized hover:bg-surface-container-low hover:text-on-surface focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-focus"
                             :aria-label="t('bottomSheet.close')"
                             @click="close"
                         >
                             <AppIcon name="close" />
                         </button>
                     </header>
-                    <div class="enpii-bottom-sheet__body">
+                    <div class="enpii-bottom-sheet__body flex-1 overflow-auto p-4 [touch-action:pan-y]">
                         <slot />
                     </div>
-                    <footer v-if="$slots.footer" class="enpii-bottom-sheet__footer">
+                    <footer v-if="$slots.footer" class="enpii-bottom-sheet__footer flex-none p-4 border-t border-solid border-outline-variant">
                         <slot name="footer" />
                     </footer>
                 </section>

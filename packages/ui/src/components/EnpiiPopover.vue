@@ -161,7 +161,7 @@ onBeforeUnmount(() => {
 <template>
   <div
     ref="rootRef"
-    class="enpii-popover"
+    class="enpii-popover relative inline-flex"
     @mouseenter="props.trigger === 'hover' && openPanel()"
     @mouseleave="props.trigger === 'hover' && closePanel({ returnFocus: false })"
     @focusin="props.trigger === 'hover' && openPanel()"
@@ -169,7 +169,7 @@ onBeforeUnmount(() => {
   >
     <div
       ref="triggerRef"
-      class="enpii-popover__trigger"
+      class="enpii-popover__trigger inline-flex min-w-10 min-h-10 items-center justify-center p-0 border-0 bg-none font-[inherit] text-[inherit] cursor-pointer [transition-property:background,box-shadow] duration-fast ease-emphasized motion-reduce:transition-none focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-focus"
       role="button"
       tabindex="0"
       :aria-expanded="isOpen"
@@ -190,6 +190,7 @@ onBeforeUnmount(() => {
           ref="panelRef"
           role="dialog"
           :aria-modal="props.persistent"
+          class="enpii-popover__panel fixed flex overflow-auto min-w-44 max-w-[min(22rem,calc(100vw_-_1rem))] rounded-control border border-solid border-outline-variant bg-surface-container-lowest text-on-surface shadow-overlay [transform-origin:center]"
           :class="[
             'enpii-popover__panel',
             `enpii-popover__panel--${activePlacement}`,
@@ -197,8 +198,18 @@ onBeforeUnmount(() => {
           ]"
           :style="panelStyle"
         >
-          <span v-if="props.arrow" class="enpii-popover__arrow" aria-hidden="true" />
-          <div class="enpii-popover__content">
+          <span
+            v-if="props.arrow"
+            class="enpii-popover__arrow absolute w-3 h-3 pointer-events-none"
+            :class="[
+              activePlacement === 'top' && 'right-[calc(50%_-_0.375rem)] bottom-[-0.4375rem] border-r border-b border-solid border-outline-variant rotate-45 bg-inherit',
+              activePlacement === 'bottom' && 'right-[calc(50%_-_0.375rem)] top-[-0.4375rem] border-l border-t border-solid border-outline-variant rotate-45 bg-inherit',
+              activePlacement === 'left' && 'top-[calc(50%_-_0.375rem)] right-[-0.4375rem] border-t border-r border-solid border-outline-variant rotate-45 bg-inherit',
+              activePlacement === 'right' && 'top-[calc(50%_-_0.375rem)] left-[-0.4375rem] border-b border-l border-solid border-outline-variant rotate-45 bg-inherit',
+            ]"
+            aria-hidden="true"
+          />
+          <div class="enpii-popover__content min-w-0 text-sm leading-[1.45]">
             <slot name="content" />
           </div>
         </div>

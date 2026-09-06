@@ -26,6 +26,9 @@ describe('icon+text alignment conformance (styles/components.css)', () => {
     const toastVue = readFileSync(resolve(__dirname, '../src/components/EnpiiToast.vue'), 'utf8');
     const filterPillVue = readFileSync(resolve(__dirname, '../src/components/EnpiiFilterPill.vue'), 'utf8');
     const segmentedControlVue = readFileSync(resolve(__dirname, '../src/components/EnpiiSegmentedControl.vue'), 'utf8');
+    const navbarVue = readFileSync(resolve(__dirname, '../src/components/EnpiiNavbar.vue'), 'utf8');
+    const breadcrumbVue = readFileSync(resolve(__dirname, '../src/components/EnpiiBreadcrumb.vue'), 'utf8');
+    const dropdownMenuVue = readFileSync(resolve(__dirname, '../src/components/EnpiiDropdownMenu.vue'), 'utf8');
 
     // Rows that are known to host `__icon` next to a label/text.
     const iconRows = [
@@ -59,6 +62,18 @@ describe('icon+text alignment conformance (styles/components.css)', () => {
         }
         if (selector === '.enpii-button') {
             expect(buttonVue).toMatch(/items-center/);
+            return;
+        }
+        if (selector === '.enpii-navbar__link') {
+            expect(navbarVue).toMatch(/enpii-navbar__link[^>]*items-center|items-center[^>]*enpii-navbar__link/s);
+            return;
+        }
+        if (selector === '.enpii-breadcrumb__item') {
+            expect(breadcrumbVue).toMatch(/enpii-breadcrumb__item[^>]*items-center|items-center[^>]*enpii-breadcrumb__item/s);
+            return;
+        }
+        if (selector === '.enpii-dropdown-menu__item') {
+            expect(dropdownMenuVue).toMatch(/enpii-dropdown-menu__item[^>]*items-center|items-center[^>]*enpii-dropdown-menu__item/s);
             return;
         }
         if (selector === '.enpii-confirm-dialog') {

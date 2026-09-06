@@ -60,6 +60,7 @@
   --color-on-error-container: var(--enpii-color-on-error-container);
   --color-inverse: var(--enpii-color-inverse);
   --color-surface-inverse: var(--enpii-color-surface-inverse);
+  --color-scrim: var(--enpii-color-scrim);
   --color-shadow: var(--enpii-color-shadow);
   --radius-control: var(--enpii-radius-control);
   --radius-card: var(--enpii-radius-card);
@@ -79,6 +80,7 @@
   --duration-fast: var(--enpii-duration-fast);
   --duration-base: var(--enpii-duration-base);
   --z-index-raised: var(--enpii-z-raised);
+  --z-index-dropdown: var(--enpii-z-dropdown);
   --z-index-modal: var(--enpii-z-modal);
   --z-index-overlay: var(--enpii-z-overlay);
   --shadow-overlay: var(--enpii-shadow-overlay);

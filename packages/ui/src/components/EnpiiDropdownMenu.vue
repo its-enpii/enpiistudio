@@ -35,7 +35,7 @@ const triggerRef = ref(null);
 const menuRef = ref(null);
 const open = ref(false);
 const highlighted = ref(-1);
-const menuStyle = ref({ position: 'fixed', top: '0px', left: '0px', width: '0px', zIndex: 80, visibility: 'hidden' });
+const menuStyle = ref({ position: 'fixed', top: '0px', left: '0px', width: '0px', zIndex: 'var(--enpii-z-dropdown)', visibility: 'hidden' });
 const placeAbove = ref(false);
 let typeaheadBuffer = '';
 let typeaheadTimer;
@@ -83,7 +83,7 @@ function positionMenu() {
             top: `${rect.top - Math.min(popupHeight, spaceAbove) - margin}px`,
             width: `${menuWidth}px`,
             maxHeight: `${maxList}px`,
-            zIndex: 80,
+            zIndex: 'var(--enpii-z-dropdown)',
         };
     } else {
         menuStyle.value = {
@@ -92,7 +92,7 @@ function positionMenu() {
             top: `${rect.bottom + margin}px`,
             width: `${menuWidth}px`,
             maxHeight: `${maxList}px`,
-            zIndex: 80,
+            zIndex: 'var(--enpii-z-dropdown)',
         };
     }
 }
@@ -246,13 +246,18 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <div class="enpii-dropdown-menu__anchor" :class="shapeClass">
+    <div class="enpii-dropdown-menu__anchor relative inline-flex" :class="shapeClass">
         <button
             :id="`${dropdownId}-trigger`"
             ref="triggerRef"
             type="button"
-            class="enpii-dropdown-menu__trigger"
-            :class="[`enpii-dropdown-menu__trigger--${size}`]"
+            class="enpii-dropdown-menu__trigger inline-flex items-center justify-center rounded-control border-0 bg-none text-on-surface-variant cursor-pointer [transition-property:all] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:bg-neutral-soft hover:enabled:text-on-surface focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:opacity-60 disabled:cursor-not-allowed"
+            :class="[
+                `enpii-dropdown-menu__trigger--${size}`,
+                size === 'sm' && 'w-control-height-sm h-control-height-sm text-[1.125rem]',
+                size === 'md' && 'w-control-height h-control-height text-xl',
+                size === 'lg' && 'w-14 h-14 text-2xl',
+            ]"
             :aria-expanded="String(open)"
             :aria-haspopup="'menu'"
             :aria-controls="open ? `${dropdownId}-menu` : undefined"
@@ -261,7 +266,7 @@ onBeforeUnmount(() => {
             @click="toggle"
         >
             <slot name="trigger">
-                <AppIcon name="more_vert" class="enpii-dropdown-menu__trigger-icon" />
+                <AppIcon name="more_vert" class="enpii-dropdown-menu__trigger-icon text-inherit" />
             </slot>
         </button>
         <Teleport to="body">
@@ -271,7 +276,7 @@ onBeforeUnmount(() => {
                     :id="`${dropdownId}-menu`"
                     ref="menuRef"
                     role="menu"
-                    class="enpii-dropdown-menu__panel"
+                    class="enpii-dropdown-menu__panel fixed flex flex-col overflow-y-auto overflow-x-hidden rounded-control border border-solid border-outline-variant bg-surface-container-lowest shadow-overlay origin-top [transform-origin:top_center]"
                     :class="[
                         `enpii-dropdown-menu__panel--${size}`,
                         `enpii-dropdown-menu__panel--${align}`,
@@ -283,17 +288,26 @@ onBeforeUnmount(() => {
                     @keydown="onMenuKeydown"
                 >
                     <template v-for="(item, index) in items" :key="item.id ?? `item-${index}`">
-                        <div v-if="item.divider" class="enpii-dropdown-menu__divider" role="separator" />
+                        <div v-if="item.divider" class="enpii-dropdown-menu__divider h-0 my-1 border-0 border-t border-solid border-outline-variant" role="separator" />
                         <button
                             v-if="item.label"
                             type="button"
                             role="menuitem"
-                            class="enpii-dropdown-menu__item"
-                            :class="{
-                                'enpii-dropdown-menu__item--highlighted': index === highlighted,
-                                'enpii-dropdown-menu__item--disabled': item.disabled,
-                                'enpii-dropdown-menu__item--danger': item.danger,
-                            }"
+                            class="enpii-dropdown-menu__item flex w-full items-center gap-2 rounded-[calc(var(--enpii-radius-control)_-_0.125rem)] border-0 bg-none py-2 px-3 text-on-surface font-sans text-control leading-[1.4] text-left cursor-pointer [transition-property:background] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:bg-neutral-soft focus-visible:outline-3 focus-visible:outline-offset-[-2px] focus-visible:outline-focus disabled:cursor-not-allowed"
+                            :class="[
+                                {
+                                    'enpii-dropdown-menu__item--highlighted': index === highlighted,
+                                    'enpii-dropdown-menu__item--disabled': item.disabled,
+                                    'enpii-dropdown-menu__item--danger': item.danger,
+                                },
+                                size === 'sm' && 'py-1.5 px-2.5 text-sm',
+                                size === 'lg' && 'py-2.5 px-4 text-[1.0625rem]',
+                                index === highlighted && 'bg-neutral-soft',
+                                item.disabled && 'text-outline opacity-60',
+                                item.danger && 'text-danger-text',
+                                item.danger && (index === highlighted || !item.disabled) && 'hover:bg-danger-soft',
+                                item.danger && index === highlighted && 'bg-danger-soft',
+                            ]"
                             :disabled="item.disabled"
                             :aria-disabled="item.disabled ? 'true' : undefined"
                             :tabindex="index === highlighted ? '0' : '-1'"
@@ -301,8 +315,8 @@ onBeforeUnmount(() => {
                             @click="choose(item)"
                             @keydown="onItemKeydown($event, item)"
                         >
-                            <AppIcon v-if="item.icon" :name="item.icon" class="enpii-dropdown-menu__item-icon" />
-                            <span class="enpii-dropdown-menu__item-label">{{ item.label }}</span>
+                            <AppIcon v-if="item.icon" :name="item.icon" class="enpii-dropdown-menu__item-icon flex-none text-lg leading-none text-on-surface-variant" :class="item.danger && 'text-danger-text'" />
+                            <span class="enpii-dropdown-menu__item-label flex-1 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap">{{ item.label }}</span>
                         </button>
                     </template>
                 </div>
