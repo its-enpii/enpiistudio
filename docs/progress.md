@@ -144,3 +144,8 @@ Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7. Semua item selesai.
 - packages/ui: 8 komponen navigasi/overlay (Navbar, Sidebar, Breadcrumb, PageHeader, Popover, DropdownMenu, Drawer, BottomSheet) direwrite ke Tailwind utility dengan marker BEM dipertahankan; rule BEM terkait dihapus dari components.css.
 - Token tambahan: `--enpii-color-scrim` untuk overlay scrim dan `--z-index-dropdown` mapping; Sidebar collapsed width/transisi tetap berbasis token dan v-model tidak berubah.
 - Verifikasi: check clean, 310/310 tests, test:tailwind 7/7 + smoke sky/radius/height hijau, golden parity 0 diff, build sukses.
+
+### 2026-09-06 01:58 EDT — F71-2b Batch 5e Tailwind rewrite SELESAI
+- packages/ui: sisa komponen specialized direwrite ke utility Tailwind dengan marker BEM statis dipertahankan; rule component BEM dihapus dari `components.css`. `useShape` kini memancarkan marker + utility Tailwind.
+- Cakupan batch: AreaChart/TrendBarChart; Rating/SignaturePad/WhatsAppPreview; Timeline/Stepper/TreeView/TransferList; RichEditor/MentionInput/CommandPalette/KeyboardShortcutsModal; FormField/FormRow/FormActions/StatTile/InlineEmptyState/Footer/OfflineBanner; CsvImportExport/ReportPeriodFilter/LoanHistoryTable/NotificationDropdown; ThemeMenu/DesktopTitleBar/DesktopSplashScreen; Assistant Action/Artifact/Poll/Widget; FileUpload/Icon/Tabs/Calendar.
+- Verifikasi: `check` clean; Tailwind build + dist rename sukses; `test` 310/310; `test:tailwind` 7/7 + smoke hijau; `golden:check` 4/4 dengan 0 diff; `build` sukses. Audit regex `components.css`: 51 utility-like helpers, 6 alignment contracts, 2 legacy static-class LoanHistoryTable markers; 0 component CSS BEM styling tersisa.
