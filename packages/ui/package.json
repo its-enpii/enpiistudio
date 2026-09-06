@@ -33,6 +33,7 @@
     "./tokens.css": "./dist/enpii-ui.css",
     "./config": "./src/config.ts",
     "./config/node": "./src/config-node.ts",
+    "./vite": "./src/vite-plugin/enpii-ui.js",
     "./vite": {
       "types": "./dist/vite-plugin/enpii-ui.d.ts",
       "import": "./src/vite-plugin/enpii-ui.js",
