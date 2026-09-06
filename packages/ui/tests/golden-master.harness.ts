@@ -404,7 +404,7 @@ function appendStyles(theme: GoldenTheme): HTMLStyleElement[] {
   tokenValues.set('--radius-lg', '0.5rem')
   tokenValues.set('--tracking-wide', '0.025em')
   tokenValues.set('--ease-emphasized', 'cubic-bezier(.16, 1, .3, 1)')
-  tokenValues.set('--duration-fast', '150ms')
+  tokenValues.set('--transition-duration-fast', '150ms')
   tokenValues.set('--tw-outline-style', 'solid')
   tokenValues.set('--tw-border-style', 'solid')
 

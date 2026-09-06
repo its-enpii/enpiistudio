@@ -19,6 +19,25 @@ const props = withDefaults(defineProps<{
   disabled: false,
 })
 
+const swatchTokens = {
+  '#4f46e5': '--enpii-color-picker-swatch-indigo-600',
+  '#4338ca': '--enpii-color-picker-swatch-indigo-700',
+  '#006d3d': '--enpii-color-picker-swatch-green-700',
+  '#ba1a1a': '--enpii-color-picker-swatch-red-600',
+  '#b45309': '--enpii-color-picker-swatch-amber-700',
+  '#334155': '--enpii-color-picker-swatch-slate-700',
+  'rgb(253 253 252)': '--enpii-color-picker-swatch-light',
+  '#191c1e': '--enpii-color-picker-swatch-ink',
+} as const
+
+function swatchToken(color: string): string {
+  const token = swatchTokens[color as keyof typeof swatchTokens]
+  if (!token) {
+    throw new Error(`Color picker swatches must map to a semantic token: ${color}`)
+  }
+  return token
+}
+
 const emit = defineEmits<{
   change: [value: string]
 }>()
@@ -202,25 +221,25 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="enpii-color-picker" :class="{ 'enpii-color-picker--disabled': disabled }">
+  <div class="enpii-color-picker flex w-full max-w-80 flex-col gap-field-gap p-4 border border-solid border-outline-variant rounded-control bg-surface-container-lowest text-on-surface shadow-control" :class="{ 'enpii-color-picker--disabled opacity-60 pointer-events-none': disabled }">
     <div
       ref="areaRef"
-      class="enpii-color-picker__area"
+      class="enpii-color-picker__area relative w-full aspect-[16/9] min-h-32 overflow-hidden rounded-[calc(var(--enpii-radius-control)-0.25rem)] cursor-crosshair touch-none"
       :style="{ background: `linear-gradient(to top, rgb(13 13 13), transparent), linear-gradient(to right, rgb(253 253 252), ${hueColor})` }"
       :aria-label="t('colorPicker.areaLabel')"
       @pointerdown="onPointerDown('area', $event)"
     >
       <div
-        class="enpii-color-picker__thumb"
+        class="enpii-color-picker__thumb absolute w-[1.125rem] h-[1.125rem] border-2 border-solid border-surface-container-lowest rounded-[50%] -translate-x-1/2 -translate-y-1/2 pointer-events-none shadow-[0_1px_3px_rgb(0_0_0/40%)]"
         :style="{ left: `${saturation}%`, top: `${100 - brightness}%` }"
         :aria-label="t('colorPicker.thumbLabel')"
       />
     </div>
 
-    <div class="enpii-color-picker__sliders">
+    <div class="enpii-color-picker__sliders flex flex-col gap-1.5">
       <div
         ref="hueRef"
-        class="enpii-color-picker__slider enpii-color-picker__slider--hue"
+        class="enpii-color-picker__slider enpii-color-picker__slider--hue relative w-full h-8 min-h-10 rounded-[0.25rem] cursor-pointer touch-none bg-[linear-gradient(to_right,rgb(255_0_0),rgb(255_255_0),rgb(0_255_0),rgb(0_255_255),rgb(0_0_255),rgb(255_0_255),rgb(255_0_0))] focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-focus"
         role="slider"
         tabindex="0"
         :aria-label="t('colorPicker.hueLabel')"
@@ -232,7 +251,7 @@ onBeforeUnmount(() => {
         @keydown="onHueKeydown"
       >
         <div
-          class="enpii-color-picker__slider-thumb"
+          class="enpii-color-picker__slider-thumb absolute top-1/2 w-[0.875rem] h-[0.875rem] border-2 border-solid border-surface-container-lowest rounded-[50%] -translate-x-1/2 -translate-y-1/2 pointer-events-none shadow-[0_1px_3px_rgb(0_0_0/40%)]"
           :style="{ left: `${(hue / 360) * 100}%` }"
         />
       </div>
@@ -240,7 +259,7 @@ onBeforeUnmount(() => {
       <div
         v-if="showAlpha"
         ref="alphaRef"
-        class="enpii-color-picker__slider enpii-color-picker__slider--alpha"
+        class="enpii-color-picker__slider enpii-color-picker__slider--alpha relative w-full h-8 min-h-10 rounded-[0.25rem] cursor-pointer touch-none bg-[linear-gradient(to_right,var(--enpii-cp-alpha-start),var(--enpii-cp-alpha-end))] focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-focus"
         role="slider"
         tabindex="0"
         :aria-label="t('colorPicker.alphaLabel')"
@@ -253,20 +272,20 @@ onBeforeUnmount(() => {
         @keydown="onAlphaKeydown"
       >
         <div
-          class="enpii-color-picker__slider-thumb"
+          class="enpii-color-picker__slider-thumb absolute top-1/2 w-[0.875rem] h-[0.875rem] border-2 border-solid border-surface-container-lowest rounded-[50%] -translate-x-1/2 -translate-y-1/2 pointer-events-none shadow-[0_1px_3px_rgb(0_0_0/40%)]"
           :style="{ left: `${alpha * 100}%` }"
         />
       </div>
     </div>
 
-    <div class="enpii-color-picker__inputs">
-      <div class="enpii-color-picker__preview" :style="{ background: currentHex }" :aria-label="t('colorPicker.previewLabel')" />
-      <label class="enpii-color-picker__hex-label">
+    <div class="enpii-color-picker__inputs flex items-center gap-2">
+      <div class="enpii-color-picker__preview w-10 h-10 min-h-10 flex-none border border-solid border-outline-variant rounded-[calc(var(--enpii-radius-control)-0.25rem)]" :style="{ background: currentHex }" :aria-label="t('colorPicker.previewLabel')" />
+      <label class="enpii-color-picker__hex-label flex-1">
         <span class="enpii-sr-only">{{ t('colorPicker.hexLabel') }}</span>
         <input
           v-model="hexInput"
           type="text"
-          class="enpii-color-picker__hex-input"
+          class="enpii-color-picker__hex-input w-full min-h-control-sm px-3 border border-solid border-outline-variant rounded-[calc(var(--enpii-radius-control)-0.25rem)] bg-surface-container-lowest text-on-surface font-inherit text-control [transition-property:border-color,box-shadow] duration-fast ease-emphasized focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--enpii-focus-ring)] disabled:opacity-60 disabled:cursor-not-allowed"
           maxlength="9"
           :disabled="disabled"
           :placeholder="t('colorPicker.hexPlaceholder')"
@@ -275,14 +294,14 @@ onBeforeUnmount(() => {
       </label>
     </div>
 
-    <div v-if="swatches.length" class="enpii-color-picker__swatches" :aria-label="t('colorPicker.swatchesLabel')">
+    <div v-if="swatches.length" class="enpii-color-picker__swatches flex flex-wrap gap-1.5" :aria-label="t('colorPicker.swatchesLabel')">
       <button
         v-for="color in swatches"
         :key="color"
         type="button"
-        class="enpii-color-picker__swatch"
-        :class="{ 'enpii-color-picker__swatch--active': currentHex === color }"
-        :style="{ background: color }"
+        class="enpii-color-picker__swatch w-10 h-10 min-h-10 p-0 border border-solid border-outline-variant rounded-[calc(var(--enpii-radius-control)-0.25rem)] cursor-pointer [transition-property:box-shadow,transform] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:[box-shadow:var(--enpii-focus-ring)] active:enabled:scale-95 focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-focus disabled:opacity-50 disabled:cursor-not-allowed"
+        :class="{ 'enpii-color-picker__swatch--active shadow-[inset_0_0_0_2px_var(--enpii-color-surface-container-lowest),0_0_0_2px_var(--enpii-color-primary)]': currentHex === color }"
+        :style="{ backgroundColor: `var(${swatchToken(color)})` }"
         :aria-label="t('colorPicker.selectSwatch', { color })"
         :disabled="disabled"
         @click="selectSwatch(color)"

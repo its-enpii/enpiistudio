@@ -7,6 +7,7 @@ const config = defineConfig({
   plugins: [tailwindcss()],
   build: {
     outDir: 'dist',
+    emptyOutDir: false,
     rollupOptions: {
       input: fileURLToPath(new URL('./entry.tailwind.css', import.meta.url)),
       output: {

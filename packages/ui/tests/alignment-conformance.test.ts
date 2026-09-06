@@ -29,6 +29,8 @@ describe('icon+text alignment conformance (styles/components.css)', () => {
     const navbarVue = readFileSync(resolve(__dirname, '../src/components/EnpiiNavbar.vue'), 'utf8');
     const breadcrumbVue = readFileSync(resolve(__dirname, '../src/components/EnpiiBreadcrumb.vue'), 'utf8');
     const dropdownMenuVue = readFileSync(resolve(__dirname, '../src/components/EnpiiDropdownMenu.vue'), 'utf8');
+    const radioGroupVue = readFileSync(resolve(__dirname, '../src/components/EnpiiRadioGroup.vue'), 'utf8');
+    const dateRangeVue = readFileSync(resolve(__dirname, '../src/components/EnpiiDateRange.vue'), 'utf8');
 
     // Rows that are known to host `__icon` next to a label/text.
     const iconRows = [
@@ -100,6 +102,14 @@ describe('icon+text alignment conformance (styles/components.css)', () => {
             expect(segmentedControlVue).toMatch(/items-center/);
             return;
         }
+        if (selector === '.enpii-radio-group__button') {
+            expect(radioGroupVue).toMatch(/items-center/);
+            return;
+        }
+        if (selector === '.enpii-date-range__control') {
+            expect(dateRangeVue).toMatch(/items-center/);
+            return;
+        }
         const rule = css.match(new RegExp(`${selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\{[^}]*\\}`));
         expect(rule, `rule for ${selector} must exist in components.css`).toBeTruthy();
         const body = rule![0];
@@ -116,12 +126,7 @@ describe('icon+text alignment conformance (styles/components.css)', () => {
     it('icon glyphs use line-height:1 where font-size is overridden', () => {
         expect(buttonVue).toMatch(/leading-none/);
         expect(filterPillVue).toMatch(/leading-none/);
-        for (const cls of ['.enpii-radio-group__icon']) {
-            const rule = css.match(new RegExp(`${cls.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\{[^}]*\\}`));
-            expect(rule, `rule for ${cls}`).toBeTruthy();
-            // font-size override without line-height:1 relies on the icon font default; contract:
-            expect(rule![0]).toMatch(/line-height:1|font-size:1rem/);
-        }
+        expect(radioGroupVue).toMatch(/leading-none/);
     });
 });
 

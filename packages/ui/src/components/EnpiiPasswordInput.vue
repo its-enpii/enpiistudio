@@ -91,10 +91,10 @@ function updateValue(event: Event) {
             { 'enpii-password-input--disabled': disabled },
         ]"
     >
-        <div class="enpii-password-input__field">
+        <div class="enpii-password-input__field relative flex items-center">
             <input
                 :id="inputId"
-                class="enpii-password-input__control"
+                class="enpii-password-input__control w-full min-h-12 py-3 pr-[5.5rem] pl-4 border border-solid border-outline-variant rounded-control bg-surface-container-lowest text-on-surface font-sans text-control [transition-property:border-color,box-shadow,background] duration-fast ease-emphasized hover:enabled:[border-color:color-mix(in_srgb,var(--enpii-color-primary)_40%,transparent)] focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-offset-1 focus-visible:outline-focus read-only:cursor-default read-only:bg-surface-container-low read-only:text-on-surface-variant disabled:cursor-not-allowed disabled:opacity-60 disabled:bg-surface-container-lowest disabled:text-on-surface placeholder:text-outline"
                 :type="inputType"
                 :value="modelValue"
                 :disabled="disabled"
@@ -108,7 +108,7 @@ function updateValue(event: Event) {
             <button
                 v-if="showToggle"
                 type="button"
-                class="enpii-password-input__toggle"
+                class="enpii-password-input__toggle absolute top-1 right-1 inline-flex min-w-10 min-h-10 items-center justify-center px-2 border-0 rounded-[9999px] bg-transparent text-primary-text text-[0.8125rem] font-medium cursor-pointer [transition-property:background,color] duration-fast ease-emphasized hover:enabled:bg-surface-container-low hover:enabled:text-on-surface focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-focus disabled:cursor-not-allowed disabled:opacity-60"
                 :aria-pressed="passwordVisible"
                 :aria-label="toggleLabel"
                 :disabled="disabled"
@@ -120,18 +120,18 @@ function updateValue(event: Event) {
         <div
             v-if="strengthMeter"
             :id="meterId"
-            class="enpii-password-input__meter"
+            class="enpii-password-input__meter grid gap-1"
             role="status"
             aria-live="polite"
         >
-            <div class="enpii-password-input__meter-track">
+            <div class="enpii-password-input__meter-track w-full h-1.5 overflow-hidden rounded-[9999px] bg-surface-container-high">
                 <div
-                    class="enpii-password-input__meter-fill"
+                    class="enpii-password-input__meter-fill h-full rounded-[inherit] bg-neutral-border [transition-property:width,background] duration-base ease-emphasized"
                     :class="`enpii-password-input__meter-fill--${strength}`"
                     :style="{ width: `${(strength / 4) * 100}%` }"
                 />
             </div>
-            <span class="enpii-password-input__strength">{{ strengthLabel }}</span>
+            <span class="enpii-password-input__strength text-on-surface-variant text-[0.8125rem] font-medium">{{ strengthLabel }}</span>
         </div>
     </div>
 </template>

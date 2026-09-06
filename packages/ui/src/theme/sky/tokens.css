@@ -55,6 +55,14 @@
   --enpii-color-on-error: #FFFFFF;
   --enpii-color-on-error-container: #7F1D1D;
   --enpii-color-shadow: rgba(12, 74, 110, 0.05);
+  --enpii-color-picker-swatch-indigo-600: #4f46e5;
+  --enpii-color-picker-swatch-indigo-700: #4338ca;
+  --enpii-color-picker-swatch-green-700: #006d3d;
+  --enpii-color-picker-swatch-red-600: #ba1a1a;
+  --enpii-color-picker-swatch-amber-700: #b45309;
+  --enpii-color-picker-swatch-slate-700: #334155;
+  --enpii-color-picker-swatch-light: rgb(253 253 252);
+  --enpii-color-picker-swatch-ink: #191c1e;
 
   --enpii-radius-control: 9px;
   --enpii-radius-card: 9px;
@@ -135,7 +143,15 @@
     --enpii-color-error-container: #7F1D1D;
     --enpii-color-on-error: #0F172A;
     --enpii-color-on-error-container: #FECACA;
-    --enpii-color-shadow: rgba(0, 0, 0, 0.35);
+  --enpii-color-shadow: rgba(0, 0, 0, 0.35);
+  --enpii-color-picker-swatch-indigo-600: #6366f1;
+  --enpii-color-picker-swatch-indigo-700: #818cf8;
+  --enpii-color-picker-swatch-green-700: #15803d;
+  --enpii-color-picker-swatch-red-600: #ef4444;
+  --enpii-color-picker-swatch-amber-700: #f59e0b;
+  --enpii-color-picker-swatch-slate-700: #94a3b8;
+  --enpii-color-picker-swatch-light: #f8fafc;
+  --enpii-color-picker-swatch-ink: #0f172a;
   }
 }
 

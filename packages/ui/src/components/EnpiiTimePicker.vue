@@ -58,10 +58,10 @@ const options = computed(() => {
 </script>
 
 <template>
-    <div class="enpii-time-picker" :class="[shapeClass, { 'enpii-time-picker--error': Boolean(error) }]">
-        <label :for="inputId" class="enpii-time-picker__label">{{ label }}</label>
-        <div class="enpii-time-picker__control-wrap">
-            <AppIcon v-if="icon" :name="icon" class="enpii-time-picker__icon" />
+    <div class="enpii-time-picker grid gap-field-gap" :class="[shapeClass]">
+        <label :for="inputId" class="enpii-time-picker__label text-on-surface-variant text-sm font-medium">{{ label }}</label>
+        <div class="enpii-time-picker__control-wrap relative flex items-center">
+            <AppIcon v-if="icon" :name="icon" class="enpii-time-picker__icon absolute left-3 w-5 h-5 text-outline pointer-events-none" />
             <input
                 :id="inputId"
                 type="time"
@@ -71,14 +71,14 @@ const options = computed(() => {
                 :disabled="disabled"
                 :aria-invalid="Boolean(error)"
                 :aria-describedby="describedBy"
-                class="enpii-time-picker__control"
+                class="enpii-time-picker__control w-full min-h-control-sm appearance-none text-base py-1 pl-10 pr-3 border border-solid rounded-control bg-surface-container-lowest text-on-surface font-inherit [transition-property:border-color,box-shadow] duration-fast ease-emphasized hover:enabled:border-primary-border focus:outline-none focus:border-primary-container focus:[box-shadow:var(--enpii-focus-ring)] disabled:opacity-60 disabled:cursor-not-allowed"
                 @input="commit($event.target.value)"
             >
-            <button v-if="clearable && model && !disabled" type="button" class="enpii-time-picker__clear" :aria-label="t('timePicker.clearTime')" @click="commit('')">
+            <button v-if="clearable && model && !disabled" type="button" class="enpii-time-picker__clear absolute right-1 grid place-items-center w-8 h-8 border-0 bg-none text-outline cursor-pointer hover:text-danger-text" :aria-label="t('timePicker.clearTime')" @click="commit('')">
                 <AppIcon name="close" />
             </button>
         </div>
-        <p v-if="error" :id="`${inputId}-error`" class="enpii-time-picker__help enpii-time-picker__help--error">{{ error }}</p>
-        <p v-else-if="hint" :id="`${inputId}-hint`" class="enpii-time-picker__help">{{ hint }} {{ format === '12h' ? '• format 12 jam' : '' }}</p>
+        <p v-if="error" :id="`${inputId}-error`" class="enpii-time-picker__help enpii-time-picker__help--error m-0 text-danger-text text-xs">{{ error }}</p>
+        <p v-else-if="hint" :id="`${inputId}-hint`" class="enpii-time-picker__help m-0 text-on-surface-variant text-xs">{{ hint }} {{ format === '12h' ? '• format 12 jam' : '' }}</p>
     </div>
 </template>

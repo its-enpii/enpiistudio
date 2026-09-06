@@ -111,14 +111,14 @@ function onPaste(event: ClipboardEvent) {
 </script>
 
 <template>
-    <div class="enpii-otp-input" :class="{ 'enpii-otp-input--disabled': disabled }">
-        <label :for="`${inputId}-0`" class="enpii-otp-input__label">{{ t('otpInput.label') }}</label>
-        <div class="enpii-otp-input__fields">
+    <div class="enpii-otp-input grid gap-field-gap" :class="{ 'enpii-otp-input--disabled opacity-60': disabled }">
+        <label :for="`${inputId}-0`" class="enpii-otp-input__label text-on-surface-variant text-sm font-medium">{{ t('otpInput.label') }}</label>
+        <div class="enpii-otp-input__fields flex flex-wrap items-center gap-2">
             <template v-for="(digit, index) in code" :key="`${inputId}-${index}`">
                 <input
                     :id="`${inputId}-${index}`"
                     :ref="(el: any) => { if (el) inputs[index] = el as HTMLInputElement }"
-                    class="enpii-otp-input__field"
+                    class="enpii-otp-input__field w-11 h-11 p-0 border border-solid border-outline-variant rounded-control bg-surface-container-lowest text-on-surface font-inherit text-xl font-medium text-center [transition-property:border-color,box-shadow] duration-fast ease-emphasized hover:enabled:border-primary-border focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--enpii-focus-ring)] disabled:opacity-60 disabled:cursor-not-allowed"
                     :value="digit"
                     :type="type === 'number' ? 'text' : type"
                     inputmode="numeric"
@@ -131,7 +131,7 @@ function onPaste(event: ClipboardEvent) {
                     @paste="onPaste"
                     @focus="($event.target as HTMLInputElement).select()"
                 >
-                <span v-if="separator && index < length - 1" class="enpii-otp-input__separator" aria-hidden="true">
+                <span v-if="separator && index < length - 1" class="enpii-otp-input__separator text-outline font-medium" aria-hidden="true">
                     {{ separator }}
                 </span>
             </template>

@@ -52,13 +52,14 @@
     "./styles/*": "./dist/styles/*"
   },
   "scripts": {
-    "build": "vite build && vue-tsc --emitDeclarationOnly",
+    "build": "npm run rebuild:dist-tailwind",
     "build:tailwind": "vite --config vite.config.tailwind.ts build",
     "check": "vue-tsc --noEmit",
     "test": "vitest run --exclude tests/config-loader.test.ts --exclude tests/tailwind-theme.test.ts --exclude tests/golden-master.parity.spec.ts",
     "golden:record": "GOLDEN_RECORD=1 vitest run tests/golden-master.parity.spec.ts",
     "golden:check": "vitest run tests/golden-master.parity.spec.ts",
-    "test:tailwind": "npm run build:tailwind && vitest run tests/tailwind-theme.test.ts tests/config-loader.test.ts --config vitest.config.tailwind.ts && node scripts/tailwind-smoke.mjs",
+    "test:tailwind": "npm run build:tailwind && npm run rebuild:dist-tailwind && vitest run tests/tailwind-theme.test.ts tests/config-loader.test.ts --config vitest.config.tailwind.ts && node scripts/tailwind-smoke.mjs",
+    "rebuild:dist-tailwind": "node scripts/preserve-tailwind-dist.mjs && vite build && vue-tsc --emitDeclarationOnly && node scripts/restore-tailwind-dist.mjs",
     "pack:check": "npm pack --dry-run"
   },
   "engines": {

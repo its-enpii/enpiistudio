@@ -170,14 +170,14 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <div ref="root" class="enpii-date-range">
-        <label :for="inputId" class="enpii-date-range__label">{{ label }}</label>
+    <div ref="root" class="enpii-date-range relative grid gap-field-gap">
+        <label :for="inputId" class="enpii-date-range__label text-on-surface-variant text-sm font-medium">{{ label }}</label>
         <button
             :id="inputId"
             ref="trigger"
             type="button"
-            class="enpii-date-range__control"
-            :class="[shapeClass, { 'enpii-date-range__control--error': Boolean(error || isInvalidRange) }]"
+            class="enpii-date-range__control flex w-full min-h-control items-center gap-2 border border-solid border-outline-variant rounded-control bg-surface-container-lowest text-on-surface font-inherit text-base text-left cursor-pointer [transition-property:border-color,box-shadow] duration-fast ease-emphasized hover:enabled:border-primary-border focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--enpii-focus-ring)] disabled:opacity-60 disabled:cursor-not-allowed"
+            :class="[shapeClass, { 'enpii-date-range__control--error border-danger-border': Boolean(error || isInvalidRange) }]"
             :disabled="disabled"
             :aria-expanded="open"
             :aria-controls="`${inputId}-calendar`"
@@ -185,11 +185,11 @@ onBeforeUnmount(() => {
             :aria-required="required"
             @click="open ? close() : openPopup()"
         >
-            <AppIcon :name="icon" class="enpii-date-range__icon" />
-            <span class="enpii-date-range__value" :class="{ 'enpii-date-range__value--placeholder': !displayValue }">
+            <AppIcon :name="icon" class="enpii-date-range__icon w-5 h-5 flex-none text-outline text-xl leading-none" />
+            <span class="enpii-date-range__value flex-1 overflow-hidden text-ellipsis whitespace-nowrap" :class="{ 'enpii-date-range__value--placeholder text-outline': !displayValue }">
                 {{ displayValue || t('dateRange.placeholder') }}
             </span>
-            <AppIcon name="expand_more" class="enpii-date-range__chevron" />
+            <AppIcon name="expand_more" class="enpii-date-range__chevron w-5 h-5 flex-none text-outline text-xl leading-none" />
         </button>
 
         <Teleport to="body">
@@ -200,59 +200,59 @@ onBeforeUnmount(() => {
                     ref="popup"
                     role="dialog"
                     :aria-label="t('dateRange.placeholder')"
-                    class="enpii-date-range__popup"
+                    class="enpii-date-range__popup grid gap-3 p-3 border border-solid border-outline-variant rounded-control bg-surface-container-lowest shadow-overlay"
                     :class="[placeAbove ? 'enpii-date-range__popup--above-origin' : 'enpii-date-range__popup--below-origin']"
                     :style="popupStyle"
                     tabindex="-1"
                     @keydown="onKeydown"
                 >
-                    <div v-if="presetItems.length" class="enpii-date-range__presets">
-                        <button v-for="preset in presetItems" :key="preset.key" type="button" class="enpii-date-range__preset" @click="selectPreset(preset)">
+                    <div v-if="presetItems.length" class="enpii-date-range__presets flex flex-wrap gap-1">
+                        <button v-for="preset in presetItems" :key="preset.key" type="button" class="enpii-date-range__preset py-1 px-2 border-0 rounded-[9999px] bg-surface-container-low text-on-surface-variant font-inherit text-sm font-medium cursor-pointer [transition-property:background,color] duration-fast ease-emphasized hover:bg-primary-soft hover:text-primary-text focus-visible:bg-primary-soft focus-visible:text-primary-text" @click="selectPreset(preset)">
                             {{ preset.label }}
                         </button>
-                        <button type="button" class="enpii-date-range__preset" @click="draft = { start: '', end: '' }">Custom</button>
+                        <button type="button" class="enpii-date-range__preset py-1 px-2 border-0 rounded-[9999px] bg-surface-container-low text-on-surface-variant font-inherit text-sm font-medium cursor-pointer [transition-property:background,color] duration-fast ease-emphasized hover:bg-primary-soft hover:text-primary-text focus-visible:bg-primary-soft focus-visible:text-primary-text" @click="draft = { start: '', end: '' }">Custom</button>
                     </div>
 
-                    <div class="enpii-date-range__inputs">
-                        <label><span>Mulai</span><input type="date" :min="min" :max="max" :value="draft.start" @change="commitInput('start', $event)"></label>
-                        <label><span>Selesai</span><input type="date" :min="min" :max="max" :value="draft.end" @change="commitInput('end', $event)"></label>
+                    <div class="enpii-date-range__inputs grid grid-cols-[repeat(2,minmax(0,1fr))] gap-2">
+                        <label class="grid gap-1 text-on-surface-variant text-sm"><span>Mulai</span><input class="min-h-control-sm appearance-none px-3 border border-solid border-outline-variant rounded-lg bg-surface-container-lowest text-on-surface font-sans text-control/1.25 focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--enpii-focus-ring)]" type="date" :min="min" :max="max" :value="draft.start" @change="commitInput('start', $event)"></label>
+                        <label class="grid gap-1 text-on-surface-variant text-sm"><span>Selesai</span><input class="min-h-control-sm appearance-none px-3 border border-solid border-outline-variant rounded-lg bg-surface-container-lowest text-on-surface font-sans text-control/1.25 focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--enpii-focus-ring)]" type="date" :min="min" :max="max" :value="draft.end" @change="commitInput('end', $event)"></label>
                     </div>
 
-                    <div class="enpii-date-range__calendars">
-                        <section>
+                    <div class="enpii-date-range__calendars grid grid-cols-[repeat(2,minmax(0,1fr))] gap-3">
+                        <section class="min-w-0">
                             <header>
-                                <button type="button" :aria-label="t('dateRange.previousMonth')" @click="moveViews(-1)"><AppIcon name="chevron_left" /></button>
-                                <strong>{{ leftLabel }}</strong><span />
+                                <button type="button" class="grid place-items-center w-8 h-8 border-0 bg-none text-outline cursor-pointer hover:text-primary-text" :aria-label="t('dateRange.previousMonth')" @click="moveViews(-1)"><AppIcon name="chevron_left" /></button>
+                                <strong class="text-center font-semibold text-transform-none">{{ leftLabel }}</strong><span />
                             </header>
-                            <div class="enpii-date-range__weekdays"><span v-for="weekday in WEEKDAYS" :key="weekday">{{ weekday }}</span></div>
-                            <div class="enpii-date-range__days">
-                                <button v-for="day in leftDays" :key="`left-${day.iso}`" type="button" :disabled="day.disabled" :aria-pressed="day.iso === draft.start || day.iso === draft.end" class="enpii-date-range__day" :class="{ 'enpii-date-range__day--outside': !day.currentMonth, 'enpii-date-range__day--today': day.iso === today, 'enpii-date-range__day--selected': [draft.start, draft.end].includes(day.iso), 'enpii-date-range__day--between': day.iso > draft.start && day.iso < draft.end }" @click="choose(day)">
+                            <div class="enpii-date-range__weekdays grid grid-cols-[repeat(7,minmax(0,1fr))] mb-1 text-on-surface-variant text-xs text-center"><span v-for="weekday in WEEKDAYS" :key="weekday">{{ weekday }}</span></div>
+                            <div class="enpii-date-range__days grid grid-cols-[repeat(7,minmax(0,1fr))] gap-y-1">
+                                <button v-for="day in leftDays" :key="`left-${day.iso}`" type="button" :disabled="day.disabled" :aria-pressed="day.iso === draft.start || day.iso === draft.end" class="enpii-date-range__day h-8 border-0 bg-none text-inherit text-sm cursor-pointer [transition-property:background,color] duration-fast ease-emphasized hover:enabled:bg-surface-container-high focus-visible:bg-surface-container-high focus-visible:outline-none focus-visible:[box-shadow:0_0_0_3px_color-mix(in_srgb,var(--enpii-color-primary)_30%,transparent)] disabled:cursor-not-allowed disabled:opacity-35" :class="{ 'enpii-date-range__day--outside opacity-40': !day.currentMonth, 'enpii-date-range__day--today': day.iso === today, 'enpii-date-range__day--selected bg-primary text-on-primary': [draft.start, draft.end].includes(day.iso), 'enpii-date-range__day--between rounded-none bg-primary-soft': day.iso > draft.start && day.iso < draft.end }" @click="choose(day)">
                                     {{ day.day }}
                                 </button>
                             </div>
                         </section>
-                        <section>
+                        <section class="min-w-0">
                             <header>
                                 <span /><strong>{{ rightLabel }}</strong>
-                                <button type="button" :aria-label="t('dateRange.nextMonth')" @click="moveViews(1)"><AppIcon name="chevron_right" /></button>
+                                <button type="button" class="grid place-items-center w-8 h-8 border-0 bg-none text-outline cursor-pointer hover:text-primary-text" :aria-label="t('dateRange.nextMonth')" @click="moveViews(1)"><AppIcon name="chevron_right" /></button>
                             </header>
-                            <div class="enpii-date-range__weekdays"><span v-for="weekday in WEEKDAYS" :key="weekday">{{ weekday }}</span></div>
-                            <div class="enpii-date-range__days">
-                                <button v-for="day in rightDays" :key="`right-${day.iso}`" type="button" :disabled="day.disabled" :aria-pressed="day.iso === draft.start || day.iso === draft.end" class="enpii-date-range__day" :class="{ 'enpii-date-range__day--outside': !day.currentMonth, 'enpii-date-range__day--today': day.iso === today, 'enpii-date-range__day--selected': [draft.start, draft.end].includes(day.iso), 'enpii-date-range__day--between': day.iso > draft.start && day.iso < draft.end }" @click="choose(day)">
+                            <div class="enpii-date-range__weekdays grid grid-cols-[repeat(7,minmax(0,1fr))] mb-1 text-on-surface-variant text-xs text-center"><span v-for="weekday in WEEKDAYS" :key="weekday">{{ weekday }}</span></div>
+                            <div class="enpii-date-range__days grid grid-cols-[repeat(7,minmax(0,1fr))] gap-y-1">
+                                <button v-for="day in rightDays" :key="`right-${day.iso}`" type="button" :disabled="day.disabled" :aria-pressed="day.iso === draft.start || day.iso === draft.end" class="enpii-date-range__day h-8 border-0 bg-none text-inherit text-sm cursor-pointer [transition-property:background,color] duration-fast ease-emphasized hover:enabled:bg-surface-container-high focus-visible:bg-surface-container-high focus-visible:outline-none focus-visible:[box-shadow:0_0_0_3px_color-mix(in_srgb,var(--enpii-color-primary)_30%,transparent)] disabled:cursor-not-allowed disabled:opacity-35" :class="{ 'enpii-date-range__day--outside opacity-40': !day.currentMonth, 'enpii-date-range__day--today': day.iso === today, 'enpii-date-range__day--selected bg-primary text-on-primary': [draft.start, draft.end].includes(day.iso), 'enpii-date-range__day--between rounded-none bg-primary-soft': day.iso > draft.start && day.iso < draft.end }" @click="choose(day)">
                                     {{ day.day }}
                                 </button>
                             </div>
                         </section>
                     </div>
 
-                    <footer class="enpii-date-range__footer">
-                        <button v-if="clearable && (draft.start || draft.end)" type="button" class="enpii-date-range__footer-button enpii-date-range__footer-button--clear" @click="clear">{{ t('dateRange.clear') }}</button>
-                        <button type="button" class="enpii-date-range__footer-button" :disabled="!draft.start || !draft.end || isInvalidRange" @click="applyRange">Terapkan</button>
+                    <footer class="enpii-date-range__footer flex justify-end gap-2 pt-2 border-t border-solid border-outline-variant">
+                        <button v-if="clearable && (draft.start || draft.end)" type="button" class="enpii-date-range__footer-button enpii-date-range__footer-button--clear py-2 px-3 border-0 rounded-lg bg-surface-container-low text-danger-text font-inherit font-medium cursor-pointer [transition-property:background,transform] duration-fast ease-emphasized hover:enabled:bg-primary-soft active:enabled:scale-98 focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-focus" @click="clear">{{ t('dateRange.clear') }}</button>
+                        <button type="button" class="enpii-date-range__footer-button py-2 px-3 border-0 rounded-lg bg-surface-container-low text-primary-text font-inherit font-medium cursor-pointer [transition-property:background,transform] duration-fast ease-emphasized hover:enabled:bg-primary-soft active:enabled:scale-98 focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-focus disabled:cursor-not-allowed" :disabled="!draft.start || !draft.end || isInvalidRange" @click="applyRange">Terapkan</button>
                     </footer>
                 </div>
             </Transition>
         </Teleport>
-        <p v-if="error || isInvalidRange" class="enpii-date-range__help enpii-date-range__help--error">{{ error || t('dateRange.invalidRange') }}</p>
-        <p v-else-if="hint" class="enpii-date-range__help">{{ hint }}</p>
+        <p v-if="error || isInvalidRange" class="enpii-date-range__help enpii-date-range__help--error m-0 text-danger-text text-xs">{{ error || t('dateRange.invalidRange') }}</p>
+        <p v-else-if="hint" class="enpii-date-range__help m-0 text-on-surface-variant text-xs">{{ hint }}</p>
     </div>
 </template>

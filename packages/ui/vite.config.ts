@@ -41,6 +41,7 @@ export default defineConfig({
       name: 'EnpiiStudioUi',
       fileName: 'enpii-ui',
     },
+    emptyOutDir: false,
     rollupOptions: {
       external: ['vue', '@tiptap/vue-3', '@tiptap/starter-kit', /^@tiptap\//, /^prosemirror-/, 'qrcode'],
       output: {
