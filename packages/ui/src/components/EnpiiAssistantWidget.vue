@@ -693,7 +693,7 @@ onBeforeUnmount(() => {
 
         <button
             type="button"
-            class="enpii-assistant-widget__toggle grid h-14 w-14 cursor-pointer place-items-center rounded-full border-0 bg-primary text-on-primary shadow-lg transition-all duration-base ease-emphasized hover:scale-105 hover:bg-primary-hover focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-focus)_60%,transparent),var(--shadow-lg)]"
+            class="enpii-assistant-widget__toggle grid h-14 w-14 cursor-pointer place-items-center rounded-full border-0 bg-primary text-on-primary shadow-raised transition-all duration-base ease-emphasized hover:scale-105 hover:bg-primary-hover focus-visible:outline-none focus-visible:[box-shadow:0_0_0_3px_color-mix(in_srgb,var(--color-focus)_60%,transparent),var(--shadow-raised)]"
             :aria-expanded="open"
             :aria-label="t('assistant.openToggle', { name: displayName() })"
             @click="toggle"

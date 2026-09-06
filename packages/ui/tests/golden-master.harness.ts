@@ -580,9 +580,11 @@ function readSnapshot(element: Element): GoldenSnapshot {
     }
     if (property === "box-shadow") {
       const shadow = computed.getPropertyValue("box-shadow").trim()
-      if (shadow.startsWith("var(--tw-") || shadow.includes("--tw-shadow")) {
-        const twShadow = computed.getPropertyValue("--tw-shadow").trim()
-        snapshot[property] = normalizeRem(twShadow)
+      if (shadow.includes("--tw-shadow-color")) {
+        const placeholder = /var\(--tw-shadow-color,\s*([^)]+)\)/
+        const fallbackMatch = placeholder.exec(shadow)
+        if (!fallbackMatch) throw new Error(`Unresolved Tailwind shadow placeholder: ${shadow}`)
+        snapshot[property] = normalizeRem(shadow.replace(placeholder, fallbackMatch[1]))
         continue
       }
       snapshot[property] = normalizeRem(shadow)

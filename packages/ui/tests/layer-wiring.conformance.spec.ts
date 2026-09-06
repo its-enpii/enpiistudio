@@ -1,8 +1,9 @@
-import { readFileSync } from 'node:fs'
+import { readFileSync, readdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 
 const componentsDirectory = resolve(__dirname, '../src/components')
+const componentFilenames = readdirSync(componentsDirectory).filter((filename) => filename.endsWith('.vue'))
 
 const borderExceptions: Record<string, string> = {
   'EnpiiDesktopSplashScreen.vue': 'decorative splash halo/logo and progress track, not a bordered control/overlay',
@@ -40,6 +41,8 @@ const borderedComponents = [
 
 const structuralBorderPattern = /--(control|overlay)-border-width/
 
+const primitiveShadowExceptions: Record<string, string> = {}
+
 describe('structural layer wiring conformance', () => {
   it.each(borderedComponents)('%s consumes a structural border-width token', (filename) => {
     const source = readFileSync(resolve(componentsDirectory, filename), 'utf8')
@@ -55,6 +58,27 @@ describe('structural layer wiring conformance', () => {
         source,
         `${filename} must not accidentally introduce a structural border-width token`,
       ).not.toMatch(structuralBorderPattern)
+    }
+  })
+
+  it('uses semantic theme shadow utilities instead of primitive Tailwind sizes', () => {
+    const primitiveShadowPattern = /(^|[^a-zA-Z0-9-])shadow-(?:lg|xl|md)([^a-zA-Z0-9-]|$)/
+
+    for (const filename of Object.keys(primitiveShadowExceptions)) {
+      const source = readFileSync(resolve(componentsDirectory, filename), 'utf8')
+      expect(source, `${filename} must not accidentally use shadow-lg, shadow-xl, or shadow-md`).not.toMatch(
+        primitiveShadowPattern,
+      )
+    }
+
+    expect(componentFilenames.length).toBeGreaterThan(0)
+
+    for (const filename of componentFilenames) {
+      const source = readFileSync(resolve(componentsDirectory, filename), 'utf8')
+      expect(
+        source,
+        `${filename} must use a semantic shadow token or a documented arbitrary shadow`,
+      ).not.toMatch(primitiveShadowPattern)
     }
   })
 

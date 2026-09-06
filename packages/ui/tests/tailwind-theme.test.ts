@@ -24,7 +24,9 @@ describe('Tailwind-native theme', () => {
     expect(entry).toContain('--radius-control: 9px;')
     expect(entry).toContain('--spacing-control: 3rem;')
     expect(entry).toContain('--shadow-focus: 0 0 0 4px color-mix(in srgb, var(--color-focus) 25%, transparent);')
-    expect(entry).not.toContain('@utility')
+    for (const shadowUtility of ['card', 'control', 'overlay', 'raised']) {
+      expect(entry).toContain(`@utility shadow-${shadowUtility} {\n  box-shadow: var(--shadow-${shadowUtility});\n}`)
+    }
   })
 
   it('removes all legacy Enpii custom properties', () => {

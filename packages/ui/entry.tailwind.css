@@ -120,6 +120,22 @@
   --text-control: 1rem;
 }
 
+@utility shadow-card {
+  box-shadow: var(--shadow-card);
+}
+
+@utility shadow-control {
+  box-shadow: var(--shadow-control);
+}
+
+@utility shadow-overlay {
+  box-shadow: var(--shadow-overlay);
+}
+
+@utility shadow-raised {
+  box-shadow: var(--shadow-raised);
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;
