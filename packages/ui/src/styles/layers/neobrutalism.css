@@ -31,6 +31,9 @@
 .enpii-avatar,
 .enpii-alert,
 .enpii-toast,
+.enpii-stat-tile,
+.enpii-kanban-board__column,
+.enpii-kanban-board__card,
 .enpii-card {
   border: 2px solid var(--color-ink);
   border-radius: var(--radius-card);
@@ -39,8 +42,11 @@
 
 .enpii-modal__panel,
 .enpii-drawer__panel,
+.enpii-bottom-sheet__panel,
+.enpii-command-palette__panel,
 .enpii-popover,
 .enpii-date-picker__popup,
+.enpii-time-picker__popup,
 .enpii-smart-select__menu,
 .enpii-dropdown-menu__panel,
 .enpii-tooltip__bubble {
@@ -62,10 +68,28 @@
   box-shadow: var(--shadow-control);
 }
 
+.enpii-spinner__circle {
+  border: 2px solid var(--color-ink);
+  border-block-start-color: transparent;
+}
+
+.enpii-tabs {
+  border: 2px solid var(--color-ink);
+  border-radius: var(--radius-control);
+  box-shadow: var(--shadow-control);
+}
+
 .enpii-input__control,
 .enpii-textarea__control,
 .enpii-currency-input__control,
-.enpii-smart-select__trigger {
+.enpii-password-input__control,
+.enpii-otp-input__cell,
+.enpii-input-mask__control,
+.enpii-tag-input__container,
+.enpii-smart-select__trigger,
+.enpii-date-picker__control,
+.enpii-time-picker__control,
+.enpii-mention-input__control {
   border: 2px solid var(--color-ink) !important;
   border-radius: var(--radius-control);
   box-shadow: 2px 2px 0 var(--color-ink);
@@ -73,7 +97,9 @@
 
 .enpii-input__control,
 .enpii-textarea__control,
-.enpii-currency-input__control {
+.enpii-currency-input__control,
+.enpii-password-input__control,
+.enpii-input-mask__control {
   color: var(--color-on-surface);
 }
 
@@ -81,9 +107,66 @@
 .enpii-icon-button[class*=" enpii-icon-button--filled-"],
 .enpii-filter-pill__button,
 .enpii-segmented-control,
-.enpii-pagination__control--active {
+.enpii-pagination__control--active,
+.enpii-date-picker__footer-button,
+.enpii-date-picker__nav-button,
+.enpii-date-picker__day--selected,
+.enpii-stepper__trigger,
+.enpii-kanban__card-menu {
   border: 2px solid var(--color-ink) !important;
   border-radius: var(--radius-control);
+  box-shadow: var(--shadow-control);
+}
+
+.enpii-switch__track {
+  border: 2px solid var(--color-ink);
+  box-shadow: var(--shadow-control);
+}
+
+.enpii-switch__thumb {
+  border: 2px solid var(--color-ink);
+}
+
+.enpii-kanban__column {
+  border: 2px solid var(--color-ink) !important;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.enpii-kanban__column--primary {
+  border-color: var(--color-primary-border) !important;
+}
+
+.enpii-kanban__column--success {
+  border-color: var(--color-success-border) !important;
+}
+
+.enpii-kanban__column-count,
+.enpii-kanban__card {
+  border: 2px solid var(--color-ink);
+  border-radius: var(--radius-control);
+  box-shadow: var(--shadow-control);
+}
+
+.enpii-kanban__column-count {
+  background: var(--color-surface-container-lowest);
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+.enpii-kanban__menu {
+  border: 2px solid var(--color-ink);
+  box-shadow: var(--shadow-overlay);
+}
+
+.enpii-kanban__menu-item {
+  border: 2px solid transparent;
+  border-radius: calc(var(--radius-control) - 0.25rem);
+}
+
+.enpii-kanban__menu-item:hover:enabled,
+.enpii-kanban__menu-item:focus-visible {
+  border-color: var(--color-ink);
   box-shadow: var(--shadow-control);
 }
 
@@ -94,9 +177,36 @@
 .enpii-filter-pill__button:hover:enabled,
 .enpii-filter-pill__button:active:enabled,
 .enpii-pagination__control--active:hover:enabled,
-.enpii-pagination__control--active:active:enabled {
+.enpii-pagination__control--active:active:enabled,
+.enpii-date-picker__footer-button:active:enabled,
+.enpii-date-picker__nav-button:active:enabled,
+.enpii-stepper__trigger:active:enabled,
+.enpii-kanban__card-menu:active:enabled {
   transform: translate(2px, 2px);
   box-shadow: 0 0 0 var(--color-ink);
+}
+
+.enpii-tabs__tab--active:active:enabled,
+.enpii-kanban__card:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 var(--color-ink);
+}
+
+.enpii-modal__title,
+.enpii-drawer__title,
+.enpii-bottom-sheet__title,
+.enpii-form-field__label,
+.enpii-input__label,
+.enpii-textarea__label,
+.enpii-currency-input__label,
+.enpii-smart-select__label,
+.enpii-date-picker__label,
+.enpii-time-picker__label,
+.enpii-mention-input__label,
+.enpii-tabs__label,
+.enpii-kanban__column-title {
+  color: var(--color-ink);
+  font-weight: 600;
 }
 
 .enpii-card:hover {

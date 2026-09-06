@@ -1,74 +1,75 @@
-# Tailwind v4 migration
+# Mengonsumsi @its-enpii/ui v1.x — model fondasi + style layer
 
-Fase 1 membangun fondasi Tailwind v4 secara paralel dengan stylesheet BEM lama. Tidak ada file komponen `.vue`, `src/styles/components.css`, atau `src/styles/tokens.css` lama yang diubah, sehingga konsumen BEM tetap aman sampai fase 2.
+> v1.0.0 menghapus arsitektur config-JS (`enpii.ui.config.js`, plugin
+> `@its-enpii/ui/vite`, `virtual:enpii-ui.css`, preset Tailwind 3). Model sekarang
+> **pure CSS-import**: package = fondasi (token + komponen), style layer = template
+> visual yang **opsional**. Fondasi bisa dipakai tanpa layer mana pun.
 
-## Instalasi consumer
+## Instalasi
 
 ```bash
-npm install @its-enpii/ui
-npm install -D tailwindcss @tailwindcss/vite
+npm install @its-enpii/ui        # peer dep: vue ^3.5
+npm install -D tailwindcss @tailwindcss/vite   # @its-enpii/ui/tailwind.css butuh Tailwind v4
 ```
 
-Buat `enpii.ui.config.js` di root project:
+Distribusi via **GitHub Packages** (`npm.pkg.github.com`), bukan npmjs.com —
+butuh token `read:packages` di `.npmrc` scope `@its-enpii`.
 
-```js
-import { defineEnpiiUiConfig } from '@its-enpii/ui/config'
+## Integrasi CSS (urutan wajib)
 
-export default defineEnpiiUiConfig({
-  theme: 'sky',
-  styleLayer: 'neobrutalism',
-  darkMode: 'auto',
-  overrides: {
-    '--enpii-color-primary': '#38BDF8',
-  },
-})
+Di file CSS entry consumer (mis. `resources/css/app.css`):
+
+```css
+@import "tailwindcss";                        /* 1. engine Tailwind v4 */
+@import "@its-enpii/ui/tailwind.css";         /* 2. fondasi: token @theme + utilities package */
+@import "@its-enpii/ui/styles/neobrutalism";  /* 3. OPSIONAL: tepat satu style layer, atau tidak sama sekali */
+/* 4. opsional: @its-enpii/skeleton/styles.css (layout presets) */
+/* 5. opsional: theme override consumer sendiri, SELALU paling akhir */
+@import "./app-theme.css";
 ```
 
-Selanjutnya aktifkan plugin Vite:
+- Tanpa langkah 3, aplikasi tetap utuh memakai fondasi (radius/shadow default
+  dari `@theme`), dan bisa berhenti di situ.
+- Layer yang tersedia: `material`, `glassmorphism`, `neumorphism`, `neobrutalism`,
+  `minimalism` — import **tepat satu**.
+- Konfigurasi Vite cukup plugin Tailwind standar; tidak ada plugin Enpii lagi.
 
-```ts
-import { enpiiUi } from '@its-enpii/ui/vite'
-import tailwindcss from '@tailwindcss/vite'
-import { defineConfig } from 'vite'
+## Layer apa yang dilakukan (dan tidak dilakukan)
 
-export default defineConfig({
-  plugins: [enpiiUi(), tailwindcss()],
-})
+Layer hanyalah **value-set token + BEM marker overrides**:
+
+- Menimpa: `--radius-*`, `--shadow-*`, `--transition-duration-*`, `--ease-*`,
+  plus selector BEM marker (`.enpii-button`, `.enpii-card`, …) untuk bahasa visual
+  tegas (mis. border 2px ink neobrutalism).
+- Tidak menyentuh: warna/hue brand (`--color-*` tetap milik tema), sizing,
+  layout, dan kontrak tinggi kontrol.
+
+## Override token dari consumer
+
+Timpa token Tailwind-native di CSS sendiri setelah semua import:
+
+```css
+/* app-theme.css — contoh: identitas Encanteen */
+:root {
+  --color-primary: #87CEEB;   /* sky */
+  --color-accent: #F4B740;    /* sunflower */
+  --color-ink: #14202B;
+}
+@media (prefers-color-scheme: dark) {
+  :root { /* pasangan dark */ }
+}
 ```
 
-Terakhir, import CSS virtual di entry utama:
+Aturan: 0 hex di layer/tema non-brand selain token ink/netral; font-weight ≤ 600;
+`color-scheme: light dark` wajib ada di consumer (kontrak dark mode); verifikasi
+wajib computed-style dua tema, bukan sekadar build.
 
-```ts
-import 'virtual:enpii-ui.css'
-```
+## Ringkasan arsitektur
 
-## Urutan resolusi
-
-1. `theme` — mengimpor token semantik dasar, misalnya `sky`.
-2. `styleLayer` — mengimpor value-set layer visual jika bukan `none`.
-3. `overrides` — memasang token `:root` paling akhir sehingga selalu menimpa dua lapis sebelumnya.
-
-## Value-set style layer
-
-`styleLayer` menerima `none` (default), `material`, `glassmorphism`, `neumorphism`, `neobrutalism`, atau
-`minimalism`. Layer hanya menimpa token visual (`radius`, `shadow`, `border`, `font-weight`, `duration`, `ease`),
-tanpa mengubah warna brand, sizing, layout, atau selector komponen. Consumer tetap dapat menimpa token pada
-`overrides` karena blok ini dievaluasi paling akhir.
-
-## Dark mode
-
-- `auto` — murni `@media (prefers-color-scheme: dark)`.
-- `class` — hanya `@custom-variant dark (&:where(.dark, .dark *))`.
-- `manual` — hanya `@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *))`.
-
-Hanya satu trigger yang dihasilkan. Konfigurasi `auto` tetap memiliki media query asli di token tema, sementara `class` dan `manual` mengandalkan custom variant.
-
-## Fondasi utility
-
-Build internal menghasilkan `dist/tailwind.css`. Bundle berisi token sky light/dark, utility warna seperti `bg-primary`, `text-on-primary`, dan `border-primary-border`, utility radius seperti `rounded-control`, serta token kontrol `--enpii-control-height`. Smoke browser memverifikasi `bg-primary` menjadi `rgb(135, 206, 235)` dan `rounded-control` menjadi `9px`.
-
-## Roadmap
-
-- **Fase 2** — migrasi komponen ke utility Tailwind, batch kecil, 309 test lama dijaga tetap hijau per batch.
-- **Fase 3** — value-set style layer (`material`, `glassmorphism`, `neumorphism`, `neobrutalism`, `minimalism`) sebagai token/variant Tailwind.
-- **Fase 4** — migrasi consumer akhir, termasuk Encanteen, ke config resmi dan penghapusan jalur BEM setelah cutoff.
+| Lapis | Isi | Wajib? |
+|---|---|---|
+| `tailwindcss` | engine utility | ya |
+| `@its-enpii/ui/tailwind.css` | fondasi: token `@theme` + komponen | ya |
+| `@its-enpii/ui/styles/<layer>` | value-set visual (template bentuk bangunan) | tidak |
+| `@its-enpii/skeleton/styles.css` | layout presets | tidak |
+| theme consumer | identitas brand (sky, dsb.) | disarankan, paling akhir |

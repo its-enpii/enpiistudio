@@ -1,4 +1,4 @@
-## [2026-09-06]
+## [1.1.0] - 2026-09-06
 
 ### Changed (BREAKING)
 - `--enpii-*` dihapus sepenuhnya; seluruh token kini Tailwind-native `@theme`
@@ -9,6 +9,14 @@
 - Focus ring memakai `--shadow-focus`; value-set layer memakai namespace Tailwind yang sama.
 - Export deprecated dihapus: `./config`, `./config/node`, `./vite`, `./tailwind.preset`,
   `./tailwind.v4.css`, dan `./theme/sky/tokens.css`.
+
+### Fixed
+- Style layer neobrutalism: perluasan coverage komponen yang sebelumnya lolos
+  (Kanban board/kolom/kartu, Tabs, BottomSheet, CommandPalette, TimePicker,
+  Stepper, StatTile, Spinner, PasswordInput, OtpInput, InputMask, TagInput,
+  MentionInput, DatePicker control/footer/nav/selected, ikon kanban menu,
+  judul modal/drawer/label form → ink 600). Invarian dijaga: 0 hex literal,
+  font-weight ≤ 600, hanya token `--color-ink` + token native.
 
 ## [0.10.0] - 2026-09-05
 
