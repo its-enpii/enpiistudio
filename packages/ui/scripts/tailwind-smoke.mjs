@@ -62,7 +62,7 @@ if (borderRadius !== '9px') {
 if (controlHeight !== '48px') {
   throw new Error(`Expected 48px computed min-h-control, received ${controlHeight}`)
 }
-if (primaryToken !== '#87CEEB') {
+if (primaryToken.toLowerCase() !== '#87ceeb') {
   throw new Error(`Expected --color-primary #87CEEB, received ${primaryToken}`)
 }
 
