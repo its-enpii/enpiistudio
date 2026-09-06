@@ -1,6 +1,6 @@
 {
   "name": "@its-enpii/ui",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Internal presentational Vue components for Enpii Studio products",
   "license": "UNLICENSED",
   "repository": {
@@ -16,9 +16,7 @@
     "CHANGELOG.md",
     "dist",
     "README.md",
-    "src",
-    "tailwind.preset.js",
-    "tailwind.v4.css"
+    "src"
   ],
   "main": "./dist/enpii-ui.umd.cjs",
   "module": "./dist/enpii-ui.js",
@@ -30,21 +28,7 @@
       "require": "./dist/enpii-ui.umd.cjs"
     },
     "./styles.css": "./dist/enpii-ui.css",
-    "./tokens.css": "./dist/enpii-ui.css",
-    "./config": "./src/config.ts",
-    "./config/node": "./src/config-node.ts",
-    "./vite": {
-      "types": "./dist/vite-plugin/enpii-ui.d.ts",
-      "import": "./src/vite-plugin/enpii-ui.js",
-      "require": "./dist/vite-plugin/enpii-ui.cjs"
-    },
     "./tailwind.css": "./dist/tailwind.css",
-    "./theme/sky/tokens.css": "./src/theme/sky/tokens.css",
-    "./tailwind.preset": {
-      "import": "./dist/tailwind.preset.js",
-      "require": "./dist/tailwind.preset.js"
-    },
-    "./tailwind.v4.css": "./dist/tailwind.v4.css",
     "./styles/material": "./dist/styles/material.css",
     "./styles/glassmorphism": "./dist/styles/glassmorphism.css",
     "./styles/neumorphism": "./dist/styles/neumorphism.css",
@@ -56,10 +40,10 @@
     "build": "npm run rebuild:dist-tailwind",
     "build:tailwind": "vite --config vite.config.tailwind.ts build",
     "check": "vue-tsc --noEmit",
-    "test": "vitest run --exclude tests/config-loader.test.ts --exclude tests/tailwind-theme.test.ts --exclude tests/golden-master.parity.spec.ts",
+    "test": "vitest run --exclude tests/tailwind-theme.test.ts --exclude tests/golden-master.parity.spec.ts",
     "golden:record": "GOLDEN_RECORD=1 vitest run tests/golden-master.parity.spec.ts",
     "golden:check": "vitest run tests/golden-master.parity.spec.ts",
-    "test:tailwind": "npm run build:tailwind && npm run rebuild:dist-tailwind && vitest run tests/tailwind-theme.test.ts tests/config-loader.test.ts --config vitest.config.tailwind.ts && node scripts/tailwind-smoke.mjs",
+    "test:tailwind": "npm run build:tailwind && npm run rebuild:dist-tailwind && vitest run tests/tailwind-theme.test.ts --config vitest.config.tailwind.ts && node scripts/tailwind-smoke.mjs",
     "rebuild:dist-tailwind": "node scripts/preserve-tailwind-dist.mjs && vite build && vue-tsc --emitDeclarationOnly && node scripts/restore-tailwind-dist.mjs",
     "pack:check": "npm pack --dry-run"
   },

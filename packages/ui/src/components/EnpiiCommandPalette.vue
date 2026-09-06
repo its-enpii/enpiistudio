@@ -132,7 +132,7 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onGlobalKeydown));
       leave-active-class="enpii-command-palette-leave-active transition-opacity duration-fast ease-accelerate motion-reduce:transition-none"
       leave-to-class="enpii-command-palette-leave-to opacity-0"
     >
-      <div v-if="open" class="enpii-command-palette__backdrop fixed inset-0 flex items-start justify-center p-4 bg-surface-inverse/32 backdrop-blur-sm z-index-modal max-sm:p-2" @click.self="closePalette">
+      <div v-if="open" class="enpii-command-palette__backdrop fixed inset-0 flex items-start justify-center p-4 bg-surface-inverse/32 backdrop-blur-sm z-modal max-sm:p-2" @click.self="closePalette">
         <section
           role="dialog"
           aria-modal="true"
@@ -159,7 +159,7 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onGlobalKeydown));
               <li v-for="item in group.items" :key="item.id">
                 <button
                   type="button"
-                  class="enpii-command-palette__command flex w-full min-h-10 items-center gap-2.5 py-2 px-2.5 border-0 rounded-[calc(var(--enpii-radius-control)-0.125rem)] bg-none text-on-surface font-inherit text-left cursor-pointer [transition-property:background] duration-fast ease-emphasized motion-reduce:transition-none hover:bg-neutral-soft focus-visible:outline-3 focus-visible:-outline-offset-2 focus-visible:outline-focus"
+                  class="enpii-command-palette__command flex w-full min-h-10 items-center gap-2.5 py-2 px-2.5 border-0 rounded-[calc(var(--radius-control)-0.125rem)] bg-none text-on-surface font-inherit text-left cursor-pointer [transition-property:background] duration-fast ease-emphasized motion-reduce:transition-none hover:bg-neutral-soft focus-visible:outline-3 focus-visible:-outline-offset-2 focus-visible:outline-focus"
                   :class="{ 'enpii-command-palette__command--active': filteredCommands[activeIndex]?.id === item.id }"
                   :aria-label="t('commandPalette.select', { label: item.label })"
                   @click="selectCommand(item)"

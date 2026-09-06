@@ -19,7 +19,7 @@ const shapeClass = useShape(props);
 </script>
 
 <template>
-    <div class="enpii-form-row grid grid-cols-1 gap-[var(--enpii-space-form-row-gap)]" :class="[compact ? 'gap-4' : '', `enpii-form-row--${props.columns}`, shapeClass]">
+    <div class="enpii-form-row grid grid-cols-1 gap-[1.5rem]" :class="[compact ? 'gap-4' : '', `enpii-form-row--${props.columns}`, shapeClass]">
         <slot />
     </div>
 </template>

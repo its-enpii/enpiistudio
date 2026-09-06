@@ -44,15 +44,15 @@ describe('EnpiiPopover motion', () => {
 })
 
 describe('Motion tokens', () => {
-  it('exposes standardized duration and easing tokens in tokens.css', () => {
-    const css = readFileSync(resolve(process.cwd(), 'src/styles/tokens.css'), 'utf8')
-    expect(css).toContain('--enpii-duration-fast: 150ms')
-    expect(css).toContain('--enpii-duration-normal: 240ms')
-    expect(css).toContain('--enpii-duration-slow: 360ms')
-    expect(css).toContain('--enpii-ease-standard: cubic-bezier(.2, 0, 0, 1)')
-    expect(css).toContain('--enpii-ease-decelerate: cubic-bezier(0, 0, 0, 1)')
-    expect(css).toContain('--enpii-ease-accelerate: cubic-bezier(.3, 0, 1, 1)')
-    expect(css).toContain('--enpii-ease-emphasized: cubic-bezier(.16, 1, .3, 1)')
+  it('exposes standardized duration and easing tokens in entry.tailwind.css', () => {
+    const css = readFileSync(resolve(process.cwd(), 'entry.tailwind.css'), 'utf8')
+    expect(css).toContain('--transition-duration-fast: 150ms')
+    expect(css).toContain('--transition-duration-normal: 240ms')
+    expect(css).toContain('--transition-duration-slow: 360ms')
+    expect(css).toContain('--ease-standard: cubic-bezier(.2, 0, 0, 1)')
+    expect(css).toContain('--ease-decelerate: cubic-bezier(0, 0, 0, 1)')
+    expect(css).toContain('--ease-accelerate: cubic-bezier(.3, 0, 1, 1)')
+    expect(css).toContain('--ease-emphasized: cubic-bezier(.16, 1, .3, 1)')
   })
 
   it('reduced-motion sets transition duration to 0 instead of hiding transitions', () => {

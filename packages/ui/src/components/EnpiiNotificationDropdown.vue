@@ -235,7 +235,7 @@ onBeforeUnmount(() => {
             <AppIcon name="notifications" class="enpii-notification-dropdown__icon h-6 w-6 text-base" />
             <span
                 v-if="unreadCount > 0"
-                class="enpii-notification-dropdown__badge absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-error text-on-error text-[.625rem] font-semibold shadow-[0_0_0_2px_var(--enpii-color-surface)]"
+                class="enpii-notification-dropdown__badge absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-error text-on-error text-[.625rem] font-semibold shadow-[0_0_0_2px_var(--color-surface)]"
             >
                 {{ unreadCount > 9 ? '9+' : unreadCount }}
             </span>

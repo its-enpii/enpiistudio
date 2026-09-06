@@ -20,7 +20,7 @@ Available: `material` · `glassmorphism` · `neumorphism` · `neobrutalism` · `
 
 Material Design 3 flavor.
 
-- Pill radii — controls become fully rounded (`--enpii-radius-control: 999px`)
+- Pill radii — controls become fully rounded (`--radius-control: 999px`)
 - M3 elevation shadows on cards, menus, overlays
 - State-layer hover: translucent primary overlay on buttons/links/rows
 - Font weight ≤ 500

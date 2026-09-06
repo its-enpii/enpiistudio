@@ -1,33 +1,30 @@
 /* Value-set only: no component selectors and no brand colors. */
 :root,
 [data-enpii-layer="neobrutalism"] {
-  --enpii-radius-control: 0.375rem;
-  --enpii-radius-card: 0.5rem;
-  --enpii-radius-overlay: 0.625rem;
-  --enpii-border-width: 3px;
-  --enpii-font-weight-medium: 500;
-  --enpii-font-weight-semibold: 600;
-  --enpii-duration-fast: 120ms;
-  --enpii-duration-base: 140ms;
-  --enpii-duration-normal: 160ms;
-  --enpii-duration-slow: 200ms;
-  --enpii-ease-standard: steps(4, end);
-  --enpii-ease-decelerate: steps(3, end);
-  --enpii-ease-accelerate: steps(3, end);
-  --enpii-ease-emphasized: steps(4, end);
-  --enpii-shadow-control: 2px 2px 0 var(--enpii-color-ink);
-  --enpii-shadow-md: 2px 2px 0 var(--enpii-color-ink);
-  --enpii-shadow-lg: 3px 3px 0 var(--enpii-color-ink);
-  --enpii-shadow-xl: 4px 4px 0 var(--enpii-color-ink);
-  --enpii-shadow-raised: 3px 3px 0 var(--enpii-color-ink);
-  --enpii-shadow-overlay: 4px 4px 0 var(--enpii-color-ink);
+  --radius-control: 0.375rem;
+  --radius-card: 0.5rem;
+  --radius-overlay: 0.625rem;
+  --transition-duration-fast: 120ms;
+  --transition-duration-base: 140ms;
+  --transition-duration-normal: 160ms;
+  --transition-duration-slow: 200ms;
+  --ease-standard: steps(4, end);
+  --ease-decelerate: steps(3, end);
+  --ease-accelerate: steps(3, end);
+  --ease-emphasized: steps(4, end);
+  --shadow-control: 2px 2px 0 var(--color-ink);
+  --shadow-md: 2px 2px 0 var(--color-ink);
+  --shadow-lg: 3px 3px 0 var(--color-ink);
+  --shadow-xl: 4px 4px 0 var(--color-ink);
+  --shadow-raised: 3px 3px 0 var(--color-ink);
+  --shadow-overlay: 4px 4px 0 var(--color-ink);
 }
 
 @media (prefers-reduced-motion: reduce) {
   :root {
-    --enpii-duration-fast: 0ms;
-    --enpii-duration-base: 0ms;
-    --enpii-duration-normal: 0ms;
-    --enpii-duration-slow: 0ms;
+    --transition-duration-fast: 0ms;
+    --transition-duration-base: 0ms;
+    --transition-duration-normal: 0ms;
+    --transition-duration-slow: 0ms;
   }
 }

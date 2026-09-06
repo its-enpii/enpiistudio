@@ -656,7 +656,7 @@ onBeforeUnmount(() => {
                         />
                         <button
                             type="button"
-                            class="enpii-assistant-widget__composer-button grid h-11 w-11 shrink-0 cursor-pointer place-items-center rounded-control border border-outline-variant bg-none text-on-surface-variant transition-all duration-fast ease-emphasized hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--enpii-color-primary)_30%,transparent)] disabled:cursor-not-allowed"
+                            class="enpii-assistant-widget__composer-button grid h-11 w-11 shrink-0 cursor-pointer place-items-center rounded-control border border-outline-variant bg-none text-on-surface-variant transition-all duration-fast ease-emphasized hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-primary)_30%,transparent)] disabled:cursor-not-allowed"
                             :disabled="sending || loading"
                             :aria-label="t('assistant.attachImage')"
                             :title="t('assistant.attachImage')"
@@ -668,7 +668,7 @@ onBeforeUnmount(() => {
                             ref="inputEl"
                             v-model="input"
                             rows="2"
-                            class="enpii-assistant-widget__input max-h-12 min-h-11 flex-1 rounded-control border border-outline-variant bg-surface px-3 py-2 text-on-surface text-sm leading-tight resize-none focus:border-primary focus:outline-none focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--enpii-color-primary)_20%,transparent)]"
+                            class="enpii-assistant-widget__input max-h-12 min-h-11 flex-1 rounded-control border border-outline-variant bg-surface px-3 py-2 text-on-surface text-sm leading-tight resize-none focus:border-primary focus:outline-none focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-primary)_20%,transparent)]"
                             :placeholder="t('assistant.inputPlaceholder', { name: displayName() })"
                             :disabled="sending || loading"
                             @input="afterInputChange"
@@ -677,7 +677,7 @@ onBeforeUnmount(() => {
                         />
                         <button
                             type="button"
-                            class="enpii-assistant-widget__composer-button grid h-11 w-11 shrink-0 cursor-pointer place-items-center rounded-control border border-transparent bg-primary text-on-primary transition-all duration-fast ease-emphasized hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--enpii-color-primary)_30%,transparent)] disabled:cursor-not-allowed"
+                            class="enpii-assistant-widget__composer-button grid h-11 w-11 shrink-0 cursor-pointer place-items-center rounded-control border border-transparent bg-primary text-on-primary transition-all duration-fast ease-emphasized hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-primary)_30%,transparent)] disabled:cursor-not-allowed"
                             :disabled="sending || loading || (!input.trim() && !attachedImages.length)"
                             :aria-label="t('assistant.send')"
                             @click="sendMessage"
@@ -693,7 +693,7 @@ onBeforeUnmount(() => {
 
         <button
             type="button"
-            class="enpii-assistant-widget__toggle grid h-14 w-14 cursor-pointer place-items-center rounded-full border-0 bg-primary text-on-primary shadow-lg transition-all duration-base ease-emphasized hover:scale-105 hover:bg-primary-hover focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--enpii-color-focus)_60%,transparent),var(--enpii-shadow-lg)]"
+            class="enpii-assistant-widget__toggle grid h-14 w-14 cursor-pointer place-items-center rounded-full border-0 bg-primary text-on-primary shadow-lg transition-all duration-base ease-emphasized hover:scale-105 hover:bg-primary-hover focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-focus)_60%,transparent),var(--shadow-lg)]"
             :aria-expanded="open"
             :aria-label="t('assistant.openToggle', { name: displayName() })"
             @click="toggle"

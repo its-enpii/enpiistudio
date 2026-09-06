@@ -34,10 +34,10 @@ onBeforeUnmount(() => {
 });
 
 const toastIconToneClasses = {
-    success: '[background:color-mix(in_srgb,var(--enpii-color-secondary-container)_50%,transparent)] text-secondary',
-    error: '[background:color-mix(in_srgb,var(--enpii-color-error-container)_50%,transparent)] text-danger-text',
-    warning: '[background:color-mix(in_srgb,var(--enpii-color-tertiary-fixed)_50%,transparent)] text-warning-text',
-    info: '[background:color-mix(in_srgb,var(--enpii-color-primary-container)_30%,transparent)] text-primary-text',
+    success: '[background:color-mix(in_srgb,var(--color-secondary-container)_50%,transparent)] text-secondary',
+    error: '[background:color-mix(in_srgb,var(--color-error-container)_50%,transparent)] text-danger-text',
+    warning: '[background:color-mix(in_srgb,var(--color-tertiary-fixed)_50%,transparent)] text-warning-text',
+    info: '[background:color-mix(in_srgb,var(--color-primary-container)_30%,transparent)] text-primary-text',
 };
 </script>
 

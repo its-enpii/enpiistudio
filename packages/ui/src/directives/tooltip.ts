@@ -98,7 +98,7 @@ function showTooltip(el: HTMLElement, binding: DirectiveBinding): void {
 
   const doShow = () => {
     const reducedMotion = typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    tip.style.transition = reducedMotion ? 'none' : 'opacity var(--enpii-duration-fast, 150ms) var(--enpii-ease-emphasized, ease)'
+    tip.style.transition = reducedMotion ? 'none' : 'opacity var(--transition-duration-fast, 150ms) var(--ease-emphasized, ease)'
     tip.style.visibility = 'visible'
     tip.style.opacity = '1'
 

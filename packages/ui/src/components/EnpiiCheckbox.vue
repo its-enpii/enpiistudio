@@ -58,13 +58,13 @@ function onChange(event) {
 </script>
 
 <template>
-    <div v-if="variant === 'field'" class="enpii-checkbox enpii-checkbox--field [&>*+*]:mt-[var(--enpii-space-field-gap)]">
+    <div v-if="variant === 'field'" class="enpii-checkbox enpii-checkbox--field [&>*+*]:mt-[0.5rem]">
         <label :for="id" class="enpii-checkbox__label block ml-1 text-on-surface-variant text-[0.8125rem] font-semibold tracking-[0.02em]">
             {{ label }}<span v-if="description" class="enpii-checkbox__label-description ml-2 text-on-surface-variant text-xs font-normal normal-case tracking-normal">— {{ description }}</span>
         </label>
         <label
             :for="id"
-            class="enpii-checkbox__box enpii-checkbox__box--field flex w-full min-h-control items-center gap-3 px-4 border border-solid border-outline-variant rounded-control bg-surface-container-lowest cursor-pointer transition-all duration-fast ease-emphasized focus-within:border-primary-container focus-within:[box-shadow:var(--enpii-focus-ring)]"
+            class="enpii-checkbox__box enpii-checkbox__box--field flex w-full min-h-control items-center gap-3 px-4 border border-solid border-outline-variant rounded-control bg-surface-container-lowest cursor-pointer transition-all duration-fast ease-emphasized focus-within:border-primary-container focus-within:[box-shadow:var(--shadow-focus)]"
             :class="[shapeClass, shapeUtility, { 'opacity-55 cursor-not-allowed enpii-checkbox__box--disabled': disabled }]"
         >
             <input

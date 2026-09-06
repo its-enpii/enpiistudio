@@ -198,8 +198,8 @@ watch(() => menuCard.value, (value) => {
             `enpii-kanban__column--${column.tone || 'neutral'}`,
             toneBorderClasses[column.tone || 'neutral'],
             {
-              'enpii-kanban__column--drag-over !border-primary !bg-[color-mix(in_srgb,var(--enpii-color-primary)_8%,var(--enpii-color-surface-container-low))]': dragOverColumn === column.id && isDropValid(column.id),
-              'enpii-kanban__column--drag-over-invalid !border-2 !border-dashed !border-[color-mix(in_srgb,var(--enpii-color-error)_55%,transparent)] !bg-[color-mix(in_srgb,var(--enpii-color-error)_6%,var(--enpii-color-surface-container-low))]': dragOverColumn === column.id && !isDropValid(column.id),
+              'enpii-kanban__column--drag-over !border-primary !bg-[color-mix(in_srgb,var(--color-primary)_8%,var(--color-surface-container-low))]': dragOverColumn === column.id && isDropValid(column.id),
+              'enpii-kanban__column--drag-over-invalid !border-2 !border-dashed !border-[color-mix(in_srgb,var(--color-error)_55%,transparent)] !bg-[color-mix(in_srgb,var(--color-error)_6%,var(--color-surface-container-low))]': dragOverColumn === column.id && !isDropValid(column.id),
             },
           ]"
           :data-column-id="column.id"
@@ -215,7 +215,7 @@ watch(() => menuCard.value, (value) => {
             <article
               v-for="card in column.cards"
               :key="card.id"
-              class="enpii-kanban__card relative py-2.5 px-3 border border-solid rounded-[calc(var(--enpii-radius-control)-0.25rem)] bg-surface-container-lowest shadow-control transition-[box-shadow,border-color,transform] duration-fast ease-standard hover:not-active:border-outline hover:not-active:shadow-raised hover:not-active:-translate-y-px active:shadow-control focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-focus focus-visible:outline-offset-2 motion-reduce:transition-none"
+              class="enpii-kanban__card relative py-2.5 px-3 border border-solid rounded-[calc(var(--radius-control)-0.25rem)] bg-surface-container-lowest shadow-control transition-[box-shadow,border-color,transform] duration-fast ease-standard hover:not-active:border-outline hover:not-active:shadow-raised hover:not-active:-translate-y-px active:shadow-control focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-focus focus-visible:outline-offset-2 motion-reduce:transition-none"
               :class="[
                 `enpii-kanban__card--${card.tone || 'neutral'}`,
                 toneBorderClasses[card.tone || 'neutral'],
@@ -239,7 +239,7 @@ watch(() => menuCard.value, (value) => {
               <button
                 v-if="draggable"
                 type="button"
-                class="enpii-kanban__card-menu absolute top-1.5 right-1.5 grid place-items-center min-w-10 min-h-10 border-0 rounded-[calc(var(--enpii-radius-control)-0.25rem)] bg-transparent text-on-surface-variant cursor-pointer transition-[background,color] duration-fast ease-emphasized hover:bg-neutral-soft hover:text-on-surface focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-focus focus-visible:outline-offset-2 motion-reduce:transition-none"
+                class="enpii-kanban__card-menu absolute top-1.5 right-1.5 grid place-items-center min-w-10 min-h-10 border-0 rounded-[calc(var(--radius-control)-0.25rem)] bg-transparent text-on-surface-variant cursor-pointer transition-[background,color] duration-fast ease-emphasized hover:bg-neutral-soft hover:text-on-surface focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-focus focus-visible:outline-offset-2 motion-reduce:transition-none"
                 :aria-label="t('kanban.moveCard', { title: card.title })"
                 :aria-haspopup="'menu'"
                 :aria-expanded="menuCard?.id === card.id ? 'true' : 'false'"
@@ -259,7 +259,7 @@ watch(() => menuCard.value, (value) => {
       <div
         v-if="menuCard"
         ref="menuRef"
-        class="enpii-kanban__menu fixed z-overlay flex flex-col min-w-40 p-1 border border-solid border-outline-variant rounded-[calc(var(--enpii-radius-control)-0.25rem)] bg-surface-container-lowest shadow-overlay"
+        class="enpii-kanban__menu fixed z-overlay flex flex-col min-w-40 p-1 border border-solid border-outline-variant rounded-[calc(var(--radius-control)-0.25rem)] bg-surface-container-lowest shadow-overlay"
         role="menu"
         :aria-label="t('kanban.moveCard', { title: menuCard.title })"
         :style="{ top: `${menuPosition.top}px`, left: `${menuPosition.left}px` }"
@@ -270,7 +270,7 @@ watch(() => menuCard.value, (value) => {
           v-for="target in menuTargets"
           :key="target.id"
           type="button"
-          class="enpii-kanban__menu-item block w-full min-h-10 py-2 px-3 border-0 rounded-[calc(var(--enpii-radius-control)-0.5rem)] bg-transparent text-on-surface font-inherit text-sm font-medium text-left cursor-pointer transition-[background] duration-fast ease-emphasized hover:enabled:bg-neutral-soft focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-focus focus-visible:-outline-offset-2 disabled:text-outline disabled:cursor-default disabled:opacity-50 aria-disabled:pointer-events-none motion-reduce:transition-none"
+          class="enpii-kanban__menu-item block w-full min-h-10 py-2 px-3 border-0 rounded-[calc(var(--radius-control)-0.5rem)] bg-transparent text-on-surface font-inherit text-sm font-medium text-left cursor-pointer transition-[background] duration-fast ease-emphasized hover:enabled:bg-neutral-soft focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-focus focus-visible:-outline-offset-2 disabled:text-outline disabled:cursor-default disabled:opacity-50 aria-disabled:pointer-events-none motion-reduce:transition-none"
           role="menuitem"
           :disabled="target.isCurrent"
           @click.stop="selectMoveTarget(target.id)"

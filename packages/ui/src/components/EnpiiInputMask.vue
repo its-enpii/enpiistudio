@@ -116,7 +116,7 @@ watch(() => model.value, (value) => {
 </script>
 
 <template>
-    <div class="enpii-input-mask w-full grid gap-[var(--enpii-space-field-gap)]" :class="[shapeClass, { 'enpii-input-mask--error': Boolean(error) }]">
+    <div class="enpii-input-mask w-full grid gap-[0.5rem]" :class="[shapeClass, { 'enpii-input-mask--error': Boolean(error) }]">
         <label :for="inputId" class="enpii-input-mask__label text-on-surface-variant text-sm font-medium">{{ label }}</label>
         <div class="enpii-input-mask__control-wrap relative">
             <input
@@ -131,7 +131,7 @@ watch(() => model.value, (value) => {
                 :inputmode="inputmode ?? (preset === 'currency' ? 'numeric' : undefined)"
                 :aria-invalid="Boolean(error)"
                 :aria-describedby="error ? `${inputId}-error` : hint ? `${inputId}-hint` : undefined"
-                class="enpii-input-mask__control w-full min-h-control px-3 py-1 border border-solid bg-surface-container-lowest text-on-surface font-inherit placeholder:text-outline [transition-property:border-color,box-shadow] duration-fast ease-emphasized hover:enabled:border-primary-border focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--enpii-focus-ring)] disabled:opacity-60 disabled:cursor-not-allowed"
+                class="enpii-input-mask__control w-full min-h-control px-3 py-1 border border-solid bg-surface-container-lowest text-on-surface font-inherit placeholder:text-outline [transition-property:border-color,box-shadow] duration-fast ease-emphasized hover:enabled:border-primary-border focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--shadow-focus)] disabled:opacity-60 disabled:cursor-not-allowed"
                 :class="[shapeClass, shapeUtility, controlStateClass]"
                 @input="onInput"
                 @change="$emit('change', model)"

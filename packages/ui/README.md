@@ -52,24 +52,19 @@ import { EnpiiBadge, EnpiiButton, EnpiiCard } from '@its-enpii/ui'
 
 Button memakai elemen `<button>`, default `type="button"`, native `disabled`, focus ring terlihat, dan slot untuk accessible name. Untuk submit form, isi `type="submit"` eksplisit. Badge memakai `<span>` presentasional; label teks wajib menjelaskan makna, bukan warna saja. Komponen ikon (`EnpiiIcon`) merender glyph `material-symbols-outlined`; aplikasi konsumen wajib memuat font Material Symbols itu sendiri.
 
-`styles.css` adalah kontrak CSS publik tunggal; `tokens.css` menjadi alias kompatibilitas ke artifact yang sama, bukan stylesheet kedua. Import salah satu saja. Override custom properties `--enpii-*` setelah import package. Tailwind consumer dapat memetakan token pada theme sendiri tanpa package ini memaksa versi atau konfigurasi Tailwind. Palet indigo, semantic emerald/amber/red/slate, radius, spacing, serta font stack mengacu secara read-only pada Encore lokal. Forced-colors mempertahankan border, focus, disabled, dan badge contrast; `prefers-reduced-motion` mematikan transisi/animasi.
+`styles.css` adalah kontrak CSS publik tunggal. Import Tailwind terlebih dahulu, lalu `@its-enpii/ui/tailwind.css`, lalu `styles.css` hanya jika aplikasi belum memuatnya. Semua token package adalah Tailwind-native `@theme` dengan namespace `--color-*`, `--radius-*`, `--shadow-*`, `--z-index-*`, `--transition-duration-*`, dan `--ease-*`; namespace lama `--enpii-*` sudah dihapus.
 
-Tema: tujuh tema bawaan (`classic`, `dark`, `nord`, `dracula`, `solarized`, `gruvbox`, `rosepine`) diaktifkan lewat atribut `data-theme` pada `<html>`; lihat [THEMING.md](THEMING.md). Tanpa atribut, `prefers-color-scheme: dark` mengaktifkan varian gelap otomatis.
+Override nilai token di aplikasi dengan mendeklarasikan `@theme` Anda sendiri setelah import package. Nilai khas layer bersifat opsional dan hanya menimpa radius, shadow, serta motion.
 
-Tailwind value-set style layer dapat diaktifkan lewat `enpii.ui.config.js`:
+```css
+@import 'tailwindcss';
+@import '@its-enpii/ui/tailwind.css';
+@import '@its-enpii/ui/styles/material.css';
 
-```js
-import { defineEnpiiUiConfig } from '@its-enpii/ui/config'
-
-export default defineEnpiiUiConfig({
-  theme: 'sky',
-  styleLayer: 'neobrutalism',
-})
+@theme {
+  --color-primary: #0284C7;
+}
 ```
-
-Nilai valid adalah `none` (default), `material`, `glassmorphism`, `neumorphism`, `neobrutalism`, dan
-`minimalism`. Layer hanya menimpa token visual; warna brand, sizing, dan layout tetap milik tema serta
-utility Tailwind.
 
 Daftar lengkap 43 komponen tersedia pada [`src/index.ts`](src/index.ts). Composable yang diekspor dari root package hanya `useShape` dan `useTheme`; composable lain (`useAppMode`, `useCan`, `useConfirm`, `useKeyboardShortcuts`, `useMarkdown`, `useMoney`, `usePeriodOptions`, `useToast`) berada di dalam bundle dan dipakai oleh komponen.
 

@@ -35,7 +35,7 @@ function updatePlacement(value: 'top' | 'bottom' | 'left' | 'right') {
 }
 
 function applyPanelStyle(style: Record<string, string>) {
-  panelStyle.value = { ...style, zIndex: 'var(--enpii-z-overlay)' };
+  panelStyle.value = { ...style, zIndex: 'var(--z-overlay)' };
 }
 
 async function positionPanel() {
