@@ -1,3 +1,19 @@
+## [1.2.0] - 2026-09-06
+
+### Added
+- Token struktural di fondasi: `--control-border-width`, `--overlay-border-width`,
+  `--press-transform`, `--shadow-control-pressed` — komponen membaca token,
+  bukan nilai hardcode.
+- Style layer **value-set murni** (0 selector BEM, 0 `!important`): minimalism,
+  material, glassmorphism, neumorphism, neobrutalism, **neobrutalism-tamed**
+  (radius base 9px, easing halus, hard shadow 2px — bentuk POS dijinakkan).
+- Test conformance `layer-wiring.conformance.spec.ts`: komponen ber-border
+  wajib membaca token struktural; pengecualian terdokumentasi dengan alasan.
+
+### Fixed
+- Wiring token struktural pada 62/86 komponen (39 → 62): kontrol, surface,
+  dan overlay kini konsisten merespons value-set layer mana pun.
+
 ## [1.1.1] - 2026-09-06
 
 ### Fixed
