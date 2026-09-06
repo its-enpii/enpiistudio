@@ -10,7 +10,7 @@ export default defineConfig({
       name: 'copy-style-layers',
       closeBundle: async () => {
         await cp(
-          fileURLToPath(new URL('./styles', import.meta.url)),
+          fileURLToPath(new URL('./src/styles', import.meta.url)),
           fileURLToPath(new URL('./dist/styles', import.meta.url)),
           { recursive: true },
         )
