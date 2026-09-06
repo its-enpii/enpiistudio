@@ -23,6 +23,6 @@ const html = computed(() => (props.assistantBlock ? renderMarkdownHtml(props.ass
         @close="emit('close')"
     >
         <!-- eslint-disable-next-line vue/no-v-html -->
-        <div class="enpii-assistant-artifact-modal__body" v-html="html" />
+        <div class="enpii-assistant-artifact-modal__body text-on-surface [&_code]:rounded-sm [&_code]:bg-neutral-soft [&_code]:px-1 [&_code]:py-0.5 [&_h1]:text-primary-deep [&_h2]:text-primary-deep [&_h3]:text-primary-deep" v-html="html" />
     </AppModal>
 </template>
