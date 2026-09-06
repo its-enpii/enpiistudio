@@ -1,3 +1,24 @@
+## [1.1.1] - 2026-09-06
+
+### Fixed
+- Audit menyeluruh 86 komponen (posisi, display, padding, margin, font size/weight,
+  tinggi/lebar, warna, state, aksesibilitas):
+  - `EnpiiBadge`: font-weight besar (800) diturunkan ke 600 (hard cap ≤ 600).
+  - `EnpiiRadioGroup`: tinggi opsi diselaraskan ke kontrak `control-sm`,
+    focus-visible ring & state disabled diperkuat.
+  - `EnpiiRange`, `EnpiiSegmentedControl`, `EnpiiSwitch`, `EnpiiDateRange`,
+    `EnpiiTimePicker`: kontrak full-width & sizing control dirapikan.
+  - `EnpiiNotificationDropdown`: item memakai semantics `button`, keyboard
+    Enter/Space, focus ring, dan touch target memadai.
+  - `EnpiiCommandPalette`: state aktif memakai `aria-current` + background semantic.
+  - Focus ring semantic ditambahkan pada TimePicker, SmartTable, CurrencyInput,
+    ThemeMenu, PollCard, Switch, dan aksi pendukung.
+  - `EnpiiNavbar`, `EnpiiOfflineBanner`, `EnpiiDrawer`: z-index dinormalisasi ke
+    token overlay (`z-*`), tanpa nilai mentah.
+  - `EnpiiSignaturePad`: default ink memakai token; `EnpiiFormRow`,
+    `EnpiiInputMask`: spacing via token.
+- Golden baseline diperbarui (RadioGroup 40px) — parity tetap 0 diff.
+
 ## [1.1.0] - 2026-09-06
 
 ### Changed (BREAKING)
