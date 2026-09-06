@@ -51,8 +51,8 @@ const ariaLabel = computed(() => {
 </script>
 
 <template>
-  <div class="enpii-donut-chart">
-    <svg :viewBox="`0 0 ${size} ${size}`" class="enpii-donut-chart__svg" role="img" :aria-label="ariaLabel">
+  <div class="enpii-donut-chart flex flex-wrap items-center gap-6 w-full">
+    <svg :viewBox="`0 0 ${size} ${size}`" class="enpii-donut-chart__svg block w-auto max-w-32 h-auto shrink-0" role="img" :aria-label="ariaLabel">
       <g :transform="`rotate(-90 ${size / 2} ${size / 2})`">
         <circle
           v-for="segment in segments"
@@ -64,18 +64,18 @@ const ariaLabel = computed(() => {
           :stroke-width="STROKE_WIDTH"
           :stroke-dasharray="segment.dasharray"
           :stroke-dashoffset="segment.dashoffset"
-          class="enpii-donut-chart__segment"
+          class="enpii-donut-chart__segment stroke-linecap-round motion-reduce:transition-none"
           :style="{ stroke: segment.color }"
         >
           <title>{{ segment.label }}: {{ segment.value }} ({{ segment.percentage }}%)</title>
         </circle>
       </g>
     </svg>
-    <ul class="enpii-donut-chart__legend">
-      <li v-for="segment in segments" :key="segment.key" class="enpii-donut-chart__legend-item">
-        <span class="enpii-donut-chart__swatch" :style="{ background: segment.color }" />
+    <ul class="enpii-donut-chart__legend m-0 p-0 flex flex-col gap-2 list-none">
+      <li v-for="segment in segments" :key="segment.key" class="enpii-donut-chart__legend-item flex items-center gap-2 text-sm text-on-surface">
+        <span class="enpii-donut-chart__swatch w-2.5 h-2.5 rounded-[0.125rem] shrink-0" :style="{ background: segment.color }" />
         <span>{{ segment.label }}</span>
-        <span class="enpii-donut-chart__legend-value">{{ segment.percentage }}%</span>
+        <span class="enpii-donut-chart__legend-value ml-auto font-medium tabular-nums text-on-surface-variant">{{ segment.percentage }}%</span>
       </li>
     </ul>
   </div>
