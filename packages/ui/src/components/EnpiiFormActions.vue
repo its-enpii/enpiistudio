@@ -19,8 +19,8 @@ const shapeClass = useShape(props);
 
 <template>
     <div
-        class="enpii-form-actions"
-        :class="[shapeClass, { 'enpii-form-actions--start': align === 'start', 'enpii-form-actions--end': align === 'end', 'enpii-form-actions--between': align === 'between' }]"
+        class="enpii-form-actions flex flex-wrap items-center gap-3"
+        :class="[shapeClass, align === 'start' ? 'justify-start' : align === 'end' ? 'justify-end' : 'justify-between']"
     >
         <slot />
     </div>

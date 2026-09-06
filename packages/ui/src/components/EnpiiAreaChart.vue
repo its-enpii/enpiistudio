@@ -106,8 +106,8 @@ const ariaLabel = computed(() => {
 </script>
 
 <template>
-  <div class="enpii-area-chart">
-    <svg :viewBox="`0 0 ${W} ${H}`" class="enpii-area-chart__svg" role="img" :aria-label="ariaLabel">
+  <div class="enpii-area-chart relative w-full">
+    <svg :viewBox="`0 0 ${W} ${H}`" class="enpii-area-chart__svg block w-full h-auto select-none" role="img" :aria-label="ariaLabel">
       <line
         v-for="(tick, i) in gridTicks"
         :key="`grid-${i}`"
@@ -115,7 +115,7 @@ const ariaLabel = computed(() => {
         :x2="W - PAD.right"
         :y1="yAt(tick)"
         :y2="yAt(tick)"
-        class="enpii-area-chart__grid"
+        class="enpii-area-chart__grid stroke-outline-variant stroke-1 opacity-50"
       />
       <text
         v-for="(tick, i) in gridTicks"
@@ -124,7 +124,7 @@ const ariaLabel = computed(() => {
         :y="yAt(tick)"
         text-anchor="end"
         dominant-baseline="middle"
-        class="enpii-area-chart__axis-text"
+        class="enpii-area-chart__axis-text fill-on-surface-variant text-[11px] font-medium"
       >{{ formatValue(tick) }}</text>
       <template v-for="(item, i) in xLabels" :key="`x-${i}`">
         <text
@@ -132,19 +132,19 @@ const ariaLabel = computed(() => {
           :x="item.x"
           :y="H - 8"
           text-anchor="middle"
-          class="enpii-area-chart__axis-text"
+          class="enpii-area-chart__axis-text fill-on-surface-variant text-[11px] font-medium"
         >{{ item.label }}</text>
       </template>
       <g v-for="item in series" :key="item.key">
-        <path :d="toAreaPath(item.points)" class="enpii-area-chart__area" :style="{ fill: item.color }" />
-        <path :d="toLinePath(item.points)" class="enpii-area-chart__line" :style="{ stroke: item.color }" />
+        <path :d="toAreaPath(item.points)" class="enpii-area-chart__area opacity-16 motion-reduce:transition-none" :style="{ fill: item.color }" />
+        <path :d="toLinePath(item.points)" class="enpii-area-chart__line fill-none stroke-2 stroke-linecap-round stroke-linejoin-round motion-reduce:transition-none" :style="{ stroke: item.color }" />
         <circle
           v-for="(point, i) in item.points"
           :key="`point-${i}`"
           :cx="point.x"
           :cy="point.y"
           r="4"
-          class="enpii-area-chart__point"
+          class="enpii-area-chart__point cursor-pointer stroke-surface-container-lowest stroke-2 motion-reduce:transition-none focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-focus"
           :style="{ fill: item.color }"
         >
           <title>{{ item.label }}: {{ labels[i] || i }} — {{ point.value }}</title>

@@ -35,7 +35,7 @@ defineProps({
     <!-- Raw icon (tone === 'neutral') — preserves existing call sites -->
     <span
         v-if="tone === 'neutral'"
-        class="material-symbols-outlined enpii-icon"
+        class="material-symbols-outlined enpii-icon shrink-0"
         :class="{ 'is-filled': filled }"
         :aria-hidden="label ? undefined : 'true'"
         :aria-label="label || undefined"
@@ -45,11 +45,17 @@ defineProps({
     <!-- Toned icon: render inside a colored container -->
     <span
         v-else
-        class="enpii-icon__container"
+        class="enpii-icon__container grid shrink-0 place-items-center"
         :class="[
-            `enpii-icon__container--${containerSize}`,
-            `enpii-icon__container--${containerShape}`,
-            `enpii-icon__container--${tone}`,
+            containerSize === 8 && 'h-8 w-8',
+            containerSize === 9 && 'h-9 w-9',
+            containerSize === 10 && 'h-10 w-10',
+            containerSize === 12 && 'h-12 w-12',
+            containerShape === 'pill' ? 'rounded-full' : 'rounded-lg',
+            ['success', 'secondary'].includes(tone) && 'bg-secondary-container text-on-secondary',
+            ['warning', 'tertiary'].includes(tone) && 'bg-tertiary-fixed text-on-tertiary',
+            ['danger', 'error'].includes(tone) && 'bg-error-container text-on-error-container',
+            ['info', 'primary'].includes(tone) && 'bg-primary-container text-on-primary-container',
         ]"
         :aria-hidden="label ? undefined : 'true'"
         :aria-label="label || undefined"

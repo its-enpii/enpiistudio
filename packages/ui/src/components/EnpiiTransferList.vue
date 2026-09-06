@@ -153,23 +153,23 @@ const rightListId = `enpii-transfer-list-${uid}-right`
 </script>
 
 <template>
-    <div class="enpii-transfer-list" :class="[`enpii-transfer-list--${height}`]" :style="{ '--enpii-transfer-list-height': `${height}rem` }">
-        <div class="enpii-transfer-list__panel enpii-transfer-list__panel--left">
-            <div class="enpii-transfer-list__header">
-                <span :id="`${leftListId}-label`" class="enpii-transfer-list__title">{{ leftTitles }}</span>
-                <span class="enpii-transfer-list__count">{{ available.length }}</span>
+    <div class="enpii-transfer-list grid grid-cols-1 gap-3 items-start w-full md:grid-cols-[1fr_auto_1fr]">
+        <div class="enpii-transfer-list__panel enpii-transfer-list__panel--left flex flex-col gap-2 border border-solid border-outline-variant rounded-control bg-surface-container-lowest overflow-hidden forced-colors:border-canvas-text">
+            <div class="enpii-transfer-list__header flex items-center justify-between py-2 px-3 bg-surface-container-low">
+                <span :id="`${leftListId}-label`" class="enpii-transfer-list__title text-[0.8125rem] font-medium text-on-surface-variant">{{ leftTitles }}</span>
+                <span class="enpii-transfer-list__count inline-flex items-center justify-center min-w-6 h-6 px-1.5 rounded-full bg-primary-soft text-primary-text text-[0.6875rem] font-medium tabular-nums">{{ available.length }}</span>
             </div>
             <input
                 v-if="searchable"
                 v-model="leftSearch"
                 type="text"
-                class="enpii-transfer-list__search"
+                class="enpii-transfer-list__search min-h-10 mx-2 px-2 border border-solid border-outline-variant rounded-[calc(var(--enpii-radius-control)-0.25rem)] bg-surface-container-lowest text-on-surface font-inherit text-[0.8125rem] placeholder:text-outline [transition-property:border-color,box-shadow] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:[border-color:color-mix(in_srgb,var(--enpii-color-primary)_40%,transparent)] focus:outline-none focus:border-primary-container focus:[box-shadow:var(--enpii-focus-ring)]"
                 :placeholder="t('transferList.searchPlaceholder')"
                 :aria-label="t('transferList.searchLeft')"
             >
             <ul
                 :id="leftListId"
-                class="enpii-transfer-list__list"
+                class="enpii-transfer-list__list overflow-y-auto p-1 m-0 list-none"
                 role="listbox"
                 :aria-labelledby="`${leftListId}-label`"
                 :aria-multiselectable="true"
@@ -179,7 +179,7 @@ const rightListId = `enpii-transfer-list-${uid}-right`
                     v-for="option in filteredLeft"
                     :key="option.id"
                     :id="`${leftListId}-${option.id}`"
-                    class="enpii-transfer-list__option"
+                    class="enpii-transfer-list__option flex flex-col gap-0.5 min-h-10 py-2 px-2.5 border-0 rounded-[calc(var(--enpii-radius-control)-0.25rem)] bg-none text-on-surface font-inherit text-[0.8125rem] cursor-pointer [transition-property:background,color] duration-fast ease-emphasized motion-reduce:transition-none hover:not-disabled:bg-neutral-soft focus-visible:outline-3 focus-visible:-outline-offset-1 focus-visible:outline-focus"
                     :class="{
                         'enpii-transfer-list__option--selected': leftSelected.includes(option.id),
                         'enpii-transfer-list__option--disabled': option.disabled,
@@ -193,17 +193,17 @@ const rightListId = `enpii-transfer-list-${uid}-right`
                     @keydown="toggleLeftSelection(option.id, $event)"
                     @dblclick="!option.disabled && moveRight([option.id])"
                 >
-                    <span class="enpii-transfer-list__option-label">{{ option.label }}</span>
-                    <span v-if="option.description" class="enpii-transfer-list__option-description">{{ option.description }}</span>
+                    <span class="enpii-transfer-list__option-label font-medium">{{ option.label }}</span>
+                    <span v-if="option.description" class="enpii-transfer-list__option-description text-on-surface-variant text-xs font-normal">{{ option.description }}</span>
                 </li>
             </ul>
-            <p v-if="!filteredLeft.length" class="enpii-transfer-list__empty">{{ t('transferList.noOptions') }}</p>
+            <p v-if="!filteredLeft.length" class="enpii-transfer-list__empty py-2 px-3 text-outline text-xs italic">{{ t('transferList.noOptions') }}</p>
         </div>
 
-        <div class="enpii-transfer-list__controls" role="group" :aria-label="t('transferList.controlsLabel')">
+        <div class="enpii-transfer-list__controls flex flex-col gap-1.5 pt-1 max-md:flex-row max-md:justify-center max-md:p-0" role="group" :aria-label="t('transferList.controlsLabel')">
             <button
                 type="button"
-                class="enpii-transfer-list__button"
+                class="enpii-transfer-list__button inline-flex items-center justify-center min-w-10 min-h-10 border border-solid border-outline-variant rounded-[calc(var(--enpii-radius-control)-0.25rem)] bg-surface-container-lowest text-primary-text text-lg font-medium leading-none cursor-pointer [transition-property:background,color,transform,box-shadow] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:bg-primary-soft active:enabled:scale-96 focus-visible:outline-3 focus-visible:outline-offset-1 focus-visible:outline-focus disabled:text-outline disabled:cursor-not-allowed disabled:opacity-45"
                 :disabled="!moveRightEnabled"
                 :aria-label="t('transferList.moveRight')"
                 @click="moveRight()"
@@ -231,22 +231,22 @@ const rightListId = `enpii-transfer-list-${uid}-right`
             >‹</button>
         </div>
 
-        <div class="enpii-transfer-list__panel enpii-transfer-list__panel--right">
-            <div class="enpii-transfer-list__header">
-                <span :id="`${rightListId}-label`" class="enpii-transfer-list__title">{{ rightTitles }}</span>
-                <span class="enpii-transfer-list__count">{{ chosen.length }}</span>
+        <div class="enpii-transfer-list__panel enpii-transfer-list__panel--right flex flex-col gap-2 border border-solid border-outline-variant rounded-control bg-surface-container-lowest overflow-hidden forced-colors:border-canvas-text">
+            <div class="enpii-transfer-list__header flex items-center justify-between py-2 px-3 bg-surface-container-low">
+                <span :id="`${rightListId}-label`" class="enpii-transfer-list__title text-[0.8125rem] font-medium text-on-surface-variant">{{ rightTitles }}</span>
+                <span class="enpii-transfer-list__count inline-flex items-center justify-center min-w-6 h-6 px-1.5 rounded-full bg-primary-soft text-primary-text text-[0.6875rem] font-medium tabular-nums">{{ chosen.length }}</span>
             </div>
             <input
                 v-if="searchable"
                 v-model="rightSearch"
                 type="text"
-                class="enpii-transfer-list__search"
+                class="enpii-transfer-list__search min-h-10 mx-2 px-2 border border-solid border-outline-variant rounded-[calc(var(--enpii-radius-control)-0.25rem)] bg-surface-container-lowest text-on-surface font-inherit text-[0.8125rem] placeholder:text-outline [transition-property:border-color,box-shadow] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:[border-color:color-mix(in_srgb,var(--enpii-color-primary)_40%,transparent)] focus:outline-none focus:border-primary-container focus:[box-shadow:var(--enpii-focus-ring)]"
                 :placeholder="t('transferList.searchPlaceholder')"
                 :aria-label="t('transferList.searchRight')"
             >
             <ul
                 :id="rightListId"
-                class="enpii-transfer-list__list"
+                class="enpii-transfer-list__list overflow-y-auto p-1 m-0 list-none"
                 role="listbox"
                 :aria-labelledby="`${rightListId}-label`"
                 :aria-multiselectable="true"
@@ -256,7 +256,7 @@ const rightListId = `enpii-transfer-list-${uid}-right`
                     v-for="option in filteredRight"
                     :key="option.id"
                     :id="`${rightListId}-${option.id}`"
-                    class="enpii-transfer-list__option"
+                    class="enpii-transfer-list__option flex flex-col gap-0.5 min-h-10 py-2 px-2.5 border-0 rounded-[calc(var(--enpii-radius-control)-0.25rem)] bg-none text-on-surface font-inherit text-[0.8125rem] cursor-pointer [transition-property:background,color] duration-fast ease-emphasized motion-reduce:transition-none hover:not-disabled:bg-neutral-soft focus-visible:outline-3 focus-visible:-outline-offset-1 focus-visible:outline-focus"
                     :class="{
                         'enpii-transfer-list__option--selected': rightSelected.includes(option.id),
                     }"
@@ -268,11 +268,11 @@ const rightListId = `enpii-transfer-list-${uid}-right`
                     @keydown="toggleRightSelection(option.id, $event)"
                     @dblclick="moveLeft([option.id])"
                 >
-                    <span class="enpii-transfer-list__option-label">{{ option.label }}</span>
-                    <span v-if="option.description" class="enpii-transfer-list__option-description">{{ option.description }}</span>
+                    <span class="enpii-transfer-list__option-label font-medium">{{ option.label }}</span>
+                    <span v-if="option.description" class="enpii-transfer-list__option-description text-on-surface-variant text-xs font-normal">{{ option.description }}</span>
                 </li>
             </ul>
-            <p v-if="!filteredRight.length" class="enpii-transfer-list__empty">{{ t('transferList.noOptions') }}</p>
+            <p v-if="!filteredRight.length" class="enpii-transfer-list__empty py-2 px-3 text-outline text-xs italic">{{ t('transferList.noOptions') }}</p>
         </div>
     </div>
 </template>

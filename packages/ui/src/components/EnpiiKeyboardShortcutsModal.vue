@@ -61,35 +61,35 @@ const shortcutGroups = computed(() => [
 
 <template>
     <AppModal v-model="model" :title="t('shortcuts.title')" size="lg" :shape="shape">
-        <div class="enpii-keyboard-shortcuts">
-            <p class="enpii-keyboard-shortcuts__intro">
+        <div class="enpii-keyboard-shortcuts [&>*+*]:mt-6">
+            <p class="enpii-keyboard-shortcuts__intro m-0 text-on-surface-variant text-xs leading-[1.55]">
                 Gunakan kombinasi tombol berikut untuk mempercepat navigasi dan pengoperasian aplikasi di <strong>Desktop</strong> maupun <strong>Website</strong>.
             </p>
 
-            <div class="enpii-keyboard-shortcuts__groups">
+            <div class="enpii-keyboard-shortcuts__groups grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div
                     v-for="group in shortcutGroups"
                     :key="group.title"
-                    class="enpii-keyboard-shortcuts__group"
+                    class="enpii-keyboard-shortcuts__group p-4 border border-solid border-outline-variant rounded-control bg-surface-container-low/40"
                 >
-                    <div class="enpii-keyboard-shortcuts__group-header">
-                        <AppIcon :name="group.icon" class="enpii-keyboard-shortcuts__group-icon" />
-                        <h4 class="enpii-keyboard-shortcuts__group-title">
+                    <div class="enpii-keyboard-shortcuts__group-header flex items-center gap-2 pb-2 border-b border-solid border-outline-variant/60">
+                        <AppIcon :name="group.icon" class="enpii-keyboard-shortcuts__group-icon w-4 h-4 text-primary-text text-base" />
+                        <h4 class="enpii-keyboard-shortcuts__group-title m-0 text-primary-text text-xs font-semibold">
                             {{ group.title }}
                         </h4>
                     </div>
 
-                    <ul class="enpii-keyboard-shortcuts__list">
-                        <li v-for="(item, idx) in group.items" :key="idx" class="enpii-keyboard-shortcuts__item">
-                            <span class="enpii-keyboard-shortcuts__description">
+                    <ul class="enpii-keyboard-shortcuts__list grid gap-2 mt-3 mb-0 p-0 list-none">
+                        <li v-for="(item, idx) in group.items" :key="idx" class="enpii-keyboard-shortcuts__item flex items-center justify-between gap-3 text-xs">
+                            <span class="enpii-keyboard-shortcuts__description overflow-hidden text-ellipsis whitespace-nowrap text-on-surface-variant leading-[1.25]">
                                 {{ item.description }}
                             </span>
-                            <div class="enpii-keyboard-shortcuts__keys">
+                            <div class="enpii-keyboard-shortcuts__keys flex shrink-0 items-center gap-1">
                                 <template v-for="(k, kIdx) in item.keys" :key="kIdx">
-                                    <kbd class="enpii-keyboard-shortcuts__key">
+                                    <kbd class="enpii-keyboard-shortcuts__key inline-flex min-w-[22px] items-center justify-center p-1 border border-solid border-outline-variant/80 rounded bg-surface-container-high text-primary-text font-mono text-[0.6875rem] font-semibold shadow-control">
                                         {{ k }}
                                     </kbd>
-                                    <span v-if="kIdx < item.keys.length - 1" class="enpii-keyboard-shortcuts__plus">+</span>
+                                    <span v-if="kIdx < item.keys.length - 1" class="enpii-keyboard-shortcuts__plus text-on-surface-variant text-[0.625rem] font-semibold">+</span>
                                 </template>
                             </div>
                         </li>
@@ -97,8 +97,8 @@ const shortcutGroups = computed(() => [
                 </div>
             </div>
 
-            <div class="enpii-keyboard-shortcuts__tip">
-                <AppIcon name="info" class="enpii-keyboard-shortcuts__tip-icon" />
+            <div class="enpii-keyboard-shortcuts__tip flex items-center gap-2 py-2 px-3 rounded-lg bg-surface-container-high/60 text-on-surface-variant text-[0.6875rem]">
+                <AppIcon name="info" class="enpii-keyboard-shortcuts__tip-icon w-3.5 h-3.5 shrink-0 text-primary-text text-sm" />
                 <span>
                     <strong>Tips:</strong> Pintasan kombinasi <code>{{ modifierKey }}</code> dapat ditekan kapan saja tanpa mengganggu pengetikan formulir.
                 </span>

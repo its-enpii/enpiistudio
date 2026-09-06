@@ -127,23 +127,23 @@ onMounted(updateListHeight)
 </script>
 
 <template>
-    <div class="enpii-tree-view" role="tree" :aria-label="t('treeView.ariaLabel')">
+    <div class="enpii-tree-view relative w-full border border-solid border-outline-variant rounded-control bg-surface-container-lowest shadow-control text-on-surface" role="tree" :aria-label="t('treeView.ariaLabel')">
         <TransitionGroup
             v-if="visibleNodes.length"
             tag="ul"
             ref="listElement"
             name="enpii-tree-view-node"
-            class="enpii-tree-view__list"
+            class="enpii-tree-view__list relative m-0 p-1 list-none overflow-hidden [transition-property:height] duration-base ease-emphasized motion-reduce:transition-none"
             :style="{ height: listHeight ? `${listHeight}px` : undefined }"
             @enter="updateListHeight"
             @after-leave="updateListHeight"
         >
-            <li v-for="visible in visibleNodes" :key="visible.node.id" role="none" class="enpii-tree-view__item">
+                <li v-for="visible in visibleNodes" :key="visible.node.id" role="none" class="enpii-tree-view__item mt-0.5 first:mt-0">
                 <button
                     :id="nodeId(visible.node.id)"
                     type="button"
                     role="treeitem"
-                    class="enpii-tree-view__node"
+                    class="enpii-tree-view__node flex items-center gap-2 w-full min-h-10 py-2 pr-3 border-0 rounded-[calc(var(--enpii-radius-control)-0.25rem)] bg-none text-on-surface font-inherit text-sm font-medium text-left cursor-pointer [transition-property:background,color,box-shadow,transform] duration-fast ease-emphasized motion-reduce:transition-none hover:bg-neutral-soft focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-focus"
                     :class="{
                         'enpii-tree-view__node--focused': isFocused(visible.node),
                         'enpii-tree-view__node--selected': isSelected(visible.node),
@@ -158,15 +158,15 @@ onMounted(updateListHeight)
                     @keydown="onKeydown($event, visible)"
                     @click="selectNode(visible.node)"
                 >
-                    <AppIcon v-if="visible.node.icon" :name="visible.node.icon" class="enpii-tree-view__icon" />
+                    <AppIcon v-if="visible.node.icon" :name="visible.node.icon" class="enpii-tree-view__icon w-4.5 h-4.5 text-[1.125rem] leading-none flex-none text-on-surface-variant" />
                     <AppIcon
                         v-if="visible.hasChildren"
                         name="chevron_right"
-                        class="enpii-tree-view__chevron"
-                        :class="{ 'enpii-tree-view__chevron--expanded': visible.isExpanded }"
+                        class="enpii-tree-view__chevron w-4 h-4 text-base leading-none flex-none text-on-surface-variant [transition-property:transform] duration-normal ease-standard motion-reduce:transition-none"
+                        :class="{ 'enpii-tree-view__chevron--expanded rotate-90 text-primary-text': visible.isExpanded }"
                         @click.stop="toggleNode(visible.node, visible)"
                     />
-                    <span class="enpii-tree-view__label">{{ visible.node.label }}</span>
+                    <span class="enpii-tree-view__label overflow-hidden text-ellipsis whitespace-nowrap">{{ visible.node.label }}</span>
                 </button>
             </li>
         </TransitionGroup>

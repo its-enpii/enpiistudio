@@ -171,17 +171,17 @@ watch(
 
 <template>
     <div
-        class="enpii-file-upload"
-        :class="[shapeClass, { 'enpii-file-upload--disabled': disabled }]"
+        class="enpii-file-upload [&>*+*]:mt-field-gap"
+        :class="[shapeClass, { 'opacity-60 pointer-events-none': disabled }]"
         v-bind="$attrs"
     >
-        <label :for="inputId" class="enpii-file-upload__label">{{ label }}</label>
+        <label :for="inputId" class="enpii-file-upload__label ml-1 block text-on-surface-variant text-[.8125rem] font-semibold tracking-wide">{{ label }}</label>
 
         <div
-            class="enpii-file-upload__dropzone"
+            class="enpii-file-upload__dropzone flex min-h-24 cursor-pointer flex-col items-center justify-center gap-2 rounded-control border border-dashed border-outline-variant bg-surface-container-lowest px-6 py-4 transition-[border-color,box-shadow,background] duration-fast ease-emphasized hover:border-primary/40 focus-visible:outline focus-visible:outline-3 focus-visible:outline-focus focus-visible:outline-offset-2"
             :class="{
-                'enpii-file-upload__dropzone--active': dragOver,
-                'enpii-file-upload__dropzone--disabled': disabled,
+                'border-primary [box-shadow:var(--enpii-focus-ring)]': dragOver,
+                'enpii-file-upload__dropzone--disabled cursor-not-allowed opacity-60 pointer-events-none': disabled,
             }"
             role="button"
             :tabindex="disabled ? -1 : 0"
@@ -193,8 +193,8 @@ watch(
             @dragover="onDragOver"
             @dragleave="onDragLeave"
         >
-            <span class="material-symbols-outlined enpii-file-upload__icon" aria-hidden="true">upload_file</span>
-            <span class="enpii-file-upload__dropzone-text">Seret file di sini atau klik untuk memilih</span>
+            <span class="material-symbols-outlined enpii-file-upload__icon text-3xl leading-none text-outline" aria-hidden="true">upload_file</span>
+            <span class="enpii-file-upload__dropzone-text text-on-surface-variant text-[.8125rem]">Seret file di sini atau klik untuk memilih</span>
         </div>
 
         <input
@@ -208,43 +208,43 @@ watch(
             @change="onInputChange"
         />
 
-        <ul v-if="fileErrors.size" class="enpii-file-upload__errors" role="alert">
+        <ul v-if="fileErrors.size" class="enpii-file-upload__errors m-0 list-none p-0" role="alert">
             <li
                 v-for="[name, msg] of fileErrors"
                 :key="name"
-                class="enpii-file-upload__error"
+                class="enpii-file-upload__error text-danger-text text-[.8125rem]"
             >
                 {{ msg }}
             </li>
         </ul>
 
-        <ul v-if="files.length" class="enpii-file-upload__list">
+        <ul v-if="files.length" class="enpii-file-upload__list m-0 flex list-none flex-col gap-1.5 p-0">
             <li
                 v-for="(file, idx) in files"
                 :key="`${file.name}-${idx}`"
-                class="enpii-file-upload__item"
+                class="enpii-file-upload__item flex items-center gap-2.5 rounded-control border border-outline-variant bg-surface-container-lowest px-2.5 py-2"
             >
                 <img
                     v-if="isImageFile(file) && thumbnails.get(file)"
                     :src="thumbnails.get(file)"
                     :alt="file.name"
-                    class="enpii-file-upload__thumb"
+                    class="enpii-file-upload__thumb h-9 w-9 shrink-0 rounded-md object-cover"
                 />
-                <span v-else class="material-symbols-outlined enpii-file-upload__file-icon" aria-hidden="true">description</span>
+                <span v-else class="material-symbols-outlined enpii-file-upload__file-icon shrink-0 text-xl leading-none text-outline" aria-hidden="true">description</span>
 
-                <span class="enpii-file-upload__meta">
-                    <span class="enpii-file-upload__name">{{ file.name }}</span>
-                    <span class="enpii-file-upload__size">{{ formatSize(file.size) }}</span>
+                <span class="enpii-file-upload__meta flex min-w-0 flex-1 flex-col gap-px">
+                    <span class="enpii-file-upload__name truncate text-on-surface text-[.8125rem] font-medium">{{ file.name }}</span>
+                    <span class="enpii-file-upload__size text-on-surface-variant text-xs">{{ formatSize(file.size) }}</span>
                 </span>
 
                 <button
                     type="button"
-                    class="enpii-file-upload__remove"
+                    class="enpii-file-upload__remove flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent p-0 text-outline transition-colors duration-fast ease-emphasized hover:bg-danger-soft hover:text-danger-text focus-visible:outline focus-visible:outline-3 focus-visible:outline-focus focus-visible:outline-offset-2 disabled:cursor-not-allowed"
                     :aria-label="`Hapus ${file.name}`"
                     :disabled="disabled"
                     @click="removeFile(idx)"
                 >
-                    <span class="material-symbols-outlined" aria-hidden="true">close</span>
+                    <span class="material-symbols-outlined text-[1.125rem] leading-none" aria-hidden="true">close</span>
                 </button>
             </li>
         </ul>

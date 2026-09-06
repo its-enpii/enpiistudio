@@ -136,10 +136,10 @@ function tooltipStyle(h) {
 </script>
 
 <template>
-    <div ref="root" class="enpii-trend-bar-chart">
+    <div ref="root" class="enpii-trend-bar-chart relative w-full min-h-56">
         <svg
             :viewBox="`0 0 ${W} ${H}`"
-            class="enpii-trend-bar-chart__svg"
+            class="enpii-trend-bar-chart__svg block w-full h-full min-h-56 select-none"
             role="img"
             :aria-label="t('trendChart.ariaLabel')"
         >
@@ -151,7 +151,7 @@ function tooltipStyle(h) {
                     :x2="W - pad.right"
                     :y1="y(t)"
                     :y2="y(t)"
-                    class="enpii-trend-bar-chart__grid"
+                    class="enpii-trend-bar-chart__grid stroke-outline-variant"
                     stroke-width="1"
                     :opacity="t === 0 ? 1 : 0.5"
                 />
@@ -162,7 +162,7 @@ function tooltipStyle(h) {
                     :y="y(t)"
                     text-anchor="end"
                     dominant-baseline="middle"
-                    class="enpii-trend-bar-chart__axis-text"
+                    class="enpii-trend-bar-chart__axis-text fill-on-surface-variant font-semibold"
                     font-size="11"
                     font-weight="600"
                 >
@@ -177,7 +177,7 @@ function tooltipStyle(h) {
                     :width="g.hitW"
                     :height="plotH"
                     fill="transparent"
-                    class="enpii-trend-bar-chart__hit"
+                    class="enpii-trend-bar-chart__hit cursor-pointer focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-focus"
                     tabindex="0"
                     @pointermove="onMove($event, g)"
                     @pointerleave="onLeave"
@@ -187,14 +187,14 @@ function tooltipStyle(h) {
                 <path
                     v-if="g.pathD"
                     :d="g.pathD"
-                    class="enpii-trend-bar-chart__bar enpii-trend-bar-chart__bar--disbursed"
+                    class="enpii-trend-bar-chart__bar enpii-trend-bar-chart__bar--disbursed fill-primary [transition-property:opacity] duration-base ease-emphasized motion-reduce:transition-none"
                     :opacity="hover && hover.key !== g.key ? 0.35 : 1"
                     pointer-events="none"
                 />
                 <path
                     v-if="g.pathC"
                     :d="g.pathC"
-                    class="enpii-trend-bar-chart__bar enpii-trend-bar-chart__bar--collected"
+                    class="enpii-trend-bar-chart__bar enpii-trend-bar-chart__bar--collected fill-secondary [transition-property:opacity] duration-base ease-emphasized motion-reduce:transition-none"
                     :opacity="hover && hover.key !== g.key ? 0.35 : 1"
                     pointer-events="none"
                 />
@@ -202,7 +202,7 @@ function tooltipStyle(h) {
                     :x="g.hitX + g.hitW / 2"
                     :y="H - 10"
                     text-anchor="middle"
-                    class="enpii-trend-bar-chart__axis-text"
+                    class="enpii-trend-bar-chart__axis-text fill-on-surface-variant font-semibold"
                     font-size="11"
                     font-weight="600"
                 >
@@ -213,23 +213,23 @@ function tooltipStyle(h) {
 
         <div
             v-if="hover"
-            class="enpii-trend-bar-chart__tooltip"
+            class="enpii-trend-bar-chart__tooltip absolute z-index-raised min-w-42 py-2 px-3 border border-solid border-outline-variant rounded-lg bg-surface-container-lowest shadow-md pointer-events-none"
             :style="tooltipStyle(hover)"
             role="tooltip"
         >
-            <p class="enpii-trend-bar-chart__tooltip-title">{{ hover.label }}</p>
-            <div class="enpii-trend-bar-chart__tooltip-body">
-                <p class="enpii-trend-bar-chart__legend-row">
-                    <span class="enpii-trend-bar-chart__legend-label">
-                        <span class="enpii-trend-bar-chart__swatch enpii-trend-bar-chart__swatch--disbursed" aria-hidden="true" />Cair
+            <p class="enpii-trend-bar-chart__tooltip-title m-0 mb-1 text-primary-text text-xs font-semibold">{{ hover.label }}</p>
+            <div class="enpii-trend-bar-chart__tooltip-body grid gap-1 text-xs">
+                <p class="enpii-trend-bar-chart__legend-row flex items-center justify-between gap-4 m-0">
+                    <span class="enpii-trend-bar-chart__legend-label inline-flex items-center gap-1 text-on-surface-variant">
+                        <span class="enpii-trend-bar-chart__swatch enpii-trend-bar-chart__swatch--disbursed w-2 h-2 rounded-sm bg-primary" aria-hidden="true" />Cair
                     </span>
-                    <span class="enpii-trend-bar-chart__legend-value">{{ formatMoney(hover.disbursed) }}</span>
+                    <span class="enpii-trend-bar-chart__legend-value text-on-surface font-semibold tabular-nums">{{ formatMoney(hover.disbursed) }}</span>
                 </p>
-                <p class="enpii-trend-bar-chart__legend-row">
-                    <span class="enpii-trend-bar-chart__legend-label">
-                        <span class="enpii-trend-bar-chart__swatch enpii-trend-bar-chart__swatch--collected" aria-hidden="true" />Terima
+                <p class="enpii-trend-bar-chart__legend-row flex items-center justify-between gap-4 m-0">
+                    <span class="enpii-trend-bar-chart__legend-label inline-flex items-center gap-1 text-on-surface-variant">
+                        <span class="enpii-trend-bar-chart__swatch enpii-trend-bar-chart__swatch--collected w-2 h-2 rounded-sm bg-secondary" aria-hidden="true" />Terima
                     </span>
-                    <span class="enpii-trend-bar-chart__legend-value">{{ formatMoney(hover.collected) }}</span>
+                    <span class="enpii-trend-bar-chart__legend-value text-on-surface font-semibold tabular-nums">{{ formatMoney(hover.collected) }}</span>
                 </p>
             </div>
         </div>

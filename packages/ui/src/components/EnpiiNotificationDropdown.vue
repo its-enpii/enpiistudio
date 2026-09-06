@@ -223,17 +223,19 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <div ref="dropdownRef" class="enpii-notification-dropdown__anchor" @click.stop>
+    <div ref="dropdownRef" class="enpii-notification-dropdown__anchor relative" @click.stop>
         <button
             type="button"
             ref="trigger"
-            class="enpii-notification-dropdown__trigger"
+            class="enpii-notification-dropdown__trigger grid h-10 w-10 place-items-center rounded-full border-0 bg-transparent text-on-surface-variant transition-all duration-fast ease-emphasized hover:bg-surface-container hover:text-primary active:scale-90 focus-visible:outline focus-visible:outline-3 focus-visible:outline-focus focus-visible:outline-offset-2 aria-expanded:bg-surface-container aria-expanded:text-primary"
             :aria-label="t('notification.ariaLabel')"
             :aria-expanded="open"
             @click="toggleDropdown"
         >
-            <AppIcon name="notifications" class="enpii-notification-dropdown__icon" />
-            <span v-if="unreadCount > 0" class="enpii-notification-dropdown__badge"
+            <AppIcon name="notifications" class="enpii-notification-dropdown__icon h-6 w-6 text-base" />
+            <span
+                v-if="unreadCount > 0"
+                class="enpii-notification-dropdown__badge absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-error text-on-error text-[.625rem] font-semibold shadow-[0_0_0_2px_var(--enpii-color-surface)]"
             >
                 {{ unreadCount > 9 ? '9+' : unreadCount }}
             </span>
@@ -241,26 +243,26 @@ onBeforeUnmount(() => {
 
         <!-- Dropdown Menu -->
         <Transition name="dropdown">
-            <div
+                        <div
                 ref="panel"
-                class="enpii-notification-dropdown__panel"
+                class="enpii-notification-dropdown__panel overflow-hidden rounded-control border border-outline-variant bg-surface-container-lowest shadow-overlay transition-opacity transition-transform duration-normal ease-decelerate"
                 :class="[shapeClass, { 'enpii-notification-dropdown__panel--above': placeAbove }]"
                 :style="panelStyle"
                 @click.stop
             >
                 <!-- Header -->
-                <div class="enpii-notification-dropdown__header">
-                    <div class="enpii-notification-dropdown__title-group">
-                        <AppIcon name="notifications" class="enpii-notification-dropdown__title-icon" />
-                        <h3 class="enpii-notification-dropdown__title">{{ t('notification.title') }}</h3>
-                        <span v-if="unreadCount > 0" class="enpii-notification-dropdown__count">
+                <div class="enpii-notification-dropdown__header flex items-center justify-between gap-2 border-b border-outline-variant bg-surface-container-low/80 px-4 py-3">
+                    <div class="enpii-notification-dropdown__title-group flex min-w-0 items-center gap-2">
+                        <AppIcon name="notifications" class="enpii-notification-dropdown__title-icon text-primary-text text-[1.125rem]" />
+                        <h3 class="enpii-notification-dropdown__title m-0 flex items-center gap-2 text-primary-text text-sm font-semibold">{{ t('notification.title') }}</h3>
+                        <span v-if="unreadCount > 0" class="enpii-notification-dropdown__count rounded-full bg-error/15 px-2 py-1 text-danger-text text-[.625rem] font-semibold">
                             {{ t('notification.newCount', { count: unreadCount }) }}
                         </span>
                     </div>
                     <button
                         v-if="unreadCount > 0"
                         type="button"
-                        class="enpii-notification-dropdown__mark-read"
+                        class="enpii-notification-dropdown__mark-read border-0 bg-none text-primary-text text-xs font-semibold"
                         @click.stop="markAsRead(null)"
                     >
                         {{ t('notification.markAllRead') }}
@@ -268,19 +270,19 @@ onBeforeUnmount(() => {
                 </div>
 
                 <!-- Tabs Filter -->
-                <div class="enpii-notification-dropdown__tabs">
+                <div class="enpii-notification-dropdown__tabs flex border-b border-outline-variant bg-surface-container-lowest px-2">
                     <button
                         type="button"
-                        class="enpii-notification-dropdown__tab"
-                        :class="{ 'enpii-notification-dropdown__tab--active': activeTab === 'all' }"
+                        class="enpii-notification-dropdown__tab flex-1 border-0 border-b-2 border-b-transparent bg-none pb-2 pt-2 text-on-surface-variant text-xs font-semibold"
+                        :class="{ 'border-b-primary text-primary-text': activeTab === 'all' }"
                         @click.stop="activeTab = 'all'"
                     >
                         Semua ({{ items.length }})
                     </button>
                     <button
                         type="button"
-                        class="enpii-notification-dropdown__tab"
-                        :class="{ 'enpii-notification-dropdown__tab--active': activeTab === 'unread' }"
+                        class="enpii-notification-dropdown__tab flex-1 border-0 border-b-2 border-b-transparent bg-none pb-2 pt-2 text-on-surface-variant text-xs font-semibold"
+                        :class="{ 'border-b-primary text-primary-text': activeTab === 'unread' }"
                         @click.stop="activeTab = 'unread'"
                     >
                         {{ t('notification.tabUnread', { count: unreadCount }) }}
@@ -288,18 +290,18 @@ onBeforeUnmount(() => {
                 </div>
 
                 <!-- List Content -->
-                <div class="enpii-notification-dropdown__list">
-                    <div v-if="loading && items.length === 0" class="enpii-notification-dropdown__status">
+                <div class="enpii-notification-dropdown__list max-h-96 overflow-y-auto">
+                    <div v-if="loading && items.length === 0" class="enpii-notification-dropdown__status px-4 py-8 text-center text-on-surface-variant text-xs">
                         {{ t('notification.loading') }}
                     </div>
-                    <div v-else-if="filteredItems.length === 0" class="enpii-notification-dropdown__status">
+                    <div v-else-if="filteredItems.length === 0" class="enpii-notification-dropdown__status px-4 py-8 text-center text-on-surface-variant text-xs">
                         {{ activeTab === 'unread' ? t('notification.emptyUnread') : t('notification.emptyAll') }}
                     </div>
                     <div
                         v-for="item in filteredItems"
                         :key="item.id"
-                        class="enpii-notification-dropdown__item"
-                        :class="{ 'enpii-notification-dropdown__item--unread': !item.read }"
+                        class="enpii-notification-dropdown__item group/item flex cursor-pointer items-center gap-3 px-4 py-3 transition-colors duration-fast ease-emphasized hover:bg-surface-container-low"
+                        :class="{ 'bg-primary/5': !item.read }"
                         @click="handleItemClick(item)"
                     >
                         <!-- Icon Circle -->
@@ -308,38 +310,38 @@ onBeforeUnmount(() => {
                             :tone="iconTones[item.variant] || 'info'"
                             container-size="9"
                             container-shape="pill"
-                            class="enpii-notification-dropdown__item-state"
+                            class="enpii-notification-dropdown__item-state flex items-center pl-1"
                         />
 
                         <!-- Main Content -->
-                        <div class="enpii-notification-dropdown__item-body">
-                            <div class="enpii-notification-dropdown__item-top">
-                                <p class="enpii-notification-dropdown__item-title">{{ item.title }}</p>
-                                <span class="enpii-notification-dropdown__item-time">{{ item.time }}</span>
+                        <div class="enpii-notification-dropdown__item-body min-w-0 flex-1">
+                            <div class="enpii-notification-dropdown__item-top flex items-center justify-between gap-2">
+                                <p class="enpii-notification-dropdown__item-title m-0 truncate text-primary-text text-xs font-semibold">{{ item.title }}</p>
+                                <span class="enpii-notification-dropdown__item-time shrink-0 text-on-surface-variant text-[.625rem]" :class="!item.read && ''">{{ item.time }}</span>
                             </div>
-                            <p class="enpii-notification-dropdown__item-message">{{ item.message }}</p>
+                            <p class="enpii-notification-dropdown__item-message m-0 line-clamp-2 overflow-hidden text-on-surface-variant text-xs leading-normal">{{ item.message }}</p>
 
                             <!-- Subtle metadata (actor if recorded by someone) -->
-                            <div v-if="item.actor" class="enpii-notification-dropdown__item-actor">
+                            <div v-if="item.actor" class="enpii-notification-dropdown__item-actor pt-1 text-outline text-[.625rem]">
                                 Oleh <span class="enpii-notification-dropdown__item-actor-name">{{ item.actor }}</span>
                             </div>
                         </div>
 
                         <!-- Right Chevron / Unread Indicator -->
-                        <div class="enpii-notification-dropdown__item-state">
-                            <span v-if="!item.read" class="enpii-notification-dropdown__dot" />
-                            <AppIcon v-else name="chevron_right" class="enpii-notification-dropdown__chevron" />
+                        <div class="enpii-notification-dropdown__item-state flex items-center pl-1">
+                            <span v-if="!item.read" class="enpii-notification-dropdown__dot h-2 w-2 rounded-full bg-primary" />
+                            <AppIcon v-else name="chevron_right" class="enpii-notification-dropdown__chevron text-outline opacity-0 transition-opacity duration-fast ease-emphasized [.enpii-notification-dropdown__item:hover_&]:opacity-100" />
                         </div>
                     </div>
                 </div>
 
                 <!-- Footer -->
-                <div class="enpii-notification-dropdown__footer">
-                    <button type="button" class="enpii-notification-dropdown__footer-link enpii-notification-dropdown__footer-link--primary" @click.stop="navigate('/notifications/billing')">
+                <div class="enpii-notification-dropdown__footer flex items-center justify-between border-t border-outline-variant bg-surface-container-low/50 px-4 py-2 text-xs font-semibold">
+                    <button type="button" class="enpii-notification-dropdown__footer-link inline-flex items-center gap-1 border-0 bg-none text-primary-text hover:underline" @click.stop="navigate('/notifications/billing')">
                         <AppIcon name="chat" />
                         {{ t('notification.whatsappReminder') }}
                     </button>
-                    <button type="button" class="enpii-notification-dropdown__footer-link" @click.stop="navigate('/billing/invoices')">
+                    <button type="button" class="enpii-notification-dropdown__footer-link inline-flex items-center gap-1 border-0 bg-none text-on-surface-variant hover:text-primary-text hover:underline" @click.stop="navigate('/billing/invoices')">
                         <AppIcon name="receipt" />
                         {{ t('notification.enpiiBilling') }}
                     </button>

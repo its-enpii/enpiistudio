@@ -17,12 +17,12 @@ function onClick() {
 </script>
 
 <template>
-    <div class="enpii-assistant-action-button">
+    <div class="enpii-assistant-action-button flex">
         <AppButton
             size="compact"
             :variant="assistantBlock.url ? 'outline' : 'primary'"
             :icon="assistantBlock.icon || (assistantBlock.url ? 'open_in_new' : 'check')"
-            class="enpii-assistant-action-button__button"
+            class="enpii-assistant-action-button__button w-full justify-start"
             @click="onClick"
         >
             {{ assistantBlock.label }}

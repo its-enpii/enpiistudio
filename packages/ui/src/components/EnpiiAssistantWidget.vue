@@ -502,68 +502,68 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <div ref="rootEl" class="enpii-assistant-widget">
+    <div ref="rootEl" class="enpii-assistant-widget fixed bottom-4 right-4 z-modal flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
         <Transition name="assistant-panel">
             <div
                 v-if="open"
-                class="enpii-assistant-widget__panel"
+                class="enpii-assistant-widget__panel flex h-[min(36rem,75vh)] w-[min(24rem,calc(100vw-2rem))] origin-bottom-right flex-col overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest shadow-overlay"
                 role="dialog"
                 :aria-label="displayName()"
             >
-                <div class="enpii-assistant-widget__header">
-                    <div class="enpii-assistant-widget__identity">
-                        <AppIcon name="smart_toy" class="enpii-assistant-widget__logo" />
-                        <div class="enpii-assistant-widget__identity-text">
-                            <span class="enpii-assistant-widget__name">{{ displayName() }}</span>
-                            <span v-if="persona?.slug" class="enpii-assistant-widget__persona">{{ persona.slug }}</span>
+                <div class="enpii-assistant-widget__header flex shrink-0 items-center justify-between gap-2 border-b border-outline-variant bg-primary px-4 py-3 text-on-primary">
+                    <div class="enpii-assistant-widget__identity flex min-w-0 items-center gap-2">
+                        <AppIcon name="smart_toy" class="enpii-assistant-widget__logo h-5 w-5 shrink-0 text-xl" />
+                        <div class="enpii-assistant-widget__identity-text min-w-0">
+                            <span class="enpii-assistant-widget__name block truncate text-sm font-semibold">{{ displayName() }}</span>
+                            <span v-if="persona?.slug" class="enpii-assistant-widget__persona block truncate text-on-primary/70 text-[.625rem] font-medium">{{ persona.slug }}</span>
                         </div>
                     </div>
-                    <button type="button" class="enpii-assistant-widget__close" :aria-label="t('assistant.close')" @click="open = false">
+                    <button type="button" class="enpii-assistant-widget__close grid h-8 w-8 cursor-pointer place-items-center rounded-full border-0 bg-none transition-colors duration-fast ease-emphasized hover:bg-white/10" :aria-label="t('assistant.close')" @click="open = false">
                         <AppIcon name="close" />
                     </button>
                 </div>
 
-                <p v-if="loading && !messages.length" class="enpii-assistant-widget__status">Menghubungkan…</p>
-                <p v-else-if="error && !messages.length" class="enpii-assistant-widget__status enpii-assistant-widget__status--error">{{ error }}</p>
+                <p v-if="loading && !messages.length" class="enpii-assistant-widget__status p-4 text-on-surface-variant text-sm">Menghubungkan…</p>
+                <p v-else-if="error && !messages.length" class="enpii-assistant-widget__status p-4 text-danger-text text-sm">{{ error }}</p>
 
-                <div ref="listEl" class="enpii-assistant-widget__messages">
-                    <TransitionGroup name="assistant-msg" tag="div" class="enpii-assistant-widget__message-list">
+                <div ref="listEl" class="enpii-assistant-widget__messages flex min-h-0 flex-1 flex-col overflow-y-auto bg-surface p-4">
+                    <TransitionGroup name="assistant-msg" tag="div" class="enpii-assistant-widget__message-list flex flex-col gap-3">
                         <div
                             v-for="msg in messages"
                             :key="msg.id"
-                            class="enpii-assistant-widget__bubble"
+                            class="enpii-assistant-widget__bubble max-w-[85%] rounded-2xl px-3 py-2 text-sm leading-relaxed"
                             :class="{
-                                'enpii-assistant-widget__bubble--user': msg.role === 'user',
-                                'enpii-assistant-widget__bubble--assistant': msg.role === 'assistant' || msg.role === 'system',
-                                'enpii-assistant-widget__bubble--error': msg.role === 'error',
-                                'enpii-assistant-widget__bubble--tool': msg.role === 'tool',
+                                'self-end rounded-br-sm bg-primary text-on-primary whitespace-pre-wrap': msg.role === 'user',
+                                'self-start rounded-bl-sm border border-outline-variant bg-surface-container-lowest text-on-surface': msg.role === 'assistant' || msg.role === 'system',
+                                'self-start rounded-bl-sm bg-error-container text-on-error-container whitespace-pre-wrap': msg.role === 'error',
+                                'self-start rounded-bl-sm border border-dashed border-outline-variant bg-surface-container-low text-on-surface-variant text-xs': msg.role === 'tool',
                             }"
                         >
                             <template v-if="msg.role === 'tool'">
-                                <span class="enpii-assistant-widget__tool-name"><strong>{{ msg.kind === 'use' ? 'Tool' : 'Hasil' }}:</strong> {{ msg.name }}</span>
-                                <span v-if="msg.ok === false" class="enpii-assistant-widget__tool-error"> (gagal)</span>
+                                <span class="enpii-assistant-widget__tool-name font-semibold"><strong>{{ msg.kind === 'use' ? 'Tool' : 'Hasil' }}:</strong> {{ msg.name }}</span>
+                                <span v-if="msg.ok === false" class="enpii-assistant-widget__tool-error text-danger-text"> (gagal)</span>
                             </template>
                             <template v-else-if="msg.role === 'user' || msg.role === 'error'">
-                                <div v-if="msg.attachments && msg.attachments.length" class="enpii-assistant-widget__attachments">
+                                <div v-if="msg.attachments && msg.attachments.length" class="enpii-assistant-widget__attachments mb-2 flex flex-wrap gap-1">
                                     <img
                                         v-for="(att, i) in msg.attachments"
                                         :key="i"
                                         :src="att.url"
                                         :alt="att.name || t('assistant.imageAlt')"
-                                        class="enpii-assistant-widget__attachment"
+                                        class="enpii-assistant-widget__attachment max-h-36 max-w-full rounded-control border border-white/20 object-cover shadow-control"
                                     />
                                 </div>
                                 <span v-if="msg.content && msg.content !== '(Lampiran Gambar)'">{{ msg.content }}</span>
                             </template>
-                            <div v-else class="enpii-assistant-widget__blocks">
+                            <div v-else class="enpii-assistant-widget__blocks flex flex-col gap-2">
                                 <template v-for="assistantBlock in blocksFor(msg)" :key="assistantBlock.id">
-                                    <h1 v-if="assistantBlock.type === 'heading' && assistantBlock.level === 1" class="enpii-assistant-widget__heading enpii-assistant-widget__heading--h1">{{ assistantBlock.text }}</h1>
-                                    <h2 v-else-if="assistantBlock.type === 'heading' && assistantBlock.level === 2" class="enpii-assistant-widget__heading enpii-assistant-widget__heading--h2">{{ assistantBlock.text }}</h2>
-                                    <h3 v-else-if="assistantBlock.type === 'heading' && assistantBlock.level === 3" class="enpii-assistant-widget__heading enpii-assistant-widget__heading--h3">{{ assistantBlock.text }}</h3>
+                                    <h1 v-if="assistantBlock.type === 'heading' && assistantBlock.level === 1" class="enpii-assistant-widget__heading my-1 text-base font-semibold">{{ assistantBlock.text }}</h1>
+                                    <h2 v-else-if="assistantBlock.type === 'heading' && assistantBlock.level === 2" class="enpii-assistant-widget__heading my-1 text-sm font-semibold">{{ assistantBlock.text }}</h2>
+                                    <h3 v-else-if="assistantBlock.type === 'heading' && assistantBlock.level === 3" class="enpii-assistant-widget__heading my-1 text-sm font-semibold">{{ assistantBlock.text }}</h3>
                                     <!-- eslint-disable-next-line vue/no-v-html -->
                                     <div
                                         v-else-if="assistantBlock.type === 'paragraph' || assistantBlock.type === 'code'"
-                                        class="enpii-assistant-widget__markdown"
+                                        class="enpii-assistant-widget__markdown text-sm leading-relaxed [&>*:first-child]:mt-0 [&>*:last-child]:mb-0 [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-[.2em] [&_code]:rounded-md [&_code]:bg-neutral-soft/70 [&_code]:font-mono [&_code]:text-[.8125em] [&_pre]:overflow-x-auto [&_pre]:rounded-md [&_pre]:bg-neutral-soft/70 [&_pre]:p-2"
                                         v-html="assistantBlock.html"
                                     />
                                     <ArtifactCard
@@ -589,35 +589,35 @@ onBeforeUnmount(() => {
 
                     <div
                         v-if="typing"
-                        class="enpii-assistant-widget__typing"
+                        class="enpii-assistant-widget__typing flex max-w-[85%] items-center gap-2 self-start rounded-2xl rounded-bl-sm border border-outline-variant bg-surface-container-lowest px-3 py-2"
                         :aria-label="typingLabel"
                     >
-                        <span class="enpii-assistant-widget__typing-dots">
-                            <span class="enpii-assistant-widget__typing-dot" />
-                            <span class="enpii-assistant-widget__typing-dot" />
-                            <span class="enpii-assistant-widget__typing-dot" />
+                        <span class="enpii-assistant-widget__typing-dots flex items-center gap-1">
+                            <span class="enpii-assistant-widget__typing-dot h-2 w-2 rounded-full bg-outline motion-safe:animate-[assistant-pulse_1.2s_infinite]" />
+                            <span class="enpii-assistant-widget__typing-dot h-2 w-2 rounded-full bg-outline motion-safe:animate-[assistant-pulse_1.2s_infinite] motion-safe:[animation-delay:.15s]" />
+                            <span class="enpii-assistant-widget__typing-dot h-2 w-2 rounded-full bg-outline motion-safe:animate-[assistant-pulse_1.2s_infinite] motion-safe:[animation-delay:.3s]" />
                         </span>
-                        <span class="enpii-assistant-widget__typing-label">{{ typingLabel }}</span>
+                        <span class="enpii-assistant-widget__typing-label text-on-surface-variant text-xs">{{ typingLabel }}</span>
                     </div>
 
                     <div
                         v-if="pendingConfirmation"
-                        class="enpii-assistant-widget__confirmation"
+                        class="enpii-assistant-widget__confirmation self-stretch rounded-control border border-outline-variant bg-surface-container-lowest p-3 text-sm"
                     >
-                        <p class="enpii-assistant-widget__confirmation-title">{{ pendingConfirmation.summary }}</p>
-                        <ul v-if="pendingConfirmation.warnings?.length" class="enpii-assistant-widget__warnings">
+                        <p class="enpii-assistant-widget__confirmation-title m-0 text-primary-text font-semibold">{{ pendingConfirmation.summary }}</p>
+                        <ul v-if="pendingConfirmation.warnings?.length" class="enpii-assistant-widget__warnings mt-2 list-disc pl-4 text-on-surface-variant">
                             <li v-for="(w, i) in pendingConfirmation.warnings" :key="i">{{ w }}</li>
                         </ul>
-                        <div class="enpii-assistant-widget__confirm-actions">
+                        <div class="enpii-assistant-widget__confirm-actions mt-3 flex gap-2">
                             <button
                                 type="button"
-                                class="enpii-assistant-widget__confirm-button"
+                                class="enpii-assistant-widget__confirm-button cursor-pointer rounded-md border-0 bg-primary px-3 py-1 text-on-primary text-xs font-semibold hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50"
                                 :disabled="sending"
                                 @click="decideConfirmation('approve')"
                             >Setuju</button>
                             <button
                                 type="button"
-                                class="enpii-assistant-widget__reject-button"
+                                class="enpii-assistant-widget__reject-button cursor-pointer rounded-md border border-outline-variant bg-none px-3 py-1 text-on-surface text-xs font-semibold hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50"
                                 :disabled="sending"
                                 @click="decideConfirmation('reject')"
                             >Tolak</button>
@@ -625,27 +625,27 @@ onBeforeUnmount(() => {
                     </div>
                 </div>
 
-                <div class="enpii-assistant-widget__composer-wrap">
+                <div class="enpii-assistant-widget__composer-wrap border-t border-outline-variant bg-surface-container-lowest">
                     <!-- Attached Images Preview -->
-                    <div v-if="attachedImages.length" class="enpii-assistant-widget__attachments-bar">
+                    <div v-if="attachedImages.length" class="enpii-assistant-widget__attachments-bar flex flex-wrap gap-2 border-b border-outline-variant/50 px-3 pb-2 pt-2">
                         <div
                             v-for="(img, idx) in attachedImages"
                             :key="idx"
-                            class="enpii-assistant-widget__thumbnail"
+                            class="enpii-assistant-widget__thumbnail group relative h-14 w-14 shrink-0 overflow-hidden rounded-control border border-outline-variant bg-surface-container"
                         >
-                            <img :src="img.dataUrl" class="enpii-assistant-widget__thumbnail-image" :alt="img.name" />
+                            <img :src="img.dataUrl" class="enpii-assistant-widget__thumbnail-image h-full w-full object-cover" :alt="img.name" />
                             <button
                                 type="button"
-                                class="enpii-assistant-widget__thumbnail-remove"
+                                class="enpii-assistant-widget__thumbnail-remove absolute inset-0 grid cursor-pointer place-items-center border-0 bg-black/60 text-surface-inverse opacity-0 transition-opacity duration-fast ease-emphasized group-hover:opacity-100 focus-visible:opacity-100"
                                 :aria-label="t('assistant.removeImage')"
                                 @click="removeAttachedImage(idx)"
                             >
-                                <AppIcon name="close" class="enpii-assistant-widget__thumbnail-icon" />
+                                <AppIcon name="close" class="enpii-assistant-widget__thumbnail-icon h-4 w-4 text-base" />
                             </button>
                         </div>
                     </div>
 
-                    <div class="enpii-assistant-widget__composer">
+                    <div class="enpii-assistant-widget__composer flex gap-2 p-3">
                         <input
                             ref="fileInputEl"
                             type="file"
@@ -656,19 +656,19 @@ onBeforeUnmount(() => {
                         />
                         <button
                             type="button"
-                            class="enpii-assistant-widget__composer-button"
+                            class="enpii-assistant-widget__composer-button grid h-11 w-11 shrink-0 cursor-pointer place-items-center rounded-control border border-outline-variant bg-none text-on-surface-variant transition-all duration-fast ease-emphasized hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--enpii-color-primary)_30%,transparent)] disabled:cursor-not-allowed"
                             :disabled="sending || loading"
                             :aria-label="t('assistant.attachImage')"
                             :title="t('assistant.attachImage')"
                             @click="triggerAttach"
                         >
-                            <AppIcon name="add_photo_alternate" />
+                            <AppIcon name="add_photo_alternate" class="h-5 w-5 text-xl" />
                         </button>
                         <textarea
                             ref="inputEl"
                             v-model="input"
                             rows="2"
-                            class="enpii-assistant-widget__input"
+                            class="enpii-assistant-widget__input max-h-12 min-h-11 flex-1 rounded-control border border-outline-variant bg-surface px-3 py-2 text-on-surface text-sm leading-tight resize-none focus:border-primary focus:outline-none focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--enpii-color-primary)_20%,transparent)]"
                             :placeholder="t('assistant.inputPlaceholder', { name: displayName() })"
                             :disabled="sending || loading"
                             @input="afterInputChange"
@@ -677,12 +677,12 @@ onBeforeUnmount(() => {
                         />
                         <button
                             type="button"
-                            class="enpii-assistant-widget__composer-button enpii-assistant-widget__send-button"
+                            class="enpii-assistant-widget__composer-button grid h-11 w-11 shrink-0 cursor-pointer place-items-center rounded-control border border-transparent bg-primary text-on-primary transition-all duration-fast ease-emphasized hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--enpii-color-primary)_30%,transparent)] disabled:cursor-not-allowed"
                             :disabled="sending || loading || (!input.trim() && !attachedImages.length)"
                             :aria-label="t('assistant.send')"
                             @click="sendMessage"
                         >
-                            <AppIcon name="send" />
+                            <AppIcon name="send" class="h-5 w-5 text-xl" />
                         </button>
                     </div>
                 </div>
@@ -693,12 +693,12 @@ onBeforeUnmount(() => {
 
         <button
             type="button"
-            class="enpii-assistant-widget__toggle"
+            class="enpii-assistant-widget__toggle grid h-14 w-14 cursor-pointer place-items-center rounded-full border-0 bg-primary text-on-primary shadow-lg transition-all duration-base ease-emphasized hover:scale-105 hover:bg-primary-hover focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--enpii-color-focus)_60%,transparent),var(--enpii-shadow-lg)]"
             :aria-expanded="open"
             :aria-label="t('assistant.openToggle', { name: displayName() })"
             @click="toggle"
         >
-            <AppIcon class="enpii-assistant-widget__toggle-icon"
+            <AppIcon class="enpii-assistant-widget__toggle-icon h-6 w-6 text-2xl transition-transform duration-base ease-emphasized [.enpii-assistant-widget__panel+&]:scale-100"
                      :name="open ? 'close' : 'smart_toy'" />
         </button>
     </div>

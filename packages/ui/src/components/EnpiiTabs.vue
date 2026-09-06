@@ -43,8 +43,8 @@ const normalizedVariant = computed(() => {
 
 const navVariantClasses = {
     'underline': 'flex flex-wrap gap-x-6 gap-y-1',
-    'pill': 'flex flex-col gap-1 w-full',
-    'pills-bar': 'flex flex-wrap gap-1 p-1 border border-solid border-outline-variant rounded-control bg-surface-container-lowest',
+    'pill': 'flex w-full flex-col gap-1',
+    'pills-bar': 'flex flex-wrap gap-1 rounded-control border border-solid border-outline-variant bg-surface-container-lowest p-1',
 };
 
 function tabClass(item) {
@@ -105,10 +105,10 @@ function tabClass(item) {
             @click="!item.disabled && $emit('update:modelValue', item.key)"
         >
             <AppIcon v-if="item.icon" :name="item.icon" class="enpii-tabs__icon shrink-0 text-[1.125rem]" />
-            <span class="enpii-tabs__label overflow-hidden text-ellipsis whitespace-nowrap">{{ item.label }}</span>
+            <span class="enpii-tabs__label truncate">{{ item.label }}</span>
             <span
                 v-if="item.badge !== undefined && item.badge !== null"
-                class="enpii-tabs__badge inline-flex items-center justify-center min-w-4 ml-auto px-1 rounded-[9999px] bg-badge-error-soft text-danger-text text-[0.625rem] font-semibold leading-4"
+                class="enpii-tabs__badge inline-flex items-center justify-center min-w-4 ml-auto px-1 rounded-full bg-error/15 text-danger-text text-[.625rem] font-semibold leading-4"
             >{{ item.badge }}</span>
         </button>
     </nav>
