@@ -1,4 +1,8 @@
-/* Value-set only: no component selectors and no brand colors. */
+/*
+ * Neobrutalism combines a Tailwind-native token value set with BEM marker
+ * overrides. Import exactly one Enpii UI style layer; these selectors are
+ * specific to this layer and intentionally do not apply to the other four.
+ */
 :root,
 [data-enpii-layer="neobrutalism"] {
   --radius-control: 0.375rem;
@@ -18,6 +22,74 @@
   --shadow-xl: 4px 4px 0 var(--color-ink);
   --shadow-raised: 3px 3px 0 var(--color-ink);
   --shadow-overlay: 4px 4px 0 var(--color-ink);
+  --shadow-card: 2px 2px 0 var(--color-ink);
+  --shadow-focus: 0 0 0 2px var(--color-ink);
+}
+
+.enpii-navbar,
+.enpii-sidebar,
+.enpii-avatar,
+.enpii-alert,
+.enpii-toast,
+.enpii-card {
+  border: 2px solid var(--color-ink);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.enpii-modal__panel,
+.enpii-drawer__panel,
+.enpii-popover,
+.enpii-date-picker__popup,
+.enpii-smart-select__menu,
+.enpii-dropdown-menu__panel,
+.enpii-tooltip__bubble {
+  border: 3px solid var(--color-ink);
+  border-radius: var(--radius-overlay);
+  box-shadow: var(--shadow-overlay);
+}
+
+.enpii-progress__track,
+.enpii-stepper__marker,
+.enpii-badge {
+  border: 2px solid var(--color-ink);
+  border-radius: var(--radius-control);
+  box-shadow: var(--shadow-control);
+}
+
+.enpii-input__control,
+.enpii-textarea__control,
+.enpii-smart-select__trigger {
+  border: 2px solid var(--color-ink) !important;
+  border-radius: var(--radius-control);
+  box-shadow: 2px 2px 0 var(--color-ink);
+}
+
+.enpii-button,
+.enpii-icon-button[class*=" enpii-icon-button--filled-"],
+.enpii-filter-pill__button,
+.enpii-segmented-control,
+.enpii-pagination__control--active {
+  border: 2px solid var(--color-ink) !important;
+  border-radius: var(--radius-control);
+  box-shadow: var(--shadow-control);
+}
+
+.enpii-button:hover:enabled,
+.enpii-button:active:enabled,
+.enpii-icon-button[class*=" enpii-icon-button--filled-"]:hover:enabled,
+.enpii-icon-button[class*=" enpii-icon-button--filled-"]:active:enabled,
+.enpii-filter-pill__button:hover:enabled,
+.enpii-filter-pill__button:active:enabled,
+.enpii-pagination__control--active:hover:enabled,
+.enpii-pagination__control--active:active:enabled {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 var(--color-ink);
+}
+
+.enpii-card:hover {
+  transform: translateY(1px);
+  box-shadow: var(--shadow-md);
 }
 
 @media (prefers-reduced-motion: reduce) {
