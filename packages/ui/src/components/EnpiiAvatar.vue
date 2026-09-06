@@ -38,6 +38,6 @@ const statusClasses = {
         <img v-if="src" class="enpii-avatar__image h-full w-full flex items-center justify-center object-cover" :src="src" :alt="name">
         <span v-else-if="initials" class="enpii-avatar__initials flex h-full w-full items-center justify-center">{{ initials }}</span>
         <i v-else class="material-symbols-outlined enpii-avatar__icon flex h-full w-full items-center justify-center" aria-hidden="true">person</i>
-        <span v-if="status" class="enpii-avatar__status absolute -right-px -bottom-px h-[.75em] w-[.75em] rounded-[50%] border-2 border-solid border-surface-container-lowest" :class="[`enpii-avatar__status--${status}`, statusClasses[status]]"><span class="enpii-sr-only">{{ status }}</span></span>
+        <span v-if="status" class="enpii-avatar__status absolute -right-px -bottom-px h-[.75em] w-[.75em] rounded-[50%] border border-solid [border-width:var(--control-border-width)] border-surface-container-lowest" :class="[`enpii-avatar__status--${status}`, statusClasses[status]]"><span class="enpii-sr-only">{{ status }}</span></span>
     </span>
 </template>

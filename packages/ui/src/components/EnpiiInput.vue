@@ -68,7 +68,7 @@ const controlStateClass = computed(() => {
                 ].filter(Boolean).join(' ') || undefined"
                 :readonly="readonly"
                 :placeholder="readonly ? undefined : (placeholder ?? t('input.placeholder', { label: label.toLowerCase() }))"
-                class="enpii-input__control w-full min-h-control p-px border border-solid font-sans text-control placeholder:text-outline appearance-none [transition-property:border-color,box-shadow,background] duration-fast ease-emphasized hover:enabled:[border-color:color-mix(in_srgb,var(--color-primary)_40%,transparent)] focus:outline-none focus-visible:outline-none focus:border-primary-container focus-visible:border-primary-container focus:[box-shadow:var(--shadow-focus)] focus-visible:[box-shadow:var(--shadow-focus)]"
+        class="enpii-input__control w-full min-h-control p-px border border-solid [border-width:var(--control-border-width)] font-sans text-control placeholder:text-outline appearance-none [transition-property:border-color,box-shadow,background] duration-fast ease-emphasized hover:enabled:[border-color:color-mix(in_srgb,var(--color-primary)_40%,transparent)] focus:outline-none focus-visible:outline-none focus:border-primary-container focus-visible:border-primary-container focus:[box-shadow:var(--shadow-focus)] focus-visible:[box-shadow:var(--shadow-focus)]"
                 :class="[shapeClass, shapeUtility, controlStateClass, { 'pl-12': icon, 'pr-14': Boolean($slots.trailing), 'enpii-input__control--icon': icon, 'enpii-input__control--trailing': Boolean($slots.trailing), 'enpii-input__control--error': Boolean(error), 'enpii-input__control--readonly': readonly }]"
                 v-bind="$attrs"
             >

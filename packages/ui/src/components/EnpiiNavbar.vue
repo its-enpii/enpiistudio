@@ -30,7 +30,7 @@ function toggleMenu() {
 
 <template>
     <nav
-        class="enpii-navbar relative z-raised border-b border-solid border-outline-variant bg-surface-container-lowest text-on-surface"
+        class="enpii-navbar relative z-raised border-b border-solid [border-width:var(--control-border-width)] border-outline-variant bg-surface-container-lowest text-on-surface"
         :class="[
             `enpii-navbar--${variant}`,
             variant === 'transparent' && 'border-transparent bg-transparent',

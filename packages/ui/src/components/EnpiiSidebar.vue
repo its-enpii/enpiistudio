@@ -31,7 +31,7 @@ function toggleGroup(item) {
 
 <template>
     <aside
-        class="enpii-sidebar w-16 overflow-y-auto bg-surface-container-lowest text-on-surface transition-[width] duration-fast ease-emphasized"
+        class="enpii-sidebar w-16 border-r border-solid [border-width:var(--control-border-width)] border-outline-variant overflow-y-auto bg-surface-container-lowest text-on-surface transition-[width] duration-fast ease-emphasized"
         :class="[
             collapsed && 'enpii-sidebar--collapsed',
             !collapsed && 'w-64',

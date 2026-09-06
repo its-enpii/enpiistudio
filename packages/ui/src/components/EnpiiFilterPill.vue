@@ -44,7 +44,7 @@ const shapeClass = useShape(props);
 defineEmits(["update:modelValue"]);
 
 const variantClasses = {
-    outline: "py-2 px-3 border border-solid border-outline-variant rounded-control bg-surface-container-lowest text-primary-text",
+    outline: "py-2 px-3 border border-solid [border-width:var(--control-border-width)] border-outline-variant rounded-control bg-surface-container-lowest text-primary-text",
     solid: "py-2 px-3 border-0 rounded-full bg-surface-container-high text-on-surface-variant",
     segment: "py-2 px-3 border-0 rounded-lg bg-surface-container-low text-on-surface-variant",
 };
@@ -53,7 +53,7 @@ function pillClass(item) {
     const active = props.modelValue === item.value;
     const isCompact = props.size === "compact";
     return [
-        "enpii-filter-pill__button inline-flex items-center gap-1 text-sm font-semibold cursor-pointer [transition-property:all] duration-fast ease-emphasized focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-focus focus-visible:outline-offset-2 active:enabled:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none",
+        "enpii-filter-pill__button enpii-filter-pill__button--structural inline-flex items-center gap-1 text-sm font-semibold cursor-pointer [transition-property:all] duration-fast ease-emphasized focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-focus focus-visible:outline-offset-2 active:enabled:[transform:var(--press-transform)] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none",
         `enpii-filter-pill__button--${props.variant}`,
         variantClasses[props.variant] || variantClasses.outline,
         isCompact ? "enpii-filter-pill__button--compact !py-1 !px-3 !text-xs" : "",

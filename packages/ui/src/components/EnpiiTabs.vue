@@ -44,14 +44,14 @@ const normalizedVariant = computed(() => {
 const navVariantClasses = {
     'underline': 'flex flex-wrap gap-x-6 gap-y-1',
     'pill': 'flex w-full flex-col gap-1',
-    'pills-bar': 'flex flex-wrap gap-1 rounded-control border border-solid border-outline-variant bg-surface-container-lowest p-1',
+    'pills-bar': 'flex flex-wrap gap-1 rounded-control border border-solid [border-width:var(--control-border-width)] border-outline-variant bg-surface-container-lowest p-1',
 };
 
 function tabClass(item) {
     const active = props.modelValue === item.key;
     const variant = normalizedVariant.value;
     const classes = [
-        'enpii-tabs__tab flex items-center gap-2 border-0 bg-transparent cursor-pointer [transition-property:all] duration-fast ease-emphasized focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-focus',
+        'enpii-tabs__tab flex items-center gap-2 border-0 bg-transparent cursor-pointer [transition-property:all] duration-fast ease-emphasized active:[transform:var(--press-transform)] focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-focus',
         `enpii-tabs__tab--${variant}`,
         shapeClass.value,
     ];

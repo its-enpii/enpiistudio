@@ -54,7 +54,7 @@ const controlStateClass = computed(() => {
                 :aria-describedby="error ? `${inputId}-error` : hint ? `${inputId}-hint` : undefined"
                 :readonly="readonly"
                 :placeholder="readonly ? undefined : (placeholder ?? t('textarea.placeholder', { label: label.toLowerCase() }))"
-                class="enpii-textarea__control w-full min-h-[6rem] px-4 py-3 border border-solid font-sans text-control resize-y placeholder:text-outline appearance-none [transition-property:border-color,box-shadow,background] duration-fast ease-emphasized hover:enabled:[border-color:color-mix(in_srgb,var(--color-primary)_40%,transparent)] focus:outline-none focus-visible:outline-none focus:border-primary-container focus-visible:border-primary-container focus:[box-shadow:var(--shadow-focus)] focus-visible:[box-shadow:var(--shadow-focus)]"
+        class="enpii-textarea__control w-full min-h-[6rem] px-4 py-3 border border-solid [border-width:var(--control-border-width)] font-sans text-control resize-y placeholder:text-outline appearance-none [transition-property:border-color,box-shadow,background] duration-fast ease-emphasized hover:enabled:[border-color:color-mix(in_srgb,var(--color-primary)_40%,transparent)] focus:outline-none focus-visible:outline-none focus:border-primary-container focus-visible:border-primary-container focus:[box-shadow:var(--shadow-focus)] focus-visible:[box-shadow:var(--shadow-focus)]"
                 :class="[shapeClass, shapeUtility, controlStateClass, icon && 'pl-12', { 'enpii-textarea__control--icon': icon, 'enpii-textarea__control--error': Boolean(error), 'enpii-textarea__control--readonly': readonly }]"
                 v-bind="$attrs"
             />

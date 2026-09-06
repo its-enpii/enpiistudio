@@ -94,7 +94,7 @@ function updateValue(event: Event) {
         <div class="enpii-password-input__field relative flex items-center">
             <input
                 :id="inputId"
-                class="enpii-password-input__control w-full min-h-12 py-3 pr-[5.5rem] pl-4 border border-solid border-outline-variant rounded-control bg-surface-container-lowest text-on-surface font-sans text-control [transition-property:border-color,box-shadow,background] duration-fast ease-emphasized hover:enabled:[border-color:color-mix(in_srgb,var(--color-primary)_40%,transparent)] focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-offset-1 focus-visible:outline-focus read-only:cursor-default read-only:bg-surface-container-low read-only:text-on-surface-variant disabled:cursor-not-allowed disabled:opacity-60 disabled:bg-surface-container-lowest disabled:text-on-surface placeholder:text-outline"
+        class="enpii-password-input__control w-full min-h-12 py-3 pr-[5.5rem] pl-4 border border-solid [border-width:var(--control-border-width)] border-outline-variant rounded-control bg-surface-container-lowest text-on-surface font-sans text-control [transition-property:border-color,box-shadow,background] duration-fast ease-emphasized hover:enabled:[border-color:color-mix(in_srgb,var(--color-primary)_40%,transparent)] focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-offset-1 focus-visible:outline-focus read-only:cursor-default read-only:bg-surface-container-low read-only:text-on-surface-variant disabled:cursor-not-allowed disabled:opacity-60 disabled:bg-surface-container-lowest disabled:text-on-surface placeholder:text-outline"
                 :type="inputType"
                 :value="modelValue"
                 :disabled="disabled"

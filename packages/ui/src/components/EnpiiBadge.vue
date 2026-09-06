@@ -63,7 +63,7 @@ const shapeUtility = computed(() => {
 
 <template>
     <span
-        class="enpii-badge inline-flex items-center border border-solid border-transparent font-sans leading-none"
+        class="enpii-badge inline-flex items-center border border-solid [border-width:var(--control-border-width)] border-transparent font-sans leading-none"
         :class="[
             `enpii-badge--${tone}`,
             `enpii-badge--${size}`,

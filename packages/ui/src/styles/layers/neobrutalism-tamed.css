@@ -1,0 +1,36 @@
+/* Value-set only: no component selectors and no brand colors. */
+:root,
+[data-enpii-layer="neobrutalism-tamed"] {
+  --control-border-width: 2px;
+  --overlay-border-width: 2px;
+  --press-transform: translate(1px, 1px);
+  --shadow-control-pressed: 1px 1px 0 var(--color-ink);
+  --radius-control: 9px;
+  --radius-card: 10px;
+  --radius-overlay: 12px;
+  --transition-duration-fast: 150ms;
+  --transition-duration-base: 200ms;
+  --transition-duration-normal: 240ms;
+  --transition-duration-slow: 360ms;
+  --ease-standard: cubic-bezier(.16, 1, .3, 1);
+  --ease-decelerate: cubic-bezier(0, 0, 0, 1);
+  --ease-accelerate: cubic-bezier(.3, 0, 1, 1);
+  --ease-emphasized: cubic-bezier(.16, 1, .3, 1);
+  --shadow-control: 2px 2px 0 var(--color-ink);
+  --shadow-card: 2px 2px 0 var(--color-ink);
+  --shadow-md: 2px 2px 0 var(--color-ink);
+  --shadow-raised: 3px 3px 0 var(--color-ink);
+  --shadow-lg: 3px 3px 0 var(--color-ink);
+  --shadow-xl: 4px 4px 0 var(--color-ink);
+  --shadow-overlay: 4px 4px 0 var(--color-ink);
+  --shadow-focus: 0 0 0 2px var(--color-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-duration-fast: 0ms;
+    --transition-duration-base: 0ms;
+    --transition-duration-normal: 0ms;
+    --transition-duration-slow: 0ms;
+  }
+}

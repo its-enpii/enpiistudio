@@ -1,6 +1,10 @@
 /* Value-set only: no component selectors and no brand colors. */
 :root,
 [data-enpii-layer="material"] {
+  --control-border-width: 1px;
+  --overlay-border-width: 1px;
+  --press-transform: none;
+  --shadow-control-pressed: var(--shadow-control);
   --radius-control: 0.5rem;
   --radius-card: 0.75rem;
   --radius-overlay: 1rem;

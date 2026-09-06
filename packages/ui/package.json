@@ -1,6 +1,6 @@
 {
   "name": "@its-enpii/ui",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Internal presentational Vue components for Enpii Studio products",
   "license": "UNLICENSED",
   "repository": {
@@ -33,6 +33,7 @@
     "./styles/glassmorphism": "./dist/styles/layers/glassmorphism.css",
     "./styles/neumorphism": "./dist/styles/layers/neumorphism.css",
     "./styles/neobrutalism": "./dist/styles/layers/neobrutalism.css",
+    "./styles/neobrutalism-tamed": "./dist/styles/layers/neobrutalism-tamed.css",
     "./styles/minimalism": "./dist/styles/layers/minimalism.css",
     "./styles/*": "./dist/styles/*"
   },

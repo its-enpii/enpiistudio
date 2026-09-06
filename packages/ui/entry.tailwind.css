@@ -81,6 +81,10 @@
   --radius-control: 9px;
   --radius-card: 9px;
   --radius-overlay: 12px;
+  --control-border-width: 1px;
+  --overlay-border-width: 1px;
+  --press-transform: none;
+  --shadow-control-pressed: var(--shadow-control);
   --shadow-control: 0 1px 2px rgb(15 23 42 / 0.1);
   --shadow-card: 0 4px 10px rgb(15 23 42 / 0.12);
   --shadow-raised: 0 8px 24px rgb(15 23 42 / 0.15);

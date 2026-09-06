@@ -276,7 +276,7 @@ onBeforeUnmount(() => {
                     :id="`${dropdownId}-menu`"
                     ref="menuRef"
                     role="menu"
-                    class="enpii-dropdown-menu__panel fixed flex flex-col overflow-y-auto overflow-x-hidden rounded-control border border-solid border-outline-variant bg-surface-container-lowest shadow-overlay origin-top [transform-origin:top_center]"
+                    class="enpii-dropdown-menu__panel fixed flex flex-col overflow-y-auto overflow-x-hidden rounded-control border border-solid [border-width:var(--overlay-border-width)] border-outline-variant bg-surface-container-lowest shadow-overlay origin-top [transform-origin:top_center]"
                     :class="[
                         `enpii-dropdown-menu__panel--${size}`,
                         `enpii-dropdown-menu__panel--${align}`,

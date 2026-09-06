@@ -26,7 +26,7 @@ const toneClasses = {
 
 <template>
     <section
-        class="enpii-alert flex items-center gap-3 py-3 px-4 border border-solid rounded-control"
+        class="enpii-alert flex items-center gap-3 py-3 px-4 border border-solid [border-width:var(--control-border-width)] rounded-control"
         :class="[`enpii-alert--${tone}`, toneClasses[tone]]"
         role="alert"
         :aria-labelledby="title ? titleId : undefined"

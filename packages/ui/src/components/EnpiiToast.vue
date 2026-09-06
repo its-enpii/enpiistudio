@@ -57,14 +57,14 @@ const toastIconToneClasses = {
                 <div
                     v-if="toastState.visible"
                     role="status"
-                    class="enpii-toast flex items-center gap-3 w-[min(28rem,100%)] border border-solid border-outline-variant rounded-2xl bg-surface-container-lowest text-on-surface py-3 px-4 shadow-overlay pointer-events-auto"
+                    class="enpii-toast flex items-center gap-3 w-[min(28rem,100%)] border border-solid [border-width:var(--control-border-width)] border-outline-variant rounded-2xl bg-surface-container-lowest text-on-surface py-3 px-4 shadow-overlay pointer-events-auto"
                     :class="[shapeClass, `enpii-toast--${toastState.tone}`]"
                     @mouseenter="pause"
                     @mouseleave="resume"
                 >
                     <!-- Left Icon Badge -->
                     <div
-                        class="enpii-toast__icon grid place-items-center w-9 h-9 shrink-0 border border-solid border-transparent rounded-control bg-neutral-soft [&_svg,&_i,&_.material-icons]:w-5 [&_svg,&_i,&_.material-icons]:h-5 [&_svg,&_i,&_.material-icons]:text-[1.25rem]"
+                        class="enpii-toast__icon grid place-items-center w-9 h-9 shrink-0 border border-solid [border-width:var(--control-border-width)] border-transparent rounded-control bg-neutral-soft [&_svg,&_i,&_.material-icons]:w-5 [&_svg,&_i,&_.material-icons]:h-5 [&_svg,&_i,&_.material-icons]:text-[1.25rem]"
                         :class="toastIconToneClasses[toastState.tone]"
                     >
                         <AppIcon :name="toastState.tone === 'error' ? 'error' : toastState.tone === 'warning' ? 'warning' : toastState.tone === 'success' ? 'check_circle' : 'info'" />

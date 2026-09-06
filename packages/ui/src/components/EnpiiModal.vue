@@ -87,7 +87,7 @@ onBeforeUnmount(() => {
                     aria-modal="true"
                     :aria-labelledby="titleId"
                     tabindex="-1"
-                    class="enpii-modal__panel flex w-full max-h-[calc(100vh-2rem)] flex-col rounded-2xl bg-surface-container-lowest shadow-overlay outline-none"
+                    class="enpii-modal__panel flex w-full max-h-[calc(100vh-2rem)] flex-col border border-solid [border-width:var(--overlay-border-width)] border-outline-variant rounded-2xl bg-surface-container-lowest shadow-overlay outline-none"
                     :class="[
                         `enpii-modal__panel--${size}`,
                         shapeClass,
@@ -103,7 +103,7 @@ onBeforeUnmount(() => {
                         <button
                             v-if="closeable"
                             type="button"
-                            class="enpii-modal__close grid place-items-center w-10 h-10 shrink-0 rounded-[9999px] border-0 bg-transparent text-on-surface-variant cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:bg-surface-container-low hover:text-primary-text focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-focus active:scale-90"
+                            class="enpii-modal__close grid place-items-center w-10 h-10 shrink-0 rounded-[9999px] border-0 bg-transparent text-on-surface-variant cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:bg-surface-container-low hover:text-primary-text focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-focus active:[transform:var(--press-transform)]"
                             :aria-label="t('modal.close')"
                             @click="close"
                         >

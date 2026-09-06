@@ -193,7 +193,7 @@ watch(() => menuCard.value, (value) => {
         <div
           v-for="column in columnsWithCards"
           :key="column.id"
-          class="enpii-kanban__column flex flex-col gap-2 w-64 shrink-0 p-3 border border-solid rounded-control bg-surface-container-low md:w-auto md:flex-1 md:min-w-56"
+          class="enpii-kanban__column flex flex-col gap-2 w-64 shrink-0 p-3 border border-solid [border-width:var(--control-border-width)] rounded-control bg-surface-container-low md:w-auto md:flex-1 md:min-w-56"
           :class="[
             `enpii-kanban__column--${column.tone || 'neutral'}`,
             toneBorderClasses[column.tone || 'neutral'],
@@ -215,7 +215,7 @@ watch(() => menuCard.value, (value) => {
             <article
               v-for="card in column.cards"
               :key="card.id"
-              class="enpii-kanban__card relative py-2.5 px-3 border border-solid rounded-[calc(var(--radius-control)-0.25rem)] bg-surface-container-lowest shadow-control transition-[box-shadow,border-color,transform] duration-fast ease-standard hover:not-active:border-outline hover:not-active:shadow-raised hover:not-active:-translate-y-px active:shadow-control focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-focus focus-visible:outline-offset-2 motion-reduce:transition-none"
+              class="enpii-kanban__card relative py-2.5 px-3 border border-solid [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)] bg-surface-container-lowest shadow-control transition-[box-shadow,border-color,transform] duration-fast ease-standard hover:not-active:border-outline hover:not-active:shadow-raised hover:not-active:-translate-y-px active:[box-shadow:var(--shadow-control-pressed)] active:[transform:var(--press-transform)] focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-focus focus-visible:outline-offset-2 motion-reduce:transition-none"
               :class="[
                 `enpii-kanban__card--${card.tone || 'neutral'}`,
                 toneBorderClasses[card.tone || 'neutral'],
@@ -239,7 +239,7 @@ watch(() => menuCard.value, (value) => {
               <button
                 v-if="draggable"
                 type="button"
-                class="enpii-kanban__card-menu absolute top-1.5 right-1.5 grid place-items-center min-w-10 min-h-10 border-0 rounded-[calc(var(--radius-control)-0.25rem)] bg-transparent text-on-surface-variant cursor-pointer transition-[background,color] duration-fast ease-emphasized hover:bg-neutral-soft hover:text-on-surface focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-focus focus-visible:outline-offset-2 motion-reduce:transition-none"
+                class="enpii-kanban__card-menu absolute top-1.5 right-1.5 grid place-items-center min-w-10 min-h-10 border-0 rounded-[calc(var(--radius-control)-0.25rem)] bg-transparent text-on-surface-variant cursor-pointer transition-[background,color] duration-fast ease-emphasized hover:bg-neutral-soft hover:text-on-surface active:[transform:var(--press-transform)] focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-focus focus-visible:outline-offset-2 motion-reduce:transition-none"
                 :aria-label="t('kanban.moveCard', { title: card.title })"
                 :aria-haspopup="'menu'"
                 :aria-expanded="menuCard?.id === card.id ? 'true' : 'false'"
@@ -259,7 +259,7 @@ watch(() => menuCard.value, (value) => {
       <div
         v-if="menuCard"
         ref="menuRef"
-        class="enpii-kanban__menu fixed z-overlay flex flex-col min-w-40 p-1 border border-solid border-outline-variant rounded-[calc(var(--radius-control)-0.25rem)] bg-surface-container-lowest shadow-overlay"
+        class="enpii-kanban__menu fixed z-overlay flex flex-col min-w-40 p-1 border border-solid [border-width:var(--overlay-border-width)] border-outline-variant rounded-[calc(var(--radius-control)-0.25rem)] bg-surface-container-lowest shadow-overlay"
         role="menu"
         :aria-label="t('kanban.moveCard', { title: menuCard.title })"
         :style="{ top: `${menuPosition.top}px`, left: `${menuPosition.left}px` }"

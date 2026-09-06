@@ -1,8 +1,9 @@
 # Enpii UI — Style Layers
 
-Five optional design-style skins for the component library. One app = one style.
-They override **shape, texture and weight only** — color themes (`[data-theme]`)
-keep working underneath, so any theme × any style combination is valid.
+Six optional design-style skins for the component library. One app = one style.
+Layers are value-set only: they define tokens, never component selectors. The
+base reads those tokens for structural borders and pressed/hover states, so any
+theme × any layer combination remains valid.
 
 ## Usage
 
@@ -12,7 +13,8 @@ import '@its-enpii/ui/styles.css'               // base (required)
 import '@its-enpii/ui/styles/material'          // pick exactly ONE layer
 ```
 
-Available: `material` · `glassmorphism` · `neumorphism` · `neobrutalism` · `minimalism`
+Available: `material` · `glassmorphism` · `neumorphism` · `neobrutalism` ·
+`neobrutalism-tamed` · `minimalism`
 
 ---
 

@@ -190,7 +190,7 @@ onBeforeUnmount(() => {
           ref="panelRef"
           role="dialog"
           :aria-modal="props.persistent"
-          class="enpii-popover__panel fixed flex overflow-auto min-w-44 max-w-[min(22rem,calc(100vw_-_1rem))] rounded-control border border-solid border-outline-variant bg-surface-container-lowest text-on-surface shadow-overlay [transform-origin:center]"
+          class="enpii-popover__panel fixed flex overflow-auto min-w-44 max-w-[min(22rem,calc(100vw_-_1rem))] rounded-control border border-solid [border-width:var(--overlay-border-width)] border-outline-variant bg-surface-container-lowest text-on-surface shadow-overlay [transform-origin:center]"
           :class="[
             'enpii-popover__panel',
             `enpii-popover__panel--${activePlacement}`,

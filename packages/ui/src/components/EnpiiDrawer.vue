@@ -82,7 +82,7 @@ onBeforeUnmount(() => {
                     tabindex="-1"
                     aria-modal="true"
                     :aria-labelledby="titleId"
-                    class="enpii-drawer__panel absolute flex flex-col bg-surface-container-lowest shadow-overlay"
+                    class="enpii-drawer__panel absolute flex flex-col border border-solid [border-width:var(--overlay-border-width)] border-outline-variant bg-surface-container-lowest shadow-overlay"
                     :class="[
                         `enpii-drawer__panel--${side}`,
                         `enpii-drawer__panel--${size}`,
