@@ -29,6 +29,11 @@ Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7. Semua item selesai.
 
 ## Log Progress
 
+### 2026-09-06 — UI structural layer wiring gap SELESAI
+- packages/ui tetap v1.2.0: 24 komponen kontrol/surface/overlay kini membaca `--control-border-width` atau `--overlay-border-width`; token baru `--radius-control-sm: 4px` mempertahankan base Checkbox persis. Pressable lokal dinormalisasi ke token-driven transform/pressed shadow tanpa perubahan visual.
+- Pengecualian sah terdokumentasi permanen di `packages/ui/tests/layer-wiring.conformance.spec.ts`: DesktopSplashScreen, Footer, LoanHistoryTable, Rating, Spinner.
+- Verifikasi: `check` bersih; `test` 349 passed/0 failed; `test:tailwind` 3 passed + smoke; `golden:check` 4 passed dengan baseline 0 diff; `build` sukses.
+
 ### 2026-09-06 — UI comprehensive control & accessibility correction selesai
 - packages/ui v1.1.1: Badge besar diturunkan ke font-weight 600; RadioGroup diselaraskan ke `h-control-sm`; Range/SegmentedControl/Switch field/root mengikuti kontrak full-width; NotificationDropdown item menjadi button-semantics dengan keyboard support; CommandPalette memberi state `aria-current`; fokus ring token ditambahkan pada aksi sekunder TimePicker, DateRange, SmartTable, CurrencyInput, ThemeMenu, Switch, RadioGroup, PollCard, dan NotificationDropdown; overlay Navbar/OfflineBanner memakai `z-dropdown`/`z-toast`; SignaturePad default ink memakai token; FormRow/InputMask memakai spacing token; golden baseline diperbarui untuk tinggi RadioGroup 40px.
 - Audit regex: 0 `font-extrabold`/weight >600, 0 raw hex di template, 0 alias `z-index-*`, 0 arbitrary field-gap utility; static BEM marker dipertahankan pada 86 komponen.
