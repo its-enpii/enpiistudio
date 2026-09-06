@@ -26,8 +26,8 @@ export function buildEnpiiUiCss(config: EnpiiUiConfig): string {
   return [
     `@import "${themeEntry}";`,
     `@source "${source}";`,
-    darkVariants[config.darkMode],
     config.styleLayer === 'none' ? '' : `@import "@its-enpii/ui/styles/${config.styleLayer}";`,
+    darkVariants[config.darkMode],
     overrides ? `:root {\n${overrides}\n}` : '',
   ].filter(Boolean).join('\n')
 }
