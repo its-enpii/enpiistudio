@@ -1,3 +1,15 @@
+## [2026-09-06]
+
+### Changed (BREAKING)
+- `--enpii-*` dihapus sepenuhnya; seluruh token kini Tailwind-native `@theme`
+  (`--color-*`, `--radius-*`, `--shadow-*`, `--z-index-*`, `--transition-duration-*`,
+  `--ease-*`, `--spacing-control*`).
+- `--shadow-card` bernilai `0 4px 10px rgb(15 23 42 / 0.12)` agar konsisten dengan value-set.
+- Utility `z-index-*` diganti `z-*`; `h-control` dan `min-h-control` aktif via token Tailwind.
+- Focus ring memakai `--shadow-focus`; value-set layer memakai namespace Tailwind yang sama.
+- Export deprecated dihapus: `./config`, `./config/node`, `./vite`, `./tailwind.preset`,
+  `./tailwind.v4.css`, dan `./theme/sky/tokens.css`.
+
 ## [0.10.0] - 2026-09-05
 
 ### Changed (BREAKING di 0.x)

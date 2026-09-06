@@ -31,7 +31,7 @@ const dragDistance = ref(0)
 const dragFrameId: number | null = null
 const panelStyle = computed(() => ({
     maxWidth: typeof props.maxWidth === 'number' ? `${props.maxWidth}px` : props.maxWidth,
-    '--enpii-bottom-sheet-drag': `${dragDistance.value}px`,
+    '--bottom-sheet-drag': `${dragDistance.value}px`,
     transition: _isDragging.value ? 'none' : undefined,
 }))
 
@@ -189,7 +189,7 @@ onBeforeUnmount(() => {
 <template>
     <Teleport to="body">
         <Transition name="bottom-sheet">
-            <div v-if="model" class="enpii-bottom-sheet__overlay fixed inset-0 z-index-modal flex items-end justify-center bg-scrim" @click.self="close">
+            <div v-if="model" class="enpii-bottom-sheet__overlay fixed inset-0 z-modal flex items-end justify-center bg-scrim" @click.self="close">
                 <section
                     ref="panel"
                     class="enpii-bottom-sheet__panel relative flex w-full flex-col max-h-[min(88dvh,52rem)] border border-solid border-outline-variant rounded-t-[1.25rem] bg-surface-container-lowest text-on-surface shadow-overlay transition-transform duration-normal ease-decelerate"

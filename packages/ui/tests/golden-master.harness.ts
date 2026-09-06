@@ -193,19 +193,13 @@ function extractCustomProperties(css: string): Map<string, string> {
   for (const match of css.matchAll(pattern)) {
     const [, name, rawValue] = match
     const value = rawValue.trim()
-    if (name === '--enpii-font-sans' || name === '--font-sans') {
+    if (name === '--font-sans') {
       properties.set(name.toLowerCase(), 'Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif')
       continue
     }
     properties.set(name.toLowerCase(), value)
   }
   return properties
-}
-
-function extractBaseCustomProperties(tokensCss: string): Map<string, string> {
-  const properties = extractCustomProperties(tokensCss)
-  const rootBlock = extractBlock(tokensCss, ':root')
-  return extractCustomProperties(rootBlock.length ? rootBlock : tokensCss)
 }
 
 function extractBlock(source: string, startMarker: string): string {
@@ -382,13 +376,13 @@ function extractUtilitiesLayer(css: string): string {
 }
 
 function appendStyles(theme: GoldenTheme): HTMLStyleElement[] {
-  const tokens = readFileSync(resolve(uiDirectory, 'src/styles/tokens.css'), 'utf8')
   const entry = readFileSync(resolve(uiDirectory, 'entry.tailwind.css'), 'utf8')
   const components = readFileSync(resolve(uiDirectory, 'src/styles/components.css'), 'utf8')
-  const tokenValues = extractBaseCustomProperties(tokens)
   const themeProps = extractCustomProperties(entry)
-  for (const [key, value] of themeProps) {
-    if (!tokenValues.has(key)) tokenValues.set(key, value)
+  const tokenValues = themeProps
+  const lightTokens = extractCustomProperties(extractBlock(entry, '@theme'))
+  for (const [key, value] of lightTokens) {
+    if (key !== '--color-scrim' && key !== '--color-shadow') tokenValues.set(key, value)
   }
 
   tokenValues.set('--font-weight-medium', '500')
@@ -410,8 +404,8 @@ function appendStyles(theme: GoldenTheme): HTMLStyleElement[] {
 
   if (theme === 'dark-media' || theme === 'dark-attribute') {
     const darkBlock = theme === 'dark-media'
-      ? extractBlock(tokens, '@media (prefers-color-scheme: dark)')
-      : extractBlock(tokens, "[data-theme='dark']")
+      ? extractBlock(entry, '@media (prefers-color-scheme: dark)')
+      : extractBlock(entry, "[data-theme='dark']")
     for (const match of darkBlock.matchAll(/(--[a-z0-9-]+)\s*:\s*([^;}]+)/g)) {
       tokenValues.set(match[1].toLowerCase(), match[2].trim())
     }
@@ -856,8 +850,8 @@ export function areShadowsEqual(a: string, b: string): boolean {
   return shadowsA.every((shadow, index) => {
     const other = shadowsB[index]
     const colorsMatch = areColorsEqual(shadow.color, other.color)
-      || shadow.color.includes('var(--enpii-')
-      || other.color.includes('var(--enpii-')
+      || shadow.color.includes('var(--color-')
+      || other.color.includes('var(--color-')
     return shadow.x === other.x
       && shadow.y === other.y
       && shadow.blur === other.blur

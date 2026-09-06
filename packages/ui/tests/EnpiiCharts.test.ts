@@ -193,11 +193,11 @@ describe('EnpiiSparkline', () => {
 
   it('accepts custom color prop', () => {
     const wrapper = mount(EnpiiSparkline, {
-      props: { data: sparklineData, color: 'var(--enpii-color-secondary)' },
+      props: { data: sparklineData, color: 'var(--color-secondary)' },
     })
 
     const line = wrapper.find('.enpii-sparkline__line')
-    expect(line.attributes('style')).toContain('var(--enpii-color-secondary)')
+    expect(line.attributes('style')).toContain('var(--color-secondary)')
   })
 })
 

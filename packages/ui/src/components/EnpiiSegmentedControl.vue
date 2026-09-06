@@ -92,19 +92,19 @@ function onKeydown(event) {
         :aria-label="t('segmentedControl.ariaLabel')"
         @keydown="onKeydown"
     >
-        <span class="enpii-segmented-control__indicator absolute z-0 inset-y-1 left-1 rounded-[calc(var(--enpii-radius-control)-0.25rem)] bg-primary transition-[opacity,transform] duration-normal ease-standard motion-reduce:transition-none" :style="indicatorStyle" />
+        <span class="enpii-segmented-control__indicator absolute z-0 inset-y-1 left-1 rounded-[calc(var(--radius-control)-0.25rem)] bg-primary transition-[opacity,transform] duration-normal ease-standard motion-reduce:transition-none" :style="indicatorStyle" />
         <button
             v-for="(option, index) in options"
             :key="option.value"
             type="button"
             role="radio"
-            class="enpii-segmented-control__option relative z-[1] inline-flex items-center justify-center gap-1.5 self-stretch h-auto py-2 px-3 border-0 rounded-[calc(var(--enpii-radius-control)-0.25rem)] bg-transparent text-control font-medium leading-none cursor-pointer [transition-property:color] duration-fast ease-emphasized focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-focus focus-visible:-outline-offset-2 disabled:cursor-not-allowed disabled:opacity-45 max-sm:px-2.5 max-sm:min-w-0"
+            class="enpii-segmented-control__option relative z-[1] inline-flex items-center justify-center gap-1.5 self-stretch h-auto py-2 px-3 border-0 rounded-[calc(var(--radius-control)-0.25rem)] bg-transparent text-control font-medium leading-none cursor-pointer [transition-property:color] duration-fast ease-emphasized focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-focus focus-visible:-outline-offset-2 disabled:cursor-not-allowed disabled:opacity-45 max-sm:px-2.5 max-sm:min-w-0"
             :class="[
                 inline ? 'flex-none' : 'flex-1',
                 size === 'sm' ? 'min-h-9 !text-[0.8125rem]' : '',
                 model === option.value
                     ? 'enpii-segmented-control__option--active text-on-primary'
-                    : 'text-on-surface-variant hover:enabled:bg-[color-mix(in_srgb,var(--enpii-color-primary)_8%,transparent)] hover:enabled:text-primary-text',
+                    : 'text-on-surface-variant hover:enabled:bg-[color-mix(in_srgb,var(--color-primary)_8%,transparent)] hover:enabled:text-primary-text',
             ]"
             :aria-checked="model === option.value"
             :aria-disabled="option.disabled || undefined"

@@ -1,4 +1,3 @@
-import './styles/tokens.css'
 import './styles/components.css'
 import './styles/icon-font.css'
 
@@ -101,8 +100,6 @@ export { default as EnpiiDonutChart } from './components/EnpiiDonutChart.vue'
 export { default as EnpiiSparkline } from './components/EnpiiSparkline.vue'
 
 export { enpiiI18nKey, createT, builtinDictionaries } from './i18n'
-export { defineEnpiiUiConfig } from './config'
-export type { EnpiiUiConfig, EnpiiUiDarkMode, EnpiiUiStyleLayer } from './config'
 export type { TranslationDictionary, TranslationMap } from './i18n'
 export { useT } from './composables/useT'
 export { useFormat, formatCurrency, formatNumber, formatPercent, formatDate } from './composables/useFormat'

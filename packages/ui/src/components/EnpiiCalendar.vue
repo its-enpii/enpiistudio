@@ -215,11 +215,11 @@ watch(month, () => {
                     :key="day.iso"
                     type="button"
                     role="gridcell"
-                    class="enpii-calendar__day relative mx-auto grid min-h-10 min-w-9 place-items-center rounded-[calc(var(--enpii-radius-control)-.25rem)] border-0 bg-none p-0 text-on-surface text-sm font-medium tabular-nums transition-[background,color,box-shadow,transform] duration-fast ease-emphasized hover:bg-neutral-soft focus-visible:outline focus-visible:outline-3 focus-visible:outline-focus focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:text-outline disabled:opacity-45 max-[24rem]:min-w-10 max-[24rem]:text-[.8125rem]"
+                    class="enpii-calendar__day relative mx-auto grid min-h-10 min-w-9 place-items-center rounded-[calc(var(--radius-control)-.25rem)] border-0 bg-none p-0 text-on-surface text-sm font-medium tabular-nums transition-[background,color,box-shadow,transform] duration-fast ease-emphasized hover:bg-neutral-soft focus-visible:outline focus-visible:outline-3 focus-visible:outline-focus focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:text-outline disabled:opacity-45 max-[24rem]:min-w-10 max-[24rem]:text-[.8125rem]"
                     :class="{
                         'text-warning-text': day.isWeekend,
                         'text-outline': day.isOutsideMonth,
-                        'shadow-[inset_0_0_0_2px_var(--enpii-color-primary-border)]': day.isToday && !day.isSelected,
+                        'shadow-[inset_0_0_0_2px_var(--color-primary-border)]': day.isToday && !day.isSelected,
                         'bg-primary text-on-primary shadow-control': day.isSelected,
                         'bg-neutral-soft': day.isFocused && !day.isSelected,
                     }"

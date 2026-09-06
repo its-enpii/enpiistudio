@@ -1,38 +1,35 @@
 /* Value-set only: no component selectors and no brand colors. */
 :root,
 [data-enpii-layer="material"] {
-  --enpii-radius-control: 0.5rem;
-  --enpii-radius-card: 0.75rem;
-  --enpii-radius-overlay: 1rem;
-  --enpii-border-width: 1px;
-  --enpii-font-weight-medium: 500;
-  --enpii-font-weight-semibold: 500;
-  --enpii-duration-fast: 150ms;
-  --enpii-duration-base: 200ms;
-  --enpii-duration-normal: 240ms;
-  --enpii-duration-slow: 360ms;
-  --enpii-ease-standard: cubic-bezier(.2, 0, 0, 1);
-  --enpii-ease-decelerate: cubic-bezier(0, 0, 0, 1);
-  --enpii-ease-accelerate: cubic-bezier(.3, 0, 1, 1);
-  --enpii-ease-emphasized: cubic-bezier(.2, 0, 0, 1);
-  --enpii-shadow-control: 0 1px 2px color-mix(in srgb, var(--enpii-color-shadow) 80%, transparent);
-  --enpii-shadow-md: 0 1px 3px color-mix(in srgb, var(--enpii-color-shadow) 90%, transparent),
-    0 2px 6px color-mix(in srgb, var(--enpii-color-shadow) 60%, transparent);
-  --enpii-shadow-lg: 0 2px 6px color-mix(in srgb, var(--enpii-color-shadow) 90%, transparent),
-    0 6px 16px color-mix(in srgb, var(--enpii-color-shadow) 55%, transparent);
-  --enpii-shadow-xl: 0 3px 10px color-mix(in srgb, var(--enpii-color-shadow) 90%, transparent),
-    0 12px 28px color-mix(in srgb, var(--enpii-color-shadow) 50%, transparent);
-  --enpii-shadow-raised: 0 4px 10px color-mix(in srgb, var(--enpii-color-shadow) 85%, transparent),
-    0 10px 24px color-mix(in srgb, var(--enpii-color-shadow) 55%, transparent);
-  --enpii-shadow-overlay: 0 6px 14px color-mix(in srgb, var(--enpii-color-shadow) 90%, transparent),
-    0 22px 56px color-mix(in srgb, var(--enpii-color-shadow) 60%, transparent);
+  --radius-control: 0.5rem;
+  --radius-card: 0.75rem;
+  --radius-overlay: 1rem;
+  --transition-duration-fast: 150ms;
+  --transition-duration-base: 200ms;
+  --transition-duration-normal: 240ms;
+  --transition-duration-slow: 360ms;
+  --ease-standard: cubic-bezier(.2, 0, 0, 1);
+  --ease-decelerate: cubic-bezier(0, 0, 0, 1);
+  --ease-accelerate: cubic-bezier(.3, 0, 1, 1);
+  --ease-emphasized: cubic-bezier(.2, 0, 0, 1);
+  --shadow-control: 0 1px 2px color-mix(in srgb, var(--color-shadow) 80%, transparent);
+  --shadow-md: 0 1px 3px color-mix(in srgb, var(--color-shadow) 90%, transparent),
+    0 2px 6px color-mix(in srgb, var(--color-shadow) 60%, transparent);
+  --shadow-lg: 0 2px 6px color-mix(in srgb, var(--color-shadow) 90%, transparent),
+    0 6px 16px color-mix(in srgb, var(--color-shadow) 55%, transparent);
+  --shadow-xl: 0 3px 10px color-mix(in srgb, var(--color-shadow) 90%, transparent),
+    0 12px 28px color-mix(in srgb, var(--color-shadow) 50%, transparent);
+  --shadow-raised: 0 4px 10px color-mix(in srgb, var(--color-shadow) 85%, transparent),
+    0 10px 24px color-mix(in srgb, var(--color-shadow) 55%, transparent);
+  --shadow-overlay: 0 6px 14px color-mix(in srgb, var(--color-shadow) 90%, transparent),
+    0 22px 56px color-mix(in srgb, var(--color-shadow) 60%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {
   :root {
-    --enpii-duration-fast: 0ms;
-    --enpii-duration-base: 0ms;
-    --enpii-duration-normal: 0ms;
-    --enpii-duration-slow: 0ms;
+    --transition-duration-fast: 0ms;
+    --transition-duration-base: 0ms;
+    --transition-duration-normal: 0ms;
+    --transition-duration-slow: 0ms;
   }
 }

@@ -2,10 +2,10 @@
 import { computed } from 'vue'
 
 const FALLBACK_COLORS = [
-  'var(--enpii-color-primary)',
-  'var(--enpii-color-secondary)',
-  'var(--enpii-color-warning-text)',
-  'var(--enpii-color-danger-text)',
+  'var(--color-primary)',
+  'var(--color-secondary)',
+  'var(--color-warning-text)',
+  'var(--color-danger-text)',
 ]
 
 const props = defineProps({

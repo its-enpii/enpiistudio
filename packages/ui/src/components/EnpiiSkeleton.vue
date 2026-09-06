@@ -20,7 +20,7 @@ const itemVariantClasses = {
         <span
             v-for="item in items"
             :key="item"
-            class="enpii-skeleton__item block bg-[linear-gradient(90deg,var(--enpii-color-neutral-soft),var(--enpii-color-surface-container-high),var(--enpii-color-neutral-soft))] [background-size:200%_100%] animate-skeleton-shimmer motion-reduce:animate-none"
+            class="enpii-skeleton__item block bg-[linear-gradient(90deg,var(--color-neutral-soft),var(--color-surface-container-high),var(--color-neutral-soft))] [background-size:200%_100%] animate-skeleton-shimmer motion-reduce:animate-none"
             :class="itemVariantClasses[variant]"
         />
     </div>

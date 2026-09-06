@@ -39,7 +39,7 @@ await writeFile(path.join(distRoot, 'tailwind-smoke.html'), [
   '<html lang="en"><head><meta charset="utf-8"><title>Tailwind smoke</title>',
   '<link rel="stylesheet" href="./tailwind.css"></head>',
   '<body>',
-  '<button id="target" class="bg-primary text-on-primary rounded-control px-control">Sky button</button>',
+  '<button id="target" class="min-h-control bg-primary text-on-primary rounded-control shadow-control">Sky button</button>',
   '<div id="layer-probe" class="rounded-control shadow-control font-semibold duration-fast ease-emphasized">Layer</div>',
   '</body></html>',
 ].join(''), 'utf8')
@@ -49,7 +49,8 @@ const page = await browser.newPage()
 await page.goto(`http://127.0.0.1:${address.port}/tailwind-smoke.html`)
 const backgroundColor = await page.locator('#target').evaluate(element => getComputedStyle(element).backgroundColor)
 const borderRadius = await page.locator('#target').evaluate(element => getComputedStyle(element).borderRadius)
-const controlHeight = await page.locator('#target').evaluate(element => getComputedStyle(element).getPropertyValue('--enpii-control-height').trim())
+const controlHeight = await page.locator('#target').evaluate(element => getComputedStyle(element).minHeight)
+const primaryToken = await page.locator('#target').evaluate(element => getComputedStyle(element).getPropertyValue('--color-primary').trim())
 await browser.close()
 
 if (backgroundColor !== 'rgb(135, 206, 235)') {
@@ -58,11 +59,14 @@ if (backgroundColor !== 'rgb(135, 206, 235)') {
 if (borderRadius !== '9px') {
   throw new Error(`Expected 9px control radius, received ${borderRadius}`)
 }
-if (controlHeight !== '3rem') {
-  throw new Error(`Expected 3rem control height token, received ${controlHeight}`)
+if (controlHeight !== '48px') {
+  throw new Error(`Expected 48px computed min-h-control, received ${controlHeight}`)
+}
+if (primaryToken !== '#87CEEB') {
+  throw new Error(`Expected --color-primary #87CEEB, received ${primaryToken}`)
 }
 
-console.log(`smoke: bg-primary=${backgroundColor}; radius=${borderRadius}; height=${controlHeight}`)
+console.log(`smoke: bg-primary=${backgroundColor}; radius=${borderRadius}; min-height=${controlHeight}; token=${primaryToken}`)
 
 if (layer) {
   const browser = await chromium.launch({ executablePath })

@@ -144,7 +144,7 @@ const variantClasses = {
         <button
             :id="`accordion-header-${generatedId}`"
             type="button"
-            class="enpii-accordion__trigger flex w-full items-center justify-between gap-3 p-4 border-0 bg-transparent text-primary-text font-semibold text-left cursor-pointer transition-[background] duration-fast ease-emphasized hover:[background:color-mix(in_srgb,var(--enpii-color-surface-container-low)_60%,transparent)] focus-visible:outline-none focus-visible:[box-shadow:inset_0_0_0_2px_var(--enpii-color-primary)]"
+            class="enpii-accordion__trigger flex w-full items-center justify-between gap-3 p-4 border-0 bg-transparent text-primary-text font-semibold text-left cursor-pointer transition-[background] duration-fast ease-emphasized hover:[background:color-mix(in_srgb,var(--color-surface-container-low)_60%,transparent)] focus-visible:outline-none focus-visible:[box-shadow:inset_0_0_0_2px_var(--color-primary)]"
             :aria-expanded="isItemOpen('single')"
             :aria-controls="`accordion-panel-${generatedId}`"
             @click="toggleSingle"
@@ -181,7 +181,7 @@ const variantClasses = {
             :class="{ 'enpii-accordion__panel-wrap--open grid-rows-[1fr]': isItemOpen('single') }"
         >
             <div class="enpii-accordion__panel-clip overflow-hidden">
-                <div class="enpii-accordion__panel p-4 pt-3 border-t border-solid border-[color-mix(in_srgb,var(--enpii-color-outline-variant)_60%,transparent)] text-on-surface-variant text-sm leading-[1.55]">
+                <div class="enpii-accordion__panel p-4 pt-3 border-t border-solid border-[color-mix(in_srgb,var(--color-outline-variant)_60%,transparent)] text-on-surface-variant text-sm leading-[1.55]">
                     <slot />
                 </div>
             </div>
@@ -204,7 +204,7 @@ const variantClasses = {
             <button
                 :id="`accordion-header-${generatedId}-${item.key ?? index}`"
                 type="button"
-                class="enpii-accordion__trigger flex w-full items-center justify-between gap-3 p-4 border-0 bg-transparent text-primary-text font-semibold text-left cursor-pointer transition-[background] duration-fast ease-emphasized hover:[background:color-mix(in_srgb,var(--enpii-color-surface-container-low)_60%,transparent)] focus-visible:outline-none focus-visible:[box-shadow:inset_0_0_0_2px_var(--enpii-color-primary)]"
+                class="enpii-accordion__trigger flex w-full items-center justify-between gap-3 p-4 border-0 bg-transparent text-primary-text font-semibold text-left cursor-pointer transition-[background] duration-fast ease-emphasized hover:[background:color-mix(in_srgb,var(--color-surface-container-low)_60%,transparent)] focus-visible:outline-none focus-visible:[box-shadow:inset_0_0_0_2px_var(--color-primary)]"
                 :aria-expanded="isItemOpen(item.key ?? item.id ?? item.title)"
                 :aria-controls="`accordion-panel-${generatedId}-${item.key ?? index}`"
                 @click="toggleItem(item.key ?? item.id ?? item.title)"
@@ -239,7 +239,7 @@ const variantClasses = {
                 :class="{ 'enpii-accordion__panel-wrap--open grid-rows-[1fr]': isItemOpen(item.key ?? item.id ?? item.title) }"
             >
                 <div class="enpii-accordion__panel-clip overflow-hidden">
-                    <div class="enpii-accordion__panel p-4 pt-3 border-t border-solid border-[color-mix(in_srgb,var(--enpii-color-outline-variant)_60%,transparent)] text-on-surface-variant text-sm leading-[1.55]">
+                    <div class="enpii-accordion__panel p-4 pt-3 border-t border-solid border-[color-mix(in_srgb,var(--color-outline-variant)_60%,transparent)] text-on-surface-variant text-sm leading-[1.55]">
                         <slot :name="`content-${item.key ?? index}`" :item="item">
                             <div v-if="item.content">{{ item.content }}</div>
                         </slot>

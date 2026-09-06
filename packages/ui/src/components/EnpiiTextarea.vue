@@ -43,7 +43,7 @@ const controlStateClass = computed(() => {
 </script>
 
 <template>
-    <div class="enpii-textarea w-full [&>*+*]:mt-[var(--enpii-space-field-gap)]">
+    <div class="enpii-textarea w-full [&>*+*]:mt-[0.5rem]">
         <label :for="inputId" class="enpii-textarea__label block ml-1 text-on-surface-variant text-[0.8125rem] font-semibold tracking-[0.02em]">{{ label }}</label>
         <div class="enpii-textarea__control-wrap relative">
             <AppIcon v-if="icon" :name="icon" class="enpii-textarea__icon absolute top-4 left-4 text-outline pointer-events-none text-xl leading-none" />
@@ -54,7 +54,7 @@ const controlStateClass = computed(() => {
                 :aria-describedby="error ? `${inputId}-error` : hint ? `${inputId}-hint` : undefined"
                 :readonly="readonly"
                 :placeholder="readonly ? undefined : (placeholder ?? t('textarea.placeholder', { label: label.toLowerCase() }))"
-                class="enpii-textarea__control w-full min-h-[6rem] px-4 py-3 border border-solid font-sans text-control resize-y placeholder:text-outline appearance-none [transition-property:border-color,box-shadow,background] duration-fast ease-emphasized hover:enabled:[border-color:color-mix(in_srgb,var(--enpii-color-primary)_40%,transparent)] focus:outline-none focus-visible:outline-none focus:border-primary-container focus-visible:border-primary-container focus:[box-shadow:var(--enpii-focus-ring)] focus-visible:[box-shadow:var(--enpii-focus-ring)]"
+                class="enpii-textarea__control w-full min-h-[6rem] px-4 py-3 border border-solid font-sans text-control resize-y placeholder:text-outline appearance-none [transition-property:border-color,box-shadow,background] duration-fast ease-emphasized hover:enabled:[border-color:color-mix(in_srgb,var(--color-primary)_40%,transparent)] focus:outline-none focus-visible:outline-none focus:border-primary-container focus-visible:border-primary-container focus:[box-shadow:var(--shadow-focus)] focus-visible:[box-shadow:var(--shadow-focus)]"
                 :class="[shapeClass, shapeUtility, controlStateClass, icon && 'pl-12', { 'enpii-textarea__control--icon': icon, 'enpii-textarea__control--error': Boolean(error), 'enpii-textarea__control--readonly': readonly }]"
                 v-bind="$attrs"
             />

@@ -230,7 +230,7 @@ defineExpose({ parseMentions })
                 :id="inputId"
                 ref="textareaRef"
                 :value="modelValue"
-                class="enpii-mention-input__control w-full min-h-24 py-3 px-4 border border-solid border-outline-variant rounded-control bg-surface-container-lowest text-on-surface font-inherit text-control leading-normal resize-y placeholder:text-outline appearance-none [transition-property:border-color,box-shadow,background] duration-fast ease-emphasized motion-reduce:transition-none hover:not-disabled:not-readonly:[border-color:color-mix(in_srgb,var(--enpii-color-primary)_40%,transparent)] focus:outline-none focus-visible:outline-none focus:border-primary-container focus-visible:border-primary-container focus:[box-shadow:var(--enpii-focus-ring)] focus-visible:[box-shadow:var(--enpii-focus-ring)] disabled:cursor-not-allowed disabled:opacity-60 disabled:bg-surface-container-low"
+                class="enpii-mention-input__control w-full min-h-24 py-3 px-4 border border-solid border-outline-variant rounded-control bg-surface-container-lowest text-on-surface font-inherit text-control leading-normal resize-y placeholder:text-outline appearance-none [transition-property:border-color,box-shadow,background] duration-fast ease-emphasized motion-reduce:transition-none hover:not-disabled:not-readonly:[border-color:color-mix(in_srgb,var(--color-primary)_40%,transparent)] focus:outline-none focus-visible:outline-none focus:border-primary-container focus-visible:border-primary-container focus:[box-shadow:var(--shadow-focus)] focus-visible:[box-shadow:var(--shadow-focus)] disabled:cursor-not-allowed disabled:opacity-60 disabled:bg-surface-container-low"
                 :class="{ 'enpii-mention-input__control--readonly': readonly }"
                 :rows="rows"
                 :disabled="disabled"
@@ -250,7 +250,7 @@ defineExpose({ parseMentions })
             <ul
                 v-if="showSuggestions && filteredUsers.length > 0"
                 :id="listboxId"
-                class="enpii-mention-input__suggestions absolute top-[calc(100%+0.25rem)] left-0 right-0 max-h-56 m-0 p-1 overflow-y-auto list-none border border-solid border-outline-variant rounded-control bg-surface-container-lowest shadow-overlay z-index-dropdown forced-colors:border-canvas-text max-xs:text-[0.8125rem]"
+                class="enpii-mention-input__suggestions absolute top-[calc(100%+0.25rem)] left-0 right-0 max-h-56 m-0 p-1 overflow-y-auto list-none border border-solid border-outline-variant rounded-control bg-surface-container-lowest shadow-overlay z-dropdown forced-colors:border-canvas-text max-xs:text-[0.8125rem]"
                 role="listbox"
                 :aria-label="t('mentionInput.suggestionsLabel')"
             >
@@ -258,7 +258,7 @@ defineExpose({ parseMentions })
                     v-for="(user, index) in filteredUsers"
                     :id="optionId(index)"
                     :key="user.id"
-                    class="enpii-mention-input__suggestion flex items-center gap-2 min-h-10 py-2 px-2.5 border-0 rounded-[calc(var(--enpii-radius-control)-0.25rem)] bg-transparent text-on-surface text-sm font-normal text-left cursor-pointer [transition-property:background] duration-fast ease-emphasized motion-reduce:transition-none hover:bg-neutral-soft data-active:true:bg-neutral-soft focus-visible:outline-3 focus-visible:-outline-offset-2 focus-visible:outline-focus"
+                    class="enpii-mention-input__suggestion flex items-center gap-2 min-h-10 py-2 px-2.5 border-0 rounded-[calc(var(--radius-control)-0.25rem)] bg-transparent text-on-surface text-sm font-normal text-left cursor-pointer [transition-property:background] duration-fast ease-emphasized motion-reduce:transition-none hover:bg-neutral-soft data-active:true:bg-neutral-soft focus-visible:outline-3 focus-visible:-outline-offset-2 focus-visible:outline-focus"
                     role="option"
                     :aria-selected="index === activeIndex"
                     :data-active="index === activeIndex"

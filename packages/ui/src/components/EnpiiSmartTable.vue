@@ -160,7 +160,7 @@ onBeforeUnmount(() => clearTimeout(timer));
             </div>
         </div>
         <div class="enpii-smart-table__scroll relative overflow-x-auto">
-            <div v-if="processing" class="enpii-smart-table__loading absolute inset-0 z-raised flex justify-start pt-16 bg-[color-mix(in_srgb,var(--enpii-color-surface-container-lowest)_65%,transparent)] text-primary text-sm">{{ t("smartTable.loading") }}</div>
+            <div v-if="processing" class="enpii-smart-table__loading absolute inset-0 z-raised flex justify-start pt-16 bg-[color-mix(in_srgb,var(--color-surface-container-lowest)_65%,transparent)] text-primary text-sm">{{ t("smartTable.loading") }}</div>
             <table class="enpii-smart-table__table w-full border-collapse text-left">
                 <thead class="enpii-smart-table__head bg-surface-container-low">
                     <tr>

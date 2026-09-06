@@ -1,39 +1,36 @@
 /* Value-set only: no component selectors and no brand colors. */
 :root,
 [data-enpii-layer="neumorphism"] {
-  --enpii-radius-control: 1rem;
-  --enpii-radius-card: 1.25rem;
-  --enpii-radius-overlay: 1.75rem;
-  --enpii-border-width: 1px;
-  --enpii-font-weight-medium: 500;
-  --enpii-font-weight-semibold: 500;
-  --enpii-duration-fast: 160ms;
-  --enpii-duration-base: 220ms;
-  --enpii-duration-normal: 260ms;
-  --enpii-duration-slow: 380ms;
-  --enpii-ease-standard: cubic-bezier(.4, 0, .2, 1);
-  --enpii-ease-decelerate: cubic-bezier(0, 0, .2, 1);
-  --enpii-ease-accelerate: cubic-bezier(.4, 0, 1, 1);
-  --enpii-ease-emphasized: cubic-bezier(.4, 0, .2, 1);
-  --enpii-shadow-control: 6px 6px 14px color-mix(in srgb, var(--enpii-color-shadow) 80%, transparent),
-    -6px -6px 14px color-mix(in srgb, var(--enpii-color-surface-inverse) 18%, transparent);
-  --enpii-shadow-md: 7px 7px 16px color-mix(in srgb, var(--enpii-color-shadow) 78%, transparent),
-    -7px -7px 16px color-mix(in srgb, var(--enpii-color-surface-inverse) 20%, transparent);
-  --enpii-shadow-lg: 9px 9px 20px color-mix(in srgb, var(--enpii-color-shadow) 76%, transparent),
-    -9px -9px 20px color-mix(in srgb, var(--enpii-color-surface-inverse) 22%, transparent);
-  --enpii-shadow-xl: 11px 11px 24px color-mix(in srgb, var(--enpii-color-shadow) 74%, transparent),
-    -11px -11px 24px color-mix(in srgb, var(--enpii-color-surface-inverse) 24%, transparent);
-  --enpii-shadow-raised: 10px 10px 22px color-mix(in srgb, var(--enpii-color-shadow) 78%, transparent),
-    -10px -10px 22px color-mix(in srgb, var(--enpii-color-surface-inverse) 24%, transparent);
-  --enpii-shadow-overlay: 14px 14px 32px color-mix(in srgb, var(--enpii-color-shadow) 72%, transparent),
-    -14px -14px 32px color-mix(in srgb, var(--enpii-color-surface-inverse) 26%, transparent);
+  --radius-control: 1rem;
+  --radius-card: 1.25rem;
+  --radius-overlay: 1.75rem;
+  --transition-duration-fast: 160ms;
+  --transition-duration-base: 220ms;
+  --transition-duration-normal: 260ms;
+  --transition-duration-slow: 380ms;
+  --ease-standard: cubic-bezier(.4, 0, .2, 1);
+  --ease-decelerate: cubic-bezier(0, 0, .2, 1);
+  --ease-accelerate: cubic-bezier(.4, 0, 1, 1);
+  --ease-emphasized: cubic-bezier(.4, 0, .2, 1);
+  --shadow-control: 6px 6px 14px color-mix(in srgb, var(--color-shadow) 80%, transparent),
+    -6px -6px 14px color-mix(in srgb, var(--color-surface-inverse) 18%, transparent);
+  --shadow-md: 7px 7px 16px color-mix(in srgb, var(--color-shadow) 78%, transparent),
+    -7px -7px 16px color-mix(in srgb, var(--color-surface-inverse) 20%, transparent);
+  --shadow-lg: 9px 9px 20px color-mix(in srgb, var(--color-shadow) 76%, transparent),
+    -9px -9px 20px color-mix(in srgb, var(--color-surface-inverse) 22%, transparent);
+  --shadow-xl: 11px 11px 24px color-mix(in srgb, var(--color-shadow) 74%, transparent),
+    -11px -11px 24px color-mix(in srgb, var(--color-surface-inverse) 24%, transparent);
+  --shadow-raised: 10px 10px 22px color-mix(in srgb, var(--color-shadow) 78%, transparent),
+    -10px -10px 22px color-mix(in srgb, var(--color-surface-inverse) 24%, transparent);
+  --shadow-overlay: 14px 14px 32px color-mix(in srgb, var(--color-shadow) 72%, transparent),
+    -14px -14px 32px color-mix(in srgb, var(--color-surface-inverse) 26%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {
   :root {
-    --enpii-duration-fast: 0ms;
-    --enpii-duration-base: 0ms;
-    --enpii-duration-normal: 0ms;
-    --enpii-duration-slow: 0ms;
+    --transition-duration-fast: 0ms;
+    --transition-duration-base: 0ms;
+    --transition-duration-normal: 0ms;
+    --transition-duration-slow: 0ms;
   }
 }

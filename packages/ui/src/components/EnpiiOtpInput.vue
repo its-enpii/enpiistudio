@@ -118,7 +118,7 @@ function onPaste(event: ClipboardEvent) {
                 <input
                     :id="`${inputId}-${index}`"
                     :ref="(el: any) => { if (el) inputs[index] = el as HTMLInputElement }"
-                    class="enpii-otp-input__field w-11 h-11 p-0 border border-solid border-outline-variant rounded-control bg-surface-container-lowest text-on-surface font-inherit text-xl font-medium text-center [transition-property:border-color,box-shadow] duration-fast ease-emphasized hover:enabled:border-primary-border focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--enpii-focus-ring)] disabled:opacity-60 disabled:cursor-not-allowed"
+                    class="enpii-otp-input__field w-11 h-11 p-0 border border-solid border-outline-variant rounded-control bg-surface-container-lowest text-on-surface font-inherit text-xl font-medium text-center [transition-property:border-color,box-shadow] duration-fast ease-emphasized hover:enabled:border-primary-border focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--shadow-focus)] disabled:opacity-60 disabled:cursor-not-allowed"
                     :value="digit"
                     :type="type === 'number' ? 'text' : type"
                     inputmode="numeric"

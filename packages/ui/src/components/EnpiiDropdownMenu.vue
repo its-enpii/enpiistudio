@@ -35,7 +35,7 @@ const triggerRef = ref(null);
 const menuRef = ref(null);
 const open = ref(false);
 const highlighted = ref(-1);
-const menuStyle = ref({ position: 'fixed', top: '0px', left: '0px', width: '0px', zIndex: 'var(--enpii-z-dropdown)', visibility: 'hidden' });
+const menuStyle = ref({ position: 'fixed', top: '0px', left: '0px', width: '0px', zIndex: 'var(--z-dropdown)', visibility: 'hidden' });
 const placeAbove = ref(false);
 let typeaheadBuffer = '';
 let typeaheadTimer;
@@ -83,7 +83,7 @@ function positionMenu() {
             top: `${rect.top - Math.min(popupHeight, spaceAbove) - margin}px`,
             width: `${menuWidth}px`,
             maxHeight: `${maxList}px`,
-            zIndex: 'var(--enpii-z-dropdown)',
+            zIndex: 'var(--z-dropdown)',
         };
     } else {
         menuStyle.value = {
@@ -92,7 +92,7 @@ function positionMenu() {
             top: `${rect.bottom + margin}px`,
             width: `${menuWidth}px`,
             maxHeight: `${maxList}px`,
-            zIndex: 'var(--enpii-z-dropdown)',
+            zIndex: 'var(--z-dropdown)',
         };
     }
 }
@@ -293,7 +293,7 @@ onBeforeUnmount(() => {
                             v-if="item.label"
                             type="button"
                             role="menuitem"
-                            class="enpii-dropdown-menu__item flex w-full items-center gap-2 rounded-[calc(var(--enpii-radius-control)_-_0.125rem)] border-0 bg-none py-2 px-3 text-on-surface font-sans text-control leading-[1.4] text-left cursor-pointer [transition-property:background] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:bg-neutral-soft focus-visible:outline-3 focus-visible:outline-offset-[-2px] focus-visible:outline-focus disabled:cursor-not-allowed"
+                            class="enpii-dropdown-menu__item flex w-full items-center gap-2 rounded-[calc(var(--radius-control)_-_0.125rem)] border-0 bg-none py-2 px-3 text-on-surface font-sans text-control leading-[1.4] text-left cursor-pointer [transition-property:background] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:bg-neutral-soft focus-visible:outline-3 focus-visible:outline-offset-[-2px] focus-visible:outline-focus disabled:cursor-not-allowed"
                             :class="[
                                 {
                                     'enpii-dropdown-menu__item--highlighted': index === highlighted,

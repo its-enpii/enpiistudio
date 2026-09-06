@@ -102,7 +102,7 @@ function onSubmitOther() {
             <button
                 v-if="assistantBlock.allowOther && !isSubmitted && !showOther"
                 type="button"
-                class="enpii-assistant-poll-card__other-button inline-flex cursor-pointer items-center gap-1 rounded-md border-0 bg-none px-3 py-1 text-primary-text text-xs font-semibold transition-all duration-fast ease-emphasized hover:bg-primary-soft focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--enpii-color-primary)_30%,transparent)]"
+                class="enpii-assistant-poll-card__other-button inline-flex cursor-pointer items-center gap-1 rounded-md border-0 bg-none px-3 py-1 text-primary-text text-xs font-semibold transition-all duration-fast ease-emphasized hover:bg-primary-soft focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-primary)_30%,transparent)]"
                 @click="onOpenOther"
             >
                 <AppIcon name="edit" class="enpii-assistant-poll-card__other-icon text-on-surface-variant text-[1.125rem] leading-none" />
@@ -113,7 +113,7 @@ function onSubmitOther() {
             <button
                 v-if="!isSubmitted"
                 type="button"
-                class="enpii-assistant-poll-card__skip-button cursor-pointer border-0 bg-none py-1 text-on-surface-variant text-xs font-semibold transition-colors duration-fast ease-emphasized hover:text-on-surface focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--enpii-color-primary)_30%,transparent)]"
+                class="enpii-assistant-poll-card__skip-button cursor-pointer border-0 bg-none py-1 text-on-surface-variant text-xs font-semibold transition-colors duration-fast ease-emphasized hover:text-on-surface focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-primary)_30%,transparent)]"
                 @click="onSkip"
             >
                 Lewati
@@ -130,7 +130,7 @@ function onSubmitOther() {
                 v-model="otherText"
                 type="text"
                 :placeholder="t('pollCard.placeholder')"
-                class="enpii-assistant-poll-card__other-input min-h-9 min-w-0 flex-1 rounded-md border border-outline-variant bg-surface px-2 py-1 text-on-surface text-sm focus:border-primary focus:outline-none focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--enpii-color-primary)_30%,transparent)]"
+                class="enpii-assistant-poll-card__other-input min-h-9 min-w-0 flex-1 rounded-md border border-outline-variant bg-surface px-2 py-1 text-on-surface text-sm focus:border-primary focus:outline-none focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-primary)_30%,transparent)]"
                 @keydown.enter.prevent="onSubmitOther"
             />
             <AppButton size="compact" variant="primary" :disabled="!otherText.trim()" @click="onSubmitOther">

@@ -172,7 +172,7 @@ watch(model, () => {
 </script>
 
 <template>
-    <div class="enpii-currency-input w-full [&>*+*]:mt-[var(--enpii-space-field-gap)]">
+    <div class="enpii-currency-input w-full [&>*+*]:mt-[0.5rem]">
         <div v-if="!hideLabel" class="enpii-currency-input__label-row relative flex items-center gap-1 ml-1">
             <label :for="inputId" class="enpii-currency-input__label block text-on-surface-variant text-[0.8125rem] font-semibold tracking-[0.02em]">{{ label }}</label>
             <AppTooltip v-if="tooltip" :id="`${inputId}-tooltip`" :text="tooltip" />
@@ -192,7 +192,7 @@ watch(model, () => {
                 ].filter(Boolean).join(' ') || undefined"
                 :readonly="readonly"
                 :placeholder="readonly ? undefined : (placeholder ?? t('currencyInput.placeholder', { label: label.toLowerCase() }))"
-                class="enpii-currency-input__control w-full min-h-control pr-20 pl-12 border border-solid bg-surface-container-lowest text-primary font-sans text-control placeholder:text-outline appearance-none [transition-property:border-color,box-shadow,background] duration-fast ease-emphasized hover:enabled:[border-color:color-mix(in_srgb,var(--enpii-color-primary)_40%,transparent)] focus:outline-none focus-visible:outline-none focus:border-primary-container focus-visible:border-primary-container focus:[box-shadow:var(--enpii-focus-ring)] focus-visible:[box-shadow:var(--enpii-focus-ring)]"
+                class="enpii-currency-input__control w-full min-h-control pr-20 pl-12 border border-solid bg-surface-container-lowest text-primary font-sans text-control placeholder:text-outline appearance-none [transition-property:border-color,box-shadow,background] duration-fast ease-emphasized hover:enabled:[border-color:color-mix(in_srgb,var(--color-primary)_40%,transparent)] focus:outline-none focus-visible:outline-none focus:border-primary-container focus-visible:border-primary-container focus:[box-shadow:var(--shadow-focus)] focus-visible:[box-shadow:var(--shadow-focus)]"
                 :class="[shapeClass, shapeUtility, controlStateClass, { 'enpii-currency-input__control--error': Boolean(error), 'enpii-currency-input__control--readonly': readonly }]"
                 v-bind="$attrs"
                 @input="onInput"

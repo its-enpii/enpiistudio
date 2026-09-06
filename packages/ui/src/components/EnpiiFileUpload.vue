@@ -180,7 +180,7 @@ watch(
         <div
             class="enpii-file-upload__dropzone flex min-h-24 cursor-pointer flex-col items-center justify-center gap-2 rounded-control border border-dashed border-outline-variant bg-surface-container-lowest px-6 py-4 transition-[border-color,box-shadow,background] duration-fast ease-emphasized hover:border-primary/40 focus-visible:outline focus-visible:outline-3 focus-visible:outline-focus focus-visible:outline-offset-2"
             :class="{
-                'border-primary [box-shadow:var(--enpii-focus-ring)]': dragOver,
+                'border-primary [box-shadow:var(--shadow-focus)]': dragOver,
                 'enpii-file-upload__dropzone--disabled cursor-not-allowed opacity-60 pointer-events-none': disabled,
             }"
             role="button"

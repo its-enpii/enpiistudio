@@ -40,17 +40,17 @@ Buat blok atribut sendiri dan override token utama setelah CSS package dimuat:
 
 ```css
 [data-theme='acme'] {
-  --enpii-color-primary: #0f766e;
-  --enpii-color-primary-hover: #115e59;
-  --enpii-color-on-primary: #ffffff;
-  --enpii-color-primary-container: #99f6e4;
-  --enpii-color-on-primary-container: #042f2e;
-  --enpii-color-secondary: #1d4ed8;
-  --enpii-color-on-secondary: #ffffff;
-  --enpii-color-error: #b91c1c;
-  --enpii-color-on-error: #ffffff;
-  --enpii-color-surface: #f8fafc;
-  --enpii-color-on-surface: #0f172a;
+  --color-primary: #0f766e;
+  --color-primary-hover: #115e59;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #99f6e4;
+  --color-on-primary-container: #042f2e;
+  --color-secondary: #1d4ed8;
+  --color-on-secondary: #ffffff;
+  --color-error: #b91c1c;
+  --color-on-error: #ffffff;
+  --color-surface: #f8fafc;
+  --color-on-surface: #0f172a;
 }
 ```
 

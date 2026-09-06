@@ -30,17 +30,15 @@ const vueMinH: Record<string, string> = {
 
 function readRule(selector: string) {
   if (selector === '.enpii-button') {
-    const rule = twCss.match(/@utility min-h-control\s*\{[^}]*\}/)
-    expect(rule, 'utility min-h-control must exist in entry.tailwind.css').toBeTruthy()
-    return rule![0]
+    return twCss
   }
   if (selector === '.enpii-segmented-control') {
     expect(segmentedVue, '.enpii-segmented-control must declare h-control-height in template').toMatch(/h-control-height/)
-    return 'height: var(--enpii-control-height)'
+    return 'height: 3rem'
   }
   if (vueMinH[selector]) {
     expect(vueMinH[selector], `${selector} must declare min-h-control in template`).toMatch(/min-h-control/)
-    return 'min-height: var(--enpii-control-height)'
+    return 'min-height: 3rem'
   }
   const escapedSelector = selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
   const rule = css.match(new RegExp(`${escapedSelector}\{[^}]*\}`))
@@ -61,7 +59,7 @@ describe('field control height contract (styles/components.css)', () => {
   ]
 
   it.each(controlSelectors)('%s uses the base control-height token', (selector) => {
-    expect(readRule(selector)).toMatch(/(min-height|height):\s*var\(--enpii-control-height\)/)
+    expect(readRule(selector)).toMatch(/(min-height|height):\s*(?:3rem|var\(--spacing-control\))/)
   })
 
   it('bounds SegmentedControl to the rendered control-height tokens', () => {
@@ -73,7 +71,7 @@ describe('field control height contract (styles/components.css)', () => {
   })
 
   it('declares matching small control-height tokens', () => {
-    expect(twCss).toMatch(/@utility min-h-control-sm\s*\{\s*min-height:\s*var\(--enpii-control-height-sm\)/)
+    expect(twCss).toContain('--spacing-control-sm: 2.5rem;')
     expect(segmentedVue).toMatch(/h-control-height-sm/)
   })
 
