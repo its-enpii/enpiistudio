@@ -141,37 +141,37 @@ const tenantName = computed(() => {
 <template>
     <header
         v-if="isDesktop"
-        class="enpii-desktop-title-bar"
+        class="enpii-desktop-title-bar sticky top-0 z-[150] flex h-9 w-full items-center justify-between border-b border-neutral-border bg-primary-deep px-3 text-on-surface-variant text-xs select-none [backdrop-filter:blur(12px)] [-webkit-app-region:drag]"
         style="-webkit-app-region: drag;"
     >
         <!-- Left Side: App Indicator & Status -->
-        <div class="enpii-desktop-title-bar__start" style="-webkit-app-region: no-drag;">
-            <div class="enpii-desktop-title-bar__brand">
-                <div class="enpii-desktop-title-bar__brand-mark">S</div>
-                <span class="enpii-desktop-title-bar__brand-name">ENPII</span>
+        <div class="enpii-desktop-title-bar__start flex items-center gap-2" style="-webkit-app-region: no-drag;">
+            <div class="enpii-desktop-title-bar__brand flex items-center gap-1 font-semibold text-on-primary tracking-tight">
+                <div class="enpii-desktop-title-bar__brand-mark flex h-5 w-5 items-center justify-center rounded bg-secondary text-on-secondary text-[.625rem] font-semibold shadow-control">S</div>
+                <span class="enpii-desktop-title-bar__brand-name hidden sm:inline">ENPII</span>
             </div>
 
-            <div class="enpii-desktop-title-bar__divider"></div>
+            <div class="enpii-desktop-title-bar__divider h-3 w-px bg-neutral-border"></div>
 
             <!-- Online/Offline Indicator Badge -->
             <div
                 v-if="isOnline"
-                class="enpii-desktop-title-bar__status enpii-desktop-title-bar__status--online"
+                class="enpii-desktop-title-bar__status flex items-center gap-1 rounded-full px-2 py-1 text-[.6875rem] font-semibold text-success-text"
                 :title="t('titleBar.onlineTitle')"
             >
                 <span class="enpii-desktop-title-bar__pulse-wrap">
-                    <span class="enpii-desktop-title-bar__pulse"></span>
-                    <span class="enpii-desktop-title-bar__dot enpii-desktop-title-bar__dot--online"></span>
+                    <span class="enpii-desktop-title-bar__pulse absolute inset-0 rounded-full bg-success-text/75 motion-safe:animate-ping"></span>
+                    <span class="enpii-desktop-title-bar__dot relative inline-flex h-2 w-2 rounded-full bg-secondary"></span>
                 </span>
                 <span>Online</span>
             </div>
 
             <div
                 v-else
-                class="enpii-desktop-title-bar__status enpii-desktop-title-bar__status--offline"
+                class="enpii-desktop-title-bar__status flex items-center gap-1 rounded-full border border-warning-text/40 bg-warning-text/15 px-2 py-1 text-[.6875rem] font-semibold text-warning-text"
                 :title="t('titleBar.offlineTitle')"
             >
-                <span class="enpii-desktop-title-bar__dot enpii-desktop-title-bar__dot--offline"></span>
+                <span class="enpii-desktop-title-bar__dot h-2 w-2 rounded-full bg-warning-text"></span>
                 <span>{{ t('titleBar.offlineLabel') }}</span>
             </div>
 
@@ -179,14 +179,14 @@ const tenantName = computed(() => {
             <button
                 v-if="isOnline"
                 type="button"
-                class="enpii-desktop-title-bar__sync"
+                class="enpii-desktop-title-bar__sync inline-flex cursor-pointer items-center gap-1 rounded px-1 py-1 text-on-surface-variant transition-all duration-fast ease-emphasized hover:bg-neutral-border hover:text-on-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2"
                 :disabled="isSyncing || isClosing"
                 :title="t('titleBar.syncTitle')"
                 @click="triggerSync"
             >
                 <svg
-                    class="enpii-desktop-title-bar__sync-icon"
-                    :class="{ 'enpii-desktop-title-bar__sync-icon--active': isSyncing }"
+                    class="enpii-desktop-title-bar__sync-icon h-3 w-3"
+                    :class="{ 'text-success-text motion-safe:animate-spin': isSyncing }"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -198,22 +198,22 @@ const tenantName = computed(() => {
         </div>
 
         <!-- Center: Draggable Window Title -->
-        <div class="enpii-desktop-title-bar__title">
+        <div class="enpii-desktop-title-bar__title overflow-hidden px-4 text-center text-on-surface-variant font-medium truncate pointer-events-none">
             {{ tenantName }}
         </div>
 
         <!-- Right Side: Native Window Controls (Minimize / Maximize / Close) -->
-        <div class="enpii-desktop-title-bar__controls" style="-webkit-app-region: no-drag;">
+        <div class="enpii-desktop-title-bar__controls -mr-3 flex h-full items-stretch" style="-webkit-app-region: no-drag;">
             <!-- Minimize -->
             <button
                 type="button"
-                class="enpii-desktop-title-bar__control"
+                class="enpii-desktop-title-bar__control flex w-10 cursor-pointer items-center justify-center border-0 bg-none text-on-surface-variant transition-all duration-fast ease-emphasized hover:bg-neutral-border hover:text-on-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-focus focus-visible:-outline-offset-2"
                 title="Minimize"
                 aria-label="Minimize"
                 :disabled="isClosing"
                 @click="handleMinimize"
             >
-                <svg class="enpii-desktop-title-bar__icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg class="enpii-desktop-title-bar__icon h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
                 </svg>
             </button>
@@ -221,16 +221,16 @@ const tenantName = computed(() => {
             <!-- Maximize / Restore -->
             <button
                 type="button"
-                class="enpii-desktop-title-bar__control"
+                class="enpii-desktop-title-bar__control flex w-10 cursor-pointer items-center justify-center border-0 bg-none text-on-surface-variant transition-all duration-fast ease-emphasized hover:bg-neutral-border hover:text-on-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-focus focus-visible:-outline-offset-2"
                 :title="isMaximized ? 'Restore' : 'Maximize'"
                 :aria-label="isMaximized ? 'Restore' : 'Maximize'"
                 :disabled="isClosing"
                 @click="handleMaximize"
             >
-                <svg v-if="!isMaximized" class="enpii-desktop-title-bar__icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg v-if="!isMaximized" class="enpii-desktop-title-bar__icon h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <rect x="5" y="5" width="14" height="14" rx="1.5" stroke-width="2" />
                 </svg>
-                <svg v-else class="enpii-desktop-title-bar__icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg v-else class="enpii-desktop-title-bar__icon h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <rect x="7" y="7" width="12" height="12" rx="1" stroke-width="1.8" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 5h8a2 2 0 012 2v8" />
                 </svg>
@@ -239,17 +239,17 @@ const tenantName = computed(() => {
             <!-- Close (Logout & Exit) -->
             <button
                 type="button"
-                class="enpii-desktop-title-bar__control enpii-desktop-title-bar__control--close"
-                :class="{ 'enpii-desktop-title-bar__control--closing': isClosing }"
+                class="enpii-desktop-title-bar__control flex w-10 cursor-pointer items-center justify-center border-0 bg-none text-on-surface-variant transition-all duration-fast ease-emphasized hover:bg-error hover:text-on-error focus-visible:outline focus-visible:outline-2 focus-visible:outline-focus focus-visible:-outline-offset-2"
+                :class="{ 'cursor-wait opacity-70': isClosing }"
                 :title="t('titleBar.closeTitle')"
                 :aria-label="t('titleBar.closeTitle')"
                 :disabled="isClosing"
                 @click="handleClose"
             >
-                <svg v-if="!isClosing" class="enpii-desktop-title-bar__icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg v-if="!isClosing" class="enpii-desktop-title-bar__icon h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
-                <svg v-else class="enpii-desktop-title-bar__icon enpii-desktop-title-bar__spinner" fill="none" viewBox="0 0 24 24">
+                <svg v-else class="enpii-desktop-title-bar__icon enpii-desktop-title-bar__spinner h-3.5 w-3.5 motion-safe:animate-spin" fill="none" viewBox="0 0 24 24">
                     <circle style="opacity:.25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                     <path style="opacity:.75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
