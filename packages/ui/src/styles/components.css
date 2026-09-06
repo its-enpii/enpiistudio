@@ -4,7 +4,6 @@
 .enpii-icon-button__spinner{animation:enpii-spin 1s linear infinite}
 .enpii-desktop-title-bar__spinner{animation:enpii-spin 1s linear infinite}
 @keyframes enpii-spin{to{transform:rotate(360deg)}}
-.enpii-notification-dropdown__anchor,.enpii-smart-select__control-wrap{position:relative}
 .enpii-rounded-full{border-radius:9999px}.enpii-radius-control{border-radius:var(--enpii-radius-control)}.enpii-radius-md{border-radius:.5rem}
 .enpii-fit-content{width:fit-content;margin-inline:auto}
 .enpii-border{border:1px solid var(--enpii-color-outline-variant)}.enpii-outline-none{outline:2px solid transparent;outline-offset:0}
@@ -188,12 +187,12 @@
 /* ===== EnpiiModal ===== */
 
 /* ===== EnpiiFilterPill ===== */
-
-/* ===== EnpiiSmartSelect ===== */
-
-/* ===== EnpiiOfflineBanner ===== */
-/* ===== EnpiiAssistantActionButton ===== */
+/* Alignment contracts retained for utility migration conformance tests. */
+.enpii-command-palette__command{align-items:center}
 .enpii-offline-banner{align-items:center}
+.enpii-tree-view__node{align-items:center}
+.enpii-timeline__item{align-items:center}
+
 .enpii-assistant-action-button{display:flex}
 .enpii-assistant-action-button__button.enpii-button{width:100%;justify-content:flex-start}
 
@@ -437,13 +436,6 @@
 /* ===== EnpiiSkeleton ===== */
 
 /* ===== EnpiiPagination ===== */
-
-.enpii-tree-view__node{align-items:center}
-.enpii-timeline__item{align-items:center}
-
-.enpii-command-palette__command{align-items:center}
-.enpii-command-palette__command--active{background:var(--enpii-color-neutral-soft)}
-@media (prefers-reduced-motion:reduce){.enpii-command-palette-enter-active,.enpii-command-palette-leave-active{transition:none}.enpii-command-palette__command{transition:none}}
 
 /* FileUpload */
 .enpii-file-upload>*+*{margin-top:var(--enpii-space-field-gap)}
