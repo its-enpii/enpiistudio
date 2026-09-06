@@ -186,12 +186,12 @@ onBeforeUnmount(() => {
 <template>
   <div
     ref="containerRef"
-    class="enpii-signature-pad"
+    class="enpii-signature-pad flex flex-col gap-field-gap w-full"
     :class="{ 'enpii-signature-pad--disabled': disabled }"
   >
     <canvas
       ref="canvasRef"
-      class="enpii-signature-pad__canvas"
+      class="enpii-signature-pad__canvas w-full h-40 min-h-40 border border-dashed border-outline-variant rounded-control bg-surface-container-lowest cursor-crosshair touch-none focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-focus forced-colors:border-canvas-text"
       :aria-label="t('signaturePad.canvasLabel')"
       :aria-disabled="disabled || undefined"
       :tabindex="disabled ? -1 : 0"
@@ -201,10 +201,10 @@ onBeforeUnmount(() => {
       @pointercancel="onPointerUp"
       @pointerleave="onPointerUp"
     />
-    <div class="enpii-signature-pad__actions">
+    <div class="enpii-signature-pad__actions flex justify-end gap-2">
       <button
         type="button"
-        class="enpii-signature-pad__action"
+        class="enpii-signature-pad__action inline-flex items-center justify-center min-h-10 px-4 border border-solid border-outline-variant rounded-[calc(var(--enpii-radius-control)-0.25rem)] bg-surface-container-lowest text-on-surface font-inherit text-sm font-medium cursor-pointer [transition-property:background,box-shadow,transform] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:bg-neutral-soft hover:enabled:[box-shadow:var(--enpii-focus-ring)] active:enabled:scale-98 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:opacity-50 disabled:cursor-not-allowed forced-colors:border-button-text"
         :disabled="disabled || isEmpty"
         :aria-label="t('signaturePad.undo')"
         @click="undo"

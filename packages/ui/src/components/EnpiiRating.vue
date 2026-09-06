@@ -48,11 +48,11 @@ function onKeydown(event) {
 <template>
     <div
         v-bind="$attrs"
-        class="enpii-rating"
+        class="enpii-rating inline-flex items-center"
         :class="[`enpii-rating--${size}`, { 'enpii-rating--readonly': readonly }]"
     >
         <div
-            class="enpii-rating__control"
+            class="enpii-rating__control flex gap-0.5"
             role="slider"
             tabindex="0"
             :aria-label="t('rating.ariaLabel')"
@@ -67,7 +67,7 @@ function onKeydown(event) {
                 v-for="value in safeMax"
                 :key="value"
                 type="button"
-                class="enpii-rating__star"
+                class="enpii-rating__star grid place-items-center p-0 border-0 bg-transparent text-outline-variant rounded-sm cursor-pointer [transition-property:color,transform] duration-fast ease-standard motion-reduce:transition-none hover:enabled:text-tertiary-fixed-dim hover:enabled:scale-105 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:cursor-default"
                 :class="{ 'enpii-rating__star--active': value <= previewValue }"
                 :disabled="readonly"
                 :tabindex="-1"
@@ -75,7 +75,7 @@ function onKeydown(event) {
                 @click="setValue(allowClear && model === value ? 0 : value)"
                 @mouseenter="hoverValue = value"
             >
-                <AppIcon :name="icon" filled class="enpii-rating__icon" />
+                <AppIcon :name="icon" filled class="enpii-rating__icon w-[1.375rem] h-[1.375rem] text-[1.375rem]" />
             </button>
         </div>
     </div>
