@@ -29,11 +29,11 @@
     },
     "./styles.css": "./dist/enpii-ui.css",
     "./tailwind.css": "./dist/tailwind.css",
-    "./styles/material": "./dist/styles/material.css",
-    "./styles/glassmorphism": "./dist/styles/glassmorphism.css",
-    "./styles/neumorphism": "./dist/styles/neumorphism.css",
-    "./styles/neobrutalism": "./dist/styles/neobrutalism.css",
-    "./styles/minimalism": "./dist/styles/minimalism.css",
+    "./styles/material": "./dist/styles/layers/material.css",
+    "./styles/glassmorphism": "./dist/styles/layers/glassmorphism.css",
+    "./styles/neumorphism": "./dist/styles/layers/neumorphism.css",
+    "./styles/neobrutalism": "./dist/styles/layers/neobrutalism.css",
+    "./styles/minimalism": "./dist/styles/layers/minimalism.css",
     "./styles/*": "./dist/styles/*"
   },
   "scripts": {
