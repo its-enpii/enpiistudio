@@ -204,10 +204,6 @@
 .enpii-tabs__badge{display:inline-flex;align-items:center;justify-content:center;min-width:1rem;margin-left:auto;padding-inline:.25rem;border-radius:9999px;background:color-mix(in srgb,var(--enpii-color-error) 15%,transparent);color:var(--enpii-color-danger-text);font-size:.625rem;font-weight:600;line-height:1rem}
 
 /* ===== Simple display blocks ===== */
-.enpii-stat-tile{padding:.75rem 1rem;border-radius:var(--enpii-radius-control);background:var(--enpii-color-surface-container-low)}
-.enpii-stat-tile__label{margin:0;color:var(--enpii-color-on-surface-variant);font-size:.75rem}
-.enpii-stat-tile__value{margin:0;color:var(--enpii-color-primary-text);font-size:1.25rem;font-weight:600}
-.enpii-inline-empty-state{padding:1rem;border:1px solid var(--enpii-color-outline-variant);border-radius:var(--enpii-radius-control);background:var(--enpii-color-surface-container-low);color:var(--enpii-color-on-surface-variant);font-size:.875rem}
 /* ===== EnpiiIcon ===== */
 .enpii-icon{flex-shrink:0}
 .enpii-icon__container{display:grid;place-items:center;flex-shrink:0}

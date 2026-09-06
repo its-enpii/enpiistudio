@@ -76,7 +76,7 @@ const describedBy = computed(() => {
 
 <template>
   <div
-    class="enpii-form-field"
+    class="enpii-form-field grid gap-field-gap w-full"
     :class="[
       shapeClass,
       {
@@ -87,10 +87,10 @@ const describedBy = computed(() => {
     :data-enpii-field-name="name || undefined"
     v-bind="$attrs"
   >
-    <div v-if="label && !hideLabel" class="enpii-form-field__label-row">
-      <label :for="fieldId" class="enpii-form-field__label">
+    <div v-if="label && !hideLabel" class="enpii-form-field__label-row relative flex items-center gap-1 ml-1">
+      <label :for="fieldId" class="enpii-form-field__label flex items-center gap-1 text-on-surface-variant text-[0.8125rem] font-semibold tracking-[0.02em]">
         <span>{{ label }}</span>
-        <span v-if="isRequired" class="enpii-form-field__required-mark" aria-hidden="true">*</span>
+        <span v-if="isRequired" class="enpii-form-field__required-mark text-danger-text" aria-hidden="true">*</span>
       </label>
       <AppTooltip v-if="tooltip" :id="tooltipId" :text="tooltip" />
     </div>
@@ -98,7 +98,7 @@ const describedBy = computed(() => {
       {{ label }}
     </label>
 
-    <div class="enpii-form-field__control">
+    <div class="enpii-form-field__control w-full">
       <slot
         :id="fieldId"
         :name="name"
@@ -114,7 +114,7 @@ const describedBy = computed(() => {
     <p
       v-if="displayError"
       :id="errorId"
-      class="enpii-form-field__error"
+      class="enpii-form-field__error block ml-1 text-danger-text text-sm font-normal"
       role="alert"
     >
       {{ displayError }}
@@ -122,7 +122,7 @@ const describedBy = computed(() => {
     <p
       v-else-if="hint"
       :id="hintId"
-      class="enpii-form-field__hint"
+      class="enpii-form-field__hint block ml-1 text-on-surface-variant text-sm font-normal"
     >
       {{ hint }}
     </p>

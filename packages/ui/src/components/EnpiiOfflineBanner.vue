@@ -69,24 +69,24 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <div class="enpii-offline-banner__region">
+    <div class="enpii-offline-banner__region fixed top-0 right-0 left-0 z-index-toast flex justify-center p-3 md:p-4">
         <Transition name="banner">
             <div
                 v-if="isOffline"
-                class="enpii-offline-banner enpii-offline-banner--offline"
+                class="enpii-offline-banner enpii-offline-banner--offline flex w-full max-w-[min(42rem,100%)] items-center justify-between gap-4 p-3 rounded-2xl border border-solid border-error/25 bg-error-container text-on-error-container shadow-xl backdrop-blur-xl pointer-events-auto"
                 role="alert"
                 aria-live="assertive"
             >
-                <div class="enpii-offline-banner__content">
+                <div class="enpii-offline-banner__content flex min-w-0 items-center gap-3">
                     <AppIcon name="wifi_off" tone="warning" container-size="9" container-shape="pill" class="enpii-offline-banner__icon" />
-                    <div class="enpii-offline-banner__body">
-                        <p class="enpii-offline-banner__title">{{ t('offlineBanner.title') }}</p>
-                        <p class="enpii-offline-banner__message">
+                    <div class="enpii-offline-banner__body min-w-0">
+                        <p class="enpii-offline-banner__title m-0 text-xs md:text-sm font-semibold">{{ t('offlineBanner.title') }}</p>
+                        <p class="enpii-offline-banner__message m-0 overflow-hidden text-ellipsis whitespace-nowrap text-[0.6875rem] md:text-xs opacity-90">
                             {{ customMessage || t('offlineBanner.message') }}
                         </p>
                     </div>
                 </div>
-                <div class="enpii-offline-banner__action">
+                <div class="enpii-offline-banner__action shrink-0">
                     <AppButton
                         variant="secondary"
                         size="compact"
@@ -102,14 +102,14 @@ onUnmounted(() => {
 
             <div
                 v-else-if="isReconnected"
-                class="enpii-offline-banner enpii-offline-banner--online"
+                class="enpii-offline-banner enpii-offline-banner--online flex w-full max-w-[min(36rem,100%)] items-center justify-start gap-4 p-3 rounded-2xl border border-solid border-secondary/30 bg-secondary-container/95 text-on-secondary shadow-xl backdrop-blur-xl pointer-events-auto"
                 role="status"
                 aria-live="polite"
             >
                     <AppIcon name="wifi" tone="success" container-size="9" container-shape="pill" filled class="enpii-offline-banner__icon" />
-                <div class="enpii-offline-banner__body">
-                    <p class="enpii-offline-banner__title">{{ t('offlineBanner.reconnectedTitle') }}</p>
-                    <p class="enpii-offline-banner__message">{{ t('offlineBanner.reconnectedMessage') }}</p>
+                <div class="enpii-offline-banner__body min-w-0">
+                    <p class="enpii-offline-banner__title m-0 text-xs md:text-sm font-semibold">{{ t('offlineBanner.reconnectedTitle') }}</p>
+                    <p class="enpii-offline-banner__message m-0 overflow-hidden text-ellipsis whitespace-nowrap text-[0.6875rem] md:text-xs opacity-90">{{ t('offlineBanner.reconnectedMessage') }}</p>
                 </div>
             </div>
         </Transition>
