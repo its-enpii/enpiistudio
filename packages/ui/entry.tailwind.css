@@ -95,6 +95,11 @@
   --shadow-overlay: var(--enpii-shadow-overlay);
   --shadow-raised: var(--enpii-shadow-raised);
   --shadow-lg: var(--enpii-shadow-lg);
+  --shadow-md: var(--enpii-shadow-md);
+  --shadow-xl: var(--enpii-shadow-xl);
+  --shadow-2xl: var(--enpii-shadow-overlay);
+  --font-weight-medium: var(--enpii-font-weight-medium);
+  --font-weight-semibold: var(--enpii-font-weight-semibold);
   --duration-slow: var(--enpii-duration-slow);
   --z-index-toast: var(--enpii-z-toast);
   --shadow-control: var(--enpii-shadow-control);
@@ -102,6 +107,7 @@
   --animate-skeleton-shimmer: skeleton-shimmer 1.4s linear infinite;
   --animate-progress-indeterminate: enpii-progress-indeterminate 1.4s ease-in-out infinite;
   --border-width-3: 3px;
+  --border-width-control: var(--enpii-border-width);
   --color-spinner-track-primary: var(--enpii-spinner-track-primary);
   --color-spinner-track-neutral: var(--enpii-spinner-track-neutral);
   --color-spinner-track-inverse: var(--enpii-spinner-track-inverse);
