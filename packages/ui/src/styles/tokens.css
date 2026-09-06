@@ -89,6 +89,7 @@
   --enpii-color-error-border: #fecaca;
   --enpii-color-surface-inverse: #191c1e;
   --enpii-z-overlay: 60;
+  --enpii-color-scrim: rgb(0 0 0 / 42%);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -133,6 +134,7 @@
     --enpii-z-raised: 10;
       --enpii-color-error-border: #7f1d1d;
     --enpii-color-surface-inverse: #e5e9ee;
+    --enpii-color-scrim: rgb(0 0 0 / 42%);
     --enpii-shadow-raised: 0 8px 24px rgb(0 0 0 / 30%);
     --enpii-shadow-lg: 0 12px 24px rgb(0 0 0 / 28%);
     --enpii-shadow-md: 0 4px 10px rgb(0 0 0 / 24%);
@@ -195,6 +197,7 @@
   --enpii-color-on-error-container: #690005;
   --enpii-color-error-border: #7f1d1d;
   --enpii-color-surface-inverse: #e5e9ee;
+  --enpii-color-scrim: rgb(0 0 0 / 42%);
   --enpii-shadow-raised: 0 8px 24px rgb(0 0 0 / 30%);
   --enpii-shadow-lg: 0 12px 24px rgb(0 0 0 / 28%);
   --enpii-shadow-md: 0 4px 10px rgb(0 0 0 / 24%);
@@ -256,6 +259,7 @@
   --enpii-shadow-overlay: 0 24px 60px rgb(46 52 64 / 65%);
   --enpii-color-error-border: #bf616a;
   --enpii-color-surface-inverse: #eceff4;
+  --enpii-color-scrim: rgb(46 52 64 / 65%);
   --enpii-shadow-raised: 0 8px 24px rgb(46 52 64 / 50%);
   --enpii-shadow-lg: 0 12px 24px rgb(46 52 64 / 45%);
   --enpii-shadow-md: 0 4px 10px rgb(46 52 64 / 40%);
@@ -317,6 +321,7 @@
   --enpii-shadow-overlay: 0 24px 60px rgb(0 0 0 / 65%);
   --enpii-color-error-border: #ff5555;
   --enpii-color-surface-inverse: #f8f8f2;
+  --enpii-color-scrim: rgb(0 0 0 / 42%);
   --enpii-shadow-raised: 0 8px 24px rgb(40 42 54 / 60%);
   --enpii-shadow-lg: 0 12px 24px rgb(40 42 54 / 55%);
   --enpii-shadow-md: 0 4px 10px rgb(40 42 54 / 50%);
@@ -378,6 +383,7 @@
   --enpii-shadow-overlay: 0 24px 60px rgb(7 54 66 / 25%);
   --enpii-color-error-border: #dc322f;
   --enpii-color-surface-inverse: #fdf6e3;
+  --enpii-color-scrim: rgb(7 54 66 / 25%);
   --enpii-shadow-raised: 0 8px 24px rgb(0 43 54 / 40%);
   --enpii-shadow-lg: 0 12px 24px rgb(0 43 54 / 35%);
   --enpii-shadow-md: 0 4px 10px rgb(0 43 54 / 30%);
@@ -439,6 +445,7 @@
   --enpii-shadow-overlay: 0 24px 60px rgb(0 0 0 / 65%);
   --enpii-color-error-border: #fb4934;
   --enpii-color-surface-inverse: #fbf1c7;
+  --enpii-color-scrim: rgb(0 0 0 / 42%);
   --enpii-shadow-raised: 0 8px 24px rgb(40 40 40 / 50%);
   --enpii-shadow-lg: 0 12px 24px rgb(40 40 40 / 45%);
   --enpii-shadow-md: 0 4px 10px rgb(40 40 40 / 40%);
@@ -500,6 +507,7 @@
   --enpii-shadow-overlay: 0 24px 60px rgb(0 0 0 / 65%);
   --enpii-color-error-border: #eb6f92;
   --enpii-color-surface-inverse: #e0def4;
+  --enpii-color-scrim: rgb(0 0 0 / 42%);
   --enpii-shadow-raised: 0 8px 24px rgb(25 23 36 / 50%);
   --enpii-shadow-lg: 0 12px 24px rgb(25 23 36 / 45%);
   --enpii-shadow-md: 0 4px 10px rgb(25 23 36 / 40%);
