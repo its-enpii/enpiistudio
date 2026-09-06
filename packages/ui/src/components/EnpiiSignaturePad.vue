@@ -10,7 +10,7 @@ const props = withDefaults(defineProps<{
   disabled?: boolean
   backgroundColor?: string
 }>(), {
-  penColor: '#191c1e',
+  penColor: 'var(--color-ink)',
   penWidth: 2,
   disabled: false,
   backgroundColor: undefined,

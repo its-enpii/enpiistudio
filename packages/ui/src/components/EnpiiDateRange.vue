@@ -170,7 +170,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <div ref="root" class="enpii-date-range relative grid gap-field-gap">
+    <div ref="root" class="enpii-date-range relative w-full grid gap-field-gap">
         <label :for="inputId" class="enpii-date-range__label text-on-surface-variant text-sm font-medium">{{ label }}</label>
         <button
             :id="inputId"

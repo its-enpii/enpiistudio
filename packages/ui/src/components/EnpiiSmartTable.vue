@@ -149,7 +149,7 @@ onBeforeUnmount(() => clearTimeout(timer));
                     <template v-if="query" #suffix>
                         <button
                             type="button"
-                            class="enpii-smart-table__clear w-8 h-8 grid place-items-center border-0 rounded-full bg-transparent text-outline cursor-pointer hover:bg-surface-container-low hover:text-primary"
+                            class="enpii-smart-table__clear w-8 h-8 grid place-items-center border-0 rounded-full bg-transparent text-outline cursor-pointer hover:bg-surface-container-low hover:text-primary focus-visible:outline-none focus-visible:[box-shadow:var(--shadow-focus)]"
                             :aria-label="t('smartTable.clearSearch')"
                             @click="resetSearch"
                         >
@@ -174,7 +174,7 @@ onBeforeUnmount(() => clearTimeout(timer));
                             <button
                                 v-if="column.sortable"
                                 type="button"
-                                class="enpii-smart-table__sort inline-flex items-center gap-1 text-primary-text font-semibold bg-transparent border-0 cursor-pointer"
+                                class="enpii-smart-table__sort inline-flex items-center gap-1 text-primary-text font-semibold bg-transparent border-0 cursor-pointer focus-visible:outline-none focus-visible:[box-shadow:var(--shadow-focus)]"
                                 @click="sortBy(column)"
                             >
                                 {{ column.label }}

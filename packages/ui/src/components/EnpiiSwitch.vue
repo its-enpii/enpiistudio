@@ -37,7 +37,7 @@ const shapeUtility = computed(() => {
         class="enpii-switch enpii-switch--bare relative inline-flex items-center shrink-0 cursor-pointer"
         :class="[shapeClass, { 'enpii-switch--disabled opacity-65 cursor-not-allowed': disabled }]"
     >
-        <input :id="switchId" v-model="model" type="checkbox" role="switch" class="enpii-switch__native enpii-sr-only peer" :disabled="disabled">
+        <input :id="switchId" v-model="model" type="checkbox" role="switch" class="enpii-switch__native enpii-sr-only peer focus-visible:[&~.enpii-switch__track]:[box-shadow:var(--shadow-focus)]" :disabled="disabled">
         <span class="enpii-switch__track w-12 h-7 rounded-[9999px] bg-outline-variant peer-checked:bg-primary [transition-property:background] duration-fast ease-emphasized" />
         <span class="enpii-switch__thumb absolute top-1 left-1 w-5 h-5 rounded-[9999px] bg-surface-container-lowest shadow-control transition-transform duration-fast ease-standard pointer-events-none peer-checked:translate-x-5" />
     </label>
@@ -54,7 +54,7 @@ const shapeUtility = computed(() => {
                 <span class="enpii-switch__text truncate text-primary-text text-sm font-medium">{{ model ? (description || 'Aktif') : (description || 'Nonaktif') }}</span>
             </span>
             <span class="enpii-switch__control relative inline-flex shrink-0">
-                <input :id="switchId" v-model="model" type="checkbox" role="switch" class="enpii-switch__native enpii-sr-only peer" :disabled="disabled">
+                <input :id="switchId" v-model="model" type="checkbox" role="switch" class="enpii-switch__native enpii-sr-only peer focus-visible:[&~.enpii-switch__track]:[box-shadow:var(--shadow-focus)]" :disabled="disabled">
                 <span class="enpii-switch__track w-12 h-7 rounded-[9999px] bg-outline-variant peer-checked:bg-primary [transition-property:background] duration-fast ease-emphasized" />
                 <span class="enpii-switch__thumb absolute top-1 left-1 w-5 h-5 rounded-[9999px] bg-surface-container-lowest shadow-control transition-transform duration-fast ease-standard pointer-events-none peer-checked:translate-x-5" />
             </span>
@@ -75,7 +75,7 @@ const shapeUtility = computed(() => {
             </span>
         </span>
         <span class="enpii-switch__control relative inline-flex shrink-0">
-            <input :id="switchId" v-model="model" type="checkbox" role="switch" class="enpii-switch__native enpii-sr-only peer" :disabled="disabled">
+            <input :id="switchId" v-model="model" type="checkbox" role="switch" class="enpii-switch__native enpii-sr-only peer focus-visible:[&~.enpii-switch__track]:[box-shadow:var(--shadow-focus)]" :disabled="disabled">
             <span class="enpii-switch__track w-12 h-7 rounded-[9999px] bg-outline-variant peer-checked:bg-primary [transition-property:background] duration-fast ease-emphasized" />
             <span class="enpii-switch__thumb absolute top-1 left-1 w-5 h-5 rounded-[9999px] bg-surface-container-lowest shadow-control transition-transform duration-fast ease-standard pointer-events-none peer-checked:translate-x-5" />
         </span>

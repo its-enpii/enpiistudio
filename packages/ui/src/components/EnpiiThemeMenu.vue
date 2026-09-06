@@ -66,7 +66,7 @@ onBeforeUnmount(() => {
                         role="menuitemradio"
                         :aria-checked="theme === themeOption.id"
                         :aria-label="t('themeMenu.selectTheme', { label: themeOption.label })"
-                        class="enpii-theme-menu__option flex w-full cursor-pointer items-center gap-3 rounded-md border-0 bg-none px-3 py-2 text-left text-sm transition-all duration-fast ease-emphasized hover:bg-surface-container-low"
+                        class="enpii-theme-menu__option flex w-full cursor-pointer items-center gap-3 rounded-md border-0 bg-none px-3 py-2 text-left text-sm transition-all duration-fast ease-emphasized hover:bg-surface-container-low focus-visible:outline-none focus-visible:[box-shadow:var(--shadow-focus)]"
                         :class="{ 'bg-primary-container/40 font-semibold': theme === themeOption.id }"
                         @click="choose(themeOption.id)"
                     >

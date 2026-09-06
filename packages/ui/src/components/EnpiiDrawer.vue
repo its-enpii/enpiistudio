@@ -75,7 +75,7 @@ onBeforeUnmount(() => {
 <template>
     <Teleport to="body">
         <Transition name="drawer">
-            <div v-if="model" class="enpii-drawer fixed inset-0 z-index-modal flex" @keydown="trapFocus">
+            <div v-if="model" class="enpii-drawer fixed inset-0 z-modal flex" @keydown="trapFocus">
                 <div class="enpii-drawer__backdrop absolute inset-0 bg-scrim" @click="close" />
                 <section
                     role="dialog"

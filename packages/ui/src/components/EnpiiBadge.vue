@@ -32,7 +32,7 @@ const shapeClass = useShape(props);
 const sizeClass = computed(() => {
     switch (props.size) {
         case 'md': return 'py-1.5 px-2.5 text-[0.8125rem]';
-        case 'lg': return 'py-2.5 px-4 border-[1.5px] text-lg font-extrabold tracking-wide';
+        case 'lg': return 'py-2.5 px-4 border-[1.5px] text-lg font-semibold tracking-wide';
         case 'sm':
         default: return 'py-1 px-2 text-xs font-semibold';
     }
