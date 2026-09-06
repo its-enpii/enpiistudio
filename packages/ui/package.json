@@ -35,7 +35,8 @@
     "./config/node": "./src/config-node.ts",
     "./vite": {
       "types": "./dist/vite-plugin/enpii-ui.d.ts",
-      "import": "./dist/vite-plugin/enpii-ui.js"
+      "import": "./src/vite-plugin/enpii-ui.js",
+      "require": "./dist/vite-plugin/enpii-ui.cjs"
     },
     "./tailwind.css": "./dist/tailwind.css",
     "./theme/sky/tokens.css": "./src/theme/sky/tokens.css",

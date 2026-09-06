@@ -1,20 +1,15 @@
 import path from 'node:path'
-import { normalizePath, type Plugin } from 'vite'
-import { defineEnpiiUiConfig, type EnpiiUiConfig } from '../config'
-import { loadEnpiiUiConfig } from '../config-node'
+import { normalizePath } from 'vite'
+import { defineEnpiiUiConfig } from '../config.js'
+import { loadEnpiiUiConfig } from '../config-node.js'
 
-export interface EnpiiUiPluginOptions {
-  config?: Partial<EnpiiUiConfig>
-  cwd?: string
-}
-
-const darkVariants: Record<EnpiiUiConfig['darkMode'], string> = {
+const darkVariants = {
   auto: '@media (prefers-color-scheme: dark);',
   class: "@custom-variant dark (&:where(.dark, .dark *));",
   manual: "@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));",
 }
 
-export function buildEnpiiUiCss(config: EnpiiUiConfig): string {
+export function buildEnpiiUiCss(config) {
   const themeEntry = normalizePath(
     path.join('/', 'node_modules', '@its-enpii', 'ui', 'src', 'theme', config.theme, 'tokens.css'),
   )
@@ -32,7 +27,7 @@ export function buildEnpiiUiCss(config: EnpiiUiConfig): string {
   ].filter(Boolean).join('\n')
 }
 
-export function enpiiUi(options: EnpiiUiPluginOptions = {}): Plugin {
+export function enpiiUi(options = {}) {
   let css = ''
   let virtualId = '\0enpii-ui.css'
 
