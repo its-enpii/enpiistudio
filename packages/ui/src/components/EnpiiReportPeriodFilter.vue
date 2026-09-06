@@ -138,8 +138,8 @@ function toMonthValue(year, month) {
 </script>
 
 <template>
-    <div class="enpii-report-period-filter">
-        <div class="enpii-report-period-filter__fields" :class="{ 'enpii-report-period-filter__fields--day': showDay }">
+    <div class="enpii-report-period-filter flex w-full flex-col gap-3 md:flex-row md:items-end">
+        <div class="enpii-report-period-filter__fields grid flex-1 grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-2" :class="showDay && 'lg:grid-cols-3'">
             <AppDatePicker v-model="selectedYear" :label="t('reportPeriod.yearLabel')" mode="year" required />
             <AppDatePicker
                 v-model="selectedMonth"
@@ -160,14 +160,14 @@ function toMonthValue(year, month) {
             />
         </div>
         <slot name="extra" />
-        <div class="enpii-report-period-filter__actions">
+        <div class="enpii-report-period-filter__actions flex shrink-0 items-end gap-2">
             <AppButton type="button" size="large" @click="apply">{{ t('reportPeriod.show') }}</AppButton>
             <a
                 v-if="pdfUrl"
                 :href="pdfHref()"
                 target="_blank"
                 rel="noopener"
-                class="enpii-report-period-filter__export"
+                class="enpii-report-period-filter__export inline-flex min-h-control items-center rounded-control border border-outline-variant px-4 text-primary-text text-sm font-semibold no-underline hover:bg-surface-container-low focus-visible:outline focus-visible:outline-3 focus-visible:outline-focus focus-visible:outline-offset-2"
                 :class="shapeClass"
             >
                 PDF
@@ -175,10 +175,10 @@ function toMonthValue(year, month) {
             <a
                 v-if="excelUrl"
                 :href="excelHref()"
-                class="enpii-report-period-filter__export"
+                class="enpii-report-period-filter__export inline-flex min-h-control items-center rounded-control border border-outline-variant px-4 text-primary-text text-sm font-semibold no-underline hover:bg-surface-container-low focus-visible:outline focus-visible:outline-3 focus-visible:outline-focus focus-visible:outline-offset-2"
                 :class="shapeClass"
             >
-                <AppIcon name="table_view" class="enpii-report-period-filter__export-icon" />
+                <AppIcon name="table_view" class="enpii-report-period-filter__export-icon text-base" />
                 Excel
             </a>
         </div>

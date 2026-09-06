@@ -63,28 +63,28 @@ function submitImport() {
 </script>
 
 <template>
-    <div class="enpii-csv-import-export" :class="shapeClass">
+    <div class="enpii-csv-import-export flex flex-wrap items-center gap-2" :class="shapeClass">
         <AppButton type="button" variant="secondary" icon="download" size="compact" @click="exportCsv">{{ t('csvImportExport.exportButton') }}</AppButton>
         <AppButton type="button" variant="secondary" icon="upload" size="compact" @click="openImport">{{ t('csvImportExport.importButton') }}</AppButton>
     </div>
 
     <AppModal v-model="open" :title="title ?? t('csvImportExport.importTitle')" size="md">
-        <p class="enpii-csv-import-export__hint">{{ hint ?? t('csvImportExport.importHint') }}</p>
-        <div class="enpii-csv-import-export__columns">
-            <p class="enpii-csv-import-export__columns-label">{{ t('csvImportExport.columnsLabel') }}</p>
-            <p class="enpii-csv-import-export__columns-value">{{ columns.join(';') }}</p>
+        <p class="enpii-csv-import-export__hint mb-4 text-on-surface-variant text-sm">{{ hint ?? t('csvImportExport.importHint') }}</p>
+        <div class="enpii-csv-import-export__columns mb-4 rounded-control border border-outline-variant bg-surface-container-low p-4">
+            <p class="enpii-csv-import-export__columns-label m-0 text-on-surface-variant text-xs font-semibold">{{ t('csvImportExport.columnsLabel') }}</p>
+            <p class="enpii-csv-import-export__columns-value mt-2 font-mono text-primary-text text-sm">{{ columns.join(';') }}</p>
         </div>
-        <label class="enpii-csv-import-export__field">
-            <span class="enpii-csv-import-export__label">{{ t('csvImportExport.fileLabel') }}</span>
+        <label class="enpii-csv-import-export__field mt-2 block">
+            <span class="enpii-csv-import-export__label mb-1 ml-1 block text-on-surface-variant text-[.8125rem] font-semibold tracking-wide">{{ t('csvImportExport.fileLabel') }}</span>
             <input
                 ref="fileInput"
                 type="file"
                 accept=".csv,text/csv,application/vnd.ms-excel"
-                class="enpii-csv-import-export__input"
+                class="enpii-csv-import-export__input w-full rounded-control border border-outline-variant bg-surface-container-lowest px-4 py-3 text-primary-text text-sm outline-none focus-visible:outline focus-visible:outline-3 focus-visible:outline-focus focus-visible:outline-offset-2 file:mr-3 file:rounded-md file:border-0 file:bg-primary file:px-3 file:py-2 file:font-semibold file:text-on-primary"
                 :class="shapeClass"
                 @change="onFileChange"
             />
-            <p v-if="error" class="enpii-csv-import-export__error">{{ error }}</p>
+            <p v-if="error" class="enpii-csv-import-export__error mb-1 ml-1 block text-danger-text text-sm">{{ error }}</p>
         </label>
         <template #footer>
             <AppButton variant="secondary" :disabled="processing" @click="open = false">{{ t('csvImportExport.cancel') }}</AppButton>
