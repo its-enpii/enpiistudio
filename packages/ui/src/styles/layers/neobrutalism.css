@@ -49,6 +49,11 @@
   box-shadow: var(--shadow-overlay);
 }
 
+.enpii-modal__title {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
 .enpii-progress__track,
 .enpii-stepper__marker,
 .enpii-badge {
@@ -59,10 +64,17 @@
 
 .enpii-input__control,
 .enpii-textarea__control,
+.enpii-currency-input__control,
 .enpii-smart-select__trigger {
   border: 2px solid var(--color-ink) !important;
   border-radius: var(--radius-control);
   box-shadow: 2px 2px 0 var(--color-ink);
+}
+
+.enpii-input__control,
+.enpii-textarea__control,
+.enpii-currency-input__control {
+  color: var(--color-on-surface);
 }
 
 .enpii-button,

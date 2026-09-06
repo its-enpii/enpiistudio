@@ -34,6 +34,8 @@ describe('Enpii UI style layer value sets', () => {
     expect(source).toContain('--shadow-card: 2px 2px 0 var(--color-ink);')
     expect(source).toContain('--shadow-focus: 0 0 0 2px var(--color-ink);')
     expect(source).toContain('.enpii-button')
+    expect(source).toContain('.enpii-currency-input__control')
+    expect(source).toContain('.enpii-modal__title')
     expect(source).not.toMatch(/--enpii-/)
   })
 
