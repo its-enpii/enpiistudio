@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue';
+import { computed } from "vue";
 
 const model = defineModel({ type: Number, default: 1 });
 
@@ -18,10 +18,10 @@ function buildPages(totalPages, siblingCount) {
     const pages = [];
     pages.push(1);
     if (!showLeftEllipsis) for (let page = 2; page < leftSibling; page += 1) pages.push(page);
-    else pages.push('ellipsis-left');
+    else pages.push("ellipsis-left");
     for (let page = leftSibling; page <= rightSibling; page += 1) pages.push(page);
     if (!showRightEllipsis) for (let page = rightSibling + 1; page < totalPages; page += 1) pages.push(page);
-    else pages.push('ellipsis-right');
+    else pages.push("ellipsis-right");
     pages.push(totalPages);
     return pages;
 }
@@ -32,15 +32,36 @@ const pages = computed(() => {
 </script>
 
 <template>
-    <nav class="enpii-pagination" aria-label="Pagination">
-        <button type="button" class="enpii-pagination__control" :disabled="model === 1" aria-label="Previous page" @click="model -= 1">
+    <nav class="enpii-pagination flex items-center gap-1" aria-label="Pagination">
+        <button
+            type="button"
+            class="enpii-pagination__control inline-flex items-center justify-center min-w-control-height-sm h-control-height-sm border border-solid border-transparent rounded-[9999px] bg-transparent text-on-surface-variant font-inherit text-[1rem] cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:enabled:bg-primary-soft hover:enabled:text-primary-text focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-focus focus-visible:outline-offset-2 disabled:opacity-40 disabled:cursor-not-allowed"
+            :disabled="model === 1"
+            aria-label="Previous page"
+            @click="model -= 1"
+        >
             <i class="material-symbols-outlined" aria-hidden="true">chevron_left</i>
         </button>
         <template v-for="page in pages" :key="typeof page === 'number' ? page : page">
-            <span v-if="typeof page !== 'number'" class="enpii-pagination__ellipsis">…</span>
-            <button v-else type="button" class="enpii-pagination__control" :class="page === model && 'enpii-pagination__control--active'" :aria-current="page === model ? 'page' : undefined" @click="model = page">{{ page }}</button>
+            <span v-if="typeof page !== 'number'" class="enpii-pagination__ellipsis px-1 text-outline">…</span>
+            <button
+                v-else
+                type="button"
+                class="enpii-pagination__control inline-flex items-center justify-center min-w-control-height-sm h-control-height-sm border border-solid border-transparent rounded-[9999px] bg-transparent font-inherit text-[1rem] cursor-pointer [transition-property:all] duration-fast ease-emphasized focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-focus focus-visible:outline-offset-2 disabled:opacity-40 disabled:cursor-not-allowed"
+                :class="page === model ? 'enpii-pagination__control--active bg-primary-soft text-primary-text' : 'text-on-surface-variant hover:enabled:bg-primary-soft hover:enabled:text-primary-text'"
+                :aria-current="page === model ? 'page' : undefined"
+                @click="model = page"
+            >
+                {{ page }}
+            </button>
         </template>
-        <button type="button" class="enpii-pagination__control" :disabled="model === totalPages" aria-label="Next page" @click="model += 1">
+        <button
+            type="button"
+            class="enpii-pagination__control inline-flex items-center justify-center min-w-control-height-sm h-control-height-sm border border-solid border-transparent rounded-[9999px] bg-transparent text-on-surface-variant font-inherit text-[1rem] cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:enabled:bg-primary-soft hover:enabled:text-primary-text focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-focus focus-visible:outline-offset-2 disabled:opacity-40 disabled:cursor-not-allowed"
+            :disabled="model === totalPages"
+            aria-label="Next page"
+            @click="model += 1"
+        >
             <i class="material-symbols-outlined" aria-hidden="true">chevron_right</i>
         </button>
     </nav>
