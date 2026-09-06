@@ -25,7 +25,7 @@ const icon = iconMap[kind] ?? 'description';
 <template>
     <button
         type="button"
-        class="enpii-assistant-artifact-card flex w-full cursor-pointer items-start gap-3 rounded-control border border-outline-variant bg-primary-soft/40 px-4 py-3 text-left transition-all duration-fast ease-emphasized hover:border-primary hover:bg-primary-soft/70 active:scale-[.99] focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-primary)_30%,transparent)]"
+        class="enpii-assistant-artifact-card flex w-full cursor-pointer items-start gap-3 rounded-control border border-outline-variant [border-width:var(--control-border-width)] bg-primary-soft/40 px-4 py-3 text-left transition-all duration-fast ease-emphasized hover:border-primary hover:bg-primary-soft/70 active:[transform:scale(.99)] focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-primary)_30%,transparent)]"
         :aria-label="t('artifactCard.open', { title: assistantBlock.title })"
         @click="emit('open', assistantBlock)"
     >

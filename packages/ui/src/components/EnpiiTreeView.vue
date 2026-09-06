@@ -127,7 +127,7 @@ onMounted(updateListHeight)
 </script>
 
 <template>
-    <div class="enpii-tree-view relative w-full border border-solid border-outline-variant rounded-control bg-surface-container-lowest shadow-control text-on-surface" role="tree" :aria-label="t('treeView.ariaLabel')">
+    <div class="enpii-tree-view relative w-full border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-control bg-surface-container-lowest shadow-control text-on-surface" role="tree" :aria-label="t('treeView.ariaLabel')">
         <TransitionGroup
             v-if="visibleNodes.length"
             tag="ul"

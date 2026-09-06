@@ -41,7 +41,7 @@ defineExpose({ download })
 </script>
 
 <template>
-  <div class="enpii-qr-code inline-flex items-center justify-center p-1 border border-solid border-outline-variant rounded-control bg-surface-container-lowest forced-colors:border-canvas-text">
+  <div class="enpii-qr-code inline-flex items-center justify-center p-1 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-control bg-surface-container-lowest forced-colors:border-canvas-text">
     <canvas
       ref="canvasRef"
       class="enpii-qr-code__canvas block rounded-[calc(var(--radius-control)-0.25rem)] [image-rendering:pixelated]"

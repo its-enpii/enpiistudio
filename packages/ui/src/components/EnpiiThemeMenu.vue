@@ -53,9 +53,9 @@ onBeforeUnmount(() => {
                 ref="panel"
                 role="menu"
                 :aria-label="t('themeMenu.ariaLabel')"
-                class="enpii-theme-menu__panel fixed right-4 top-[4.5rem] z-modal w-64 origin-top-right overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest shadow-overlay"
+                class="enpii-theme-menu__panel fixed right-4 top-[4.5rem] z-modal w-64 origin-top-right overflow-hidden rounded-2xl border border-outline-variant [border-width:var(--overlay-border-width)] bg-surface-container-lowest shadow-overlay"
             >
-                <p class="enpii-theme-menu__title m-0 border-b border-outline-variant/50 bg-surface-container-low/40 px-4 py-2 text-on-surface-variant text-[.625rem] font-semibold">
+                <p class="enpii-theme-menu__title m-0 border-b border-outline-variant/50 [border-bottom-width:var(--overlay-border-width)] bg-surface-container-low/40 px-4 py-2 text-on-surface-variant text-[.625rem] font-semibold">
                     Tema tampilan
                 </p>
                 <div class="enpii-theme-menu__options p-1">
@@ -70,7 +70,7 @@ onBeforeUnmount(() => {
                         :class="{ 'bg-primary-container/40 font-semibold': theme === themeOption.id }"
                         @click="choose(themeOption.id)"
                     >
-                        <span class="enpii-theme-menu__swatch inline-grid h-6 w-9 shrink-0 grid-flow-col gap-1 overflow-hidden rounded-md border border-outline-variant p-1" :data-for="themeOption.id" aria-hidden="true"><i class="bg-primary" /><i class="bg-surface" /><i class="bg-on-surface" /></span>
+                        <span class="enpii-theme-menu__swatch inline-grid h-6 w-9 shrink-0 grid-flow-col gap-1 overflow-hidden rounded-md border border-outline-variant [border-width:var(--control-border-width)] p-1" :data-for="themeOption.id" aria-hidden="true"><i class="bg-primary" /><i class="bg-surface" /><i class="bg-on-surface" /></span>
                         <span class="enpii-theme-menu__label min-w-0 flex-1 truncate text-primary-text font-semibold">{{ themeOption.label }}</span>
                         <AppIcon v-if="theme === themeOption.id" name="check_circle" filled class="enpii-theme-menu__check h-5 w-5 scale-105 text-secondary transition-transform duration-base ease-emphasized" />
                     </button>

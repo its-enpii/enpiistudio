@@ -141,7 +141,7 @@ const tenantName = computed(() => {
 <template>
     <header
         v-if="isDesktop"
-        class="enpii-desktop-title-bar sticky top-0 z-[150] flex h-9 w-full items-center justify-between border-b border-neutral-border bg-primary-deep px-3 text-on-surface-variant text-xs select-none [backdrop-filter:blur(12px)] [-webkit-app-region:drag]"
+        class="enpii-desktop-title-bar sticky top-0 z-[150] flex h-9 w-full items-center justify-between border-b border-neutral-border [border-bottom-width:var(--control-border-width)] bg-primary-deep px-3 text-on-surface-variant text-xs select-none [backdrop-filter:blur(12px)] [-webkit-app-region:drag]"
         style="-webkit-app-region: drag;"
     >
         <!-- Left Side: App Indicator & Status -->
@@ -168,7 +168,7 @@ const tenantName = computed(() => {
 
             <div
                 v-else
-                class="enpii-desktop-title-bar__status flex items-center gap-1 rounded-full border border-warning-text/40 bg-warning-text/15 px-2 py-1 text-[.6875rem] font-semibold text-warning-text"
+                class="enpii-desktop-title-bar__status flex items-center gap-1 rounded-full border border-warning-text/40 [border-width:var(--control-border-width)] bg-warning-text/15 px-2 py-1 text-[.6875rem] font-semibold text-warning-text"
                 :title="t('titleBar.offlineTitle')"
             >
                 <span class="enpii-desktop-title-bar__dot h-2 w-2 rounded-full bg-warning-text"></span>

@@ -46,7 +46,7 @@ const shapeUtility = computed(() => {
         <label v-if="label" :for="switchId" class="enpii-switch__label block ml-1 text-on-surface-variant text-[0.8125rem] font-semibold tracking-[0.02em]">{{ label }}</label>
         <label
             :for="switchId"
-            class="enpii-switch__box flex w-full min-h-control items-center justify-between gap-4 px-4 border border-solid border-outline-variant rounded-control bg-surface-container-lowest cursor-pointer transition-all duration-fast ease-emphasized focus-within:border-primary-container focus-within:[box-shadow:var(--shadow-focus)]"
+            class="enpii-switch__box flex w-full min-h-control items-center justify-between gap-4 px-4 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-control bg-surface-container-lowest cursor-pointer transition-all duration-fast ease-emphasized focus-within:border-primary-container focus-within:[box-shadow:var(--shadow-focus)]"
             :class="[shapeClass, shapeUtility, { 'opacity-65 cursor-not-allowed': disabled }]"
         >
             <span class="enpii-switch__content flex items-center gap-3 min-w-0">
@@ -64,7 +64,7 @@ const shapeUtility = computed(() => {
     <label
         v-else
         :for="switchId"
-        class="enpii-switch enpii-switch--inline flex min-h-control items-center justify-between gap-4 px-4 border border-solid border-outline-variant rounded-control bg-surface-container-lowest cursor-pointer transition-all duration-fast ease-emphasized"
+        class="enpii-switch enpii-switch--inline flex min-h-control items-center justify-between gap-4 px-4 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-control bg-surface-container-lowest cursor-pointer transition-all duration-fast ease-emphasized"
         :class="[shapeClass, shapeUtility, { 'opacity-65 cursor-not-allowed': disabled }]"
     >
         <span class="enpii-switch__content flex items-center gap-3 min-w-0">

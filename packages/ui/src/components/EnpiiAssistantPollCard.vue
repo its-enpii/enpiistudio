@@ -68,7 +68,7 @@ function onSubmitOther() {
         </header>
 
         <!-- Options -->
-        <ol class="enpii-assistant-poll-card__options m-0 flex list-none flex-col border-y border-outline-variant p-0">
+        <ol class="enpii-assistant-poll-card__options m-0 flex list-none flex-col border-y border-outline-variant [border-block-width:var(--overlay-border-width)] p-0">
             <li
                 v-for="(opt, i) in assistantBlock.options"
                 :key="opt.value"
@@ -124,7 +124,7 @@ function onSubmitOther() {
         </div>
 
         <!-- Lainnya inline input -->
-        <div v-if="showOther && !isSubmitted" class="enpii-assistant-poll-card__other-form flex items-center gap-2 border-t border-outline-variant bg-surface-container-low px-3 py-2">
+        <div v-if="showOther && !isSubmitted" class="enpii-assistant-poll-card__other-form flex items-center gap-2 border-t border-outline-variant [border-top-width:var(--overlay-border-width)] bg-surface-container-low px-3 py-2">
             <input
                 ref="otherInput"
                 v-model="otherText"
@@ -139,7 +139,7 @@ function onSubmitOther() {
         </div>
 
         <!-- Free-form fallback -->
-        <p v-if="!isSubmitted" class="enpii-assistant-poll-card__fallback m-0 border-t border-outline-variant bg-surface-container-low px-4 py-2 text-on-surface-variant text-xs">
+        <p v-if="!isSubmitted" class="enpii-assistant-poll-card__fallback m-0 border-t border-outline-variant [border-top-width:var(--overlay-border-width)] bg-surface-container-low px-4 py-2 text-on-surface-variant text-xs">
             Atau balas langsung…
         </p>
     </section>

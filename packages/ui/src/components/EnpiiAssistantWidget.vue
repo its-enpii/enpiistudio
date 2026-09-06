@@ -510,7 +510,7 @@ onBeforeUnmount(() => {
                 role="dialog"
                 :aria-label="displayName()"
             >
-                <div class="enpii-assistant-widget__header flex shrink-0 items-center justify-between gap-2 border-b border-outline-variant bg-primary px-4 py-3 text-on-primary">
+                <div class="enpii-assistant-widget__header flex shrink-0 items-center justify-between gap-2 border-b border-outline-variant [border-bottom-width:var(--overlay-border-width)] bg-primary px-4 py-3 text-on-primary">
                     <div class="enpii-assistant-widget__identity flex min-w-0 items-center gap-2">
                         <AppIcon name="smart_toy" class="enpii-assistant-widget__logo h-5 w-5 shrink-0 text-xl" />
                         <div class="enpii-assistant-widget__identity-text min-w-0">
@@ -617,7 +617,7 @@ onBeforeUnmount(() => {
                             >Setuju</button>
                             <button
                                 type="button"
-                                class="enpii-assistant-widget__reject-button cursor-pointer rounded-md border border-outline-variant bg-none px-3 py-1 text-on-surface text-xs font-semibold hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50"
+                class="enpii-assistant-widget__reject-button cursor-pointer rounded-md border border-outline-variant [border-width:var(--control-border-width)] bg-none px-3 py-1 text-on-surface text-xs font-semibold hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50"
                                 :disabled="sending"
                                 @click="decideConfirmation('reject')"
                             >Tolak</button>
@@ -625,9 +625,9 @@ onBeforeUnmount(() => {
                     </div>
                 </div>
 
-                <div class="enpii-assistant-widget__composer-wrap border-t border-outline-variant bg-surface-container-lowest">
+                <div class="enpii-assistant-widget__composer-wrap border-t border-outline-variant [border-top-width:var(--overlay-border-width)] bg-surface-container-lowest">
                     <!-- Attached Images Preview -->
-                    <div v-if="attachedImages.length" class="enpii-assistant-widget__attachments-bar flex flex-wrap gap-2 border-b border-outline-variant/50 px-3 pb-2 pt-2">
+                    <div v-if="attachedImages.length" class="enpii-assistant-widget__attachments-bar flex flex-wrap gap-2 border-b border-outline-variant/50 [border-bottom-width:var(--overlay-border-width)] px-3 pb-2 pt-2">
                         <div
                             v-for="(img, idx) in attachedImages"
                             :key="idx"

@@ -70,7 +70,7 @@ function submitImport() {
 
     <AppModal v-model="open" :title="title ?? t('csvImportExport.importTitle')" size="md">
         <p class="enpii-csv-import-export__hint mb-4 text-on-surface-variant text-sm">{{ hint ?? t('csvImportExport.importHint') }}</p>
-        <div class="enpii-csv-import-export__columns mb-4 rounded-control border border-outline-variant bg-surface-container-low p-4">
+        <div class="enpii-csv-import-export__columns mb-4 rounded-control border border-outline-variant [border-width:var(--control-border-width)] bg-surface-container-low p-4">
             <p class="enpii-csv-import-export__columns-label m-0 text-on-surface-variant text-xs font-semibold">{{ t('csvImportExport.columnsLabel') }}</p>
             <p class="enpii-csv-import-export__columns-value mt-2 font-mono text-primary-text text-sm">{{ columns.join(';') }}</p>
         </div>
@@ -80,7 +80,7 @@ function submitImport() {
                 ref="fileInput"
                 type="file"
                 accept=".csv,text/csv,application/vnd.ms-excel"
-                class="enpii-csv-import-export__input w-full rounded-control border border-outline-variant bg-surface-container-lowest px-4 py-3 text-primary-text text-sm outline-none focus-visible:outline focus-visible:outline-3 focus-visible:outline-focus focus-visible:outline-offset-2 file:mr-3 file:rounded-md file:border-0 file:bg-primary file:px-3 file:py-2 file:font-semibold file:text-on-primary"
+                class="enpii-csv-import-export__input w-full rounded-control border border-outline-variant [border-width:var(--control-border-width)] bg-surface-container-lowest px-4 py-3 text-primary-text text-sm outline-none focus-visible:outline focus-visible:outline-3 focus-visible:outline-focus focus-visible:outline-offset-2 file:mr-3 file:rounded-md file:border-0 file:bg-primary file:px-3 file:py-2 file:font-semibold file:text-on-primary"
                 :class="shapeClass"
                 @change="onFileChange"
             />

@@ -66,7 +66,7 @@ function dotClasses(item: TimelineItem) {
                 alternate && index % 2 === 1 && 'enpii-timeline__item--right',
             ]"
         >
-            <div class="enpii-timeline__marker relative z-1 inline-flex h-8 w-8 flex-none items-center justify-center border border-solid rounded-full text-on-surface-variant motion-reduce:transition-none" :class="[markerClasses(item), item.completed ? 'border-success-border bg-success-soft text-success-text' : 'border-outline-variant bg-surface-container-lowest']" aria-hidden="true">
+            <div class="enpii-timeline__marker relative z-1 inline-flex h-8 w-8 flex-none items-center justify-center border border-solid [border-width:var(--control-border-width)] rounded-full text-on-surface-variant motion-reduce:transition-none" :class="[markerClasses(item), item.completed ? 'border-success-border bg-success-soft text-success-text' : 'border-outline-variant bg-surface-container-lowest']" aria-hidden="true">
                 <AppIcon v-if="item.icon" :name="item.icon" class="enpii-timeline__icon w-4 h-4 text-base leading-none" />
                 <span v-else-if="item.completed" class="enpii-timeline__check text-sm font-medium leading-none" aria-hidden="true">✓</span>
                 <span v-else class="enpii-timeline__dot w-2 h-2 rounded-full bg-outline" :class="dotClasses(item)" aria-hidden="true" />

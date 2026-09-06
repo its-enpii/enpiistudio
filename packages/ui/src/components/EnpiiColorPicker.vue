@@ -221,7 +221,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="enpii-color-picker flex w-full max-w-80 flex-col gap-field-gap p-4 border border-solid border-outline-variant rounded-control bg-surface-container-lowest text-on-surface shadow-control" :class="{ 'enpii-color-picker--disabled opacity-60 pointer-events-none': disabled }">
+  <div class="enpii-color-picker flex w-full max-w-80 flex-col gap-field-gap p-4 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-control bg-surface-container-lowest text-on-surface shadow-control" :class="{ 'enpii-color-picker--disabled opacity-60 pointer-events-none': disabled }">
     <div
       ref="areaRef"
       class="enpii-color-picker__area relative w-full aspect-[16/9] min-h-32 overflow-hidden rounded-[calc(var(--radius-control)-0.25rem)] cursor-crosshair touch-none"
@@ -279,13 +279,13 @@ onBeforeUnmount(() => {
     </div>
 
     <div class="enpii-color-picker__inputs flex items-center gap-2">
-      <div class="enpii-color-picker__preview w-10 h-10 min-h-10 flex-none border border-solid border-outline-variant rounded-[calc(var(--radius-control)-0.25rem)]" :style="{ background: currentHex }" :aria-label="t('colorPicker.previewLabel')" />
+      <div class="enpii-color-picker__preview w-10 h-10 min-h-10 flex-none border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)]" :style="{ background: currentHex }" :aria-label="t('colorPicker.previewLabel')" />
       <label class="enpii-color-picker__hex-label flex-1">
         <span class="enpii-sr-only">{{ t('colorPicker.hexLabel') }}</span>
         <input
           v-model="hexInput"
           type="text"
-          class="enpii-color-picker__hex-input w-full min-h-control-sm px-3 border border-solid border-outline-variant rounded-[calc(var(--radius-control)-0.25rem)] bg-surface-container-lowest text-on-surface font-inherit text-control [transition-property:border-color,box-shadow] duration-fast ease-emphasized focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--shadow-focus)] disabled:opacity-60 disabled:cursor-not-allowed"
+          class="enpii-color-picker__hex-input w-full min-h-control-sm px-3 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)] bg-surface-container-lowest text-on-surface font-inherit text-control [transition-property:border-color,box-shadow] duration-fast ease-emphasized focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--shadow-focus)] disabled:opacity-60 disabled:cursor-not-allowed"
           maxlength="9"
           :disabled="disabled"
           :placeholder="t('colorPicker.hexPlaceholder')"
@@ -299,7 +299,7 @@ onBeforeUnmount(() => {
         v-for="color in swatches"
         :key="color"
         type="button"
-        class="enpii-color-picker__swatch w-10 h-10 min-h-10 p-0 border border-solid border-outline-variant rounded-[calc(var(--radius-control)-0.25rem)] cursor-pointer [transition-property:box-shadow,transform] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:[box-shadow:var(--shadow-focus)] active:enabled:scale-95 focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-focus disabled:opacity-50 disabled:cursor-not-allowed"
+        class="enpii-color-picker__swatch w-10 h-10 min-h-10 p-0 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)] cursor-pointer [transition-property:box-shadow,transform] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:[box-shadow:var(--shadow-focus)] active:enabled:[box-shadow:var(--shadow-control-pressed)] focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-focus disabled:opacity-50 disabled:cursor-not-allowed"
         :class="{ 'enpii-color-picker__swatch--active shadow-[inset_0_0_0_2px_var(--color-surface-container-lowest),0_0_0_2px_var(--color-primary)]': currentHex === color }"
         :style="{ backgroundColor: `var(${swatchToken(color)})` }"
         :aria-label="t('colorPicker.selectSwatch', { color })"

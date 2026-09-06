@@ -14,7 +14,7 @@ const shapeClass = useShape(props);
 </script>
 
 <template>
-    <div class="enpii-inline-empty-state p-4 border border-solid border-outline-variant rounded-control bg-surface-container-low text-on-surface-variant text-sm" :class="shapeClass">
+    <div class="enpii-inline-empty-state p-4 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-control bg-surface-container-low text-on-surface-variant text-sm" :class="shapeClass">
         {{ message }}
     </div>
 </template>

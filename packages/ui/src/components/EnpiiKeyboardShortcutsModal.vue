@@ -70,9 +70,9 @@ const shortcutGroups = computed(() => [
                 <div
                     v-for="group in shortcutGroups"
                     :key="group.title"
-                    class="enpii-keyboard-shortcuts__group p-4 border border-solid border-outline-variant rounded-control bg-surface-container-low/40"
+                    class="enpii-keyboard-shortcuts__group p-4 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-control bg-surface-container-low/40"
                 >
-                    <div class="enpii-keyboard-shortcuts__group-header flex items-center gap-2 pb-2 border-b border-solid border-outline-variant/60">
+                    <div class="enpii-keyboard-shortcuts__group-header flex items-center gap-2 pb-2 border-b border-solid border-outline-variant [border-bottom-width:var(--control-border-width)]/60">
                         <AppIcon :name="group.icon" class="enpii-keyboard-shortcuts__group-icon w-4 h-4 text-primary-text text-base" />
                         <h4 class="enpii-keyboard-shortcuts__group-title m-0 text-primary-text text-xs font-semibold">
                             {{ group.title }}
@@ -86,7 +86,7 @@ const shortcutGroups = computed(() => [
                             </span>
                             <div class="enpii-keyboard-shortcuts__keys flex shrink-0 items-center gap-1">
                                 <template v-for="(k, kIdx) in item.keys" :key="kIdx">
-                                    <kbd class="enpii-keyboard-shortcuts__key inline-flex min-w-[22px] items-center justify-center p-1 border border-solid border-outline-variant/80 rounded bg-surface-container-high text-primary-text font-mono text-[0.6875rem] font-semibold shadow-control">
+                                    <kbd class="enpii-keyboard-shortcuts__key inline-flex min-w-[22px] items-center justify-center p-1 border border-solid border-outline-variant [border-width:var(--control-border-width)]/80 rounded bg-surface-container-high text-primary-text font-mono text-[0.6875rem] font-semibold shadow-control">
                                         {{ k }}
                                     </kbd>
                                     <span v-if="kIdx < item.keys.length - 1" class="enpii-keyboard-shortcuts__plus text-on-surface-variant text-[0.625rem] font-semibold">+</span>
