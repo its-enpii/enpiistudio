@@ -17,6 +17,7 @@ const inputMaskVue = readFileSync(resolve(__dirname, '../src/components/EnpiiInp
 const smartSelectVue = readFileSync(resolve(__dirname, '../src/components/EnpiiSmartSelect.vue'), 'utf8')
 const datePickerVue = readFileSync(resolve(__dirname, '../src/components/EnpiiDatePicker.vue'), 'utf8')
 const segmentedVue = readFileSync(resolve(__dirname, '../src/components/EnpiiSegmentedControl.vue'), 'utf8')
+const tagInputVue = readFileSync(resolve(__dirname, '../src/components/EnpiiTagInput.vue'), 'utf8')
 
 const vueMinH: Record<string, string> = {
   '.enpii-input__control': inputVue,
@@ -24,6 +25,7 @@ const vueMinH: Record<string, string> = {
   '.enpii-input-mask__control': inputMaskVue,
   '.enpii-smart-select__trigger': smartSelectVue,
   '.enpii-date-picker__control': datePickerVue,
+  '.enpii-tag-input__control': tagInputVue,
 }
 
 function readRule(selector: string) {

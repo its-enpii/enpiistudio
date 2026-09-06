@@ -63,7 +63,7 @@ describe('sky Tailwind theme', () => {
   it('exposes each semantic color token through Tailwind @theme utilities', () => {
     const entry = readFileSync(resolve(__dirname, '../entry.tailwind.css'), 'utf8')
     const tokenNames = [...new Set([...skyTokens.matchAll(/--enpii-color-[a-z0-9-]+(?=:)/g)].map(match => match[0]))]
-    expect(tokenNames).toHaveLength(54)
+    expect(tokenNames).toHaveLength(62)
 
     for (const tokenName of tokenNames) {
       const utilityName = tokenName.replace('--enpii-color-', '--color-')

@@ -35,6 +35,12 @@ Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7. Semua item selesai.
 - POS main final: 66 tests/265 assertions + pint + build. Worktree & branch dihapus.
 - Sisa: E2E alur order->bayar (playwright) + laporan akhir vertical demo #6 + keputusan hosting/deploy dari user.
 
+### 2026-09-05 — UI Tailwind batch 5c (advanced form & picker) selesai di worktree
+- 8 komponen terakhir `@its-enpii/ui` direwrite ke Tailwind utility: PasswordInput, OtpInput, RadioGroup, Range, TagInput, TimePicker, DateRange, ColorPicker.
+- Static BEM marker dipertahankan untuk selector/test; rule 8 komponen dihapus dari components.css.
+- ColorPicker swatch dikonversi ke 8 token semantic baru (`--enpii-color-picker-swatch-*`, light+dark), tanpa hex literal di template.
+- Verifikasi: `check`, `test` (310 passed), `test:tailwind` (7 passed + smoke), `golden:check` (0 diff), `build` sukses; dist/tailwind.css rebuild + rename.
+
 
 ### 2026-08-31 — POS batch4 (frontend kasir) diluncurkan
 - task-pos-cashier (~/tasks/pos-g-work, feat/pos-cashier-frontend, reasoning high): pos-theme.css (override token persis design 2/3: primary sky #87CEEB, accent sunflower #F4B740, surface #F7F9FA, ink #14202B, shadow ringan 2px 2px 0 ink, hover translate), 4 komponen custom di atas primitif package (PosMenuGrid, PosCart, PosTableMap, PosPaymentSheet), Orders/Index layout kasir + gate buka shift, konsumsi API merged batch2/3 tanpa ubah backend.
