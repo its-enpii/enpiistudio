@@ -30,7 +30,7 @@ function toggleMenu() {
 
 <template>
     <nav
-        class="enpii-navbar relative z-index-raised border-b border-solid border-outline-variant bg-surface-container-lowest text-on-surface"
+        class="enpii-navbar relative z-raised border-b border-solid border-outline-variant bg-surface-container-lowest text-on-surface"
         :class="[
             `enpii-navbar--${variant}`,
             variant === 'transparent' && 'border-transparent bg-transparent',
@@ -43,7 +43,7 @@ function toggleMenu() {
             <slot v-else name="brand" />
             <ul
                 class="enpii-navbar__links hidden m-0 p-0 list-none"
-                :class="isOpen && 'enpii-navbar__links--open absolute top-full inset-x-0 z-index-dropdown flex flex-col border-b border-solid border-outline-variant bg-surface-container-lowest py-2 px-4 shadow-overlay md:static md:flex-row md:border-0 md:bg-transparent md:p-0 md:shadow-none'"
+                :class="isOpen && 'enpii-navbar__links--open absolute top-full inset-x-0 z-dropdown flex flex-col border-b border-solid border-outline-variant bg-surface-container-lowest py-2 px-4 shadow-overlay md:static md:flex-row md:border-0 md:bg-transparent md:p-0 md:shadow-none'"
             >
                 <li v-for="link in links" :key="linkKey(link)">
                     <a

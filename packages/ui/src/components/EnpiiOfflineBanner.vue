@@ -69,7 +69,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <div class="enpii-offline-banner__region fixed top-0 right-0 left-0 z-index-toast flex justify-center p-3 md:p-4">
+    <div class="enpii-offline-banner__region fixed top-0 right-0 left-0 z-toast flex justify-center p-3 md:p-4">
         <Transition name="banner">
             <div
                 v-if="isOffline"

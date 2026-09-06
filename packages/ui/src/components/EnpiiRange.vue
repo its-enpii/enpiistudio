@@ -16,7 +16,7 @@ const inputId = useId();
 </script>
 
 <template>
-    <div class="enpii-range grid gap-2">
+    <div class="enpii-range w-full grid gap-2">
         <label class="enpii-range__label flex items-center justify-between gap-3 text-on-surface-variant text-[0.8125rem] font-semibold tracking-wide" :for="inputId">
             {{ label }}
             <output v-if="showValue" class="enpii-range__value text-on-surface-variant">{{ model }}</output>

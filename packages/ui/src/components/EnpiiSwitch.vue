@@ -42,7 +42,7 @@ const shapeUtility = computed(() => {
         <span class="enpii-switch__thumb absolute top-1 left-1 w-5 h-5 rounded-[9999px] bg-surface-container-lowest shadow-control transition-transform duration-fast ease-standard pointer-events-none peer-checked:translate-x-5" />
     </label>
 
-    <div v-else-if="field" class="enpii-switch enpii-switch--field">
+    <div v-else-if="field" class="enpii-switch enpii-switch--field w-full">
         <label v-if="label" :for="switchId" class="enpii-switch__label block ml-1 text-on-surface-variant text-[0.8125rem] font-semibold tracking-[0.02em]">{{ label }}</label>
         <label
             :for="switchId"
