@@ -178,7 +178,7 @@ watch(
         <label :for="inputId" class="enpii-file-upload__label ml-1 block text-on-surface-variant text-[.8125rem] font-semibold tracking-wide">{{ label }}</label>
 
         <div
-            class="enpii-file-upload__dropzone flex min-h-24 cursor-pointer flex-col items-center justify-center gap-2 rounded-control border border-dashed border-outline-variant [border-width:var(--control-border-width)] bg-surface-container-lowest px-6 py-4 transition-[border-color,box-shadow,background] duration-fast ease-emphasized hover:border-primary/40 focus-visible:outline focus-visible:outline-3 focus-visible:outline-focus focus-visible:outline-offset-2"
+            class="enpii-file-upload__dropzone flex min-h-24 cursor-pointer flex-col items-center justify-center gap-2 rounded-control border border-dashed border-outline-variant [border-width:var(--control-border-width)] bg-surface-container-lowest px-6 py-4 transition-[border-color,box-shadow,background] duration-fast ease-emphasized hover:border-primary/40 focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)]"
             :class="{
                 'border-primary [box-shadow:var(--shadow-focus)]': dragOver,
                 'enpii-file-upload__dropzone--disabled cursor-not-allowed opacity-60 pointer-events-none': disabled,
@@ -239,7 +239,7 @@ watch(
 
                 <button
                     type="button"
-                    class="enpii-file-upload__remove flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent p-0 text-outline transition-colors duration-fast ease-emphasized hover:bg-danger-soft hover:text-danger-text focus-visible:outline focus-visible:outline-3 focus-visible:outline-focus focus-visible:outline-offset-2 disabled:cursor-not-allowed"
+                    class="enpii-file-upload__remove flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent p-0 text-outline transition-colors duration-fast ease-emphasized hover:bg-danger-soft hover:text-danger-text focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)] disabled:cursor-not-allowed"
                     :aria-label="`Hapus ${file.name}`"
                     :disabled="disabled"
                     @click="removeFile(idx)"

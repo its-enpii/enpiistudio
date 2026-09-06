@@ -133,7 +133,7 @@ function onKeydown(event: KeyboardEvent) {
                 {{ tag }}
                 <button
                     type="button"
-                    class="enpii-tag-input__remove inline-flex w-7 h-7 items-center justify-center p-0 border-0 rounded-[9999px] bg-none text-inherit text-base leading-none cursor-pointer [transition-property:background,color] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:bg-surface-container-low hover:enabled:text-on-surface focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-focus"
+                    class="enpii-tag-input__remove inline-flex w-7 h-7 items-center justify-center p-0 border-0 rounded-[9999px] bg-none text-inherit text-base leading-none cursor-pointer [transition-property:background,color] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:bg-surface-container-low hover:enabled:text-on-surface focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus"
                     :disabled="disabled"
                     :aria-label="t('tagInput.removeTag', { tag })"
                     @click="removeTag(index)"

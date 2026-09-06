@@ -106,7 +106,7 @@ function hideTooltip() {
             <button
                 type="button"
                 tabindex="-1"
-                class="enpii-tooltip__trigger inline-flex items-center justify-center w-4 h-4 rounded-[9999px] border-0 bg-surface-container text-outline text-[0.625rem] font-semibold cursor-help [transition-property:all] duration-fast ease-emphasized hover:bg-surface-container-high hover:text-primary focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-focus"
+                class="enpii-tooltip__trigger inline-flex items-center justify-center w-4 h-4 rounded-[9999px] border-0 bg-surface-container text-outline text-[0.625rem] font-semibold cursor-help [transition-property:all] duration-fast ease-emphasized hover:bg-surface-container-high hover:text-primary focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus"
                 aria-haspopup="true"
                 :aria-label="text"
             >

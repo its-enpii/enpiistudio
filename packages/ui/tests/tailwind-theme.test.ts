@@ -22,6 +22,14 @@ describe('Tailwind-native theme', () => {
     expect(entry).toContain('@theme {')
     expect(entry).toContain('--color-primary: #87CEEB;')
     expect(entry).toContain('--radius-control: 9px;')
+    for (const radiusToken of ['sm', 'md', 'lg', 'xl', '2xl', 'track', 'media']) {
+      expect(entry).toContain(`--radius-${radiusToken}:`)
+    }
+    expect(entry).toContain('--card-border-width: 0px;')
+    expect(entry).toContain('--card-border-style: none;')
+    expect(entry).toContain('--card-border-color: var(--color-outline-variant, var(--color-outline));')
+    expect(entry).toContain('--focus-width: 2px;')
+    expect(entry).toContain('--focus-offset: 2px;')
     expect(entry).toContain('--spacing-control: 3rem;')
     expect(entry).toContain('--shadow-focus: 0 0 0 4px color-mix(in srgb, var(--color-focus) 25%, transparent);')
     for (const shadowUtility of ['card', 'control', 'overlay', 'raised']) {

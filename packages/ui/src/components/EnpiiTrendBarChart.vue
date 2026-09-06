@@ -177,7 +177,7 @@ function tooltipStyle(h) {
                     :width="g.hitW"
                     :height="plotH"
                     fill="transparent"
-                    class="enpii-trend-bar-chart__hit cursor-pointer focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-focus"
+                    class="enpii-trend-bar-chart__hit cursor-pointer focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus"
                     tabindex="0"
                     @pointermove="onMove($event, g)"
                     @pointerleave="onLeave"

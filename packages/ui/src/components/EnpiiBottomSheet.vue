@@ -203,7 +203,7 @@ onBeforeUnmount(() => {
                 >
                     <button
                         type="button"
-                        class="enpii-bottom-sheet__handle w-12 h-10 mx-auto rounded-xl border-0 bg-none cursor-grab touch-none focus-visible:outline-3 focus-visible:outline-offset-[-2px] focus-visible:outline-focus"
+                        class="enpii-bottom-sheet__handle w-12 h-10 mx-auto rounded-xl border-0 bg-none cursor-grab touch-none focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-offset-[-2px] focus-visible:outline-focus"
                         :aria-label="t('bottomSheet.dragHandle')"
                         @click="close"
                         @pointerdown="onPointerDown"
@@ -213,7 +213,7 @@ onBeforeUnmount(() => {
                         <button
                             v-if="dismissible"
                             type="button"
-                            class="enpii-bottom-sheet__close inline-flex w-10 h-10 flex-none items-center justify-center -mt-1 -mr-1 rounded-full border-0 bg-transparent text-on-surface-variant cursor-pointer [transition-property:background,color] duration-fast ease-emphasized hover:bg-surface-container-low hover:text-on-surface focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-focus"
+                            class="enpii-bottom-sheet__close inline-flex w-10 h-10 flex-none items-center justify-center -mt-1 -mr-1 rounded-full border-0 bg-transparent text-on-surface-variant cursor-pointer [transition-property:background,color] duration-fast ease-emphasized hover:bg-surface-container-low hover:text-on-surface focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus"
                             :aria-label="t('bottomSheet.close')"
                             @click="close"
                         >

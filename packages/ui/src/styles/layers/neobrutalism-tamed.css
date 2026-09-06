@@ -3,6 +3,26 @@
 [data-enpii-layer="neobrutalism-tamed"] {
   --control-border-width: 2px;
   --overlay-border-width: 2px;
+  --card-border-width: 2px;
+  --card-border-style: solid;
+  --card-border-color: var(--color-ink);
+  --focus-width: 3px;
+  --focus-width-overlay: 3px;
+  --focus-width-priority: 3px;
+  --focus-width-minimal: 3px;
+  --focus-offset: 2px;
+  --focus-offset-negative: -2px;
+  --focus-offset-negative-outside: -1px;
+  --focus-offset-negative-wide: -3px;
+  --focus-offset-outside: 1px;
+  --focus-offset-wide: 4px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 10px;
+  --radius-2xl: 14px;
+  --radius-track: 2px;
+  --radius-media: 10px;
   --press-transform: translate(1px, 1px);
   --shadow-control-pressed: 1px 1px 0 var(--color-ink);
   --radius-control: 9px;

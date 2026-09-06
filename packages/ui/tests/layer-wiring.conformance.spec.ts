@@ -40,6 +40,8 @@ const borderedComponents = [
 ]
 
 const structuralBorderPattern = /--(control|overlay)-border-width/
+const cardBorderPattern = /--card-border-(?:width|style|color)/
+const literalRadiusPattern = /rounded-\[(?:0\.25rem|0\.125rem|1rem)\]/
 
 const primitiveShadowExceptions: Record<string, string> = {}
 
@@ -49,6 +51,39 @@ describe('structural layer wiring conformance', () => {
     expect(source, `${filename} must consume --control-border-width or --overlay-border-width`).toMatch(
       structuralBorderPattern,
     )
+  })
+
+  it('always exposes the card border through structural tokens', () => {
+    const source = readFileSync(resolve(componentsDirectory, 'EnpiiCard.vue'), 'utf8')
+
+    expect(source).toContain('[border-width:var(--card-border-width)]')
+    expect(source).toContain('[border-style:var(--card-border-style)]')
+    expect(source).toContain('[border-color:var(--card-border-color)]')
+    expect(source).toContain('[border-width:max(var(--card-border-width),1px)]')
+  })
+
+  it('defines brutal layer shape and focus values', () => {
+    for (const filename of ['neobrutalism.css', 'neobrutalism-tamed.css']) {
+      const source = readFileSync(resolve(__dirname, '../src/styles/layers', filename), 'utf8')
+
+      expect(source).toContain('--card-border-width: 2px;')
+      expect(source).toContain('--card-border-style: solid;')
+      expect(source).toContain('--card-border-color: var(--color-ink);')
+      expect(source).toContain('--focus-width: 3px;')
+      expect(source).toContain('--focus-offset: 2px;')
+      expect(source).toContain('--radius-sm:')
+      expect(source).toContain('--radius-md:')
+      expect(source).toContain('--radius-lg:')
+      expect(source).toContain('--radius-xl:')
+      expect(source).toContain('--radius-2xl:')
+    }
+  })
+
+  it('has no literal structural radius values left in components', () => {
+    for (const filename of componentFilenames) {
+      const source = readFileSync(resolve(componentsDirectory, filename), 'utf8')
+      expect(source, `${filename} must use a radius token`).not.toMatch(literalRadiusPattern)
+    }
   })
 
   it('documents every intentionally unwired component', () => {

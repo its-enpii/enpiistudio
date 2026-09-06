@@ -21,6 +21,6 @@ const inputId = useId();
             {{ label }}
             <output v-if="showValue" class="enpii-range__value text-on-surface-variant">{{ model }}</output>
         </label>
-        <input :id="inputId" v-model.number="model" class="enpii-range__control h-2 m-0 border-0 appearance-none bg-surface-container-high rounded-[9999px] accent-primary focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-offset-4 focus-visible:outline-focus disabled:cursor-not-allowed disabled:opacity-45" type="range" :min="min" :max="max" :step="step" :disabled="disabled">
+        <input :id="inputId" v-model.number="model" class="enpii-range__control h-2 m-0 border-0 appearance-none bg-surface-container-high rounded-[9999px] accent-primary focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset-wide)] focus-visible:outline-focus disabled:cursor-not-allowed disabled:opacity-45" type="range" :min="min" :max="max" :step="step" :disabled="disabled">
     </div>
 </template>

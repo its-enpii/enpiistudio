@@ -40,7 +40,7 @@ const toneClasses = {
         <button
             v-if="dismissible"
             type="button"
-            class="enpii-alert__close self-start border-0 bg-transparent text-inherit cursor-pointer focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-current"
+            class="enpii-alert__close self-start border-0 bg-transparent text-inherit cursor-pointer focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-current"
             aria-label="Dismiss alert"
             @click="$emit('dismiss')"
         >

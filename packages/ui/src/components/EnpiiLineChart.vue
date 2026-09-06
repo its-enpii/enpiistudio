@@ -136,7 +136,7 @@ const ariaLabel = computed(() => {
           :cx="point.x"
           :cy="point.y"
           r="4"
-          class="enpii-line-chart__point stroke-surface-container-lowest stroke-2 cursor-pointer motion-reduce:transition-none focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-focus"
+          class="enpii-line-chart__point stroke-surface-container-lowest stroke-2 cursor-pointer motion-reduce:transition-none focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus"
           :style="{ fill: item.color }"
         >
           <title>{{ item.label }}: {{ labels[i] || i }} — {{ point.value }}</title>

@@ -103,7 +103,7 @@ onBeforeUnmount(() => {
                         <button
                             v-if="closeable"
                             type="button"
-                            class="enpii-modal__close grid place-items-center w-10 h-10 shrink-0 rounded-[9999px] border-0 bg-transparent text-on-surface-variant cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:bg-surface-container-low hover:text-primary-text focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-focus active:[transform:var(--press-transform)]"
+                            class="enpii-modal__close grid place-items-center w-10 h-10 shrink-0 rounded-[9999px] border-0 bg-transparent text-on-surface-variant cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:bg-surface-container-low hover:text-primary-text focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus active:[transform:var(--press-transform)]"
                             :aria-label="t('modal.close')"
                             @click="close"
                         >

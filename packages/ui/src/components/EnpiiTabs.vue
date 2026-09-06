@@ -51,7 +51,7 @@ function tabClass(item) {
     const active = props.modelValue === item.key;
     const variant = normalizedVariant.value;
     const classes = [
-        'enpii-tabs__tab flex items-center gap-2 border-0 bg-transparent cursor-pointer [transition-property:all] duration-fast ease-emphasized active:[transform:var(--press-transform)] focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-focus',
+        'enpii-tabs__tab flex items-center gap-2 border-0 bg-transparent cursor-pointer [transition-property:all] duration-fast ease-emphasized active:[transform:var(--press-transform)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus',
         `enpii-tabs__tab--${variant}`,
         shapeClass.value,
     ];

@@ -179,7 +179,7 @@ const tenantName = computed(() => {
             <button
                 v-if="isOnline"
                 type="button"
-                class="enpii-desktop-title-bar__sync inline-flex cursor-pointer items-center gap-1 rounded px-1 py-1 text-on-surface-variant transition-all duration-fast ease-emphasized hover:bg-neutral-border hover:text-on-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2"
+                class="enpii-desktop-title-bar__sync inline-flex cursor-pointer items-center gap-1 rounded px-1 py-1 text-on-surface-variant transition-all duration-fast ease-emphasized hover:bg-neutral-border hover:text-on-surface focus-visible:outline focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)]"
                 :disabled="isSyncing || isClosing"
                 :title="t('titleBar.syncTitle')"
                 @click="triggerSync"
@@ -207,7 +207,7 @@ const tenantName = computed(() => {
             <!-- Minimize -->
             <button
                 type="button"
-                class="enpii-desktop-title-bar__control flex w-10 cursor-pointer items-center justify-center border-0 bg-none text-on-surface-variant transition-all duration-fast ease-emphasized hover:bg-neutral-border hover:text-on-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-focus focus-visible:-outline-offset-2"
+                class="enpii-desktop-title-bar__control flex w-10 cursor-pointer items-center justify-center border-0 bg-none text-on-surface-variant transition-all duration-fast ease-emphasized hover:bg-neutral-border hover:text-on-primary focus-visible:outline focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset-negative)]"
                 title="Minimize"
                 aria-label="Minimize"
                 :disabled="isClosing"
@@ -221,7 +221,7 @@ const tenantName = computed(() => {
             <!-- Maximize / Restore -->
             <button
                 type="button"
-                class="enpii-desktop-title-bar__control flex w-10 cursor-pointer items-center justify-center border-0 bg-none text-on-surface-variant transition-all duration-fast ease-emphasized hover:bg-neutral-border hover:text-on-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-focus focus-visible:-outline-offset-2"
+                class="enpii-desktop-title-bar__control flex w-10 cursor-pointer items-center justify-center border-0 bg-none text-on-surface-variant transition-all duration-fast ease-emphasized hover:bg-neutral-border hover:text-on-primary focus-visible:outline focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset-negative)]"
                 :title="isMaximized ? 'Restore' : 'Maximize'"
                 :aria-label="isMaximized ? 'Restore' : 'Maximize'"
                 :disabled="isClosing"
@@ -239,7 +239,7 @@ const tenantName = computed(() => {
             <!-- Close (Logout & Exit) -->
             <button
                 type="button"
-                class="enpii-desktop-title-bar__control flex w-10 cursor-pointer items-center justify-center border-0 bg-none text-on-surface-variant transition-all duration-fast ease-emphasized hover:bg-error hover:text-on-error focus-visible:outline focus-visible:outline-2 focus-visible:outline-focus focus-visible:-outline-offset-2"
+                class="enpii-desktop-title-bar__control flex w-10 cursor-pointer items-center justify-center border-0 bg-none text-on-surface-variant transition-all duration-fast ease-emphasized hover:bg-error hover:text-on-error focus-visible:outline focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset-negative)]"
                 :class="{ 'cursor-wait opacity-70': isClosing }"
                 :title="t('titleBar.closeTitle')"
                 :aria-label="t('titleBar.closeTitle')"

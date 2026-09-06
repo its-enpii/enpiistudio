@@ -179,7 +179,7 @@ const rightListId = `enpii-transfer-list-${uid}-right`
                     v-for="option in filteredLeft"
                     :key="option.id"
                     :id="`${leftListId}-${option.id}`"
-                    class="enpii-transfer-list__option flex flex-col gap-0.5 min-h-10 py-2 px-2.5 border-0 rounded-[calc(var(--radius-control)-0.25rem)] bg-none text-on-surface font-inherit text-[0.8125rem] cursor-pointer [transition-property:background,color] duration-fast ease-emphasized motion-reduce:transition-none hover:not-disabled:bg-neutral-soft focus-visible:outline-3 focus-visible:-outline-offset-1 focus-visible:outline-focus"
+                    class="enpii-transfer-list__option flex flex-col gap-0.5 min-h-10 py-2 px-2.5 border-0 rounded-[calc(var(--radius-control)-0.25rem)] bg-none text-on-surface font-inherit text-[0.8125rem] cursor-pointer [transition-property:background,color] duration-fast ease-emphasized motion-reduce:transition-none hover:not-disabled:bg-neutral-soft focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset-negative-outside)] focus-visible:outline-focus"
                     :class="{
                         'enpii-transfer-list__option--selected': leftSelected.includes(option.id),
                         'enpii-transfer-list__option--disabled': option.disabled,
@@ -203,7 +203,7 @@ const rightListId = `enpii-transfer-list-${uid}-right`
         <div class="enpii-transfer-list__controls flex flex-col gap-1.5 pt-1 max-md:flex-row max-md:justify-center max-md:p-0" role="group" :aria-label="t('transferList.controlsLabel')">
             <button
                 type="button"
-                class="enpii-transfer-list__button inline-flex items-center justify-center min-w-10 min-h-10 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)] bg-surface-container-lowest text-primary-text text-lg font-medium leading-none cursor-pointer [transition-property:background,color,transform,box-shadow] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:bg-primary-soft active:enabled:[transform:scale(.96)] focus-visible:outline-3 focus-visible:outline-offset-1 focus-visible:outline-focus disabled:text-outline disabled:cursor-not-allowed disabled:opacity-45"
+                class="enpii-transfer-list__button inline-flex items-center justify-center min-w-10 min-h-10 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)] bg-surface-container-lowest text-primary-text text-lg font-medium leading-none cursor-pointer [transition-property:background,color,transform,box-shadow] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:bg-primary-soft active:enabled:[transform:scale(.96)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset-outside)] focus-visible:outline-focus disabled:text-outline disabled:cursor-not-allowed disabled:opacity-45"
                 :disabled="!moveRightEnabled"
                 :aria-label="t('transferList.moveRight')"
                 @click="moveRight()"
@@ -256,7 +256,7 @@ const rightListId = `enpii-transfer-list-${uid}-right`
                     v-for="option in filteredRight"
                     :key="option.id"
                     :id="`${rightListId}-${option.id}`"
-                    class="enpii-transfer-list__option flex flex-col gap-0.5 min-h-10 py-2 px-2.5 border-0 rounded-[calc(var(--radius-control)-0.25rem)] bg-none text-on-surface font-inherit text-[0.8125rem] cursor-pointer [transition-property:background,color] duration-fast ease-emphasized motion-reduce:transition-none hover:not-disabled:bg-neutral-soft focus-visible:outline-3 focus-visible:-outline-offset-1 focus-visible:outline-focus"
+                    class="enpii-transfer-list__option flex flex-col gap-0.5 min-h-10 py-2 px-2.5 border-0 rounded-[calc(var(--radius-control)-0.25rem)] bg-none text-on-surface font-inherit text-[0.8125rem] cursor-pointer [transition-property:background,color] duration-fast ease-emphasized motion-reduce:transition-none hover:not-disabled:bg-neutral-soft focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset-negative-outside)] focus-visible:outline-focus"
                     :class="{
                         'enpii-transfer-list__option--selected': rightSelected.includes(option.id),
                     }"

@@ -183,11 +183,11 @@ watch(month, () => {
 <template>
     <section class="enpii-calendar w-full rounded-control border border-solid [border-width:var(--control-border-width)] border-outline-variant bg-surface-container-lowest text-on-surface shadow-control" :aria-label="monthLabel">
         <header class="enpii-calendar__header grid grid-cols-10 items-center gap-1 px-2 py-2 max-[24rem]:px-1">
-            <button type="button" class="enpii-calendar__nav grid h-10 w-10 cursor-pointer place-items-center rounded-full border-0 bg-none text-on-surface-variant transition-[background,color,transform] duration-fast ease-emphasized hover:bg-neutral-soft hover:text-primary-text active:scale-94 focus-visible:outline focus-visible:outline-3 focus-visible:outline-focus focus-visible:outline-offset-2" :aria-label="t('calendar.previousMonth')" @click="changeMonth(-1)">
+            <button type="button" class="enpii-calendar__nav grid h-10 w-10 cursor-pointer place-items-center rounded-full border-0 bg-none text-on-surface-variant transition-[background,color,transform] duration-fast ease-emphasized hover:bg-neutral-soft hover:text-primary-text active:scale-94 focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)]" :aria-label="t('calendar.previousMonth')" @click="changeMonth(-1)">
                 <AppIcon name="chevron_left" class="enpii-calendar__nav-icon h-5 w-5 text-xl leading-none" />
             </button>
             <p class="enpii-calendar__month m-0 truncate text-center text-primary-text text-sm font-medium capitalize" aria-live="polite">{{ monthLabel }}</p>
-            <button type="button" class="enpii-calendar__nav grid h-10 w-10 cursor-pointer place-items-center rounded-full border-0 bg-none text-on-surface-variant transition-[background,color,transform] duration-fast ease-emphasized hover:bg-neutral-soft hover:text-primary-text active:scale-94 focus-visible:outline focus-visible:outline-3 focus-visible:outline-focus focus-visible:outline-offset-2" :aria-label="t('calendar.nextMonth')" @click="changeMonth(1)">
+            <button type="button" class="enpii-calendar__nav grid h-10 w-10 cursor-pointer place-items-center rounded-full border-0 bg-none text-on-surface-variant transition-[background,color,transform] duration-fast ease-emphasized hover:bg-neutral-soft hover:text-primary-text active:scale-94 focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)]" :aria-label="t('calendar.nextMonth')" @click="changeMonth(1)">
                 <AppIcon name="chevron_right" class="enpii-calendar__nav-icon h-5 w-5 text-xl leading-none" />
             </button>
         </header>
@@ -215,7 +215,7 @@ watch(month, () => {
                     :key="day.iso"
                     type="button"
                     role="gridcell"
-                    class="enpii-calendar__day relative mx-auto grid min-h-10 min-w-9 place-items-center rounded-[calc(var(--radius-control)-.25rem)] border-0 bg-none p-0 text-on-surface text-sm font-medium tabular-nums transition-[background,color,box-shadow,transform] duration-fast ease-emphasized hover:bg-neutral-soft focus-visible:outline focus-visible:outline-3 focus-visible:outline-focus focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:text-outline disabled:opacity-45 max-[24rem]:min-w-10 max-[24rem]:text-[.8125rem]"
+                    class="enpii-calendar__day relative mx-auto grid min-h-10 min-w-9 place-items-center rounded-[calc(var(--radius-control)-.25rem)] border-0 bg-none p-0 text-on-surface text-sm font-medium tabular-nums transition-[background,color,box-shadow,transform] duration-fast ease-emphasized hover:bg-neutral-soft focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)] disabled:cursor-not-allowed disabled:text-outline disabled:opacity-45 max-[24rem]:min-w-10 max-[24rem]:text-[.8125rem]"
                     :class="{
                         'text-warning-text': day.isWeekend,
                         'text-outline': day.isOutsideMonth,

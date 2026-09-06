@@ -82,7 +82,7 @@ const roleLabels = {
                     class="enpii-loan-history-table__row"
                 >
                     <td class="enpii-loan-history-table__td px-3 py-2">
-                        <button type="button" class="enpii-loan-history-table__link border-0 bg-none font-semibold text-primary-text hover:underline focus-visible:outline focus-visible:outline-3 focus-visible:outline-focus focus-visible:outline-offset-2" @click="navigation.navigate(loan.href); emit('navigate', loan.href)">
+                        <button type="button" class="enpii-loan-history-table__link border-0 bg-none font-semibold text-primary-text hover:underline focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)]" @click="navigation.navigate(loan.href); emit('navigate', loan.href)">
                             #{{ loan.id }}
                         </button>
                         <div v-if="loan.loan_number" class="enpii-loan-history-table__meta text-on-surface-variant text-[.625rem]">

@@ -53,7 +53,7 @@ function pillClass(item) {
     const active = props.modelValue === item.value;
     const isCompact = props.size === "compact";
     return [
-        "enpii-filter-pill__button enpii-filter-pill__button--structural inline-flex items-center gap-1 text-sm font-semibold cursor-pointer [transition-property:all] duration-fast ease-emphasized focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-focus focus-visible:outline-offset-2 active:enabled:[transform:var(--press-transform)] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none",
+        "enpii-filter-pill__button enpii-filter-pill__button--structural inline-flex items-center gap-1 text-sm font-semibold cursor-pointer [transition-property:all] duration-fast ease-emphasized focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)] active:enabled:[transform:var(--press-transform)] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none",
         `enpii-filter-pill__button--${props.variant}`,
         variantClasses[props.variant] || variantClasses.outline,
         isCompact ? "enpii-filter-pill__button--compact !py-1 !px-3 !text-xs" : "",

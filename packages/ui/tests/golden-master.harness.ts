@@ -555,7 +555,7 @@ function readSnapshot(element: Element): GoldenSnapshot {
   for (const property of GOLDEN_PROPERTIES) {
     if (property === 'outline') {
       const outline = computed.getPropertyValue('outline').trim()
-      if (outline) {
+      if (outline && outline !== 'none') {
         snapshot[property] = normalizeRem(outline)
       } else {
         const style = computed.getPropertyValue('outline-style').trim()
@@ -567,6 +567,23 @@ function readSnapshot(element: Element): GoldenSnapshot {
           snapshot[property] = ''
         }
       }
+      continue
+    }
+    if (property === 'border-width') {
+      const width = computed.getPropertyValue('border-width').trim()
+      const style = computed.getPropertyValue('border-style').trim()
+      snapshot[property] = (width === '0px' && (!style || style === 'none')) ? '' : normalizeRem(width)
+      continue
+    }
+    if (property === 'border-style') {
+      const style = computed.getPropertyValue('border-style').trim()
+      snapshot[property] = style === 'none' ? '' : style
+      continue
+    }
+    if (property === 'border-color') {
+      const style = computed.getPropertyValue('border-style').trim()
+      const color = computed.getPropertyValue('border-color').trim()
+      snapshot[property] = style === 'none' ? '' : color
       continue
     }
     if (property === 'border-radius') {

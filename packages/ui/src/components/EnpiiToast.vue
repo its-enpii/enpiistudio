@@ -86,7 +86,7 @@ const toastIconToneClasses = {
                     <!-- Close Button -->
                     <button
                         type="button"
-                        class="enpii-toast__close grid place-items-center w-8 h-8 shrink-0 border-0 bg-transparent text-on-surface-variant rounded-[9999px] cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:bg-surface-container-high hover:text-on-surface focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-focus"
+                        class="enpii-toast__close grid place-items-center w-8 h-8 shrink-0 border-0 bg-transparent text-on-surface-variant rounded-[9999px] cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:bg-surface-container-high hover:text-on-surface focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus"
                         :aria-label="t('toast.close')"
                         @click="dismiss"
                     >

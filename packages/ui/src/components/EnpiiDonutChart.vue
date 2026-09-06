@@ -73,7 +73,7 @@ const ariaLabel = computed(() => {
     </svg>
     <ul class="enpii-donut-chart__legend m-0 p-0 flex flex-col gap-2 list-none">
       <li v-for="segment in segments" :key="segment.key" class="enpii-donut-chart__legend-item flex items-center gap-2 text-sm text-on-surface">
-        <span class="enpii-donut-chart__swatch w-2.5 h-2.5 rounded-[0.125rem] shrink-0" :style="{ background: segment.color }" />
+        <span class="enpii-donut-chart__swatch w-2.5 h-2.5 rounded-track shrink-0" :style="{ background: segment.color }" />
         <span>{{ segment.label }}</span>
         <span class="enpii-donut-chart__legend-value ml-auto font-medium tabular-nums text-on-surface-variant">{{ segment.percentage }}%</span>
       </li>

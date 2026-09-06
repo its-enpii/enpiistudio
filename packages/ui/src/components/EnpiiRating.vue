@@ -67,7 +67,7 @@ function onKeydown(event) {
                 v-for="value in safeMax"
                 :key="value"
                 type="button"
-                class="enpii-rating__star grid place-items-center p-0 border-0 bg-transparent text-outline-variant rounded-sm cursor-pointer [transition-property:color,transform] duration-fast ease-standard motion-reduce:transition-none hover:enabled:text-tertiary-fixed-dim hover:enabled:scale-105 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:cursor-default"
+                class="enpii-rating__star grid place-items-center p-0 border-0 bg-transparent text-outline-variant rounded-sm cursor-pointer [transition-property:color,transform] duration-fast ease-standard motion-reduce:transition-none hover:enabled:text-tertiary-fixed-dim hover:enabled:scale-105 focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus disabled:cursor-default"
                 :class="{ 'enpii-rating__star--active': value <= previewValue }"
                 :disabled="readonly"
                 :tabindex="-1"

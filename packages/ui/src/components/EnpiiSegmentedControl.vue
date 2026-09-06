@@ -98,7 +98,7 @@ function onKeydown(event) {
             :key="option.value"
             type="button"
             role="radio"
-            class="enpii-segmented-control__option relative z-[1] inline-flex items-center justify-center gap-1.5 self-stretch h-auto py-2 px-3 border-0 rounded-[calc(var(--radius-control)-0.25rem)] bg-transparent text-control font-medium leading-none cursor-pointer [transition-property:color] duration-fast ease-emphasized focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-focus focus-visible:-outline-offset-2 disabled:cursor-not-allowed disabled:opacity-45 max-sm:px-2.5 max-sm:min-w-0"
+            class="enpii-segmented-control__option relative z-[1] inline-flex items-center justify-center gap-1.5 self-stretch h-auto py-2 px-3 border-0 rounded-[calc(var(--radius-control)-0.25rem)] bg-transparent text-control font-medium leading-none cursor-pointer [transition-property:color] duration-fast ease-emphasized focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset-negative)] disabled:cursor-not-allowed disabled:opacity-45 max-sm:px-2.5 max-sm:min-w-0"
             :class="[
                 inline ? 'flex-none' : 'flex-1',
                 size === 'sm' ? 'min-h-9 !text-[0.8125rem]' : '',

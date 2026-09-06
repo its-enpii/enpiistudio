@@ -239,7 +239,7 @@ onBeforeUnmount(() => {
     <div class="enpii-color-picker__sliders flex flex-col gap-1.5">
       <div
         ref="hueRef"
-        class="enpii-color-picker__slider enpii-color-picker__slider--hue relative w-full h-8 min-h-10 rounded-[0.25rem] cursor-pointer touch-none bg-[linear-gradient(to_right,rgb(255_0_0),rgb(255_255_0),rgb(0_255_0),rgb(0_255_255),rgb(0_0_255),rgb(255_0_255),rgb(255_0_0))] focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-focus"
+        class="enpii-color-picker__slider enpii-color-picker__slider--hue relative w-full h-8 min-h-10 rounded-control-sm cursor-pointer touch-none bg-[linear-gradient(to_right,rgb(255_0_0),rgb(255_255_0),rgb(0_255_0),rgb(0_255_255),rgb(0_0_255),rgb(255_0_255),rgb(255_0_0))] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus"
         role="slider"
         tabindex="0"
         :aria-label="t('colorPicker.hueLabel')"
@@ -259,7 +259,7 @@ onBeforeUnmount(() => {
       <div
         v-if="showAlpha"
         ref="alphaRef"
-        class="enpii-color-picker__slider enpii-color-picker__slider--alpha relative w-full h-8 min-h-10 rounded-[0.25rem] cursor-pointer touch-none bg-[linear-gradient(to_right,var(--cp-alpha-start),var(--cp-alpha-end))] focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-focus"
+        class="enpii-color-picker__slider enpii-color-picker__slider--alpha relative w-full h-8 min-h-10 rounded-control-sm cursor-pointer touch-none bg-[linear-gradient(to_right,var(--cp-alpha-start),var(--cp-alpha-end))] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus"
         role="slider"
         tabindex="0"
         :aria-label="t('colorPicker.alphaLabel')"
@@ -299,7 +299,7 @@ onBeforeUnmount(() => {
         v-for="color in swatches"
         :key="color"
         type="button"
-        class="enpii-color-picker__swatch w-10 h-10 min-h-10 p-0 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)] cursor-pointer [transition-property:box-shadow,transform] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:[box-shadow:var(--shadow-focus)] active:enabled:[box-shadow:var(--shadow-control-pressed)] focus-visible:outline-3 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-focus disabled:opacity-50 disabled:cursor-not-allowed"
+        class="enpii-color-picker__swatch w-10 h-10 min-h-10 p-0 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)] cursor-pointer [transition-property:box-shadow,transform] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:[box-shadow:var(--shadow-focus)] active:enabled:[box-shadow:var(--shadow-control-pressed)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus disabled:opacity-50 disabled:cursor-not-allowed"
         :class="{ 'enpii-color-picker__swatch--active shadow-[inset_0_0_0_2px_var(--color-surface-container-lowest),0_0_0_2px_var(--color-primary)]': currentHex === color }"
         :style="{ backgroundColor: `var(${swatchToken(color)})` }"
         :aria-label="t('colorPicker.selectSwatch', { color })"

@@ -167,7 +167,7 @@ function toMonthValue(year, month) {
                 :href="pdfHref()"
                 target="_blank"
                 rel="noopener"
-                class="enpii-report-period-filter__export inline-flex min-h-control items-center rounded-control border border-outline-variant [border-width:var(--control-border-width)] px-4 text-primary-text text-sm font-semibold no-underline hover:bg-surface-container-low focus-visible:outline focus-visible:outline-3 focus-visible:outline-focus focus-visible:outline-offset-2"
+                class="enpii-report-period-filter__export inline-flex min-h-control items-center rounded-control border border-outline-variant [border-width:var(--control-border-width)] px-4 text-primary-text text-sm font-semibold no-underline hover:bg-surface-container-low focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)]"
                 :class="shapeClass"
             >
                 PDF
@@ -175,7 +175,7 @@ function toMonthValue(year, month) {
             <a
                 v-if="excelUrl"
                 :href="excelHref()"
-                class="enpii-report-period-filter__export inline-flex min-h-control items-center rounded-control border border-outline-variant [border-width:var(--control-border-width)] px-4 text-primary-text text-sm font-semibold no-underline hover:bg-surface-container-low focus-visible:outline focus-visible:outline-3 focus-visible:outline-focus focus-visible:outline-offset-2"
+                class="enpii-report-period-filter__export inline-flex min-h-control items-center rounded-control border border-outline-variant [border-width:var(--control-border-width)] px-4 text-primary-text text-sm font-semibold no-underline hover:bg-surface-container-low focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)]"
                 :class="shapeClass"
             >
                 <AppIcon name="table_view" class="enpii-report-period-filter__export-icon text-base" />

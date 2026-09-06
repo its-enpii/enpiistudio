@@ -169,7 +169,7 @@ onBeforeUnmount(() => {
   >
     <div
       ref="triggerRef"
-      class="enpii-popover__trigger inline-flex min-w-10 min-h-10 items-center justify-center p-0 border-0 bg-none font-[inherit] text-[inherit] cursor-pointer [transition-property:background,box-shadow] duration-fast ease-emphasized motion-reduce:transition-none focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-focus"
+      class="enpii-popover__trigger inline-flex min-w-10 min-h-10 items-center justify-center p-0 border-0 bg-none font-[inherit] text-[inherit] cursor-pointer [transition-property:background,box-shadow] duration-fast ease-emphasized motion-reduce:transition-none focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus"
       role="button"
       tabindex="0"
       :aria-expanded="isOpen"

@@ -24,7 +24,7 @@ defineEmits(['navigate']);
                     <h3 class="enpii-footer__title m-0 mb-2 text-inherit opacity-80 text-sm font-semibold">{{ column.title }}</h3>
                     <ul class="enpii-footer__links grid gap-1 m-0 p-0 list-none">
                         <li v-for="link in column.links" :key="link.key ?? link.href">
-                            <a :href="link.href ?? '#'" class="enpii-footer__link text-inherit no-underline opacity-78 hover:opacity-100 hover:underline focus-visible:opacity-100 focus-visible:underline focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-focus" @click="$emit('navigate', link)">{{ link.label }}</a>
+                            <a :href="link.href ?? '#'" class="enpii-footer__link text-inherit no-underline opacity-78 hover:opacity-100 hover:underline focus-visible:opacity-100 focus-visible:underline focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus" @click="$emit('navigate', link)">{{ link.label }}</a>
                         </li>
                     </ul>
                 </section>

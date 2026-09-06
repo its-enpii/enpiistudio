@@ -227,7 +227,7 @@ onBeforeUnmount(() => {
         <button
             type="button"
             ref="trigger"
-            class="enpii-notification-dropdown__trigger grid h-10 w-10 place-items-center rounded-full border-0 bg-transparent text-on-surface-variant transition-all duration-fast ease-emphasized hover:bg-surface-container hover:text-primary active:scale-90 focus-visible:outline focus-visible:outline-3 focus-visible:outline-focus focus-visible:outline-offset-2 aria-expanded:bg-surface-container aria-expanded:text-primary"
+            class="enpii-notification-dropdown__trigger grid h-10 w-10 place-items-center rounded-full border-0 bg-transparent text-on-surface-variant transition-all duration-fast ease-emphasized hover:bg-surface-container hover:text-primary active:scale-90 focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)] aria-expanded:bg-surface-container aria-expanded:text-primary"
             :aria-label="t('notification.ariaLabel')"
             :aria-expanded="open"
             @click="toggleDropdown"

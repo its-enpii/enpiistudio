@@ -20,10 +20,10 @@ defineExpose({ root });
 <template>
     <section
         ref="root"
-        class="enpii-card rounded-control bg-surface-container-lowest shadow-card text-on-surface font-sans leading-normal transition-[box-shadow,transform,border-color] duration-fast ease-emphasized hover:shadow-control active:[box-shadow:var(--shadow-control-pressed)] active:[transform:var(--press-transform)] [&_h1,&_h2,&_h3,&_h4,&_h5,&_h6]:m-0 [&_h1,&_h2,&_h3,&_h4,&_h5,&_h6]:font-semibold [&_h1,&_h2,&_h3,&_h4,&_h5,&_h6]:leading-[1.25] [&_p]:m-0 [&_h1]:text-2xl [&_h2]:text-xl [&_h3]:text-lg [&_h4]:text-base [&_h5]:text-sm [&_h6]:text-sm"
+        class="enpii-card rounded-control bg-surface-container-lowest shadow-card text-on-surface font-sans leading-normal transition-[box-shadow,transform,border-color] duration-fast ease-emphasized [border-width:var(--card-border-width)] [border-style:var(--card-border-style)] [border-color:var(--card-border-color)] hover:shadow-control active:[box-shadow:var(--shadow-control-pressed)] active:[transform:var(--press-transform)] [&_h1,&_h2,&_h3,&_h4,&_h5,&_h6]:m-0 [&_h1,&_h2,&_h3,&_h4,&_h5,&_h6]:font-semibold [&_h1,&_h2,&_h3,&_h4,&_h5,&_h6]:leading-[1.25] [&_p]:m-0 [&_h1]:text-2xl [&_h2]:text-xl [&_h3]:text-lg [&_h4]:text-base [&_h5]:text-sm [&_h6]:text-sm"
         :class="[
             padded ? 'p-6' : 'enpii-card--unpadded',
-            { 'enpii-card--bordered border border-solid border-outline-variant': bordered },
+            { 'enpii-card--bordered border border-solid [border-width:max(var(--card-border-width),1px)] [border-color:var(--card-border-color)]': bordered },
             shapeClass,
         ]"
     >

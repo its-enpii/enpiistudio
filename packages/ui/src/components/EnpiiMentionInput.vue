@@ -258,7 +258,7 @@ defineExpose({ parseMentions })
                     v-for="(user, index) in filteredUsers"
                     :id="optionId(index)"
                     :key="user.id"
-                    class="enpii-mention-input__suggestion flex items-center gap-2 min-h-10 py-2 px-2.5 border-0 rounded-[calc(var(--radius-control)-0.25rem)] bg-transparent text-on-surface text-sm font-normal text-left cursor-pointer [transition-property:background] duration-fast ease-emphasized motion-reduce:transition-none hover:bg-neutral-soft data-active:true:bg-neutral-soft focus-visible:outline-3 focus-visible:-outline-offset-2 focus-visible:outline-focus"
+                    class="enpii-mention-input__suggestion flex items-center gap-2 min-h-10 py-2 px-2.5 border-0 rounded-[calc(var(--radius-control)-0.25rem)] bg-transparent text-on-surface text-sm font-normal text-left cursor-pointer [transition-property:background] duration-fast ease-emphasized motion-reduce:transition-none hover:bg-neutral-soft data-active:true:bg-neutral-soft focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset-negative)] focus-visible:outline-focus"
                     role="option"
                     :aria-selected="index === activeIndex"
                     :data-active="index === activeIndex"

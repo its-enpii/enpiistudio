@@ -80,7 +80,7 @@ function submitImport() {
                 ref="fileInput"
                 type="file"
                 accept=".csv,text/csv,application/vnd.ms-excel"
-                class="enpii-csv-import-export__input w-full rounded-control border border-outline-variant [border-width:var(--control-border-width)] bg-surface-container-lowest px-4 py-3 text-primary-text text-sm outline-none focus-visible:outline focus-visible:outline-3 focus-visible:outline-focus focus-visible:outline-offset-2 file:mr-3 file:rounded-md file:border-0 file:bg-primary file:px-3 file:py-2 file:font-semibold file:text-on-primary"
+                class="enpii-csv-import-export__input w-full rounded-control border border-outline-variant [border-width:var(--control-border-width)] bg-surface-container-lowest px-4 py-3 text-primary-text text-sm outline-none focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)] file:mr-3 file:rounded-md file:border-0 file:bg-primary file:px-3 file:py-2 file:font-semibold file:text-on-primary"
                 :class="shapeClass"
                 @change="onFileChange"
             />

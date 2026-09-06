@@ -251,7 +251,7 @@ onBeforeUnmount(() => {
             :id="`${dropdownId}-trigger`"
             ref="triggerRef"
             type="button"
-            class="enpii-dropdown-menu__trigger inline-flex items-center justify-center rounded-control border-0 bg-none text-on-surface-variant cursor-pointer [transition-property:all] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:bg-neutral-soft hover:enabled:text-on-surface focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:opacity-60 disabled:cursor-not-allowed"
+            class="enpii-dropdown-menu__trigger inline-flex items-center justify-center rounded-control border-0 bg-none text-on-surface-variant cursor-pointer [transition-property:all] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:bg-neutral-soft hover:enabled:text-on-surface focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus disabled:opacity-60 disabled:cursor-not-allowed"
             :class="[
                 `enpii-dropdown-menu__trigger--${size}`,
                 size === 'sm' && 'w-control-height-sm h-control-height-sm text-[1.125rem]',
@@ -293,7 +293,7 @@ onBeforeUnmount(() => {
                             v-if="item.label"
                             type="button"
                             role="menuitem"
-                            class="enpii-dropdown-menu__item flex w-full items-center gap-2 rounded-[calc(var(--radius-control)_-_0.125rem)] border-0 bg-none py-2 px-3 text-on-surface font-sans text-control leading-[1.4] text-left cursor-pointer [transition-property:background] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:bg-neutral-soft focus-visible:outline-3 focus-visible:outline-offset-[-2px] focus-visible:outline-focus disabled:cursor-not-allowed"
+                            class="enpii-dropdown-menu__item flex w-full items-center gap-2 rounded-[calc(var(--radius-control)_-_0.125rem)] border-0 bg-none py-2 px-3 text-on-surface font-sans text-control leading-[1.4] text-left cursor-pointer [transition-property:background] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:bg-neutral-soft focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-offset-[-2px] focus-visible:outline-focus disabled:cursor-not-allowed"
                             :class="[
                                 {
                                     'enpii-dropdown-menu__item--highlighted': index === highlighted,
