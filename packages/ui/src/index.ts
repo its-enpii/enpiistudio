@@ -1,4 +1,3 @@
-import './styles/components.css'
 import './styles/icon-font.css'
 
 export { default as enpiiUi } from './plugin'

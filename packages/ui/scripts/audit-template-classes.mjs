@@ -94,7 +94,7 @@ function componentMarkerFor(filename) {
     .replace(/^Enpii/, '')
     .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
     .toLowerCase()
-  return new RegExp(`^enpii-${componentName}(?:__|--|\\*)`)
+  return new RegExp(`^enpii-${componentName}(?:$|[a-zA-Z0-9_-]*)`)
 }
 
 function componentSuffixMarkersFor(componentMarker, expression) {
@@ -197,17 +197,35 @@ function readStyleRules(style) {
   return selectors.flatMap(selectorClassTokens)
 }
 
+function legacyComponentCssTokens() {
+  const filename = resolve('src/styles/components.css')
+  try {
+    const { rules } = parseCss({
+      filename,
+      code: Buffer.from(readFileSync(filename, 'utf8')),
+    })
+    return new Set(rules.flatMap(rule => rule.type === 'style' ? selectorClassTokens(rule.selector) : []))
+  } catch (error) {
+    if (error.code === 'ENOENT') return new Set()
+    throw error
+  }
+}
+
 export async function auditTemplateClasses() {
   const designSystem = await loadTailwindDesignSystem()
   const candidates = scannedCandidates()
   const componentsDirectory = resolve('src/components')
+  const legacyComponentClasses = legacyComponentCssTokens()
   const violations = []
 
   for (const filename of readdirSync(componentsDirectory).filter(name => name.endsWith('.vue')).sort()) {
     const { descriptor, errors } = parse(readFileSync(resolve(componentsDirectory, filename), 'utf8'), { filename })
     if (errors.length) throw errors[0]
 
-    const componentClasses = new Set(descriptor.styles.flatMap(readStyleRules))
+    const componentClasses = new Set([
+      ...legacyComponentClasses,
+      ...descriptor.styles.flatMap(readStyleRules),
+    ])
     const templateClasses = new Map()
     const componentMarker = componentMarkerFor(filename)
     walkTemplate(descriptor.template.ast, filename, (token, line) => {
@@ -217,11 +235,12 @@ export async function auditTemplateClasses() {
     for (const [token, line] of [...templateClasses].sort(([, left], [, right]) => left - right)) {
       const isComponentToken = token.startsWith('enpii-')
   const isComponentMarker = isComponentToken && componentMarker.test(token)
-      const isTailwindUtility = !isComponentToken && candidates.has(token) && designSystem.candidatesToCss([token])[0] !== null
+      const isTailwindUtility = candidates.has(token) && designSystem.candidatesToCss([token])[0] !== null
       const isComponentClass = componentClasses.has(token)
 
       if (isComponentToken) {
-        if (isComponentMarker || token.endsWith('--') || token.endsWith('__')) continue
+        const isPureMarker = isComponentMarker && !isTailwindUtility && !isComponentClass
+        if (token.endsWith('--') || token.endsWith('__') || isPureMarker) continue
         if (!isTailwindUtility && !isComponentClass) {
           violations.push({ filename, line, token, category: 'undefined' })
         }

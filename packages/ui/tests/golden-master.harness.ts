@@ -377,7 +377,6 @@ function extractUtilitiesLayer(css: string): string {
 
 function appendStyles(theme: GoldenTheme): HTMLStyleElement[] {
   const entry = readFileSync(resolve(uiDirectory, 'entry.tailwind.css'), 'utf8')
-  const components = readFileSync(resolve(uiDirectory, 'src/styles/components.css'), 'utf8')
   const themeProps = extractCustomProperties(entry)
   const tokenValues = themeProps
   const lightTokens = extractCustomProperties(extractBlock(entry, '@theme'))
@@ -411,12 +410,6 @@ function appendStyles(theme: GoldenTheme): HTMLStyleElement[] {
     }
   }
 
-  let bemCss = replaceVariablesWithFallback(components, tokenValues)
-  bemCss = bemCss.replace(/background:/g, 'background-color:')
-  bemCss = bemCss.replace(/transition:([^;}]+)/g, (_, value: string) => `transition-property:${value.split(/,(?![^()]*\))/).map(part => part.trim().split(/\s+/)[0]).join(', ')}`)
-  bemCss = addStateAliases(bemCss, componentStateSelectors())
-  bemCss += transitionZeroCss
-
   let twCss = ''
   const tailwindPath = resolve(uiDirectory, 'dist/tailwind.css')
   if (existsSync(tailwindPath)) {
@@ -434,7 +427,7 @@ function appendStyles(theme: GoldenTheme): HTMLStyleElement[] {
   }
 
   const base = document.createElement('style')
-  base.textContent = bemCss + '\n' + twCss
+  base.textContent = twCss
   document.head.append(base)
   return [base]
 }

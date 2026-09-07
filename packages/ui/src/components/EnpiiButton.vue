@@ -61,6 +61,8 @@ const shapeUtility = computed(() => {
     if (props.shape === 'sharp') return 'rounded-none';
     return 'rounded-control';
 });
+
+const structuralUtility = '[border-color:var(--color-ink)]';
 </script>
 
 <template>
@@ -76,7 +78,7 @@ const shapeUtility = computed(() => {
             shapeClass,
             sizeClass,
             variantClass,
-            'enpii-button--structural',
+            structuralUtility,
             shapeUtility,
         ]"
         :aria-busy="isLoading"

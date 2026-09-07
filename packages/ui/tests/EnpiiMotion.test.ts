@@ -56,8 +56,8 @@ describe('Motion tokens', () => {
   })
 
   it('reduced-motion sets transition duration to 0 instead of hiding transitions', () => {
-    const css = readFileSync(resolve(process.cwd(), 'src/styles/components.css'), 'utf8')
-    expect(css).toContain('transition-duration:0s!important')
+    const css = readFileSync(resolve(process.cwd(), 'entry.tailwind.css'), 'utf8')
+    expect(css).toContain('transition-duration: 0s !important')
     expect(css).not.toContain('transition:none!important;animation-duration:.01ms!important')
   })
 })

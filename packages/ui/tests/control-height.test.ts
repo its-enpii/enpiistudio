@@ -9,7 +9,6 @@ import {
   EnpiiSmartSelect,
 } from '../src'
 
-const css = readFileSync(resolve(__dirname, '../src/styles/components.css'), 'utf8')
 const twCss = readFileSync(resolve(__dirname, '../entry.tailwind.css'), 'utf8')
 const inputVue = readFileSync(resolve(__dirname, '../src/components/EnpiiInput.vue'), 'utf8')
 const currencyVue = readFileSync(resolve(__dirname, '../src/components/EnpiiCurrencyInput.vue'), 'utf8')
@@ -41,12 +40,12 @@ function readRule(selector: string) {
     return 'min-height: 3rem'
   }
   const escapedSelector = selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-  const rule = css.match(new RegExp(`${escapedSelector}\{[^}]*\}`))
-  expect(rule, `rule for ${selector} must exist in components.css`).toBeTruthy()
+  const rule = twCss.match(new RegExp(`${escapedSelector}\\{[^}]*\\}`))
+  expect(rule, `rule for ${selector} must exist in entry.tailwind.css`).toBeTruthy()
   return rule![0]
 }
 
-describe('field control height contract (styles/components.css)', () => {
+describe('field control height contract', () => {
   const controlSelectors = [
     '.enpii-button',
     '.enpii-currency-input__control',

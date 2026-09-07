@@ -71,7 +71,7 @@ const roleLabels = {
             </thead>
             <tbody>
                 <tr v-if="loans.length === 0">
-                    <td colspan="7" class="enpii-loan-history-table__empty px-3 py-10 text-center">
+                    <td colspan="7" class="enpii-loan-history-table__empty-cell px-3 py-10 text-center text-on-surface-variant text-sm">
                         <p class="enpii-loan-history-table__empty-title m-0 font-semibold text-on-surface">{{ emptyTitle }}</p>
                         <p class="enpii-loan-history-table__empty-description mt-1 mb-0 text-on-surface-variant text-sm">{{ emptyDescription }}</p>
                     </td>
@@ -82,7 +82,7 @@ const roleLabels = {
                     class="enpii-loan-history-table__row"
                 >
                     <td class="enpii-loan-history-table__td px-3 py-2">
-                        <button type="button" class="enpii-loan-history-table__link border-0 bg-none font-semibold text-primary-text hover:underline focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)]" @click="navigation.navigate(loan.href); emit('navigate', loan.href)">
+                        <button type="button" class="enpii-loan-history-table__link-static border-0 bg-none font-semibold text-primary-text hover:underline focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)]" @click="navigation.navigate(loan.href); emit('navigate', loan.href)">
                             #{{ loan.id }}
                         </button>
                         <div v-if="loan.loan_number" class="enpii-loan-history-table__meta text-on-surface-variant text-[.625rem]">

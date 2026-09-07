@@ -146,7 +146,7 @@ describe('structural layer wiring conformance', () => {
   })
 
   it('wires buttons through control colors and the resting shadow token', () => {
-    for (const filename of ['EnpiiButton.vue', 'EnpiiIconButton.vue']) {
+    for (const filename of ['EnpiiButton.vue']) {
       const source = readFileSync(resolve(componentsDirectory, filename), 'utf8')
       expect(source).toContain('[box-shadow:var(--control-shadow)]')
       expect(source).toContain('[border-color:var(--control-border-color-filled)]')

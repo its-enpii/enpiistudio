@@ -166,3 +166,8 @@ Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7. Semua item selesai.
 - Menambahkan conformance permanen `defined-classes.conformance.spec.ts`: setiap token kelas template wajib resolve ke utility Tailwind, style BEM komponen, atau `@utility` yang dikirim ke consumer; pelanggaran redundan di KanbanBoard dan WhatsAppPreview diperbaiki.
 - Menambahkan `EnpiiLabel` sebagai kontrak label (`for`, size, tone, required, hidden) dengan tipografi token-based dan memigrasikan label ad-hoc pada 21 komponen form/input terkait tanpa mengubah pasangan `for`/`id` maupun aksesibilitas.
 - Verifikasi: `check` 0 error; `test` 37 files/364 tests pass; `test:tailwind` 3 tests + smoke pass; `golden:check` 4 tests pass 0 snapshot diff; `build` sukses.
+
+### 2026-09-07 — UI v1.3.0 class ship audit selesai
+- Menutup audit hole pada class conformance: token marker hanya boleh lolos bila merupakan pure marker; rule BEM di `components.css` kini dianggap risiko dead CSS. Fixture 121 token historis dikunci sebagai pure marker agar regkresi tidak berulang.
+- Memigrasikan label/markdown helper ke `@utility`, memindahkan border structural/filled ke inline utilities, memindahkan global `prefers-reduced-motion` guard ke `entry.tailwind.css`, dan menghapus `src/styles/components.css` dari source/package import. 140 token mati dihapus; 121 token ber-style historis dipastikan sudah memiliki padanan aktif atau merupakan pure marker; snapshot golden tetap 0 diff.
+- Verifikasi: `check` 0 error; `test` 37 files/365 tests pass; `test:tailwind` 3 tests + smoke pass; `golden:check` 4 tests pass 0 snapshot diff; `build` sukses.

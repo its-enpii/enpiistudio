@@ -23,6 +23,7 @@ const labelClasses = computed(() => [
   'enpii-label',
   `enpii-label--${props.size}`,
   `enpii-label--${props.tone}`,
+  props.hidden ? 'enpii-sr-only' : '[color:var(--color-on-surface-variant)] font-semibold [letter-spacing:.02em]',
   { 'enpii-sr-only': props.hidden },
 ])
 </script>
