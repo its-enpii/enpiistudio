@@ -53,11 +53,15 @@ describe("golden-master baseline", () => {
       writeFileSync(baselinePath, `${JSON.stringify(snapshots, null, 2)}\n`)
       expect(Object.keys(snapshots).length).toBeGreaterThan(0)
     })
-  } else if (goldenMode === "bem") {
+  } else if (goldenMode === "bem" && process.env.GOLDEN_BASELINE !== "0") {
     it("matches the committed BEM baseline", { timeout: 120000 }, () => {
       const baseline = readBaseline()
       const current = captureGoldenStyles()
       assertParity(baseline, current, 0.5)
+    })
+  } else {
+    it("skips committed baseline comparison when recording", () => {
+      expect(process.env.GOLDEN_BASELINE).toBe("0")
     })
   }
 })

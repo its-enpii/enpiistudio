@@ -44,7 +44,7 @@ const normalizedVariant = computed(() => {
 const navVariantClasses = {
     'underline': 'flex flex-wrap gap-x-6 gap-y-1',
     'pill': 'flex w-full flex-col gap-1',
-    'pills-bar': 'flex flex-wrap gap-1 rounded-control border border-solid [border-width:var(--control-border-width)] [border-color:var(--control-border-color)] bg-surface-container-lowest p-1',
+    'pills-bar': 'flex flex-wrap gap-1 rounded-control border border-solid [border-width:var(--control-border-width)] [border-color:var(--control-border-color)] [background-color:var(--overlay-surface-bg)] p-1',
 };
 
 function tabClass(item) {
@@ -67,23 +67,23 @@ function tabClass(item) {
     if (variant === 'underline') {
         classes.push('pt-2 px-1 pb-3 border-b-2 text-sm');
         if (active) {
-            classes.push('border-b-primary text-primary-text font-semibold');
+            classes.push('[border-bottom-color:var(--tone-primary-border)] [color:var(--nav-active-fg)] font-semibold');
         } else {
-            classes.push('border-transparent text-on-surface-variant font-medium hover:border-b-outline hover:text-on-surface');
+            classes.push('border-transparent [color:var(--nav-fg)] font-medium hover:[border-bottom-color:var(--tone-neutral-border)] hover:[color:var(--nav-active-fg)]');
         }
     } else if (variant === 'pill') {
         classes.push('w-full justify-start py-2 px-3 rounded-lg text-sm text-left');
         if (active) {
-            classes.push('bg-primary-container text-on-primary-container font-semibold');
+            classes.push('[background-color:var(--nav-active-bg)] [color:var(--nav-active-fg)] font-semibold');
         } else {
-            classes.push('text-on-surface-variant font-medium hover:bg-surface-container hover:text-on-surface');
+            classes.push('[color:var(--nav-fg)] font-medium hover:[background-color:var(--nav-hover-bg)] hover:[color:var(--nav-active-fg)]');
         }
     } else if (variant === 'pills-bar') {
         classes.push('py-2 px-4 rounded-lg text-sm');
         if (active) {
-            classes.push('bg-primary text-on-primary shadow-control font-semibold');
+            classes.push('[background-color:var(--tone-primary-bg)] [color:var(--tone-primary-fg)] shadow-control font-semibold');
         } else {
-            classes.push('text-on-surface-variant font-semibold hover:bg-surface-container-low hover:text-primary-text');
+            classes.push('[color:var(--nav-fg)] font-semibold hover:[background-color:var(--nav-hover-bg)] hover:[color:var(--nav-active-fg)]');
         }
     }
 
@@ -108,7 +108,7 @@ function tabClass(item) {
             <span class="enpii-tabs__label truncate">{{ item.label }}</span>
             <span
                 v-if="item.badge !== undefined && item.badge !== null"
-                class="enpii-tabs__badge inline-flex items-center justify-center min-w-4 ml-auto px-1 rounded-full bg-error/15 text-danger-text text-[.625rem] font-semibold leading-4"
+                class="enpii-tabs__badge inline-flex items-center justify-center min-w-4 ml-auto px-1 rounded-full [background-color:var(--tone-danger-soft-bg)] [color:var(--tone-danger-soft-fg)] text-[.625rem] font-semibold leading-4"
             >{{ item.badge }}</span>
         </button>
     </nav>

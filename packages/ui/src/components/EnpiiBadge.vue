@@ -40,17 +40,17 @@ const sizeClass = computed(() => {
 
 const toneClass = computed(() => {
     switch (props.tone) {
-        case 'success': return 'bg-success-border text-success-text';
-        case 'warning': return 'bg-warning-text text-on-primary';
-        case 'error': return 'bg-error-container text-on-error-container';
+        case 'success': return '[background-color:var(--tone-success-bg)] [color:var(--tone-success-fg)]';
+        case 'warning': return '[background-color:var(--tone-warning-bg)] [color:var(--tone-warning-fg)]';
+        case 'error': return '[background-color:var(--tone-danger-bg)] [color:var(--tone-danger-fg)]';
         case 'primary':
-        case 'info-soft': return 'bg-primary text-on-primary';
-        case 'success-soft': return 'bg-badge-success-soft text-success-text';
-        case 'warning-soft': return 'bg-badge-warning-soft text-warning-text';
-        case 'error-soft': return 'bg-badge-error-soft text-danger-text';
-        case 'primary-soft': return 'bg-badge-primary-soft text-primary-text';
+        case 'info-soft': return '[background-color:var(--tone-info-bg)] [color:var(--tone-info-fg)]';
+        case 'success-soft': return '[background-color:var(--tone-success-soft-bg)] [color:var(--tone-success-soft-fg)]';
+        case 'warning-soft': return '[background-color:var(--tone-warning-soft-bg)] [color:var(--tone-warning-soft-fg)]';
+        case 'error-soft': return '[background-color:var(--tone-danger-soft-bg)] [color:var(--tone-danger-soft-fg)]';
+        case 'primary-soft': return '[background-color:var(--tone-primary-soft-bg)] [color:var(--tone-primary-soft-fg)]';
         case 'neutral':
-        default: return 'bg-neutral-soft text-neutral-text';
+        default: return '[background-color:var(--tone-neutral-soft-bg)] [color:var(--tone-neutral-soft-fg)]';
     }
 });
 

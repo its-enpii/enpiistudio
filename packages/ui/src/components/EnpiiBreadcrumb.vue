@@ -15,12 +15,12 @@ defineEmits(['navigate']);
                 <a
                     v-if="index < items.length - 1"
                     href="#"
-                    class="enpii-breadcrumb__link text-on-surface-variant no-underline hover:text-primary-text"
+                    class="enpii-breadcrumb__link [color:var(--nav-fg)] no-underline hover:[color:var(--nav-active-fg)]"
                     :class="index > 0 && index < items.length - 1 && 'overflow-hidden text-ellipsis whitespace-nowrap'"
                     @click.prevent="$emit('navigate', item)"
                 >{{ item.label }}</a>
-                <span v-else class="enpii-breadcrumb__current text-primary-text" aria-current="page">{{ item.label }}</span>
-                <i v-if="index < items.length - 1" class="material-symbols-outlined enpii-breadcrumb__separator w-4 text-outline" aria-hidden="true">chevron_right</i>
+                <span v-else class="enpii-breadcrumb__current [color:var(--nav-active-fg)]" aria-current="page">{{ item.label }}</span>
+                <i v-if="index < items.length - 1" class="material-symbols-outlined enpii-breadcrumb__separator w-4 [color:var(--tone-neutral-fg)]" aria-hidden="true">chevron_right</i>
             </li>
         </ol>
     </nav>

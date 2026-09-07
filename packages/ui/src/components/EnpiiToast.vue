@@ -34,10 +34,10 @@ onBeforeUnmount(() => {
 });
 
 const toastIconToneClasses = {
-    success: '[background:color-mix(in_srgb,var(--color-secondary-container)_50%,transparent)] text-secondary',
-    error: '[background:color-mix(in_srgb,var(--color-error-container)_50%,transparent)] text-danger-text',
-    warning: '[background:color-mix(in_srgb,var(--color-tertiary-fixed)_50%,transparent)] text-warning-text',
-    info: '[background:color-mix(in_srgb,var(--color-primary-container)_30%,transparent)] text-primary-text',
+    success: '[background-color:var(--tone-success-soft-bg)] [color:var(--tone-success-soft-fg)]',
+    error: '[background-color:var(--tone-danger-soft-bg)] [color:var(--tone-danger-soft-fg)]',
+    warning: '[background-color:var(--tone-warning-soft-bg)] [color:var(--tone-warning-soft-fg)]',
+    info: '[background-color:var(--tone-info-soft-bg)] [color:var(--tone-info-soft-fg)]',
 };
 </script>
 
@@ -57,14 +57,14 @@ const toastIconToneClasses = {
                 <div
                     v-if="toastState.visible"
                     role="status"
-                    class="enpii-toast flex items-center gap-3 w-[min(28rem,100%)] border border-solid [border-width:var(--control-border-width)] border-outline-variant rounded-2xl bg-surface-container-lowest text-on-surface py-3 px-4 shadow-overlay pointer-events-auto"
+                    class="enpii-toast flex items-center gap-3 w-[min(28rem,100%)] border border-solid [border-width:var(--control-border-width)] [border-color:var(--overlay-border-color)] rounded-2xl [background-color:var(--overlay-surface-bg)] [color:var(--overlay-surface-fg)] py-3 px-4 shadow-overlay pointer-events-auto"
                     :class="[shapeClass, `enpii-toast--${toastState.tone}`]"
                     @mouseenter="pause"
                     @mouseleave="resume"
                 >
                     <!-- Left Icon Badge -->
                     <div
-                        class="enpii-toast__icon grid place-items-center w-9 h-9 shrink-0 border border-solid [border-width:var(--control-border-width)] border-transparent rounded-control bg-neutral-soft [&_svg,&_i,&_.material-icons]:w-5 [&_svg,&_i,&_.material-icons]:h-5 [&_svg,&_i,&_.material-icons]:text-[1.25rem]"
+                        class="enpii-toast__icon grid place-items-center w-9 h-9 shrink-0 border border-solid [border-width:var(--control-border-width)] border-transparent rounded-control [background-color:var(--tone-neutral-soft-bg)] [&_svg,&_i,&_.material-icons]:w-5 [&_svg,&_i,&_.material-icons]:h-5 [&_svg,&_i,&_.material-icons]:text-[1.25rem]"
                         :class="toastIconToneClasses[toastState.tone]"
                     >
                         <AppIcon :name="toastState.tone === 'error' ? 'error' : toastState.tone === 'warning' ? 'warning' : toastState.tone === 'success' ? 'check_circle' : 'info'" />
@@ -74,7 +74,7 @@ const toastIconToneClasses = {
                     <div class="enpii-toast__body min-w-0 flex-1">
                         <p
                             v-if="toastState.title"
-                            class="enpii-toast__title mb-1 text-on-surface-variant text-xs font-semibold"
+                            class="enpii-toast__title mb-1 [color:var(--tone-neutral-fg)] text-xs font-semibold"
                         >
                             {{ toastState.title }}
                         </p>
@@ -86,7 +86,7 @@ const toastIconToneClasses = {
                     <!-- Close Button -->
                     <button
                         type="button"
-                        class="enpii-toast__close grid place-items-center w-8 h-8 shrink-0 border-0 bg-transparent text-on-surface-variant rounded-[9999px] cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:bg-surface-container-high hover:text-on-surface focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus"
+                        class="enpii-toast__close grid place-items-center w-8 h-8 shrink-0 border-0 bg-transparent [color:var(--tone-neutral-fg)] rounded-[9999px] cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:[background-color:var(--tone-neutral-soft-bg)] hover:[color:var(--tone-neutral-soft-fg)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus"
                         :aria-label="t('toast.close')"
                         @click="dismiss"
                     >

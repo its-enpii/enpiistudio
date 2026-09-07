@@ -251,7 +251,7 @@ onBeforeUnmount(() => {
             :id="`${dropdownId}-trigger`"
             ref="triggerRef"
             type="button"
-            class="enpii-dropdown-menu__trigger inline-flex items-center justify-center rounded-control border-0 bg-none text-on-surface-variant cursor-pointer [transition-property:all] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:bg-neutral-soft hover:enabled:text-on-surface focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus disabled:opacity-60 disabled:cursor-not-allowed"
+            class="enpii-dropdown-menu__trigger inline-flex items-center justify-center rounded-control border-0 bg-none [color:var(--tone-neutral-fg)] cursor-pointer [transition-property:all] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:[background-color:var(--tone-neutral-soft-bg)] hover:enabled:[color:var(--tone-neutral-soft-fg)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus disabled:opacity-60 disabled:cursor-not-allowed"
             :class="[
                 `enpii-dropdown-menu__trigger--${size}`,
                 size === 'sm' && 'w-control-height-sm h-control-height-sm text-[1.125rem]',
@@ -276,7 +276,7 @@ onBeforeUnmount(() => {
                     :id="`${dropdownId}-menu`"
                     ref="menuRef"
                     role="menu"
-                    class="enpii-dropdown-menu__panel fixed flex flex-col overflow-y-auto overflow-x-hidden rounded-control border border-solid [border-width:var(--overlay-border-width)] [border-color:var(--overlay-border-color)] bg-surface-container-lowest shadow-overlay origin-top [transform-origin:top_center]"
+                    class="enpii-dropdown-menu__panel fixed flex flex-col overflow-y-auto overflow-x-hidden rounded-control border border-solid [border-width:var(--overlay-border-width)] [border-color:var(--overlay-border-color)] [background-color:var(--overlay-surface-bg)] [color:var(--overlay-surface-fg)] shadow-overlay origin-top [transform-origin:top_center]"
                     :class="[
                         `enpii-dropdown-menu__panel--${size}`,
                         `enpii-dropdown-menu__panel--${align}`,
@@ -293,7 +293,7 @@ onBeforeUnmount(() => {
                             v-if="item.label"
                             type="button"
                             role="menuitem"
-                            class="enpii-dropdown-menu__item flex w-full items-center gap-2 rounded-[calc(var(--radius-control)_-_0.125rem)] border-0 bg-none py-2 px-3 text-on-surface font-sans text-control leading-[1.4] text-left cursor-pointer [transition-property:background] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:bg-neutral-soft focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-offset-[-2px] focus-visible:outline-focus disabled:cursor-not-allowed"
+                            class="enpii-dropdown-menu__item flex w-full items-center gap-2 rounded-[calc(var(--radius-control)_-_0.125rem)] border-0 bg-none py-2 px-3 [color:var(--overlay-surface-fg)] font-sans text-control leading-[1.4] text-left cursor-pointer [transition-property:background] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:[background-color:var(--tone-neutral-soft-bg)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-offset-[-2px] focus-visible:outline-focus disabled:cursor-not-allowed"
                             :class="[
                                 {
                                     'enpii-dropdown-menu__item--highlighted': index === highlighted,
@@ -302,11 +302,11 @@ onBeforeUnmount(() => {
                                 },
                                 size === 'sm' && 'py-1.5 px-2.5 text-sm',
                                 size === 'lg' && 'py-2.5 px-4 text-[1.0625rem]',
-                                index === highlighted && 'bg-neutral-soft',
-                                item.disabled && 'text-outline opacity-60',
-                                item.danger && 'text-danger-text',
-                                item.danger && (index === highlighted || !item.disabled) && 'hover:bg-danger-soft',
-                                item.danger && index === highlighted && 'bg-danger-soft',
+                                index === highlighted && '[background-color:var(--tone-neutral-soft-bg)]',
+                                item.disabled && '[color:var(--tone-neutral-fg)] opacity-60',
+                                item.danger && '[color:var(--tone-danger-fg)]',
+                                item.danger && (index === highlighted || !item.disabled) && 'hover:[background-color:var(--tone-danger-soft-bg)]',
+                                item.danger && index === highlighted && '[background-color:var(--tone-danger-soft-bg)]',
                             ]"
                             :disabled="item.disabled"
                             :aria-disabled="item.disabled ? 'true' : undefined"
@@ -315,7 +315,7 @@ onBeforeUnmount(() => {
                             @click="choose(item)"
                             @keydown="onItemKeydown($event, item)"
                         >
-                            <AppIcon v-if="item.icon" :name="item.icon" class="enpii-dropdown-menu__item-icon flex-none text-lg leading-none text-on-surface-variant" :class="item.danger && 'text-danger-text'" />
+                            <AppIcon v-if="item.icon" :name="item.icon" class="enpii-dropdown-menu__item-icon flex-none text-lg leading-none [color:var(--tone-neutral-fg)]" :class="item.danger && '[color:var(--tone-danger-fg)]'" />
                             <span class="enpii-dropdown-menu__item-label flex-1 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap">{{ item.label }}</span>
                         </button>
                     </template>

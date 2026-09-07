@@ -189,10 +189,10 @@ onBeforeUnmount(() => {
 <template>
     <Teleport to="body">
         <Transition name="bottom-sheet">
-            <div v-if="model" class="enpii-bottom-sheet__overlay fixed inset-0 z-modal flex items-end justify-center bg-scrim" @click.self="close">
+            <div v-if="model" class="enpii-bottom-sheet__overlay fixed inset-0 z-modal flex items-end justify-center [background-color:var(--overlay-backdrop)]" @click.self="close">
                 <section
                     ref="panel"
-                    class="enpii-bottom-sheet__panel relative flex w-full flex-col max-h-[min(88dvh,52rem)] border border-solid [border-width:var(--overlay-border-width)] [border-color:var(--overlay-border-color)] rounded-t-[1.25rem] bg-surface-container-lowest text-on-surface shadow-overlay transition-transform duration-normal ease-decelerate"
+                    class="enpii-bottom-sheet__panel relative flex w-full flex-col max-h-[min(88dvh,52rem)] border border-solid [border-width:var(--overlay-border-width)] [border-color:var(--overlay-border-color)] rounded-t-[1.25rem] [background-color:var(--overlay-surface-bg)] [color:var(--overlay-surface-fg)] shadow-overlay transition-transform duration-normal ease-decelerate"
                     role="dialog"
                     aria-modal="true"
                     :aria-labelledby="title ? titleId : undefined"
@@ -209,11 +209,11 @@ onBeforeUnmount(() => {
                         @pointerdown="onPointerDown"
                     />
                     <header class="enpii-bottom-sheet__header flex flex-none items-center justify-between gap-4 pt-1 px-4">
-                        <h2 v-if="title" :id="titleId" class="enpii-bottom-sheet__title m-0 text-on-surface font-sans text-lg font-medium leading-[1.35]">{{ title }}</h2>
+                        <h2 v-if="title" :id="titleId" class="enpii-bottom-sheet__title m-0 [color:inherit] font-sans text-lg font-medium leading-[1.35]">{{ title }}</h2>
                         <button
                             v-if="dismissible"
                             type="button"
-                            class="enpii-bottom-sheet__close inline-flex w-10 h-10 flex-none items-center justify-center -mt-1 -mr-1 rounded-full border-0 bg-transparent text-on-surface-variant cursor-pointer [transition-property:background,color] duration-fast ease-emphasized hover:bg-surface-container-low hover:text-on-surface focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus"
+                            class="enpii-bottom-sheet__close inline-flex w-10 h-10 flex-none items-center justify-center -mt-1 -mr-1 rounded-full border-0 bg-transparent [color:var(--tone-neutral-fg)] cursor-pointer [transition-property:background,color] duration-fast ease-emphasized hover:[background-color:var(--tone-neutral-soft-bg)] hover:[color:var(--tone-neutral-soft-fg)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus"
                             :aria-label="t('bottomSheet.close')"
                             @click="close"
                         >

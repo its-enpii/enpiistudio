@@ -106,7 +106,7 @@ function hideTooltip() {
             <button
                 type="button"
                 tabindex="-1"
-                class="enpii-tooltip__trigger inline-flex items-center justify-center w-4 h-4 rounded-[9999px] border-0 bg-surface-container text-outline text-[0.625rem] font-semibold cursor-help [transition-property:all] duration-fast ease-emphasized hover:bg-surface-container-high hover:text-primary focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus"
+                class="enpii-tooltip__trigger inline-flex items-center justify-center w-4 h-4 rounded-[9999px] border-0 [background-color:var(--tone-neutral-soft-bg)] [color:var(--tone-neutral-fg)] text-[0.625rem] font-semibold cursor-help [transition-property:all] duration-fast ease-emphasized hover:[background-color:var(--tone-neutral-soft-bg)] hover:[color:var(--tone-neutral-soft-fg)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus"
                 aria-haspopup="true"
                 :aria-label="text"
             >
@@ -119,7 +119,7 @@ function hideTooltip() {
             :id="id"
             role="tooltip"
             :class="[
-                'enpii-tooltip__bubble absolute z-30 w-56 py-1 px-2 border border-solid [border-width:var(--overlay-border-width)] [border-color:var(--overlay-border-color)] rounded-lg bg-on-surface text-surface-inverse text-xs leading-[1.45] shadow-overlay pointer-events-none transition-[opacity,transform,visibility] duration-fast ease-decelerate',
+                'enpii-tooltip__bubble absolute z-30 w-56 py-1 px-2 border border-solid [border-width:var(--overlay-border-width)] [border-color:var(--overlay-border-color)] rounded-lg [background-color:var(--overlay-surface-bg)] [color:var(--overlay-surface-fg)] text-xs leading-[1.45] shadow-overlay pointer-events-none transition-[opacity,transform,visibility] duration-fast ease-decelerate',
                 activePosition === 'top' ? 'enpii-tooltip__bubble--top bottom-[calc(100%+0.5rem)] left-1/2 -translate-x-1/2 translate-y-1 scale-95 opacity-0 invisible' : '',
                 activePosition === 'bottom' ? 'enpii-tooltip__bubble--bottom top-[calc(100%+0.5rem)] left-1/2 -translate-x-1/2 translate-y-1 scale-95 opacity-0 invisible' : '',
                 activePosition === 'left' ? 'enpii-tooltip__bubble--left right-[calc(100%+0.5rem)] top-1/2 -translate-y-1/2 translate-x-1 scale-95 opacity-0 invisible' : '',

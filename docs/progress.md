@@ -29,6 +29,11 @@ Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7. Semua item selesai.
 
 ## Log Progress
 
+### 2026-09-07 — UI batch 2 base-raw feedback/overlay/navigation/data-display SELESAI
+- `@its-enpii/ui` tetap v1.3.1: 28 komponen feedback, overlay, navigasi, dan data-display kini base-raw tanpa keputusan warna. Ukuran, radius, press, shadow, dan opacity disabled tetap base; enam layer mengisi 50 hook batch 2 (`--tone-*`, `--overlay-*`, `--card-*`, `--nav-*`, `--skeleton-*`, `--progress-*`, `--table-*`, `--kanban-*`) light+dark. Marker variant tetap di DOM.
+- Conformance permanen dipecah menjadi fixture `batch1` dan `batch2`: keduanya memeriksa component scope dan layer completeness tanpa selector. Layer wiring juga mengunci konsumsi hook utama per komponen batch 2. Charts, pickers, upload, editor, dan domain komponen tidak disentuh.
+- Verifikasi: `check` 0 error; `test` 38 files/447 tests pass; `test:tailwind` 3 tests + smoke pass; `golden:check` 4 tests pass; `build` sukses; `audit-template-classes.mjs` exit 0. Golden baseline berubah pada 147 snapshot state/theme untuk penghapusan warna base saja.
+
 ### 2026-09-07 — UI batch 1 base-raw controls & fields SELESAI
 - `@its-enpii/ui` tetap v1.3.1: 13 kontrol/field/label kini base-raw tanpa keputusan warna. Base menyediakan sizing, radius, state, disabled opacity, dan hook warna; enam layer mengisi 17 hook (`--control-primary/secondary/ghost/danger`, `--field`, `--label-fg`) light+dark. Marker variant tetap di DOM.
 - Conformance permanen ditambahkan lewat `tests/color-free-base.conformance.spec.ts` + fixture hook/component scope; class collector diekspor ulang. Golden harness kini menyelesaikan hook batch ini sebagai transparent, sehingga baseline tanpa layer telanjang.

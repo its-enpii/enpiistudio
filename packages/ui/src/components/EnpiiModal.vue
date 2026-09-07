@@ -78,7 +78,7 @@ onBeforeUnmount(() => {
         <Transition name="modal">
             <div
                 v-if="model"
-                class="enpii-modal__overlay fixed inset-0 z-modal flex flex-col items-center justify-center overflow-hidden p-4 bg-primary/45 backdrop-blur-[4px]"
+                class="enpii-modal__overlay fixed inset-0 z-modal flex flex-col items-center justify-center overflow-hidden p-4 [background-color:var(--overlay-backdrop)] backdrop-blur-[4px]"
                 @click.self="close"
             >
                 <section
@@ -87,7 +87,7 @@ onBeforeUnmount(() => {
                     aria-modal="true"
                     :aria-labelledby="titleId"
                     tabindex="-1"
-                    class="enpii-modal__panel flex w-full max-h-[calc(100vh-2rem)] flex-col border border-solid [border-width:var(--overlay-border-width)] [border-color:var(--overlay-border-color)] rounded-2xl bg-surface-container-lowest shadow-overlay outline-none"
+                    class="enpii-modal__panel flex w-full max-h-[calc(100vh-2rem)] flex-col border border-solid [border-width:var(--overlay-border-width)] [border-color:var(--overlay-border-color)] rounded-2xl [background-color:var(--overlay-surface-bg)] [color:var(--overlay-surface-fg)] shadow-overlay outline-none"
                     :class="[
                         `enpii-modal__panel--${size}`,
                         shapeClass,
@@ -99,11 +99,11 @@ onBeforeUnmount(() => {
                     @keydown="onKeydown"
                 >
                     <header class="enpii-modal__header flex shrink-0 items-center justify-between gap-4 py-4 px-4 sm:px-6 border-b border-solid [border-color:var(--overlay-border-color)]">
-                        <h2 :id="titleId" class="enpii-modal__title m-0 text-primary-text text-[1.125rem] font-semibold">{{ title }}</h2>
+                        <h2 :id="titleId" class="enpii-modal__title m-0 [color:inherit] text-[1.125rem] font-semibold">{{ title }}</h2>
                         <button
                             v-if="closeable"
                             type="button"
-                            class="enpii-modal__close grid place-items-center w-10 h-10 shrink-0 rounded-[9999px] border-0 bg-transparent text-on-surface-variant cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:bg-surface-container-low hover:text-primary-text focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus active:[transform:var(--press-transform)]"
+                            class="enpii-modal__close grid place-items-center w-10 h-10 shrink-0 rounded-[9999px] border-0 bg-transparent [color:var(--tone-neutral-fg)] cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:[background-color:var(--tone-neutral-soft-bg)] hover:[color:var(--tone-neutral-soft-fg)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus active:[transform:var(--press-transform)]"
                             :aria-label="t('modal.close')"
                             @click="close"
                         >

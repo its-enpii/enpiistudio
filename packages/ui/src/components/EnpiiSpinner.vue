@@ -17,10 +17,10 @@ const sizeClass = computed(() => {
 
 const variantClass = computed(() => {
     switch (props.variant) {
-        case 'neutral': return 'border-spinner-track-neutral border-t-on-surface';
-        case 'inverse': return 'border-spinner-track-inverse border-t-inverse';
+        case 'neutral': return '[border-color:var(--progress-track)] [border-top-color:var(--tone-neutral-fg)]';
+        case 'inverse': return '[border-color:var(--progress-track)] [border-top-color:var(--overlay-surface-bg)]';
         case 'primary':
-        default: return 'border-spinner-track-primary border-t-primary';
+        default: return '[border-color:var(--progress-track)] [border-top-color:var(--tone-primary-bg)]';
     }
 });
 </script>

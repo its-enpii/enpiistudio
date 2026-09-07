@@ -127,7 +127,7 @@ onMounted(updateListHeight)
 </script>
 
 <template>
-    <div class="enpii-tree-view relative w-full border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-control bg-surface-container-lowest shadow-control text-on-surface" role="tree" :aria-label="t('treeView.ariaLabel')">
+    <div class="enpii-tree-view relative w-full border border-solid [border-color:var(--overlay-border-color)] [border-width:var(--control-border-width)] rounded-control [background-color:var(--card-bg)] shadow-control [color:var(--card-fg)]" role="tree" :aria-label="t('treeView.ariaLabel')">
         <TransitionGroup
             v-if="visibleNodes.length"
             tag="ul"
@@ -143,7 +143,7 @@ onMounted(updateListHeight)
                     :id="nodeId(visible.node.id)"
                     type="button"
                     role="treeitem"
-                    class="enpii-tree-view__node flex items-center gap-2 w-full min-h-10 py-2 pr-3 border-0 rounded-[calc(var(--radius-control)-0.25rem)] bg-none text-on-surface [font-family:inherit] text-sm font-medium text-left cursor-pointer [transition-property:background,color,box-shadow,transform] duration-fast ease-emphasized motion-reduce:transition-none hover:bg-neutral-soft focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus"
+                    class="enpii-tree-view__node flex items-center gap-2 w-full min-h-10 py-2 pr-3 border-0 rounded-[calc(var(--radius-control)-0.25rem)] bg-none [color:var(--nav-fg)] [font-family:inherit] text-sm font-medium text-left cursor-pointer [transition-property:background,color,box-shadow,transform] duration-fast ease-emphasized motion-reduce:transition-none hover:[background-color:var(--nav-hover-bg)] hover:[color:var(--nav-active-fg)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus"
                     :class="{
                         'enpii-tree-view__node--focused': isFocused(visible.node),
                         'enpii-tree-view__node--selected': isSelected(visible.node),
@@ -158,12 +158,12 @@ onMounted(updateListHeight)
                     @keydown="onKeydown($event, visible)"
                     @click="selectNode(visible.node)"
                 >
-                    <AppIcon v-if="visible.node.icon" :name="visible.node.icon" class="enpii-tree-view__icon w-4.5 h-4.5 text-[1.125rem] leading-none flex-none text-on-surface-variant" />
+                    <AppIcon v-if="visible.node.icon" :name="visible.node.icon" class="enpii-tree-view__icon w-4.5 h-4.5 text-[1.125rem] leading-none flex-none [color:var(--tone-neutral-soft-fg)]" />
                     <AppIcon
                         v-if="visible.hasChildren"
                         name="chevron_right"
-                        class="enpii-tree-view__chevron w-4 h-4 text-base leading-none flex-none text-on-surface-variant [transition-property:transform] duration-normal ease-standard motion-reduce:transition-none"
-                        :class="{ 'enpii-tree-view__chevron--expanded rotate-90 text-primary-text': visible.isExpanded }"
+                        class="enpii-tree-view__chevron w-4 h-4 text-base leading-none flex-none [color:var(--tone-neutral-soft-fg)] [transition-property:transform] duration-normal ease-standard motion-reduce:transition-none"
+                        :class="{ 'enpii-tree-view__chevron--expanded rotate-90 [color:var(--nav-active-fg)]': visible.isExpanded }"
                         @click.stop="toggleNode(visible.node, visible)"
                     />
                     <span class="enpii-tree-view__label overflow-hidden text-ellipsis whitespace-nowrap">{{ visible.node.label }}</span>

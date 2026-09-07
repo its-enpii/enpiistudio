@@ -14,10 +14,10 @@ defineEmits(['navigate']);
 </script>
 
 <template>
-    <footer class="enpii-footer bg-surface-container-lowest text-on-surface" :class="variant === 'dark' ? 'enpii-footer--dark bg-primary-deep text-on-primary' : ''">
+    <footer class="enpii-footer [background-color:var(--nav-bg)] [color:var(--nav-fg)]" :class="variant === 'dark' ? 'enpii-footer--dark [background-color:var(--overlay-surface-bg)] [color:var(--overlay-surface-fg)]' : ''">
         <div class="enpii-footer__inner grid gap-6 py-8 px-[max(1rem,calc((100%-80rem)/2))]">
             <slot name="brand">
-                <p class="enpii-footer__brand m-0 text-lg font-semibold">{{ brand }}</p>
+                <p class="enpii-footer__brand m-0 [color:var(--nav-active-fg)] text-lg font-semibold">{{ brand }}</p>
             </slot>
             <div class="enpii-footer__columns grid gap-6 md:grid-cols-[repeat(auto-fit,minmax(10rem,1fr))]">
                 <section v-for="column in columns" :key="column.title" class="enpii-footer__group">

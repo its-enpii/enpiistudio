@@ -17,10 +17,10 @@ const messageId = useId();
 const icons = { info: 'info', success: 'check_circle', warning: 'warning', danger: 'error' };
 
 const toneClasses = {
-    info: 'border-primary-border bg-primary-soft text-primary-text',
-    success: 'border-success-border bg-success-soft text-success-text',
-    warning: 'border-warning-border bg-warning-soft text-warning-text',
-    danger: 'border-danger-border bg-danger-soft text-danger-text',
+    info: '[border-color:var(--tone-info-border)] [background-color:var(--tone-info-soft-bg)] [color:var(--tone-info-soft-fg)]',
+    success: '[border-color:var(--tone-success-border)] [background-color:var(--tone-success-soft-bg)] [color:var(--tone-success-soft-fg)]',
+    warning: '[border-color:var(--tone-warning-border)] [background-color:var(--tone-warning-soft-bg)] [color:var(--tone-warning-soft-fg)]',
+    danger: '[border-color:var(--tone-danger-border)] [background-color:var(--tone-danger-soft-bg)] [color:var(--tone-danger-soft-fg)]',
 };
 </script>
 

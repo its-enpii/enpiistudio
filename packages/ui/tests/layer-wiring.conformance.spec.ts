@@ -63,6 +63,34 @@ const overlayBorderComponents = [
   'EnpiiTooltip.vue',
 ]
 
+const batch2HookPatterns: Record<string, RegExp> = {
+  'EnpiiAlert.vue': /--tone-[a-z]+-(?:soft-)?(?:bg|fg|border)/,
+  'EnpiiAvatar.vue': /--tone-(?:primary-soft|success|danger|neutral)(?:-soft)?-(?:bg|fg)/,
+  'EnpiiBadge.vue': /--tone-[a-z]+(?:-soft)?-(?:bg|fg)/,
+  'EnpiiBottomSheet.vue': /--overlay-(?:backdrop|surface-(?:bg|fg)|border-color)/,
+  'EnpiiBreadcrumb.vue': /--nav-(?:fg|active-fg)/,
+  'EnpiiCard.vue': /--card-(?:bg|fg)/,
+  'EnpiiDrawer.vue': /--overlay-(?:backdrop|surface-(?:bg|fg)|border-color)/,
+  'EnpiiDropdownMenu.vue': /--overlay-(?:surface-(?:bg|fg)|border-color)/,
+  'EnpiiEmptyState.vue': /--tone-neutral(?:-soft)?-(?:bg|fg)/,
+  'EnpiiKanbanBoard.vue': /--kanban-(?:col|card)-(?:bg|fg)/,
+  'EnpiiModal.vue': /--overlay-(?:backdrop|surface-(?:bg|fg)|border-color)/,
+  'EnpiiNavbar.vue': /--nav-(?:bg|fg|active|hover)/,
+  'EnpiiPagination.vue': /--nav-(?:fg|active|hover)/,
+  'EnpiiPopover.vue': /--overlay-(?:surface-(?:bg|fg)|border-color)/,
+  'EnpiiProgress.vue': /--progress-(?:track|fill)/,
+  'EnpiiSegmentedControl.vue': /--tone-primary-(?:bg|fg)|--nav-(?:fg|active|hover)/,
+  'EnpiiSidebar.vue': /--nav-(?:bg|fg|active|hover)/,
+  'EnpiiSkeleton.vue': /--skeleton-pulse/,
+  'EnpiiSmartTable.vue': /--table-(?:head|zebra)/,
+  'EnpiiSpinner.vue': /--(?:progress-track|tone-neutral-fg|overlay-surface-bg|tone-primary-bg)/,
+  'EnpiiTabs.vue': /--(?:nav-(?:bg|fg|active|hover)|tone-primary|tone-danger)/,
+  'EnpiiTimeline.vue': /--tone-[a-z]+(?:-soft)?-(?:bg|fg|border)|--progress-track/,
+  'EnpiiToast.vue': /--overlay-(?:surface-(?:bg|fg)|border-color)|--tone-[a-z]+-soft-(?:bg|fg)/,
+  'EnpiiTooltip.vue': /--overlay-(?:surface-(?:bg|fg)|border-color)/,
+  'EnpiiTreeView.vue': /--(?:card-(?:bg|fg)|nav-(?:fg|active|hover))/,
+}
+
 const primitiveShadowExceptions: Record<string, string> = {}
 
 describe('structural layer wiring conformance', () => {
@@ -78,7 +106,7 @@ describe('structural layer wiring conformance', () => {
 
     expect(source).toContain('[border-width:var(--card-border-width)]')
     expect(source).toContain('[border-style:var(--card-border-style)]')
-    expect(source).toContain('[border-color:var(--card-border-color)]')
+    expect(source).toContain('[border-color:var(--overlay-border-color)]')
     expect(source).toContain('[border-width:max(var(--card-border-width),1px)]')
   })
 
@@ -87,6 +115,14 @@ describe('structural layer wiring conformance', () => {
     expect(entry).toContain('--control-border-color-filled: transparent;')
     expect(entry).toContain('--overlay-border-color: var(--color-outline-variant);')
     expect(entry).toContain('--control-shadow: 0 0 #0000;')
+  })
+
+  it.each(Object.entries(batch2HookPatterns))('wires %s to its batch 2 color hook', (filename, pattern) => {
+    const source = readFileSync(resolve(componentsDirectory, filename), 'utf8')
+    expect(source, `${filename} must consume its batch 2 hook`).toMatch(pattern)
+    expect(source, `${filename} must not hardcode theme color utilities`).not.toMatch(
+      /\b(?:bg|text)-(?:primary|success|warning|danger|error|neutral)-?(?:soft|border|text)?\b/,
+    )
   })
 
   it('defines brutal structural color and resting shadow values', () => {

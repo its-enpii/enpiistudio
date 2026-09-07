@@ -20,15 +20,15 @@ const avatarSizeClasses = {
 };
 
 const statusClasses = {
-  online: 'bg-success-text',
-  offline: 'bg-outline',
-  busy: 'bg-error',
+  online: '[background-color:var(--tone-success-bg)]',
+  offline: '[background-color:var(--tone-neutral-bg)]',
+  busy: '[background-color:var(--tone-danger-bg)]',
 };
 </script>
 
 <template>
     <span
-      class="enpii-avatar relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-[50%] bg-primary-soft text-primary-text font-semibold"
+      class="enpii-avatar relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-[50%] [background-color:var(--tone-primary-soft-bg)] [color:var(--tone-primary-soft-fg)] font-semibold"
       :class="[
         `enpii-avatar--${size}`,
         avatarSizeClasses[size],
@@ -38,6 +38,6 @@ const statusClasses = {
         <img v-if="src" class="enpii-avatar__image h-full w-full flex items-center justify-center object-cover" :src="src" :alt="name">
         <span v-else-if="initials" class="enpii-avatar__initials flex h-full w-full items-center justify-center">{{ initials }}</span>
         <i v-else class="material-symbols-outlined enpii-avatar__icon flex h-full w-full items-center justify-center" aria-hidden="true">person</i>
-        <span v-if="status" class="enpii-avatar__status absolute -right-px -bottom-px h-[.75em] w-[.75em] rounded-[50%] border border-solid [border-width:var(--control-border-width)] border-surface-container-lowest" :class="[`enpii-avatar__status--${status}`, statusClasses[status]]"><span class="enpii-sr-only">{{ status }}</span></span>
+        <span v-if="status" class="enpii-avatar__status absolute -right-px -bottom-px h-[.75em] w-[.75em] rounded-[50%] border border-solid [border-width:var(--control-border-width)] [border-color:var(--card-bg)]" :class="[`enpii-avatar__status--${status}`, statusClasses[status]]"><span class="enpii-sr-only">{{ status }}</span></span>
     </span>
 </template>

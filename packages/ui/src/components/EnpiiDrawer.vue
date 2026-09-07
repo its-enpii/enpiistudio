@@ -76,13 +76,13 @@ onBeforeUnmount(() => {
     <Teleport to="body">
         <Transition name="drawer">
             <div v-if="model" class="enpii-drawer fixed inset-0 z-modal flex" @keydown="trapFocus">
-                <div class="enpii-drawer__backdrop absolute inset-0 bg-scrim" @click="close" />
+                <div class="enpii-drawer__backdrop absolute inset-0 [background-color:var(--overlay-backdrop)]" @click="close" />
                 <section
                     role="dialog"
                     tabindex="-1"
                     aria-modal="true"
                     :aria-labelledby="titleId"
-                    class="enpii-drawer__panel absolute flex flex-col border border-solid [border-width:var(--overlay-border-width)] [border-color:var(--overlay-border-color)] bg-surface-container-lowest shadow-overlay"
+                    class="enpii-drawer__panel absolute flex flex-col border border-solid [border-width:var(--overlay-border-width)] [border-color:var(--overlay-border-color)] [background-color:var(--overlay-surface-bg)] [color:var(--overlay-surface-fg)] shadow-overlay"
                     :class="[
                         `enpii-drawer__panel--${side}`,
                         `enpii-drawer__panel--${size}`,
@@ -97,7 +97,7 @@ onBeforeUnmount(() => {
                     ]"
                 >
                     <header v-if="title || $slots.header" class="enpii-drawer__header flex items-center justify-between gap-4 p-4 border-b border-solid [border-color:var(--overlay-border-color)]">
-                        <slot name="header"><h2 :id="titleId" class="enpii-drawer__title m-0 text-primary-text text-lg">{{ title }}</h2></slot>
+                        <slot name="header"><h2 :id="titleId" class="enpii-drawer__title m-0 [color:inherit] text-lg">{{ title }}</h2></slot>
                     </header>
                     <div class="enpii-drawer__body flex-1 overflow-auto p-4"><slot /></div>
                     <footer v-if="$slots.footer" class="enpii-drawer__footer p-4 border-t border-solid [border-color:var(--overlay-border-color)]"><slot name="footer" /></footer>

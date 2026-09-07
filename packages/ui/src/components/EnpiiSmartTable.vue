@@ -123,7 +123,7 @@ onBeforeUnmount(() => clearTimeout(timer));
 
 <template>
     <div class="enpii-smart-table [&>*+*]:mt-4" :class="shapeClass">
-        <div v-if="!hideToolbar" class="enpii-smart-table__toolbar flex flex-col gap-4 border-b border-solid [border-width:var(--control-border-width)] border-outline-variant pb-6 lg:flex-row lg:items-center lg:justify-between">
+        <div v-if="!hideToolbar" class="enpii-smart-table__toolbar flex flex-col gap-4 border-b border-solid [border-width:var(--control-border-width)] [border-color:var(--overlay-border-color)] pb-6 lg:flex-row lg:items-center lg:justify-between">
             <div class="enpii-smart-table__toolbar-start flex items-center gap-3">
                 <EnpiiSmartSelect
                     v-if="!hidePerPage"
@@ -149,7 +149,7 @@ onBeforeUnmount(() => clearTimeout(timer));
                     <template v-if="query" #suffix>
                         <button
                             type="button"
-                            class="enpii-smart-table__clear w-8 h-8 grid place-items-center border-0 rounded-full bg-transparent text-outline cursor-pointer hover:bg-surface-container-low hover:text-primary focus-visible:outline-none focus-visible:[box-shadow:var(--shadow-focus)]"
+                            class="enpii-smart-table__clear w-8 h-8 grid place-items-center border-0 rounded-full bg-transparent [color:var(--tone-neutral-fg)] cursor-pointer hover:[background-color:var(--tone-neutral-soft-bg)] hover:[color:var(--tone-primary-fg)] focus-visible:outline-none focus-visible:[box-shadow:var(--shadow-focus)]"
                             :aria-label="t('smartTable.clearSearch')"
                             @click="resetSearch"
                         >
@@ -160,9 +160,9 @@ onBeforeUnmount(() => clearTimeout(timer));
             </div>
         </div>
         <div class="enpii-smart-table__scroll relative overflow-x-auto">
-            <div v-if="processing" class="enpii-smart-table__loading absolute inset-0 z-raised flex justify-start pt-16 bg-[color-mix(in_srgb,var(--color-surface-container-lowest)_65%,transparent)] text-primary text-sm">{{ t("smartTable.loading") }}</div>
+            <div v-if="processing" class="enpii-smart-table__loading absolute inset-0 z-raised flex justify-start pt-16 [background-color:var(--card-bg)] [color:var(--tone-primary-fg)] text-sm">{{ t("smartTable.loading") }}</div>
             <table class="enpii-smart-table__table w-full border-collapse text-left">
-                <thead class="enpii-smart-table__head bg-surface-container-low">
+                <thead class="enpii-smart-table__head [background-color:var(--table-head-bg)] [color:var(--table-head-fg)]">
                     <tr>
                         <th
                             v-for="column in columns"
@@ -174,13 +174,13 @@ onBeforeUnmount(() => clearTimeout(timer));
                             <button
                                 v-if="column.sortable"
                                 type="button"
-                                class="enpii-smart-table__sort inline-flex items-center gap-1 text-primary-text font-semibold bg-transparent border-0 cursor-pointer focus-visible:outline-none focus-visible:[box-shadow:var(--shadow-focus)]"
+                                class="enpii-smart-table__sort inline-flex items-center gap-1 [color:inherit] font-semibold bg-transparent border-0 cursor-pointer focus-visible:outline-none focus-visible:[box-shadow:var(--shadow-focus)]"
                                 @click="sortBy(column)"
                             >
                                 {{ column.label }}
                                 <AppIcon
                                     :name="sort === column.key ? (direction === 'asc' ? 'arrow_upward' : 'arrow_downward') : 'unfold_more'"
-                                    class="enpii-smart-table__sort-icon text-outline text-[1.125rem]"
+                                    class="enpii-smart-table__sort-icon [color:var(--tone-neutral-fg)] text-[1.125rem]"
                                 />
                             </button>
                             <span v-else>{{ column.label }}</span>
@@ -194,7 +194,7 @@ onBeforeUnmount(() => clearTimeout(timer));
                     <tr
                         v-for="(row, index) in rows"
                         :key="row.row_id || row.id || index"
-                        class="enpii-smart-table__row [&:not(:first-child)]:border-t [&:not(:first-child)]:border-solid [&:not(:first-child)]:[border-width:var(--control-border-width)] [&:not(:first-child)]:border-outline-variant"
+                        class="enpii-smart-table__row [&:not(:first-child)]:border-t [&:not(:first-child)]:border-solid [&:not(:first-child)]:[border-width:var(--control-border-width)] [&:not(:first-child)]:[border-top-color:var(--overlay-border-color)]"
                     >
                         <td
                             v-for="column in columns"
@@ -223,7 +223,7 @@ onBeforeUnmount(() => clearTimeout(timer));
                 </slot>
             </div>
         </div>
-        <div v-if="!hidePagination && (pagination?.total || lastPage > 1)" class="enpii-smart-table__footer flex flex-col gap-4 text-on-surface-variant text-sm lg:flex-row lg:items-center lg:justify-between">
+        <div v-if="!hidePagination && (pagination?.total || lastPage > 1)" class="enpii-smart-table__footer flex flex-col gap-4 [color:var(--tone-neutral-soft-fg)] text-sm lg:flex-row lg:items-center lg:justify-between">
             <p class="enpii-smart-table__summary m-0">
                 {{ t("smartTable.summary", { from: pagination?.from || 0, to: pagination?.to || 0, total: pagination?.total || 0 }) }}
             </p>

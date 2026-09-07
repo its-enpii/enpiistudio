@@ -81,7 +81,7 @@ function onKeydown(event) {
 <template>
     <div
         v-bind="$attrs"
-        class="enpii-segmented-control relative box-border w-full p-1 border border-solid [border-width:var(--control-border-width)] [border-color:var(--control-border-color)] rounded-control bg-surface-container-lowest isolate max-w-full"
+        class="enpii-segmented-control relative box-border w-full p-1 border border-solid [border-width:var(--control-border-width)] [border-color:var(--control-border-color)] rounded-control [background-color:var(--card-bg)] isolate max-w-full"
         :class="[
             `enpii-segmented-control--${size}`,
             size === 'sm' ? 'h-control-height-sm' : 'h-control-height',
@@ -92,7 +92,7 @@ function onKeydown(event) {
         :aria-label="t('segmentedControl.ariaLabel')"
         @keydown="onKeydown"
     >
-        <span class="enpii-segmented-control__indicator absolute z-0 inset-y-1 left-1 rounded-[calc(var(--radius-control)-0.25rem)] bg-primary transition-[opacity,transform] duration-normal ease-standard motion-reduce:transition-none" :style="indicatorStyle" />
+        <span class="enpii-segmented-control__indicator absolute z-0 inset-y-1 left-1 rounded-[calc(var(--radius-control)-0.25rem)] [background-color:var(--tone-primary-bg)] transition-[opacity,transform] duration-normal ease-standard motion-reduce:transition-none" :style="indicatorStyle" />
         <button
             v-for="(option, index) in options"
             :key="option.value"
@@ -103,8 +103,8 @@ function onKeydown(event) {
                 inline ? 'flex-none' : 'flex-1',
                 size === 'sm' ? 'min-h-9 !text-[0.8125rem]' : '',
                 model === option.value
-                    ? 'enpii-segmented-control__option--active text-on-primary'
-                    : 'text-on-surface-variant hover:enabled:bg-[color-mix(in_srgb,var(--color-primary)_8%,transparent)] hover:enabled:text-primary-text',
+                    ? 'enpii-segmented-control__option--active [color:var(--tone-primary-fg)]'
+                    : '[color:var(--nav-fg)] hover:enabled:[background-color:var(--nav-hover-bg)] hover:enabled:[color:var(--nav-active-fg)]',
             ]"
             :aria-checked="model === option.value"
             :aria-disabled="option.disabled || undefined"

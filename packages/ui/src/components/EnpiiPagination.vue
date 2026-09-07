@@ -35,7 +35,7 @@ const pages = computed(() => {
     <nav class="enpii-pagination flex items-center gap-1" aria-label="Pagination">
         <button
             type="button"
-            class="enpii-pagination__control inline-flex items-center justify-center min-w-control-height-sm h-control-height-sm border border-solid [border-width:var(--control-border-width)] border-transparent rounded-[9999px] bg-transparent text-on-surface-variant [font-family:inherit] text-[1rem] cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:enabled:bg-primary-soft hover:enabled:text-primary-text focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)] disabled:opacity-40 disabled:cursor-not-allowed"
+            class="enpii-pagination__control inline-flex items-center justify-center min-w-control-height-sm h-control-height-sm border border-solid [border-width:var(--control-border-width)] border-transparent rounded-[9999px] bg-transparent [color:var(--nav-fg)] [font-family:inherit] text-[1rem] cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:enabled:[background-color:var(--nav-hover-bg)] hover:enabled:[color:var(--nav-active-fg)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)] disabled:opacity-40 disabled:cursor-not-allowed"
             :disabled="model === 1"
             aria-label="Previous page"
             @click="model -= 1"
@@ -43,12 +43,12 @@ const pages = computed(() => {
             <i class="material-symbols-outlined" aria-hidden="true">chevron_left</i>
         </button>
         <template v-for="page in pages" :key="typeof page === 'number' ? page : page">
-            <span v-if="typeof page !== 'number'" class="enpii-pagination__ellipsis px-1 text-outline">…</span>
+            <span v-if="typeof page !== 'number'" class="enpii-pagination__ellipsis px-1 [color:var(--tone-neutral-fg)]">…</span>
             <button
                 v-else
                 type="button"
                 class="enpii-pagination__control inline-flex items-center justify-center min-w-control-height-sm h-control-height-sm border border-solid [border-width:var(--control-border-width)] border-transparent rounded-[9999px] bg-transparent [font-family:inherit] text-[1rem] cursor-pointer [transition-property:all] duration-fast ease-emphasized focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)] disabled:opacity-40 disabled:cursor-not-allowed"
-                :class="page === model ? 'enpii-pagination__control--active bg-primary-soft text-primary-text' : 'text-on-surface-variant hover:enabled:bg-primary-soft hover:enabled:text-primary-text'"
+                :class="page === model ? 'enpii-pagination__control--active [background-color:var(--nav-active-bg)] [color:var(--nav-active-fg)]' : '[color:var(--nav-fg)] hover:enabled:[background-color:var(--nav-hover-bg)] hover:enabled:[color:var(--nav-active-fg)]'"
                 :aria-current="page === model ? 'page' : undefined"
                 @click="model = page"
             >
@@ -57,7 +57,7 @@ const pages = computed(() => {
         </template>
         <button
             type="button"
-            class="enpii-pagination__control inline-flex items-center justify-center min-w-control-height-sm h-control-height-sm border border-solid [border-width:var(--control-border-width)] border-transparent rounded-[9999px] bg-transparent text-on-surface-variant [font-family:inherit] text-[1rem] cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:enabled:bg-primary-soft hover:enabled:text-primary-text focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)] disabled:opacity-40 disabled:cursor-not-allowed"
+            class="enpii-pagination__control inline-flex items-center justify-center min-w-control-height-sm h-control-height-sm border border-solid [border-width:var(--control-border-width)] border-transparent rounded-[9999px] bg-transparent [color:var(--nav-fg)] [font-family:inherit] text-[1rem] cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:enabled:[background-color:var(--nav-hover-bg)] hover:enabled:[color:var(--nav-active-fg)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)] disabled:opacity-40 disabled:cursor-not-allowed"
             :disabled="model === totalPages"
             aria-label="Next page"
             @click="model += 1"
