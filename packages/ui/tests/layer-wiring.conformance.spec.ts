@@ -63,6 +63,22 @@ const overlayBorderComponents = [
   'EnpiiTooltip.vue',
 ]
 
+const batch3bHookPatterns: Record<string, RegExp> = {
+  'EnpiiAreaChart.vue': /--chart-(?:[1-6]|grid|axis|tooltip)/,
+  'EnpiiBarChart.vue': /--chart-(?:[1-6]|grid|axis|tooltip)/,
+  'EnpiiDonutChart.vue': /--chart-(?:[1-6]|grid|axis|tooltip)/,
+  'EnpiiLineChart.vue': /--chart-(?:[1-6]|grid|axis|tooltip)/,
+  'EnpiiSparkline.vue': /--chart-[1-6]/,
+  'EnpiiTrendBarChart.vue': /--chart-(?:[1-6]|grid|axis|tooltip)/,
+  'EnpiiAssistantArtifactCard.vue': /--assistant-(?:card-(?:bg|fg|border)|user-msg)/,
+  'EnpiiAssistantArtifactModal.vue': /--(?:overlay-surface-fg|tone-)/,
+  'EnpiiAssistantPollCard.vue': /--assistant-(?:card-(?:bg|fg|border)|user-msg)/,
+  'EnpiiAssistantWidget.vue': /--assistant-(?:user-msg|bot-msg|card)/,
+  'EnpiiDesktopSplashScreen.vue': /--desktop-splash-(?:bg|fg)/,
+  'EnpiiDesktopTitleBar.vue': /--desktop-titlebar-(?:bg|fg)/,
+  'EnpiiWhatsAppPreview.vue': /--assistant-(?:user-msg|bot-msg|card-border)/,
+}
+
 const batch3aHookPatterns: Record<string, RegExp> = {
   "EnpiiDatePicker.vue": /--picker-(?:header-bg|cell-(?:hover-bg|selected-bg|selected-fg)|range-bg)/,
   "EnpiiDateRange.vue": /--picker-(?:header-bg|cell-(?:hover-bg|selected-bg|selected-fg)|range-bg)/,
@@ -123,6 +139,14 @@ describe('structural layer wiring conformance', () => {
     expect(entry).toContain('--control-border-color-filled: transparent;')
     expect(entry).toContain('--overlay-border-color: var(--color-outline-variant);')
     expect(entry).toContain('--control-shadow: 0 0 #0000;')
+  })
+
+  it.each(Object.entries(batch3bHookPatterns))('wires %s to its batch 3b color hook', (filename, pattern) => {
+    const source = readFileSync(resolve(componentsDirectory, filename), 'utf8')
+    expect(source, `${filename} must consume its batch 3b hook`).toMatch(pattern)
+    expect(source, `${filename} must not hardcode theme color utilities`).not.toMatch(
+      /\b(?:bg|text)-(?:primary|success|warning|danger|error|neutral)-?(?:soft|border|text)?\b/,
+    )
   })
 
   it.each(Object.entries(batch3aHookPatterns))("wires %s to its batch 3a color hook", (filename, pattern) => {

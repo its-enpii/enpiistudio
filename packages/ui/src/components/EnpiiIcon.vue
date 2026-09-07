@@ -52,10 +52,10 @@ defineProps({
             containerSize === 10 && 'h-10 w-10',
             containerSize === 12 && 'h-12 w-12',
             containerShape === 'pill' ? 'rounded-full' : 'rounded-lg',
-            ['success', 'secondary'].includes(tone) && 'bg-secondary-container text-on-secondary',
-            ['warning', 'tertiary'].includes(tone) && 'bg-tertiary-fixed text-on-tertiary',
-            ['danger', 'error'].includes(tone) && 'bg-error-container text-on-error-container',
-            ['info', 'primary'].includes(tone) && 'bg-primary-container text-on-primary-container',
+            ['success', 'secondary'].includes(tone) && '[background-color:var(--tone-success-soft-bg)] [color:var(--tone-success-soft-fg)]',
+            ['warning', 'tertiary'].includes(tone) && '[background-color:var(--tone-warning-soft-bg)] [color:var(--tone-warning-soft-fg)]',
+            ['danger', 'error'].includes(tone) && '[background-color:var(--tone-danger-soft-bg)] [color:var(--tone-danger-soft-fg)]',
+            ['info', 'primary'].includes(tone) && '[background-color:var(--tone-primary-soft-bg)] [color:var(--tone-primary-soft-fg)]',
         ]"
         :aria-hidden="label ? undefined : 'true'"
         :aria-label="label || undefined"

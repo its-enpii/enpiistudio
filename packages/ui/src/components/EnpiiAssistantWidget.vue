@@ -506,42 +506,42 @@ onBeforeUnmount(() => {
         <Transition name="assistant-panel">
             <div
                 v-if="open"
-                class="enpii-assistant-widget__panel flex h-[min(36rem,75vh)] w-[min(24rem,calc(100vw-2rem))] origin-bottom-right flex-col overflow-hidden rounded-2xl border border-outline-variant [border-width:var(--overlay-border-width)] bg-surface-container-lowest shadow-overlay"
+                class="enpii-assistant-widget__panel flex h-[min(36rem,75vh)] w-[min(24rem,calc(100vw-2rem))] origin-bottom-right flex-col overflow-hidden rounded-2xl border border-solid [border-color:var(--overlay-border-color)] [border-width:var(--overlay-border-width)] [background-color:var(--overlay-surface-bg)] shadow-overlay"
                 role="dialog"
                 :aria-label="displayName()"
             >
-                <div class="enpii-assistant-widget__header flex shrink-0 items-center justify-between gap-2 border-b border-outline-variant [border-bottom-width:var(--overlay-border-width)] bg-primary px-4 py-3 text-on-primary">
+                <div class="enpii-assistant-widget__header flex shrink-0 items-center justify-between gap-2 border-b border-solid [border-bottom-color:var(--overlay-border-color)] [border-bottom-width:var(--overlay-border-width)] [background-color:var(--tone-primary-bg)] px-4 py-3 [color:var(--tone-primary-fg)]">
                     <div class="enpii-assistant-widget__identity flex min-w-0 items-center gap-2">
                         <AppIcon name="smart_toy" class="enpii-assistant-widget__logo h-5 w-5 shrink-0 text-xl" />
                         <div class="enpii-assistant-widget__identity-text min-w-0">
                             <span class="enpii-assistant-widget__name block truncate text-sm font-semibold">{{ displayName() }}</span>
-                            <span v-if="persona?.slug" class="enpii-assistant-widget__persona block truncate text-on-primary/70 text-[.625rem] font-medium">{{ persona.slug }}</span>
+                            <span v-if="persona?.slug" class="enpii-assistant-widget__persona block truncate [color:var(--tone-primary-fg)] opacity-70 text-[.625rem] font-medium">{{ persona.slug }}</span>
                         </div>
                     </div>
-                    <button type="button" class="enpii-assistant-widget__close grid h-8 w-8 cursor-pointer place-items-center rounded-full border-0 bg-none transition-colors duration-fast ease-emphasized hover:bg-white/10" :aria-label="t('assistant.close')" @click="open = false">
+                    <button type="button" class="enpii-assistant-widget__close grid h-8 w-8 cursor-pointer place-items-center rounded-full border-0 bg-none transition-colors duration-fast ease-emphasized hover:[background-color:var(--control-bg-hover)]" :aria-label="t('assistant.close')" @click="open = false">
                         <AppIcon name="close" />
                     </button>
                 </div>
 
-                <p v-if="loading && !messages.length" class="enpii-assistant-widget__status p-4 text-on-surface-variant text-sm">Menghubungkan…</p>
-                <p v-else-if="error && !messages.length" class="enpii-assistant-widget__status p-4 text-danger-text text-sm">{{ error }}</p>
+                <p v-if="loading && !messages.length" class="enpii-assistant-widget__status p-4 [color:var(--tone-neutral-fg)] text-sm">Menghubungkan…</p>
+                <p v-else-if="error && !messages.length" class="enpii-assistant-widget__status p-4 [color:var(--tone-danger-fg)] text-sm">{{ error }}</p>
 
-                <div ref="listEl" class="enpii-assistant-widget__messages flex min-h-0 flex-1 flex-col overflow-y-auto bg-surface p-4">
+                <div ref="listEl" class="enpii-assistant-widget__messages flex min-h-0 flex-1 flex-col overflow-y-auto [background-color:var(--overlay-surface-bg)] p-4">
                     <TransitionGroup name="assistant-msg" tag="div" class="enpii-assistant-widget__message-list flex flex-col gap-3">
                         <div
                             v-for="msg in messages"
                             :key="msg.id"
                             class="enpii-assistant-widget__bubble max-w-[85%] rounded-2xl px-3 py-2 text-sm leading-relaxed"
                             :class="{
-                                'self-end rounded-br-sm bg-primary text-on-primary whitespace-pre-wrap': msg.role === 'user',
-                                'self-start rounded-bl-sm border border-outline-variant [border-width:var(--overlay-border-width)] bg-surface-container-lowest text-on-surface': msg.role === 'assistant' || msg.role === 'system',
-                                'self-start rounded-bl-sm bg-error-container text-on-error-container whitespace-pre-wrap': msg.role === 'error',
-                                'self-start rounded-bl-sm border border-dashed border-outline-variant [border-width:var(--overlay-border-width)] bg-surface-container-low text-on-surface-variant text-xs': msg.role === 'tool',
+                                'self-end rounded-br-sm [background-color:var(--assistant-user-msg-bg)] [color:var(--assistant-user-msg-fg)] whitespace-pre-wrap': msg.role === 'user',
+                                'self-start rounded-bl-sm border border-solid [border-color:var(--assistant-card-border)] [border-width:var(--overlay-border-width)] [background-color:var(--assistant-bot-msg-bg)] [color:var(--assistant-bot-msg-fg)]': msg.role === 'assistant' || msg.role === 'system',
+                                'self-start rounded-bl-sm [background-color:var(--tone-danger-soft-bg)] [color:var(--tone-danger-soft-fg)] whitespace-pre-wrap': msg.role === 'error',
+                                'self-start rounded-bl-sm border border-dashed [border-color:var(--assistant-card-border)] [border-width:var(--overlay-border-width)] [background-color:var(--control-bg)] [color:var(--tone-neutral-fg)] text-xs': msg.role === 'tool',
                             }"
                         >
                             <template v-if="msg.role === 'tool'">
                                 <span class="enpii-assistant-widget__tool-name font-semibold"><strong>{{ msg.kind === 'use' ? 'Tool' : 'Hasil' }}:</strong> {{ msg.name }}</span>
-                                <span v-if="msg.ok === false" class="enpii-assistant-widget__tool-error text-danger-text"> (gagal)</span>
+                                <span v-if="msg.ok === false" class="enpii-assistant-widget__tool-error [color:var(--tone-danger-fg)]"> (gagal)</span>
                             </template>
                             <template v-else-if="msg.role === 'user' || msg.role === 'error'">
                                 <div v-if="msg.attachments && msg.attachments.length" class="enpii-assistant-widget__attachments mb-2 flex flex-wrap gap-1">
@@ -550,7 +550,7 @@ onBeforeUnmount(() => {
                                         :key="i"
                                         :src="att.url"
                                         :alt="att.name || t('assistant.imageAlt')"
-                                        class="enpii-assistant-widget__attachment max-h-36 max-w-full rounded-control border border-white/20 [border-width:var(--control-border-width)] object-cover shadow-control"
+                                        class="enpii-assistant-widget__attachment max-h-36 max-w-full rounded-control border border-solid [border-color:var(--control-border-color)] [border-width:var(--control-border-width)] object-cover shadow-control"
                                     />
                                 </div>
                                 <span v-if="msg.content && msg.content !== '(Lampiran Gambar)'">{{ msg.content }}</span>
@@ -563,7 +563,7 @@ onBeforeUnmount(() => {
                                     <!-- eslint-disable-next-line vue/no-v-html -->
                                     <div
                                         v-else-if="assistantBlock.type === 'paragraph' || assistantBlock.type === 'code'"
-                                        class="enpii-assistant-widget__markdown text-sm leading-relaxed [&>*:first-child]:mt-0 [&>*:last-child]:mb-0 [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-[.2em] [&_code]:rounded-md [&_code]:bg-neutral-soft/70 [&_code]:font-mono [&_code]:text-[.8125em] [&_pre]:overflow-x-auto [&_pre]:rounded-md [&_pre]:bg-neutral-soft/70 [&_pre]:p-2"
+                                        class="enpii-assistant-widget__markdown text-sm leading-relaxed [&>*:first-child]:mt-0 [&>*:last-child]:mb-0 [&_a]:[color:var(--tone-primary-fg)] [&_a]:underline [&_a]:underline-offset-[.2em] [&_code]:rounded-md [&_code]:[background-color:var(--tone-neutral-soft-bg)] [&_code]:font-mono [&_code]:text-[.8125em] [&_pre]:overflow-x-auto [&_pre]:rounded-md [&_pre]:[background-color:var(--tone-neutral-soft-bg)] [&_pre]:p-2"
                                         v-html="assistantBlock.html"
                                     />
                                     <ArtifactCard
@@ -589,35 +589,35 @@ onBeforeUnmount(() => {
 
                     <div
                         v-if="typing"
-                        class="enpii-assistant-widget__typing flex max-w-[85%] items-center gap-2 self-start rounded-2xl rounded-bl-sm border border-outline-variant [border-width:var(--overlay-border-width)] bg-surface-container-lowest px-3 py-2"
+                        class="enpii-assistant-widget__typing flex max-w-[85%] items-center gap-2 self-start rounded-2xl rounded-bl-sm border border-solid [border-color:var(--assistant-card-border)] [border-width:var(--overlay-border-width)] [background-color:var(--assistant-bot-msg-bg)] px-3 py-2"
                         :aria-label="typingLabel"
                     >
                         <span class="enpii-assistant-widget__typing-dots flex items-center gap-1">
-                            <span class="enpii-assistant-widget__typing-dot h-2 w-2 rounded-full bg-outline motion-safe:animate-[assistant-pulse_1.2s_infinite]" />
-                            <span class="enpii-assistant-widget__typing-dot h-2 w-2 rounded-full bg-outline motion-safe:animate-[assistant-pulse_1.2s_infinite] motion-safe:[animation-delay:.15s]" />
-                            <span class="enpii-assistant-widget__typing-dot h-2 w-2 rounded-full bg-outline motion-safe:animate-[assistant-pulse_1.2s_infinite] motion-safe:[animation-delay:.3s]" />
+                            <span class="enpii-assistant-widget__typing-dot h-2 w-2 rounded-full [background-color:var(--tone-neutral-fg)] motion-safe:animate-[assistant-pulse_1.2s_infinite]" />
+                            <span class="enpii-assistant-widget__typing-dot h-2 w-2 rounded-full [background-color:var(--tone-neutral-fg)] motion-safe:animate-[assistant-pulse_1.2s_infinite] motion-safe:[animation-delay:.15s]" />
+                            <span class="enpii-assistant-widget__typing-dot h-2 w-2 rounded-full [background-color:var(--tone-neutral-fg)] motion-safe:animate-[assistant-pulse_1.2s_infinite] motion-safe:[animation-delay:.3s]" />
                         </span>
-                        <span class="enpii-assistant-widget__typing-label text-on-surface-variant text-xs">{{ typingLabel }}</span>
+                        <span class="enpii-assistant-widget__typing-label [color:var(--tone-neutral-fg)] text-xs">{{ typingLabel }}</span>
                     </div>
 
                     <div
                         v-if="pendingConfirmation"
-                        class="enpii-assistant-widget__confirmation self-stretch rounded-control border border-outline-variant [border-width:var(--overlay-border-width)] bg-surface-container-lowest p-3 text-sm"
+                        class="enpii-assistant-widget__confirmation self-stretch rounded-control border border-solid [border-color:var(--assistant-card-border)] [border-width:var(--overlay-border-width)] [background-color:var(--assistant-card-bg)] p-3 text-sm"
                     >
-                        <p class="enpii-assistant-widget__confirmation-title m-0 text-primary-text font-semibold">{{ pendingConfirmation.summary }}</p>
-                        <ul v-if="pendingConfirmation.warnings?.length" class="enpii-assistant-widget__warnings mt-2 list-disc pl-4 text-on-surface-variant">
+                        <p class="enpii-assistant-widget__confirmation-title m-0 [color:var(--assistant-card-fg)] font-semibold">{{ pendingConfirmation.summary }}</p>
+                        <ul v-if="pendingConfirmation.warnings?.length" class="enpii-assistant-widget__warnings mt-2 list-disc pl-4 [color:var(--tone-neutral-fg)]">
                             <li v-for="(w, i) in pendingConfirmation.warnings" :key="i">{{ w }}</li>
                         </ul>
                         <div class="enpii-assistant-widget__confirm-actions mt-3 flex gap-2">
                             <button
                                 type="button"
-                                class="enpii-assistant-widget__confirm-button cursor-pointer rounded-md border-0 bg-primary px-3 py-1 text-on-primary text-xs font-semibold hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50"
+                                class="enpii-assistant-widget__confirm-button cursor-pointer rounded-md border-0 [background-color:var(--tone-primary-bg)] px-3 py-1 [color:var(--tone-primary-fg)] text-xs font-semibold hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50"
                                 :disabled="sending"
                                 @click="decideConfirmation('approve')"
                             >Setuju</button>
                             <button
                                 type="button"
-                class="enpii-assistant-widget__reject-button cursor-pointer rounded-md border border-outline-variant [border-width:var(--control-border-width)] bg-none px-3 py-1 text-on-surface text-xs font-semibold hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50"
+                class="enpii-assistant-widget__reject-button cursor-pointer rounded-md border border-solid [border-color:var(--control-border-color)] [border-width:var(--control-border-width)] [background-color:var(--control-bg)] px-3 py-1 [color:var(--control-fg)] text-xs font-semibold hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50"
                                 :disabled="sending"
                                 @click="decideConfirmation('reject')"
                             >Tolak</button>
@@ -625,18 +625,18 @@ onBeforeUnmount(() => {
                     </div>
                 </div>
 
-                <div class="enpii-assistant-widget__composer-wrap border-t border-outline-variant [border-top-width:var(--overlay-border-width)] bg-surface-container-lowest">
+                <div class="enpii-assistant-widget__composer-wrap border-t border-solid [border-top-color:var(--overlay-border-color)] [border-top-width:var(--overlay-border-width)] [background-color:var(--overlay-surface-bg)]">
                     <!-- Attached Images Preview -->
-                    <div v-if="attachedImages.length" class="enpii-assistant-widget__attachments-bar flex flex-wrap gap-2 border-b border-outline-variant/50 [border-bottom-width:var(--overlay-border-width)] px-3 pb-2 pt-2">
+                    <div v-if="attachedImages.length" class="enpii-assistant-widget__attachments-bar flex flex-wrap gap-2 border-b border-solid [border-bottom-color:var(--overlay-border-color)] [border-bottom-width:var(--overlay-border-width)] px-3 pb-2 pt-2">
                         <div
                             v-for="(img, idx) in attachedImages"
                             :key="idx"
-                            class="enpii-assistant-widget__thumbnail group relative h-14 w-14 shrink-0 overflow-hidden rounded-control border border-outline-variant [border-width:var(--control-border-width)] bg-surface-container"
+                            class="enpii-assistant-widget__thumbnail group relative h-14 w-14 shrink-0 overflow-hidden rounded-control border border-solid [border-color:var(--control-border-color)] [border-width:var(--control-border-width)] [background-color:var(--control-bg)]"
                         >
                             <img :src="img.dataUrl" class="enpii-assistant-widget__thumbnail-image h-full w-full object-cover" :alt="img.name" />
                             <button
                                 type="button"
-                                class="enpii-assistant-widget__thumbnail-remove absolute inset-0 grid cursor-pointer place-items-center border-0 bg-black/60 text-surface-inverse opacity-0 transition-opacity duration-fast ease-emphasized group-hover:opacity-100 focus-visible:opacity-100"
+                                class="enpii-assistant-widget__thumbnail-remove absolute inset-0 grid cursor-pointer place-items-center border-0 [background-color:var(--overlay-scrim-bg)] [color:var(--overlay-surface-bg)] opacity-0 transition-opacity duration-fast ease-emphasized group-hover:opacity-100 focus-visible:opacity-100"
                                 :aria-label="t('assistant.removeImage')"
                                 @click="removeAttachedImage(idx)"
                             >
@@ -656,7 +656,7 @@ onBeforeUnmount(() => {
                         />
                         <button
                             type="button"
-                            class="enpii-assistant-widget__composer-button grid h-11 w-11 shrink-0 cursor-pointer place-items-center rounded-control border border-outline-variant [border-width:var(--control-border-width)] bg-none text-on-surface-variant transition-all duration-fast ease-emphasized hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-primary)_30%,transparent)] disabled:cursor-not-allowed"
+                            class="enpii-assistant-widget__composer-button grid h-11 w-11 shrink-0 cursor-pointer place-items-center rounded-control border border-solid [border-color:var(--control-border-color)] [border-width:var(--control-border-width)] [background-color:var(--control-bg)] [color:var(--tone-neutral-fg)] transition-all duration-fast ease-emphasized hover:[background-color:var(--control-bg-hover)] hover:[color:var(--control-fg)] focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-primary)_30%,transparent)] disabled:cursor-not-allowed"
                             :disabled="sending || loading"
                             :aria-label="t('assistant.attachImage')"
                             :title="t('assistant.attachImage')"
@@ -668,7 +668,7 @@ onBeforeUnmount(() => {
                             ref="inputEl"
                             v-model="input"
                             rows="2"
-                            class="enpii-assistant-widget__input max-h-12 min-h-11 flex-1 rounded-control border border-outline-variant [border-width:var(--control-border-width)] bg-surface px-3 py-2 text-on-surface text-sm leading-tight resize-none focus:border-primary focus:outline-none focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-primary)_20%,transparent)]"
+                            class="enpii-assistant-widget__input max-h-12 min-h-11 flex-1 rounded-control border border-solid [border-color:var(--field-border-color)] [border-width:var(--control-border-width)] [background-color:var(--field-bg)] px-3 py-2 [color:var(--field-fg)] text-sm leading-tight resize-none focus:outline-none focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-primary)_20%,transparent)]"
                             :placeholder="t('assistant.inputPlaceholder', { name: displayName() })"
                             :disabled="sending || loading"
                             @input="afterInputChange"
@@ -677,7 +677,7 @@ onBeforeUnmount(() => {
                         />
                         <button
                             type="button"
-                            class="enpii-assistant-widget__composer-button grid h-11 w-11 shrink-0 cursor-pointer place-items-center rounded-control border border-transparent bg-primary text-on-primary transition-all duration-fast ease-emphasized hover:bg-surface-container hover:text-on-surface focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-primary)_30%,transparent)] disabled:cursor-not-allowed"
+                            class="enpii-assistant-widget__composer-button grid h-11 w-11 shrink-0 cursor-pointer place-items-center rounded-control border border-transparent [background-color:var(--tone-primary-bg)] [color:var(--tone-primary-fg)] transition-all duration-fast ease-emphasized hover:[background-color:var(--control-bg-hover)] focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-primary)_30%,transparent)] disabled:cursor-not-allowed"
                             :disabled="sending || loading || (!input.trim() && !attachedImages.length)"
                             :aria-label="t('assistant.send')"
                             @click="sendMessage"
@@ -693,7 +693,7 @@ onBeforeUnmount(() => {
 
         <button
             type="button"
-            class="enpii-assistant-widget__toggle grid h-14 w-14 cursor-pointer place-items-center rounded-full border-0 bg-primary text-on-primary shadow-raised transition-all duration-base ease-emphasized hover:scale-105 hover:bg-primary-hover focus-visible:outline-none focus-visible:[box-shadow:0_0_0_3px_color-mix(in_srgb,var(--color-focus)_60%,transparent),var(--shadow-raised)]"
+            class="enpii-assistant-widget__toggle grid h-14 w-14 cursor-pointer place-items-center rounded-full border-0 [background-color:var(--tone-primary-bg)] [color:var(--tone-primary-fg)] shadow-raised transition-all duration-base ease-emphasized hover:scale-105 focus-visible:outline-none focus-visible:[box-shadow:0_0_0_3px_color-mix(in_srgb,var(--color-focus)_60%,transparent),var(--shadow-raised)]"
             :aria-expanded="open"
             :aria-label="t('assistant.openToggle', { name: displayName() })"
             @click="toggle"

@@ -141,37 +141,37 @@ const tenantName = computed(() => {
 <template>
     <header
         v-if="isDesktop"
-        class="enpii-desktop-title-bar sticky top-0 z-[150] flex h-9 w-full items-center justify-between border-b border-neutral-border [border-bottom-width:var(--control-border-width)] bg-primary-deep px-3 text-on-surface-variant text-xs select-none [backdrop-filter:blur(12px)] [-webkit-app-region:drag]"
+        class="enpii-desktop-title-bar sticky top-0 z-[150] flex h-9 w-full items-center justify-between border-b border-solid [border-bottom-color:var(--control-border-color)] [border-bottom-width:var(--control-border-width)] [background-color:var(--desktop-titlebar-bg)] px-3 [color:var(--desktop-titlebar-fg)] text-xs select-none [backdrop-filter:blur(12px)] [-webkit-app-region:drag]"
         style="-webkit-app-region: drag;"
     >
         <!-- Left Side: App Indicator & Status -->
         <div class="enpii-desktop-title-bar__start flex items-center gap-2" style="-webkit-app-region: no-drag;">
-            <div class="enpii-desktop-title-bar__brand flex items-center gap-1 font-semibold text-on-primary tracking-tight">
-                <div class="enpii-desktop-title-bar__brand-mark flex h-5 w-5 items-center justify-center rounded bg-secondary text-on-secondary text-[.625rem] font-semibold shadow-control">S</div>
+            <div class="enpii-desktop-title-bar__brand flex items-center gap-1 font-semibold [color:var(--desktop-titlebar-fg)] tracking-tight">
+                <div class="enpii-desktop-title-bar__brand-mark flex h-5 w-5 items-center justify-center rounded [background-color:var(--desktop-titlebar-fg)] [color:var(--desktop-titlebar-bg)] text-[.625rem] font-semibold shadow-control">S</div>
                 <span class="enpii-desktop-title-bar__brand-name hidden sm:inline">ENPII</span>
             </div>
 
-            <div class="enpii-desktop-title-bar__divider h-3 w-px bg-neutral-border"></div>
+            <div class="enpii-desktop-title-bar__divider h-3 w-px [background-color:var(--control-border-color)]"></div>
 
             <!-- Online/Offline Indicator Badge -->
             <div
                 v-if="isOnline"
-                class="enpii-desktop-title-bar__status flex items-center gap-1 rounded-full px-2 py-1 text-[.6875rem] font-semibold text-success-text"
+                class="enpii-desktop-title-bar__status flex items-center gap-1 rounded-full px-2 py-1 text-[.6875rem] font-semibold [color:var(--desktop-titlebar-fg)]"
                 :title="t('titleBar.onlineTitle')"
             >
                 <span class="enpii-desktop-title-bar__pulse-wrap">
-                    <span class="enpii-desktop-title-bar__pulse absolute inset-0 rounded-full bg-success-text/75 motion-safe:animate-ping"></span>
-                    <span class="enpii-desktop-title-bar__dot relative inline-flex h-2 w-2 rounded-full bg-secondary"></span>
+                    <span class="enpii-desktop-title-bar__pulse absolute inset-0 rounded-full [background-color:var(--tone-success-bg)] opacity-75 motion-safe:animate-ping"></span>
+                    <span class="enpii-desktop-title-bar__dot relative inline-flex h-2 w-2 rounded-full [background-color:var(--tone-success-bg)]"></span>
                 </span>
                 <span>Online</span>
             </div>
 
             <div
                 v-else
-                class="enpii-desktop-title-bar__status flex items-center gap-1 rounded-full border border-warning-text/40 [border-width:var(--control-border-width)] bg-warning-text/15 px-2 py-1 text-[.6875rem] font-semibold text-warning-text"
+                class="enpii-desktop-title-bar__status flex items-center gap-1 rounded-full border border-solid [border-color:var(--tone-warning-border)] [border-width:var(--control-border-width)] [background-color:var(--tone-warning-soft-bg)] px-2 py-1 text-[.6875rem] font-semibold [color:var(--tone-warning-soft-fg)]"
                 :title="t('titleBar.offlineTitle')"
             >
-                <span class="enpii-desktop-title-bar__dot h-2 w-2 rounded-full bg-warning-text"></span>
+                <span class="enpii-desktop-title-bar__dot h-2 w-2 rounded-full [background-color:var(--tone-warning-fg)]"></span>
                 <span>{{ t('titleBar.offlineLabel') }}</span>
             </div>
 
@@ -179,14 +179,14 @@ const tenantName = computed(() => {
             <button
                 v-if="isOnline"
                 type="button"
-                class="enpii-desktop-title-bar__sync inline-flex cursor-pointer items-center gap-1 rounded px-1 py-1 text-on-surface-variant transition-all duration-fast ease-emphasized hover:bg-neutral-border hover:text-on-surface focus-visible:outline focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)]"
+                class="enpii-desktop-title-bar__sync inline-flex cursor-pointer items-center gap-1 rounded px-1 py-1 [color:var(--desktop-titlebar-fg)] transition-all duration-fast ease-emphasized hover:[background-color:var(--control-bg-hover)] focus-visible:outline focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)]"
                 :disabled="isSyncing || isClosing"
                 :title="t('titleBar.syncTitle')"
                 @click="triggerSync"
             >
                 <svg
                     class="enpii-desktop-title-bar__sync-icon h-3 w-3"
-                    :class="{ 'text-success-text motion-safe:animate-spin': isSyncing }"
+                    :class="{ '[color:var(--tone-success-fg)] motion-safe:animate-spin': isSyncing }"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -198,7 +198,7 @@ const tenantName = computed(() => {
         </div>
 
         <!-- Center: Draggable Window Title -->
-        <div class="enpii-desktop-title-bar__title overflow-hidden px-4 text-center text-on-surface-variant font-medium truncate pointer-events-none">
+        <div class="enpii-desktop-title-bar__title overflow-hidden px-4 text-center [color:var(--desktop-titlebar-fg)] font-medium truncate pointer-events-none">
             {{ tenantName }}
         </div>
 
@@ -207,7 +207,7 @@ const tenantName = computed(() => {
             <!-- Minimize -->
             <button
                 type="button"
-                class="enpii-desktop-title-bar__control flex w-10 cursor-pointer items-center justify-center border-0 bg-none text-on-surface-variant transition-all duration-fast ease-emphasized hover:bg-neutral-border hover:text-on-primary focus-visible:outline focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset-negative)]"
+                class="enpii-desktop-title-bar__control flex w-10 cursor-pointer items-center justify-center border-0 bg-none [color:var(--desktop-titlebar-fg)] transition-all duration-fast ease-emphasized hover:[background-color:var(--control-bg-hover)] focus-visible:outline focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset-negative)]"
                 title="Minimize"
                 aria-label="Minimize"
                 :disabled="isClosing"
@@ -221,7 +221,7 @@ const tenantName = computed(() => {
             <!-- Maximize / Restore -->
             <button
                 type="button"
-                class="enpii-desktop-title-bar__control flex w-10 cursor-pointer items-center justify-center border-0 bg-none text-on-surface-variant transition-all duration-fast ease-emphasized hover:bg-neutral-border hover:text-on-primary focus-visible:outline focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset-negative)]"
+                class="enpii-desktop-title-bar__control flex w-10 cursor-pointer items-center justify-center border-0 bg-none [color:var(--desktop-titlebar-fg)] transition-all duration-fast ease-emphasized hover:[background-color:var(--control-bg-hover)] focus-visible:outline focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset-negative)]"
                 :title="isMaximized ? 'Restore' : 'Maximize'"
                 :aria-label="isMaximized ? 'Restore' : 'Maximize'"
                 :disabled="isClosing"
@@ -239,7 +239,7 @@ const tenantName = computed(() => {
             <!-- Close (Logout & Exit) -->
             <button
                 type="button"
-                class="enpii-desktop-title-bar__control flex w-10 cursor-pointer items-center justify-center border-0 bg-none text-on-surface-variant transition-all duration-fast ease-emphasized hover:bg-error hover:text-on-error focus-visible:outline focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset-negative)]"
+                class="enpii-desktop-title-bar__control flex w-10 cursor-pointer items-center justify-center border-0 bg-none [color:var(--desktop-titlebar-fg)] transition-all duration-fast ease-emphasized hover:[background-color:var(--tone-danger-bg)] hover:[color:var(--tone-danger-fg)] focus-visible:outline focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset-negative)]"
                 :class="{ 'cursor-wait opacity-70': isClosing }"
                 :title="t('titleBar.closeTitle')"
                 :aria-label="t('titleBar.closeTitle')"

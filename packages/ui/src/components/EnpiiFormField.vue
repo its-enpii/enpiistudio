@@ -114,7 +114,7 @@ const describedBy = computed(() => {
     <p
       v-if="displayError"
       :id="errorId"
-      class="enpii-form-field__error block ml-1 text-danger-text text-sm font-normal"
+      class="enpii-form-field__error block ml-1 [color:var(--field-error-color)] text-sm font-normal"
       role="alert"
     >
       {{ displayError }}
@@ -122,7 +122,7 @@ const describedBy = computed(() => {
     <p
       v-else-if="hint"
       :id="hintId"
-      class="enpii-form-field__hint block ml-1 text-on-surface-variant text-sm font-normal"
+      class="enpii-form-field__hint block ml-1 [color:var(--tone-neutral-fg)] text-sm font-normal"
     >
       {{ hint }}
     </p>

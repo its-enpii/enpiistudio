@@ -11,7 +11,7 @@ const props = defineProps({
 const W = 100
 const PAD = 4
 const H = computed(() => Math.max(props.height || 48, 24))
-const resolvedColor = computed(() => props.color || 'var(--color-primary)')
+const resolvedColor = computed(() => props.color || 'var(--chart-1)')
 
 const points = computed(() => {
   if (!props.data?.length) return []

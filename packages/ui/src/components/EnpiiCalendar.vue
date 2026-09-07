@@ -181,25 +181,25 @@ watch(month, () => {
 </script>
 
 <template>
-    <section class="enpii-calendar w-full rounded-control border border-solid [border-width:var(--control-border-width)] border-outline-variant bg-surface-container-lowest text-on-surface shadow-control" :aria-label="monthLabel">
+    <section class="enpii-calendar w-full rounded-control border border-solid [border-width:var(--control-border-width)] [border-color:var(--control-border-color)] [background-color:var(--card-bg)] [color:var(--card-fg)] shadow-control" :aria-label="monthLabel">
         <header class="enpii-calendar__header grid grid-cols-10 items-center gap-1 px-2 py-2 max-[24rem]:px-1">
-            <button type="button" class="enpii-calendar__nav grid h-10 w-10 cursor-pointer place-items-center rounded-full border-0 bg-none text-on-surface-variant transition-[background,color,transform] duration-fast ease-emphasized hover:bg-neutral-soft hover:text-primary-text active:scale-94 focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)]" :aria-label="t('calendar.previousMonth')" @click="changeMonth(-1)">
+            <button type="button" class="enpii-calendar__nav grid h-10 w-10 cursor-pointer place-items-center rounded-full border-0 bg-none [color:var(--tone-neutral-fg)] transition-[background,color,transform] duration-fast ease-emphasized hover:[background-color:var(--picker-cell-hover-bg)] hover:[color:var(--card-fg)] active:scale-94 focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)]" :aria-label="t('calendar.previousMonth')" @click="changeMonth(-1)">
                 <AppIcon name="chevron_left" class="enpii-calendar__nav-icon h-5 w-5 text-xl leading-none" />
             </button>
-            <p class="enpii-calendar__month m-0 truncate text-center text-primary-text text-sm font-medium capitalize" aria-live="polite">{{ monthLabel }}</p>
-            <button type="button" class="enpii-calendar__nav grid h-10 w-10 cursor-pointer place-items-center rounded-full border-0 bg-none text-on-surface-variant transition-[background,color,transform] duration-fast ease-emphasized hover:bg-neutral-soft hover:text-primary-text active:scale-94 focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)]" :aria-label="t('calendar.nextMonth')" @click="changeMonth(1)">
+            <p class="enpii-calendar__month m-0 truncate text-center [color:var(--card-fg)] text-sm font-medium capitalize" aria-live="polite">{{ monthLabel }}</p>
+            <button type="button" class="enpii-calendar__nav grid h-10 w-10 cursor-pointer place-items-center rounded-full border-0 bg-none [color:var(--tone-neutral-fg)] transition-[background,color,transform] duration-fast ease-emphasized hover:[background-color:var(--picker-cell-hover-bg)] hover:[color:var(--card-fg)] active:scale-94 focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)]" :aria-label="t('calendar.nextMonth')" @click="changeMonth(1)">
                 <AppIcon name="chevron_right" class="enpii-calendar__nav-icon h-5 w-5 text-xl leading-none" />
             </button>
         </header>
 
         <div class="enpii-calendar__grid grid gap-y-1 px-2 pb-3 pt-0 max-[24rem]:gap-y-0.5 max-[24rem]:px-1 max-[24rem]:pb-2" role="grid" @keydown="onKeydown">
             <div class="enpii-calendar__week grid grid-cols-7 items-stretch gap-1 has-[.enpii-calendar__week-number]:grid-cols-[2.5rem_repeat(7,minmax(0,1fr))] max-[24rem]:gap-0.5" role="row">
-                <span v-if="showWeekNumbers" class="enpii-calendar__week-number grid max-w-10 place-items-center text-on-surface-variant text-[.625rem] font-medium tabular-nums" aria-hidden="true">#</span>
+                <span v-if="showWeekNumbers" class="enpii-calendar__week-number grid max-w-10 place-items-center [color:var(--tone-neutral-fg)] text-[.625rem] font-medium tabular-nums" aria-hidden="true">#</span>
                 <span
                     v-for="(weekday, index) in weekdayLabels"
                     :key="weekday + index"
                     role="columnheader"
-                    class="enpii-calendar__weekday grid place-items-center py-1 text-on-surface-variant text-[.6875rem] font-medium uppercase tracking-wide"
+                    class="enpii-calendar__weekday grid place-items-center py-1 [color:var(--tone-neutral-fg)] text-[.6875rem] font-medium uppercase tracking-wide"
                 >{{ weekday }}</span>
             </div>
 
@@ -209,19 +209,19 @@ watch(month, () => {
                 class="enpii-calendar__week grid grid-cols-7 items-stretch gap-1 has-[.enpii-calendar__week-number]:grid-cols-[2.5rem_repeat(7,minmax(0,1fr))] max-[24rem]:gap-0.5"
                 role="row"
             >
-                <span v-if="showWeekNumbers" class="enpii-calendar__week-number grid max-w-10 place-items-center text-outline text-[.625rem] font-medium tabular-nums">{{ days[(row - 1) * 7].weekNumber }}</span>
+                <span v-if="showWeekNumbers" class="enpii-calendar__week-number grid max-w-10 place-items-center [color:var(--tone-neutral-fg)] text-[.625rem] font-medium tabular-nums">{{ days[(row - 1) * 7].weekNumber }}</span>
                 <button
                     v-for="day in days.slice((row - 1) * 7, row * 7)"
                     :key="day.iso"
                     type="button"
                     role="gridcell"
-                    class="enpii-calendar__day relative mx-auto grid min-h-10 min-w-9 place-items-center rounded-[calc(var(--radius-control)-.25rem)] border-0 bg-none p-0 text-on-surface text-sm font-medium tabular-nums transition-[background,color,box-shadow,transform] duration-fast ease-emphasized hover:bg-neutral-soft focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)] disabled:cursor-not-allowed disabled:text-outline disabled:opacity-45 max-[24rem]:min-w-10 max-[24rem]:text-[.8125rem]"
+                    class="enpii-calendar__day relative mx-auto grid min-h-10 min-w-9 place-items-center rounded-[calc(var(--radius-control)-.25rem)] border-0 bg-none p-0 [color:var(--card-fg)] text-sm font-medium tabular-nums transition-[background,color,box-shadow,transform] duration-fast ease-emphasized hover:[background-color:var(--picker-cell-hover-bg)] focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)] disabled:cursor-not-allowed disabled:[color:var(--tone-neutral-fg)] disabled:opacity-45 max-[24rem]:min-w-10 max-[24rem]:text-[.8125rem]"
                     :class="{
-                        'text-warning-text': day.isWeekend,
-                        'text-outline': day.isOutsideMonth,
-                        'shadow-[inset_0_0_0_2px_var(--color-primary-border)]': day.isToday && !day.isSelected,
-                        'bg-primary text-on-primary shadow-control': day.isSelected,
-                        'bg-neutral-soft': day.isFocused && !day.isSelected,
+                        '[color:var(--tone-warning-fg)]': day.isWeekend,
+                        '[color:var(--tone-neutral-fg)] opacity-40': day.isOutsideMonth,
+                        '[box-shadow:inset_0_0_0_2px_var(--control-border-color-focus)]': day.isToday && !day.isSelected,
+                        '[background-color:var(--picker-cell-selected-bg)] [color:var(--picker-cell-selected-fg)] shadow-control': day.isSelected,
+                        '[background-color:var(--picker-cell-hover-bg)]': day.isFocused && !day.isSelected,
                     }"
                     :data-date="day.iso"
                     :tabindex="day.isFocused ? 0 : -1"
@@ -233,7 +233,7 @@ watch(month, () => {
                     @click="select(day)"
                 >
                     <span class="enpii-calendar__day-number">{{ day.day }}</span>
-                    <span v-if="day.marker" class="enpii-calendar__marker absolute bottom-1 h-1.5 w-1.5 rounded-full text-primary-text" :class="day.isSelected ? 'bg-on-primary' : 'bg-primary-text'" aria-hidden="true" />
+                    <span v-if="day.marker" class="enpii-calendar__marker absolute bottom-1 h-1.5 w-1.5 rounded-full [color:var(--card-fg)]" :class="day.isSelected ? '[background-color:var(--picker-cell-selected-fg)]' : '[background-color:var(--picker-cell-selected-bg)]'" aria-hidden="true" />
                 </button>
             </div>
         </div>

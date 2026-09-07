@@ -70,10 +70,10 @@ function submitImport() {
     </div>
 
     <AppModal v-model="open" :title="title ?? t('csvImportExport.importTitle')" size="md">
-        <p class="enpii-csv-import-export__hint mb-4 text-on-surface-variant text-sm">{{ hint ?? t('csvImportExport.importHint') }}</p>
-        <div class="enpii-csv-import-export__columns mb-4 rounded-control border border-outline-variant [border-width:var(--control-border-width)] bg-surface-container-low p-4">
-            <p class="enpii-csv-import-export__columns-label m-0 text-on-surface-variant text-xs font-semibold">{{ t('csvImportExport.columnsLabel') }}</p>
-            <p class="enpii-csv-import-export__columns-value mt-2 font-mono text-primary-text text-sm">{{ columns.join(';') }}</p>
+        <p class="enpii-csv-import-export__hint mb-4 [color:var(--tone-neutral-fg)] text-sm">{{ hint ?? t('csvImportExport.importHint') }}</p>
+        <div class="enpii-csv-import-export__columns mb-4 rounded-control border [border-color:var(--control-border-color)] [border-width:var(--control-border-width)] [background-color:var(--card-bg)] p-4">
+            <p class="enpii-csv-import-export__columns-label m-0 [color:var(--tone-neutral-fg)] text-xs font-semibold">{{ t('csvImportExport.columnsLabel') }}</p>
+            <p class="enpii-csv-import-export__columns-value mt-2 font-mono [color:var(--card-fg)] text-sm">{{ columns.join(';') }}</p>
         </div>
         <div class="enpii-csv-import-export__field mt-2 block">
             <EnpiiLabel for="enpii-csv-import-export-file" size="sm" class="enpii-csv-import-export__label mb-1 ml-1 block">{{ t('csvImportExport.fileLabel') }}</EnpiiLabel>
@@ -82,11 +82,11 @@ function submitImport() {
                 type="file"
                 accept=".csv,text/csv,application/vnd.ms-excel"
                 id="enpii-csv-import-export-file"
-                class="enpii-csv-import-export__input w-full rounded-control border border-outline-variant [border-width:var(--control-border-width)] bg-surface-container-lowest px-4 py-3 text-primary-text text-sm outline-none focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)] file:mr-3 file:rounded-md file:border-0 file:bg-primary file:px-3 file:py-2 file:font-semibold file:text-on-primary"
+                class="enpii-csv-import-export__input w-full rounded-control border [border-color:var(--field-border-color)] [border-width:var(--control-border-width)] [background-color:var(--field-bg)] px-4 py-3 [color:var(--field-fg)] text-sm outline-none focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)] file:mr-3 file:rounded-md file:border-0 file:[background-color:var(--tone-primary-bg)] file:px-3 file:py-2 file:font-semibold file:[color:var(--tone-primary-fg)]"
                 :class="shapeClass"
                 @change="onFileChange"
             />
-            <p v-if="error" class="enpii-csv-import-export__error mb-1 ml-1 block text-danger-text text-sm">{{ error }}</p>
+            <p v-if="error" class="enpii-csv-import-export__error mb-1 ml-1 block [color:var(--field-error-color)] text-sm">{{ error }}</p>
         </div>
         <template #footer>
             <AppButton variant="secondary" :disabled="processing" @click="open = false">{{ t('csvImportExport.cancel') }}</AppButton>

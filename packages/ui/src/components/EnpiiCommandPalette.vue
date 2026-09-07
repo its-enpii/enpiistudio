@@ -133,12 +133,12 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onGlobalKeydown));
       leave-active-class="enpii-command-palette-leave-active transition-opacity duration-fast ease-accelerate motion-reduce:transition-none"
       leave-to-class="enpii-command-palette-leave-to opacity-0"
     >
-      <div v-if="open" class="enpii-command-palette__backdrop fixed inset-0 flex items-start justify-center p-4 bg-surface-inverse/32 backdrop-blur-sm z-modal max-sm:p-2" @click.self="closePalette">
+      <div v-if="open" class="enpii-command-palette__backdrop fixed inset-0 flex items-start justify-center p-4 [background-color:var(--overlay-scrim-bg)] backdrop-blur-sm z-modal max-sm:p-2" @click.self="closePalette">
         <section
           role="dialog"
           aria-modal="true"
           :aria-label="t('commandPalette.title')"
-          class="enpii-command-palette__dialog grid w-full max-w-160 max-h-[min(80vh,36rem)] mt-[min(10vh,6rem)] overflow-hidden border border-solid [border-width:var(--overlay-border-width)] border-outline-variant rounded-card bg-surface-container-lowest shadow-overlay max-sm:mt-4 max-sm:max-h-[calc(100dvh-1rem)]"
+          class="enpii-command-palette__dialog grid w-full max-w-160 max-h-[min(80vh,36rem)] mt-[min(10vh,6rem)] overflow-hidden border border-solid [border-width:var(--overlay-border-width)] [border-color:var(--overlay-border-color)] rounded-card [background-color:var(--overlay-surface-bg)] shadow-overlay max-sm:mt-4 max-sm:max-h-[calc(100dvh-1rem)]"
           @keydown="onListKeydown"
         >
           <EnpiiLabel for="enpii-command-palette-search" hidden class="enpii-command-palette__search-label">
@@ -149,30 +149,30 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onGlobalKeydown));
             ref="inputRef"
             v-model="search"
             type="search"
-            class="enpii-command-palette__input w-full min-h-12 py-3 px-4 border-0 border-b border-solid border-b-outline-variant bg-transparent text-on-surface font-sans text-control leading-[1.4] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset-negative-wide)] focus-visible:outline-focus"
+            class="enpii-command-palette__input w-full min-h-12 py-3 px-4 border-0 border-b border-solid [border-bottom-color:var(--overlay-border-color)] bg-transparent [color:var(--overlay-surface-fg)] font-sans text-control leading-[1.4] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset-negative-wide)] focus-visible:outline-focus"
             :placeholder="t('commandPalette.searchPlaceholder')"
           >
           <ul class="enpii-command-palette__groups m-0 p-2 overflow-y-auto list-none">
             <template v-for="group in groupedCommands" :key="group.name">
-              <li class="enpii-command-palette__group-title py-2 pr-2.5 pb-1 text-on-surface-variant text-xs font-medium tracking-[0.02em] uppercase">
+              <li class="enpii-command-palette__group-title py-2 pr-2.5 pb-1 [color:var(--tone-neutral-fg)] text-xs font-medium tracking-[0.02em] uppercase">
                 {{ group.name }}
               </li>
               <li v-for="item in group.items" :key="item.id">
                 <button
                   type="button"
-                  class="enpii-command-palette__command flex w-full min-h-10 items-center gap-2.5 py-2 px-2.5 border-0 rounded-[calc(var(--radius-control)-0.125rem)] bg-none text-on-surface [font-family:inherit] text-left cursor-pointer [transition-property:background] duration-fast ease-emphasized motion-reduce:transition-none hover:bg-neutral-soft focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset-negative)] focus-visible:outline-focus"
+                  class="enpii-command-palette__command flex w-full min-h-10 items-center gap-2.5 py-2 px-2.5 border-0 rounded-[calc(var(--radius-control)-0.125rem)] bg-none [color:var(--overlay-surface-fg)] [font-family:inherit] text-left cursor-pointer [transition-property:background] duration-fast ease-emphasized motion-reduce:transition-none hover:[background-color:var(--control-bg-hover)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset-negative)] focus-visible:outline-focus"
                   :aria-current="filteredCommands[activeIndex]?.id === item.id ? 'true' : undefined"
-                  :class="{ 'enpii-command-palette__command--active bg-primary-soft': filteredCommands[activeIndex]?.id === item.id }"
+                  :class="{ 'enpii-command-palette__command--active [background-color:var(--control-bg-hover)]': filteredCommands[activeIndex]?.id === item.id }"
                   :aria-label="t('commandPalette.select', { label: item.label })"
                   @click="selectCommand(item)"
                 >
-                  <AppIcon v-if="item.icon" :name="item.icon" class="enpii-command-palette__icon shrink-0 text-[1.125rem] text-on-surface-variant" />
+                  <AppIcon v-if="item.icon" :name="item.icon" class="enpii-command-palette__icon shrink-0 text-[1.125rem] [color:var(--tone-neutral-fg)]" />
                   <span class="enpii-command-palette__label min-w-0 overflow-hidden text-ellipsis whitespace-nowrap">{{ item.label }}</span>
-                  <span v-if="item.hint" class="enpii-command-palette__hint ml-auto text-on-surface-variant text-xs whitespace-nowrap max-sm:hidden">{{ item.hint }}</span>
+                  <span v-if="item.hint" class="enpii-command-palette__hint ml-auto [color:var(--tone-neutral-fg)] text-xs whitespace-nowrap max-sm:hidden">{{ item.hint }}</span>
                 </button>
               </li>
             </template>
-            <li v-if="!filteredCommands.length" class="enpii-command-palette__empty py-4 px-2.5 text-on-surface-variant text-sm">
+            <li v-if="!filteredCommands.length" class="enpii-command-palette__empty py-4 px-2.5 [color:var(--tone-neutral-fg)] text-sm">
               {{ t('commandPalette.noResults') }}
             </li>
           </ul>

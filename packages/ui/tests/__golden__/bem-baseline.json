@@ -1224,7 +1224,7 @@
     "outline": ""
   },
   "EnpiiStatTile:default:light": {
-    "background-color": "rgb(240, 244, 246)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "canvastext",
     "border-color": "",
     "border-width": "",
@@ -2808,7 +2808,7 @@
     "outline": ""
   },
   "EnpiiStatTile:default:dark-media": {
-    "background-color": "rgb(30, 41, 59)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "canvastext",
     "border-color": "",
     "border-width": "",
@@ -4392,7 +4392,7 @@
     "outline": ""
   },
   "EnpiiStatTile:default:dark-attribute": {
-    "background-color": "rgb(240, 244, 246)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "canvastext",
     "border-color": "",
     "border-width": "",

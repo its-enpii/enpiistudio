@@ -58,7 +58,7 @@ const roleLabels = {
 <template>
     <div class="enpii-loan-history-table max-h-[28rem] overflow-auto" :class="shapeClass">
         <table class="enpii-loan-history-table__table w-full border-collapse text-sm">
-            <thead class="enpii-loan-history-table__head sticky top-0 z-raised bg-surface-container-low text-on-surface-variant text-xs font-semibold">
+            <thead class="enpii-loan-history-table__head sticky top-0 z-raised [background-color:var(--table-head-bg)] [color:var(--table-head-fg)] text-xs font-semibold">
                 <tr>
                     <th class="enpii-loan-history-table__th px-3 py-2 text-left">{{ t('loanHistory.headerLoan') }}</th>
                     <th class="enpii-loan-history-table__th px-3 py-2 text-left">{{ t('loanHistory.headerProduct') }}</th>
@@ -71,9 +71,9 @@ const roleLabels = {
             </thead>
             <tbody>
                 <tr v-if="loans.length === 0">
-                    <td colspan="7" class="enpii-loan-history-table__empty-cell px-3 py-10 text-center text-on-surface-variant text-sm">
-                        <p class="enpii-loan-history-table__empty-title m-0 font-semibold text-on-surface">{{ emptyTitle }}</p>
-                        <p class="enpii-loan-history-table__empty-description mt-1 mb-0 text-on-surface-variant text-sm">{{ emptyDescription }}</p>
+                    <td colspan="7" class="enpii-loan-history-table__empty-cell px-3 py-10 text-center [color:var(--tone-neutral-fg)] text-sm">
+                        <p class="enpii-loan-history-table__empty-title m-0 font-semibold [color:var(--table-cell-fg)]">{{ emptyTitle }}</p>
+                        <p class="enpii-loan-history-table__empty-description mt-1 mb-0 [color:var(--tone-neutral-fg)] text-sm">{{ emptyDescription }}</p>
                     </td>
                 </tr>
                 <tr
@@ -82,24 +82,24 @@ const roleLabels = {
                     class="enpii-loan-history-table__row"
                 >
                     <td class="enpii-loan-history-table__td px-3 py-2">
-                        <button type="button" class="enpii-loan-history-table__link-static border-0 bg-none font-semibold text-primary-text hover:underline focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)]" @click="navigation.navigate(loan.href); emit('navigate', loan.href)">
+                        <button type="button" class="enpii-loan-history-table__link-static border-0 bg-none font-semibold [color:var(--table-cell-fg)] hover:underline focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)]" @click="navigation.navigate(loan.href); emit('navigate', loan.href)">
                             #{{ loan.id }}
                         </button>
-                        <div v-if="loan.loan_number" class="enpii-loan-history-table__meta text-on-surface-variant text-[.625rem]">
+                        <div v-if="loan.loan_number" class="enpii-loan-history-table__meta [color:var(--tone-neutral-fg)] text-[.625rem]">
                             {{ loan.loan_number }}
                         </div>
-                        <div v-if="loan.group_name" class="enpii-loan-history-table__meta text-on-surface-variant text-xs">
+                        <div v-if="loan.group_name" class="enpii-loan-history-table__meta [color:var(--tone-neutral-fg)] text-xs">
                             {{ loan.group_name }}
                         </div>
                     </td>
                     <td class="enpii-loan-history-table__td px-3 py-2">
                         <span class="enpii-loan-history-table__product font-medium">{{ (loan.product_code || '—').toUpperCase() }}</span>
-                        <div class="enpii-loan-history-table__meta text-on-surface-variant text-xs">{{ loan.product_name || '' }}</div>
+                        <div class="enpii-loan-history-table__meta [color:var(--tone-neutral-fg)] text-xs">{{ loan.product_name || '' }}</div>
                     </td>
-                    <td class="enpii-loan-history-table__td px-3 py-2"><div class="enpii-loan-history-table__meta text-on-surface-variant">
+                    <td class="enpii-loan-history-table__td px-3 py-2"><div class="enpii-loan-history-table__meta [color:var(--tone-neutral-fg)]">
                         {{ roleLabels[loan.role] || loan.role || '—' }}
                         </div>
-                        <div v-if="loan.allocated_amount != null" class="enpii-loan-history-table__meta text-on-surface-variant text-xs">
+                        <div v-if="loan.allocated_amount != null" class="enpii-loan-history-table__meta [color:var(--tone-neutral-fg)] text-xs">
                             {{ t('loanHistory.allocation', { amount: formatMoney(loan.allocated_amount) }) }}
                         </div>
                     </td>

@@ -29,6 +29,13 @@ Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7. Semua item selesai.
 
 ## Log Progress
 
+### 2026-09-07 — UI batch 3b base-raw charts/assistant/desktop/domain components SELESAI (all 87 components complete)
+- `@its-enpii/ui` tetap v1.3.1: Seluruh 32 komponen tersisa (EnpiiAreaChart, EnpiiBarChart, EnpiiDonutChart, EnpiiLineChart, EnpiiSparkline, EnpiiTrendBarChart, EnpiiStatTile, EnpiiCommandPalette, EnpiiKeyboardShortcutsModal, EnpiiTransferList, EnpiiThemeMenu, EnpiiCsvImportExport, EnpiiReportPeriodFilter, EnpiiLoanHistoryTable, EnpiiDesktopSplashScreen, EnpiiDesktopTitleBar, EnpiiAssistantActionButton, EnpiiAssistantArtifactCard, EnpiiAssistantArtifactModal, EnpiiAssistantPollCard, EnpiiAssistantWidget, EnpiiWhatsAppPreview, EnpiiCalendar, EnpiiConfirmDialog, EnpiiFormActions, EnpiiFormField, EnpiiFormRow, EnpiiIcon, EnpiiInlineEmptyState, EnpiiNotificationDropdown, EnpiiOfflineBanner, EnpiiPageHeader) kini base-raw tanpa keputusan warna.
+- Enam style layer mengisi 21 hook batch 3b (`--chart-1` s/d `--chart-6`, `--chart-grid`, `--chart-axis`, `--chart-tooltip-bg`, `--chart-tooltip-fg`, `--assistant-user-msg-bg/-fg`, `--assistant-bot-msg-bg/-fg`, `--assistant-card-bg/-fg/-border`, `--desktop-titlebar-bg/-fg`, `--desktop-splash-bg/-fg`).
+- Seluruh 87 komponen monorepo kini 100% color-free pada base layer.
+- Conformance spec dan layer completeness spec diperluas untuk menguji batch 3b (fixtures `color-free-batch3b-components.json` & `enpii-color-batch3b-hooks.json`).
+- Verifikasi: `check` 0 error; `test` 38 files/491 tests pass; `test:tailwind` 3 tests + smoke pass; `golden:check` 4 tests pass; `build` sukses; `audit-template-classes.mjs` exit 0.
+
 ### 2026-09-07 — UI batch 3a base-raw pickers/upload/editor/specialty inputs SELESAI
 - `@its-enpii/ui` tetap v1.3.1: 14 komponen pickers, upload, editor, specialty inputs, dan media (EnpiiDatePicker, EnpiiDateRange, EnpiiTimePicker, EnpiiColorPicker, EnpiiFileUpload, EnpiiImageUpload, EnpiiRichEditor, EnpiiRating, EnpiiRange, EnpiiOtpInput, EnpiiTagInput, EnpiiMentionInput, EnpiiSignaturePad, EnpiiQrCode) kini base-raw tanpa keputusan warna. Ukuran, layout, radius, press, shadow, opacity, dan motion tetap base; 6 style layer mengisi 13 hook batch 3a (`--picker-*`, `--dropzone-*`, `--editor-*`).
 - Conformance conformance spec dan layer completeness spec diperluas untuk menguji batch 3a (fixtures `color-free-batch3a-components.json` & `enpii-color-batch3a-hooks.json`).

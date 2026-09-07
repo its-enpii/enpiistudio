@@ -5,7 +5,7 @@ import { collectExpressionClasses } from '../scripts/audit-template-classes.mjs'
 import { parse } from '@vue/compiler-sfc'
 const tailwindcss = await import('tailwindcss')
 
-const colorFreeBatches: Record<'batch1' | 'batch2' | 'batch3a', { components: string[]; hooks: string[] }> = {
+const colorFreeBatches: Record<'batch1' | 'batch2' | 'batch3a' | 'batch3b', { components: string[]; hooks: string[] }> = {
   batch1: {
     components: JSON.parse(readFileSync(resolve(__dirname, 'fixtures/color-free-components.json'), 'utf8')),
     hooks: JSON.parse(readFileSync(resolve(__dirname, 'fixtures/enpii-color-hooks.json'), 'utf8')),
@@ -18,6 +18,10 @@ const colorFreeBatches: Record<'batch1' | 'batch2' | 'batch3a', { components: st
     components: JSON.parse(readFileSync(resolve(__dirname, 'fixtures/color-free-batch3a-components.json'), 'utf8')),
     hooks: JSON.parse(readFileSync(resolve(__dirname, 'fixtures/enpii-color-batch3a-hooks.json'), 'utf8')),
   },
+  batch3b: {
+    components: JSON.parse(readFileSync(resolve(__dirname, 'fixtures/color-free-batch3b-components.json'), 'utf8')),
+    hooks: JSON.parse(readFileSync(resolve(__dirname, 'fixtures/enpii-color-batch3b-hooks.json'), 'utf8')),
+  },
 }
 const componentsDirectory = resolve(__dirname, '../src/components')
 const layersDirectory = resolve(__dirname, '../src/styles/layers')
@@ -27,6 +31,7 @@ const colorFreeExceptions = [
   'border-transparent',
   'bg-inherit',
   'bg-none',
+  'fill-none',
   'text-inherit',
   'text-[inherit]',
   'color:inherit',
@@ -34,8 +39,8 @@ const colorFreeExceptions = [
   'inherit',
   'md:bg-transparent',
   'text-current',
-  'text-inherit',
   'outline-focus',
+  'forced-colors:border-canvas-text',
 ]
 
 async function loadDesignSystem() {
@@ -92,12 +97,21 @@ describe('color-free base component conformance', () => {
     expect(colorFreeBatches.batch1.components).toHaveLength(13)
     expect(colorFreeBatches.batch2.components).toHaveLength(28)
     expect(colorFreeBatches.batch3a.components).toHaveLength(14)
+    expect(colorFreeBatches.batch3b.components).toHaveLength(32)
+    const all = [
+      ...colorFreeBatches.batch1.components,
+      ...colorFreeBatches.batch2.components,
+      ...colorFreeBatches.batch3a.components,
+      ...colorFreeBatches.batch3b.components,
+    ]
+    expect(all).toHaveLength(87)
   })
 
   it('fixes the exact color hook taxonomies', () => {
     expect(colorFreeBatches.batch1.hooks).toHaveLength(17)
     expect(colorFreeBatches.batch2.hooks).toHaveLength(50)
     expect(colorFreeBatches.batch3a.hooks).toHaveLength(13)
+    expect(colorFreeBatches.batch3b.hooks).toHaveLength(21)
   })
 
   it.each(colorFreeBatches.batch1.components)('batch 1: %s emits no color decisions outside batch hooks', async (filename) => {
@@ -235,6 +249,23 @@ describe('layer color-hook completeness', () => {
     expect(missingHooks, `${filename} must define all batch 3a hooks`).toEqual([])
 
     for (const hook of colorFreeBatches.batch3a.hooks) {
+      expect(declarations.get(hook), `${filename} must give ${hook} a non-empty value`).not.toBe('')
+      expect(declarations.get(hook), `${filename} must keep ${hook} selector-free`).not.toMatch(/[{}]|\b(?:is|where|not|has)\(/)
+    }
+  })
+  it.each(layerFiles)('batch 3b: %s defines every batch 3b hook without selectors in values', (filename) => {
+    const source = readFileSync(resolve(layersDirectory, filename), 'utf8')
+    const sourceWithoutComments = source.replace(/\/\*[\s\S]*?\*\//g, '')
+    const declarations = new Map<string, string>()
+
+    for (const [, name, value] of sourceWithoutComments.matchAll(/--([a-z0-9-]+)\s*:\s*([^;]+);/g)) {
+      declarations.set(`--${name}`, value.trim())
+    }
+
+    const missingHooks = colorFreeBatches.batch3b.hooks.filter(hook => !declarations.has(hook))
+    expect(missingHooks, `${filename} must define all batch 3b hooks`).toEqual([])
+
+    for (const hook of colorFreeBatches.batch3b.hooks) {
       expect(declarations.get(hook), `${filename} must give ${hook} a non-empty value`).not.toBe('')
       expect(declarations.get(hook), `${filename} must keep ${hook} selector-free`).not.toMatch(/[{}]|\b(?:is|where|not|has)\(/)
     }

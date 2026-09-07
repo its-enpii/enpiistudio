@@ -2,10 +2,12 @@
 import { computed } from 'vue'
 
 const FALLBACK_COLORS = [
-  'var(--color-primary)',
-  'var(--color-secondary)',
-  'var(--color-warning-text)',
-  'var(--color-danger-text)',
+  'var(--chart-1)',
+  'var(--chart-2)',
+  'var(--chart-3)',
+  'var(--chart-4)',
+  'var(--chart-5)',
+  'var(--chart-6)',
 ]
 
 const props = defineProps({
@@ -108,7 +110,7 @@ const ariaLabel = computed(() => {
         :x2="W - PAD.right"
         :y1="yAt(tick)"
         :y2="yAt(tick)"
-        class="enpii-line-chart__grid stroke-outline-variant stroke-1 opacity-50"
+        class="enpii-line-chart__grid [stroke:var(--chart-grid)] stroke-1 opacity-50"
       />
       <text
         v-for="(tick, i) in gridTicks"
@@ -117,7 +119,7 @@ const ariaLabel = computed(() => {
         :y="yAt(tick)"
         text-anchor="end"
         dominant-baseline="middle"
-        class="enpii-line-chart__axis-text fill-on-surface-variant text-[11px] font-medium"
+        class="enpii-line-chart__axis-text [fill:var(--chart-axis)] text-[11px] font-medium"
       >{{ formatValue(tick) }}</text>
       <template v-for="(item, i) in xLabels" :key="`x-${i}`">
         <text
@@ -125,7 +127,7 @@ const ariaLabel = computed(() => {
           :x="item.x"
           :y="H - 8"
           text-anchor="middle"
-          class="enpii-line-chart__axis-text fill-on-surface-variant text-[11px] font-medium"
+          class="enpii-line-chart__axis-text [fill:var(--chart-axis)] text-[11px] font-medium"
         >{{ item.label }}</text>
       </template>
       <g v-for="item in series" :key="item.key">
@@ -136,7 +138,7 @@ const ariaLabel = computed(() => {
           :cx="point.x"
           :cy="point.y"
           r="4"
-          class="enpii-line-chart__point stroke-surface-container-lowest stroke-2 cursor-pointer motion-reduce:transition-none focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus"
+          class="enpii-line-chart__point [stroke:var(--chart-tooltip-bg)] stroke-2 cursor-pointer motion-reduce:transition-none focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus"
           :style="{ fill: item.color }"
         >
           <title>{{ item.label }}: {{ labels[i] || i }} — {{ point.value }}</title>

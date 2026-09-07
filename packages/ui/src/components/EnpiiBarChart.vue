@@ -2,10 +2,12 @@
 import { computed } from 'vue'
 
 const FALLBACK_COLORS = [
-  'var(--color-primary)',
-  'var(--color-secondary)',
-  'var(--color-warning-text)',
-  'var(--color-danger-text)',
+  'var(--chart-1)',
+  'var(--chart-2)',
+  'var(--chart-3)',
+  'var(--chart-4)',
+  'var(--chart-5)',
+  'var(--chart-6)',
 ]
 
 const props = defineProps({
@@ -111,7 +113,7 @@ const ariaLabel = computed(() => {
         :x2="W - PAD.right"
         :y1="yAt(tick)"
         :y2="yAt(tick)"
-        class="enpii-bar-chart__grid stroke-outline-variant stroke-1 opacity-50"
+        class="enpii-bar-chart__grid [stroke:var(--chart-grid)] stroke-1 opacity-50"
       />
       <text
         v-for="(tick, i) in gridTicks"
@@ -120,7 +122,7 @@ const ariaLabel = computed(() => {
         :y="yAt(tick)"
         text-anchor="end"
         dominant-baseline="middle"
-        class="enpii-bar-chart__axis-text fill-on-surface-variant text-[11px] font-medium"
+        class="enpii-bar-chart__axis-text [fill:var(--chart-axis)] text-[11px] font-medium"
       >{{ formatValue(tick) }}</text>
       <template v-for="(g, i) in groups" :key="`x-${i}`">
         <text
@@ -128,7 +130,7 @@ const ariaLabel = computed(() => {
           :x="g.x"
           :y="H - 8"
           text-anchor="middle"
-          class="enpii-bar-chart__axis-text fill-on-surface-variant text-[11px] font-medium"
+          class="enpii-bar-chart__axis-text [fill:var(--chart-axis)] text-[11px] font-medium"
         >{{ g.label }}</text>
       </template>
       <g v-for="g in groups" :key="`group-${g.index}`">
