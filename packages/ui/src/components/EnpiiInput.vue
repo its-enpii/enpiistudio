@@ -6,6 +6,7 @@ import { useId } from 'vue';
 import { useShape } from '../composables/useShape';
 import AppIcon from './EnpiiIcon.vue';
 import AppTooltip from './EnpiiTooltip.vue';
+import EnpiiLabel from './EnpiiLabel.vue';
 import { useT } from '../composables/useT'
 
 const t = useT()
@@ -50,10 +51,10 @@ const controlStateClass = computed(() => {
 <template>
     <div class="enpii-input w-full [&>*]:mt-[0.5rem]">
         <div v-if="!hideLabel" class="enpii-input__label-row relative flex items-center gap-1 ml-1">
-            <label :for="inputId" class="enpii-input__label block text-on-surface-variant text-[0.8125rem] font-semibold tracking-[0.02em]">{{ label }}</label>
+            <EnpiiLabel :for="inputId" size="sm" class="enpii-input__label block">{{ label }}</EnpiiLabel>
             <AppTooltip v-if="tooltip" :id="`${inputId}-tooltip`" :text="tooltip" />
         </div>
-        <label v-else :for="inputId" class="enpii-sr-only">{{ label }}</label>
+        <EnpiiLabel v-else :for="inputId" size="sm" hidden class="enpii-input__label">{{ label }}</EnpiiLabel>
         <div class="enpii-input__control-wrap relative">
             <AppIcon v-if="icon" :name="icon" class="enpii-input__icon absolute top-1/2 left-4 w-5 h-5 -translate-y-1/2 text-outline pointer-events-none text-xl leading-none" />
             <input

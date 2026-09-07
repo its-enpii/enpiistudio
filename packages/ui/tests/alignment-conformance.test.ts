@@ -110,6 +110,15 @@ describe('icon+text alignment conformance (styles/components.css)', () => {
             expect(dateRangeVue).toMatch(/items-center/);
             return;
         }
+        if (selector === '.enpii-command-palette__command') {
+            const commandPaletteVue = readFileSync(resolve(__dirname, '../src/components/EnpiiCommandPalette.vue'), 'utf8');
+            expect(commandPaletteVue).toMatch(/enpii-command-palette__command[^>]*items-center|items-center[^>]*enpii-command-palette__command/s);
+            return;
+        }
+        if (selector === '.enpii-command-palette__command') {
+            expect(readFileSync(resolve(__dirname, '../src/components/EnpiiCommandPalette.vue'), 'utf8')).toMatch(/enpii-command-palette__command[^>]*items-center|items-center[^>]*enpii-command-palette__command/s);
+            return;
+        }
         const rule = css.match(new RegExp(`${selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\{[^}]*\\}`));
         expect(rule, `rule for ${selector} must exist in components.css`).toBeTruthy();
         const body = rule![0];

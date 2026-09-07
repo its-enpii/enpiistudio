@@ -1,6 +1,7 @@
 <script setup>
 import { computed, nextTick, ref, useId, watch } from 'vue'
 import { useShape } from '../composables/useShape'
+import EnpiiLabel from './EnpiiLabel.vue'
 
 const model = defineModel({ type: [String, Number], default: '' })
 const props = defineProps({
@@ -117,7 +118,7 @@ watch(() => model.value, (value) => {
 
 <template>
     <div class="enpii-input-mask w-full grid gap-field-gap" :class="[shapeClass, { 'enpii-input-mask--error': Boolean(error) }]">
-        <label :for="inputId" class="enpii-input-mask__label text-on-surface-variant text-sm font-medium">{{ label }}</label>
+        <EnpiiLabel :for="inputId" class="enpii-input-mask__label">{{ label }}</EnpiiLabel>
         <div class="enpii-input-mask__control-wrap relative">
             <input
                 :id="inputId"

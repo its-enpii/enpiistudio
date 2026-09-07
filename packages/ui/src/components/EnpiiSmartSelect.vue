@@ -3,6 +3,7 @@ import { computed, nextTick, onBeforeUnmount, onMounted, ref, useId, watch } fro
 import AppIcon from './EnpiiIcon.vue';
 import { useShape } from '../composables/useShape';
 import { useT } from '../composables/useT'
+import EnpiiLabel from './EnpiiLabel.vue';
 
 const t = useT()
 
@@ -249,8 +250,7 @@ watch(() => props.modelValue, (value) => {
 
 <template>
     <div class="enpii-smart-select w-full [&>*+*]:mt-field-gap" :data-smart-select="selectId">
-        <label :for="selectId" class="enpii-smart-select__label block ml-1 text-on-surface-variant text-[0.8125rem] font-semibold tracking-[0.02em]"
-        :class="{ 'enpii-sr-only': hideLabel }">{{ label }}</label>
+        <EnpiiLabel :for="selectId" size="sm" :hidden="hideLabel" class="enpii-smart-select__label block ml-1">{{ label }}</EnpiiLabel>
         <div class="enpii-smart-select__control-wrap relative">
             <button
                 :id="selectId"

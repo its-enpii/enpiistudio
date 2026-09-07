@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, useId, watch } from 'vue'
 import { useT } from '../composables/useT'
+import EnpiiLabel from './EnpiiLabel.vue'
 
 type ImageUploadItem = {
   file: File
@@ -287,7 +288,7 @@ defineExpose({ addFiles, removeItem, openCrop, clearErrors })
 
 <template>
   <div class="enpii-image-upload flex w-full flex-col gap-field-gap" :class="{ 'enpii-image-upload--disabled opacity-60 pointer-events-none': disabled }">
-    <label :for="inputId" class="enpii-image-upload__label text-sm font-medium text-on-surface">{{ t('imageUpload.label') }}</label>
+    <EnpiiLabel :for="inputId" tone="default" class="enpii-image-upload__label">{{ t('imageUpload.label') }}</EnpiiLabel>
     <div
       class="enpii-image-upload__dropzone flex min-h-24 min-w-10 cursor-pointer flex-col items-center justify-center gap-2 p-4 px-6 border border-dashed border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-control bg-surface-container-lowest text-on-surface [transition-property:border-color,box-shadow,background] duration-fast ease-emphasized motion-reduce:transition-none forced-colors:border-canvas-text hover:not-disabled:border-primary/40 hover:not-disabled:bg-surface-container-low active:not-disabled:bg-surface-container active:not-disabled:[transform:scale(.995)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus aria-disabled:cursor-not-allowed motion-reduce:transform-none"
       :class="{ 'enpii-image-upload__dropzone--active border-primary [box-shadow:var(--shadow-focus)]': dragOver, 'enpii-image-upload__dropzone--disabled cursor-not-allowed': disabled }"
@@ -378,7 +379,7 @@ defineExpose({ addFiles, removeItem, openCrop, clearErrors })
               @pointerup="stopCropDrag"
               @pointercancel="stopCropDrag"
             ></canvas>
-            <label class="enpii-image-upload__zoom-label grid gap-1.5 text-sm text-on-surface-variant">
+            <EnpiiLabel :for="`${inputId}-zoom`" class="enpii-image-upload__zoom-label grid gap-1.5">
               <span>{{ t('imageUpload.zoom') }}</span>
               <input
                 v-model.number="zoom"
@@ -387,9 +388,9 @@ defineExpose({ addFiles, removeItem, openCrop, clearErrors })
                 min="1"
                 max="4"
                 step="0.05"
-                :aria-label="t('imageUpload.zoom')"
+                :id="`${inputId}-zoom`"
               />
-            </label>
+            </EnpiiLabel>
             <div class="enpii-image-upload__crop-actions flex flex-wrap justify-end gap-3">
               <button type="button" class="enpii-image-upload__button inline-flex min-h-10 items-center justify-center px-4 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)] bg-surface-container-lowest font-inherit text-sm font-medium text-on-surface cursor-pointer [transition-property:background,box-shadow,transform] duration-fast ease-emphasized motion-reduce:transition-none forced-colors:border-canvas-text hover:enabled:bg-neutral-soft hover:enabled:[box-shadow:var(--shadow-focus)] active:enabled:[transform:scale(.98)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus disabled:opacity-50 disabled:cursor-not-allowed motion-reduce:transform-none" @click="closeCrop">{{ t('imageUpload.cancel') }}</button>
               <button type="button" class="enpii-image-upload__button enpii-image-upload__button--primary inline-flex min-h-10 items-center justify-center border border-solid border-primary [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)] bg-primary font-inherit text-sm font-medium text-on-primary cursor-pointer [transition-property:background,box-shadow,transform] duration-fast ease-emphasized motion-reduce:transition-none forced-colors:bg-button-face forced-colors:text-button-text hover:enabled:bg-primary-container hover:enabled:text-on-primary-container active:enabled:[transform:scale(.98)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus disabled:opacity-50 disabled:cursor-not-allowed motion-reduce:transform-none" @click="applyCrop">

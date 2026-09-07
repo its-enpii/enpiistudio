@@ -6,6 +6,7 @@ import { useId } from 'vue';
 import { useShape } from '../composables/useShape';
 import AppIcon from './EnpiiIcon.vue';
 import { useT } from '../composables/useT'
+import EnpiiLabel from './EnpiiLabel.vue'
 
 const t = useT()
 
@@ -44,7 +45,7 @@ const controlStateClass = computed(() => {
 
 <template>
     <div class="enpii-textarea w-full [&>*+*]:mt-[0.5rem]">
-        <label :for="inputId" class="enpii-textarea__label block ml-1 text-on-surface-variant text-[0.8125rem] font-semibold tracking-[0.02em]">{{ label }}</label>
+        <EnpiiLabel :for="inputId" size="sm" class="enpii-textarea__label block ml-1">{{ label }}</EnpiiLabel>
         <div class="enpii-textarea__control-wrap relative">
             <AppIcon v-if="icon" :name="icon" class="enpii-textarea__icon absolute top-4 left-4 text-outline pointer-events-none text-xl leading-none" />
             <textarea

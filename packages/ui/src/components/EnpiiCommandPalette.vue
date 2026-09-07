@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import AppIcon from './EnpiiIcon.vue';
+import EnpiiLabel from './EnpiiLabel.vue';
 import { useT } from '../composables/useT';
 
 interface CommandItem {
@@ -140,9 +141,9 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onGlobalKeydown));
           class="enpii-command-palette__dialog grid w-full max-w-160 max-h-[min(80vh,36rem)] mt-[min(10vh,6rem)] overflow-hidden border border-solid [border-width:var(--overlay-border-width)] border-outline-variant rounded-card bg-surface-container-lowest shadow-overlay max-sm:mt-4 max-sm:max-h-[calc(100dvh-1rem)]"
           @keydown="onListKeydown"
         >
-          <label class="enpii-command-palette__search-label absolute w-px h-px p-0 m-[-1px] overflow-hidden [clip:rect(0,0,0,0)] whitespace-nowrap border-0" for="enpii-command-palette-search">
+          <EnpiiLabel for="enpii-command-palette-search" hidden class="enpii-command-palette__search-label">
             {{ t('commandPalette.searchLabel') }}
-          </label>
+          </EnpiiLabel>
           <input
             id="enpii-command-palette-search"
             ref="inputRef"

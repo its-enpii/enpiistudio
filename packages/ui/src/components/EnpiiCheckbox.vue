@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import { useId } from 'vue';
 import { useShape } from '../composables/useShape';
+import EnpiiLabel from './EnpiiLabel.vue';
 
 const props = defineProps({
     modelValue: { type: [Boolean, Array], default: false },
@@ -59,9 +60,9 @@ function onChange(event) {
 
 <template>
     <div v-if="variant === 'field'" class="enpii-checkbox enpii-checkbox--field [&>*+*]:mt-[0.5rem]">
-        <label :for="id" class="enpii-checkbox__label block ml-1 text-on-surface-variant text-[0.8125rem] font-semibold tracking-[0.02em]">
+        <EnpiiLabel :for="id" size="sm" class="enpii-checkbox__label block ml-1">
             {{ label }}<span v-if="description" class="enpii-checkbox__label-description ml-2 text-on-surface-variant text-xs font-normal normal-case tracking-normal">— {{ description }}</span>
-        </label>
+        </EnpiiLabel>
         <label
             :for="id"
             class="enpii-checkbox__box enpii-checkbox__box--field flex w-full min-h-control items-center gap-3 px-4 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-control bg-surface-container-lowest cursor-pointer transition-all duration-fast ease-emphasized focus-within:border-primary-container focus-within:[box-shadow:var(--shadow-focus)]"

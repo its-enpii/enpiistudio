@@ -3,6 +3,7 @@ import { computed, useId } from 'vue'
 import { useFormContext } from '../composables/useForm'
 import { useShape } from '../composables/useShape'
 import AppTooltip from './EnpiiTooltip.vue'
+import EnpiiLabel from './EnpiiLabel.vue'
 
 defineOptions({ inheritAttrs: false })
 
@@ -88,15 +89,14 @@ const describedBy = computed(() => {
     v-bind="$attrs"
   >
     <div v-if="label && !hideLabel" class="enpii-form-field__label-row relative flex items-center gap-1 ml-1">
-      <label :for="fieldId" class="enpii-form-field__label flex items-center gap-1 text-on-surface-variant text-[0.8125rem] font-semibold tracking-[0.02em]">
+      <EnpiiLabel :for="fieldId" size="sm" :required="isRequired" class="enpii-form-field__label flex items-center gap-1">
         <span>{{ label }}</span>
-        <span v-if="isRequired" class="enpii-form-field__required-mark text-danger-text" aria-hidden="true">*</span>
-      </label>
+      </EnpiiLabel>
       <AppTooltip v-if="tooltip" :id="tooltipId" :text="tooltip" />
     </div>
-    <label v-else-if="label && hideLabel" :for="fieldId" class="enpii-sr-only">
+    <EnpiiLabel v-else-if="label && hideLabel" :for="fieldId" size="sm" hidden class="enpii-form-field__label">
       {{ label }}
-    </label>
+    </EnpiiLabel>
 
     <div class="enpii-form-field__control w-full">
       <slot

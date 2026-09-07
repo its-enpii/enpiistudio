@@ -1,6 +1,7 @@
 <script setup>
 import { useId } from 'vue';
 import AppIcon from './EnpiiIcon.vue';
+import EnpiiLabel from './EnpiiLabel.vue';
 import { useShape } from '../composables/useShape';
 
 const model = defineModel({ default: '' });
@@ -25,7 +26,7 @@ const inputId = props.id || useId();
 
 <template>
     <fieldset :disabled="disabled" class="enpii-radio-group w-full m-0 border-0 p-0 [&>*+*]:gap-field-gap">
-        <legend class="enpii-radio-group__legend ml-1 text-on-surface-variant text-xs font-medium">{{ label }}</legend>
+        <EnpiiLabel :for="`${inputId}-0`" size="sm" class="enpii-radio-group__legend">{{ label }}</EnpiiLabel>
         <div class="enpii-radio-group__options grid auto-cols-fr grid-flow-col overflow-hidden border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-control bg-surface-container-lowest" :class="[shapeClass, { 'enpii-radio-group__options--error': Boolean(error) }]">
             <label v-for="(option, index) in options" :key="option.value" class="enpii-radio-group__option relative min-w-0" :class="{ 'enpii-radio-group__option--divider border-l border-solid border-outline-variant has-disabled:opacity-60 has-disabled:cursor-not-allowed': index > 0 }">
                 <input

@@ -11,6 +11,7 @@ import {
   EnpiiFooter,
   EnpiiInput,
   EnpiiInputMask,
+  EnpiiLabel,
   EnpiiNavbar,
   EnpiiPagination,
   EnpiiRange,
@@ -106,6 +107,21 @@ describe('EnpiiDrawer', () => {
 })
 
 describe('form and feedback components', () => {
+  it('renders one accessible label through the shared label contract', () => {
+    const wrapper = mount(EnpiiInput, { props: { label: 'Name', required: false } })
+
+    expect(wrapper.findAll('label')).toHaveLength(1)
+    expect(wrapper.get('label').attributes('for')).toBe(wrapper.get('input').attributes('id'))
+    expect(wrapper.get('label').classes()).toContain('enpii-label')
+  })
+
+  it('hides the required field label through the shared screen-reader utility', () => {
+    const wrapper = mount(EnpiiLabel, { props: { for: 'hidden-id', hidden: true }, slots: { default: 'Hidden' } })
+
+    expect(wrapper.classes()).toContain('enpii-sr-only')
+    expect(wrapper.attributes('for')).toBe('hidden-id')
+  })
+
   it('binds range values to an accessible control', async () => {
     const wrapper = mount(EnpiiRange, { props: { label: 'Volume', min: 10, max: 50, step: 5, showValue: true, modelValue: 20 } })
     const input = wrapper.get('input[type="range"]')

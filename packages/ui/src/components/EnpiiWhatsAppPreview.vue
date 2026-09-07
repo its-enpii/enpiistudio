@@ -71,7 +71,7 @@ function messageLabel(message: EnpiiWhatsAppPreviewMessage) {
 <template>
   <section
     class="enpii-whatsapp-preview max-w-144 p-4 bg-surface border border-solid [border-width:var(--control-border-width)] border-outline-variant rounded-card text-on-surface text-base forced-colors:border-canvas-text max-sm:p-3"
-    :class="[`enpii-whatsapp-preview--${size}`, `enpii-whatsapp-preview--${tone}`]"
+    :class="[`enpii-whatsapp-preview--${size}`, `enpii-whatsapp-preview--${tone}`, `enpii-whatsapp-preview--${props.readOnly ? 'readonly' : 'editable'}`]"
     :aria-label="t('whatsappPreview.ariaLabel')"
   >
     <header v-if="showHeader" class="enpii-whatsapp-preview__header flex items-center gap-3 min-h-12 mb-4 py-1 px-2 pb-3 border-b border-solid border-outline-variant">
@@ -89,7 +89,7 @@ function messageLabel(message: EnpiiWhatsAppPreviewMessage) {
           <time :datetime="message.timestamp">{{ dateLabel(message.timestamp) }}</time>
         </li>
         <li class="enpii-whatsapp-preview__item flex" :class="[message.direction === 'out' ? 'justify-end' : 'justify-start', `enpii-whatsapp-preview__item--${message.direction}`]">
-          <div class="enpii-whatsapp-preview__bubble relative flex flex-col max-w-4/5 max-w-96 p-3 bg-surface-container-low border border-solid border-outline-variant rounded-2xl text-on-surface max-sm:max-w-[88%] max-xs:py-2.5 max-xs:px-3" :class="[message.status === 'failed' ? 'bg-danger-soft border-danger-border text-danger-text' : message.direction === 'out' ? 'bg-primary-container border-transparent text-on-primary-container' : '']">
+          <div class="enpii-whatsapp-preview__bubble relative flex flex-col max-w-4/5 max-w-96 p-3 bg-surface-container-low border border-solid border-outline-variant rounded-2xl text-on-surface max-sm:max-w-[88%] max-xs:py-2.5 max-xs:px-3" :class="[`enpii-whatsapp-preview__bubble--${message.status === 'failed' ? 'failed' : message.direction === 'out' ? 'out' : 'in'}`, message.status === 'failed' ? 'bg-danger-soft border-danger-border text-danger-text' : message.direction === 'out' ? 'bg-primary-container border-transparent text-on-primary-container' : '']">
             <img v-if="message.mediaUrl" class="enpii-whatsapp-preview__media block w-full max-h-72 mb-2 object-cover rounded-xl" :src="message.mediaUrl" :alt="message.body">
             <p class="enpii-whatsapp-preview__body m-0 font-normal leading-[1.45] [overflow-wrap:anywhere]">{{ message.body }}</p>
             <span class="enpii-whatsapp-preview__meta inline-flex items-center gap-1 self-end mt-1 text-[0.6875rem] font-normal tabular-nums text-current opacity-68">

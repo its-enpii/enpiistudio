@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useT } from '../composables/useT'
+import { useId } from 'vue'
+import EnpiiLabel from './EnpiiLabel.vue'
 
 const t = useT()
+const hexInputId = useId()
 
 const model = defineModel<string>({ default: '#4f46e5' })
 
@@ -280,9 +283,10 @@ onBeforeUnmount(() => {
 
     <div class="enpii-color-picker__inputs flex items-center gap-2">
       <div class="enpii-color-picker__preview w-10 h-10 min-h-10 flex-none border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)]" :style="{ background: currentHex }" :aria-label="t('colorPicker.previewLabel')" />
-      <label class="enpii-color-picker__hex-label flex-1">
-        <span class="enpii-sr-only">{{ t('colorPicker.hexLabel') }}</span>
+      <div class="enpii-color-picker__hex-label flex-1">
+        <EnpiiLabel :for="hexInputId" hidden size="sm" class="enpii-color-picker__hex-input-label">{{ t('colorPicker.hexLabel') }}</EnpiiLabel>
         <input
+          :id="hexInputId"
           v-model="hexInput"
           type="text"
           class="enpii-color-picker__hex-input w-full min-h-control-sm px-3 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)] bg-surface-container-lowest text-on-surface font-inherit text-control [transition-property:border-color,box-shadow] duration-fast ease-emphasized focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--shadow-focus)] disabled:opacity-60 disabled:cursor-not-allowed"
@@ -291,7 +295,7 @@ onBeforeUnmount(() => {
           :placeholder="t('colorPicker.hexPlaceholder')"
           @change="onHexInputChange"
         >
-      </label>
+      </div>
     </div>
 
     <div v-if="swatches.length" class="enpii-color-picker__swatches flex flex-wrap gap-1.5" :aria-label="t('colorPicker.swatchesLabel')">

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { useT } from '../composables/useT'
+import EnpiiLabel from './EnpiiLabel.vue'
 
 const props = withDefaults(defineProps<{
     modelValue?: string[]
@@ -121,7 +122,7 @@ function onKeydown(event: KeyboardEvent) {
 
 <template>
     <div class="enpii-tag-input relative grid gap-field-gap" :class="{ 'enpii-tag-input--disabled opacity-60': disabled }">
-        <label :for="inputId" class="enpii-tag-input__label text-on-surface-variant text-sm font-medium">{{ t('tagInput.label') }}</label>
+        <EnpiiLabel :for="inputId" class="enpii-tag-input__label">{{ t('tagInput.label') }}</EnpiiLabel>
         <div class="enpii-tag-input__control flex flex-wrap items-center gap-1.5 min-h-control p-1 border border-solid [border-width:var(--control-border-width)] [border-color:var(--control-border-color)] rounded-control bg-surface-container-lowest text-on-surface [transition-property:border-color,box-shadow] duration-fast ease-emphasized focus-within:border-primary-container focus-within:[box-shadow:var(--shadow-focus)] motion-reduce:transition-none" :class="{ 'cursor-not-allowed': disabled }" role="list" :aria-label="t('tagInput.label')">
             <span
                 v-for="(tag, index) in tags"

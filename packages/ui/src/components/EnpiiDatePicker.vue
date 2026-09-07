@@ -3,6 +3,7 @@ import { computed, nextTick, onBeforeUnmount, onMounted, ref, useId, watch } fro
 import { useShape } from '../composables/useShape';
 import AppIcon from './EnpiiIcon.vue';
 import { useT } from '../composables/useT'
+import EnpiiLabel from './EnpiiLabel.vue';
 
 const t = useT()
 
@@ -12,6 +13,7 @@ const props = defineProps({
     label: { type: String, required: true },
     icon: { type: String, default: 'calendar_month' },
     placeholder: { type: String, default: null },
+    hideLabel: { type: Boolean, default: false },
     error: { type: String, default: null },
     hint: { type: String, default: null },
     required: { type: Boolean, default: false },
@@ -341,8 +343,8 @@ const triggerIcon = computed(() => props.mode === 'year' ? 'event' : 'calendar_m
 
 <template>
     <div ref="root" class="enpii-date-picker w-full [&>*+*]:mt-field-gap">
-        <label v-if="!hideLabel" :for="inputId" class="enpii-date-picker__label block ml-1 text-on-surface-variant text-[0.8125rem] font-semibold tracking-[0.02em]">{{ label }}</label>
-        <label v-else :for="inputId" class="enpii-sr-only">{{ label }}</label>
+        <EnpiiLabel v-if="!hideLabel" :for="inputId" size="sm" class="enpii-date-picker__label block ml-1">{{ label }}</EnpiiLabel>
+        <EnpiiLabel v-else :for="inputId" size="sm" hidden class="enpii-date-picker__label">{{ label }}</EnpiiLabel>
         <div class="enpii-date-picker__control-wrap relative">
             <button
                 :id="inputId"

@@ -161,3 +161,8 @@ Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7. Semua item selesai.
 - Verifikasi: `check` clean; Tailwind build + dist rename sukses; `test` 310/310; `test:tailwind` 7/7 + smoke hijau; `golden:check` 4/4 dengan 0 diff; `build` sukses. Audit regex `components.css`: 51 utility-like helpers, 6 alignment contracts, 2 legacy static-class LoanHistoryTable markers; 0 component CSS BEM styling tersisa.
 ### 2026-09-07 — UI v1.2.1 sr-only consumer build fix
 - Menambahkan `@utility enpii-sr-only` pada entry Tailwind sehingga hidden inputs/labels tetap tersembunyi di consumer build; versi `@its-enpii/ui` menjadi 1.2.1, conformance test dan changelog diperbarui. Semua check/test/golden/build hijau; `dist/tailwind.css` memuat utility.
+
+### 2026-09-07 — UI v1.3.0 label contract & class conformance
+- Menambahkan conformance permanen `defined-classes.conformance.spec.ts`: setiap token kelas template wajib resolve ke utility Tailwind, style BEM komponen, atau `@utility` yang dikirim ke consumer; pelanggaran redundan di KanbanBoard dan WhatsAppPreview diperbaiki.
+- Menambahkan `EnpiiLabel` sebagai kontrak label (`for`, size, tone, required, hidden) dengan tipografi token-based dan memigrasikan label ad-hoc pada 21 komponen form/input terkait tanpa mengubah pasangan `for`/`id` maupun aksesibilitas.
+- Verifikasi: `check` 0 error; `test` 37 files/364 tests pass; `test:tailwind` 3 tests + smoke pass; `golden:check` 4 tests pass 0 snapshot diff; `build` sukses.

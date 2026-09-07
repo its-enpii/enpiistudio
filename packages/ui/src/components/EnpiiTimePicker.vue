@@ -3,6 +3,7 @@ import { computed, useId } from 'vue'
 import AppIcon from './EnpiiIcon.vue'
 import { useShape } from '../composables/useShape'
 import { useT } from '../composables/useT'
+import EnpiiLabel from './EnpiiLabel.vue'
 
 const t = useT()
 
@@ -59,7 +60,7 @@ const options = computed(() => {
 
 <template>
     <div class="enpii-time-picker w-full grid gap-field-gap" :class="[shapeClass]">
-        <label :for="inputId" class="enpii-time-picker__label text-on-surface-variant text-sm font-medium">{{ label }}</label>
+        <EnpiiLabel :for="inputId" class="enpii-time-picker__label">{{ label }}</EnpiiLabel>
         <div class="enpii-time-picker__control-wrap relative flex items-center">
             <AppIcon v-if="icon" :name="icon" class="enpii-time-picker__icon absolute left-3 w-5 h-5 text-outline pointer-events-none" />
             <input

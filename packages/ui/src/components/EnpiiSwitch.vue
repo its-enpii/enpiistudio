@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import { useId } from 'vue';
 import AppIcon from './EnpiiIcon.vue';
 import { useShape } from '../composables/useShape';
+import EnpiiLabel from './EnpiiLabel.vue';
 
 const model = defineModel({ type: Boolean, default: false });
 const props = defineProps({
@@ -43,7 +44,7 @@ const shapeUtility = computed(() => {
     </label>
 
     <div v-else-if="field" class="enpii-switch enpii-switch--field w-full">
-        <label v-if="label" :for="switchId" class="enpii-switch__label block ml-1 text-on-surface-variant text-[0.8125rem] font-semibold tracking-[0.02em]">{{ label }}</label>
+        <EnpiiLabel v-if="label" :for="switchId" size="sm" class="enpii-switch__label block ml-1">{{ label }}</EnpiiLabel>
         <label
             :for="switchId"
             class="enpii-switch__box flex w-full min-h-control items-center justify-between gap-4 px-4 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-control bg-surface-container-lowest cursor-pointer transition-all duration-fast ease-emphasized focus-within:border-primary-container focus-within:[box-shadow:var(--shadow-focus)]"

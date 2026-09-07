@@ -4,6 +4,7 @@ import AppIcon from './EnpiiIcon.vue'
 import { useShape } from '../composables/useShape'
 import { WEEKDAYS, clampIso, createMonthGrid, parseIsoDate, shiftMonth, toIsoDate, usePopupPosition } from '../composables/useCalendar'
 import { useT } from '../composables/useT'
+import EnpiiLabel from './EnpiiLabel.vue'
 
 const t = useT()
 
@@ -171,7 +172,7 @@ onBeforeUnmount(() => {
 
 <template>
     <div ref="root" class="enpii-date-range relative w-full grid gap-field-gap">
-        <label :for="inputId" class="enpii-date-range__label text-on-surface-variant text-sm font-medium">{{ label }}</label>
+        <EnpiiLabel :for="inputId" class="enpii-date-range__label">{{ label }}</EnpiiLabel>
         <button
             :id="inputId"
             ref="trigger"
@@ -214,8 +215,8 @@ onBeforeUnmount(() => {
                     </div>
 
                     <div class="enpii-date-range__inputs grid grid-cols-[repeat(2,minmax(0,1fr))] gap-2">
-                        <label class="grid gap-1 text-on-surface-variant text-sm"><span>Mulai</span><input class="min-h-control-sm appearance-none px-3 border border-solid [border-color:var(--control-border-color)] [border-width:var(--control-border-width)] rounded-lg bg-surface-container-lowest text-on-surface font-sans text-control/1.25 focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--shadow-focus)]" type="date" :min="min" :max="max" :value="draft.start" @change="commitInput('start', $event)"></label>
-                        <label class="grid gap-1 text-on-surface-variant text-sm"><span>Selesai</span><input class="min-h-control-sm appearance-none px-3 border border-solid [border-color:var(--control-border-color)] [border-width:var(--control-border-width)] rounded-lg bg-surface-container-lowest text-on-surface font-sans text-control/1.25 focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--shadow-focus)]" type="date" :min="min" :max="max" :value="draft.end" @change="commitInput('end', $event)"></label>
+                        <div class="grid gap-1"><EnpiiLabel :for="`${inputId}-start`" class="enpii-date-range__sub-label"><span>Mulai</span></EnpiiLabel><input :id="`${inputId}-start`" class="min-h-control-sm appearance-none px-3 border border-solid [border-color:var(--control-border-color)] [border-width:var(--control-border-width)] rounded-lg bg-surface-container-lowest text-on-surface font-sans text-control/1.25 focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--shadow-focus)]" type="date" :min="min" :max="max" :value="draft.start" @change="commitInput('start', $event)"></div>
+                        <div class="grid gap-1"><EnpiiLabel :for="`${inputId}-end`" class="enpii-date-range__sub-label"><span>Selesai</span></EnpiiLabel><input :id="`${inputId}-end`" class="min-h-control-sm appearance-none px-3 border border-solid [border-color:var(--control-border-color)] [border-width:var(--control-border-width)] rounded-lg bg-surface-container-lowest text-on-surface font-sans text-control/1.25 focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--shadow-focus)]" type="date" :min="min" :max="max" :value="draft.end" @change="commitInput('end', $event)"></div>
                     </div>
 
                     <div class="enpii-date-range__calendars grid grid-cols-[repeat(2,minmax(0,1fr))] gap-3">

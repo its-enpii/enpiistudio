@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { useT } from '../composables/useT'
+import EnpiiLabel from './EnpiiLabel.vue'
 
 const props = withDefaults(defineProps<{
     modelValue?: string
@@ -112,7 +113,7 @@ function onPaste(event: ClipboardEvent) {
 
 <template>
     <div class="enpii-otp-input grid gap-field-gap" :class="{ 'enpii-otp-input--disabled opacity-60': disabled }">
-        <label :for="`${inputId}-0`" class="enpii-otp-input__label text-on-surface-variant text-sm font-medium">{{ t('otpInput.label') }}</label>
+        <EnpiiLabel :for="`${inputId}-0`" class="enpii-otp-input__label">{{ t('otpInput.label') }}</EnpiiLabel>
         <div class="enpii-otp-input__fields flex flex-wrap items-center gap-2">
             <template v-for="(digit, index) in code" :key="`${inputId}-${index}`">
                 <input

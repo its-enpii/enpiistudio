@@ -2,6 +2,7 @@
 import { ref, computed, watch } from 'vue';
 import { useId } from 'vue';
 import { useShape } from '../composables/useShape';
+import EnpiiLabel from './EnpiiLabel.vue';
 
 defineOptions({ inheritAttrs: false });
 
@@ -175,7 +176,7 @@ watch(
         :class="[shapeClass, { 'opacity-60 pointer-events-none': disabled }]"
         v-bind="$attrs"
     >
-        <label :for="inputId" class="enpii-file-upload__label ml-1 block text-on-surface-variant text-[.8125rem] font-semibold tracking-wide">{{ label }}</label>
+        <EnpiiLabel :for="inputId" size="sm" class="enpii-file-upload__label ml-1 block">{{ label }}</EnpiiLabel>
 
         <div
             class="enpii-file-upload__dropzone flex min-h-24 cursor-pointer flex-col items-center justify-center gap-2 rounded-control border border-dashed border-outline-variant [border-width:var(--control-border-width)] bg-surface-container-lowest px-6 py-4 transition-[border-color,box-shadow,background] duration-fast ease-emphasized hover:border-primary/40 focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)]"

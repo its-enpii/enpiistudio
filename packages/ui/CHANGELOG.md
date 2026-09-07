@@ -1,3 +1,15 @@
+## [1.3.0] - 2026-09-07
+
+### Added
+- `EnpiiLabel` component with unified size, tone, required marker, hidden
+  screen-reader mode, and attribute passthrough contract.
+- Permanent consumer class conformance coverage so every template class resolves
+  to a Tailwind utility, component style, or delivered utility.
+
+### Changed
+- Migrated ad-hoc form labels to the shared `EnpiiLabel` contract while
+  preserving `for`/`id` and accessibility behavior.
+
 ## [1.2.1] - 2026-09-07
 
 ### Fixed

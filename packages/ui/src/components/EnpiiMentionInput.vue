@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, nextTick, useId } from 'vue'
 import { useT } from '../composables/useT'
+import EnpiiLabel from './EnpiiLabel.vue'
 
 export interface MentionUser {
     id: string | number
@@ -221,9 +222,9 @@ defineExpose({ parseMentions })
             'enpii-mention-input--readonly': readonly,
         }"
     >
-        <label :for="inputId" class="enpii-mention-input__label ml-1 text-on-surface-variant text-[0.8125rem] font-medium">
+        <EnpiiLabel :for="inputId" size="sm" tone="muted" class="enpii-mention-input__label ml-1">
             {{ t('mentionInput.label') }}
-        </label>
+        </EnpiiLabel>
 
         <div class="enpii-mention-input__wrap relative">
             <textarea

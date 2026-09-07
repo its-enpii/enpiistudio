@@ -1,5 +1,6 @@
 <script setup>
 import { useId } from 'vue';
+import EnpiiLabel from './EnpiiLabel.vue';
 
 const model = defineModel({ type: Number, default: 0 });
 
@@ -17,10 +18,10 @@ const inputId = useId();
 
 <template>
     <div class="enpii-range w-full grid gap-2">
-        <label class="enpii-range__label flex items-center justify-between gap-3 text-on-surface-variant text-[0.8125rem] font-semibold tracking-wide" :for="inputId">
+        <EnpiiLabel :for="inputId" size="sm" class="enpii-range__label flex items-center justify-between gap-3">
             {{ label }}
             <output v-if="showValue" class="enpii-range__value text-on-surface-variant">{{ model }}</output>
-        </label>
+        </EnpiiLabel>
         <input :id="inputId" v-model.number="model" class="enpii-range__control h-2 m-0 border-0 appearance-none bg-surface-container-high rounded-[9999px] accent-primary focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset-wide)] focus-visible:outline-focus disabled:cursor-not-allowed disabled:opacity-45" type="range" :min="min" :max="max" :step="step" :disabled="disabled">
     </div>
 </template>
