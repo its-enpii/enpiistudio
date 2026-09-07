@@ -163,7 +163,7 @@ const rightListId = `enpii-transfer-list-${uid}-right`
                 v-if="searchable"
                 v-model="leftSearch"
                 type="text"
-                class="enpii-transfer-list__search min-h-10 mx-2 px-2 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)] bg-surface-container-lowest text-on-surface font-inherit text-[0.8125rem] placeholder:text-outline [transition-property:border-color,box-shadow] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:[border-color:color-mix(in_srgb,var(--color-primary)_40%,transparent)] focus:outline-none focus:border-primary-container focus:[box-shadow:var(--shadow-focus)]"
+                class="enpii-transfer-list__search min-h-10 mx-2 px-2 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)] bg-surface-container-lowest text-on-surface [font-family:inherit] text-[0.8125rem] placeholder:text-outline [transition-property:border-color,box-shadow] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:[border-color:color-mix(in_srgb,var(--color-primary)_40%,transparent)] focus:outline-none focus:border-primary-container focus:[box-shadow:var(--shadow-focus)]"
                 :placeholder="t('transferList.searchPlaceholder')"
                 :aria-label="t('transferList.searchLeft')"
             >
@@ -179,7 +179,7 @@ const rightListId = `enpii-transfer-list-${uid}-right`
                     v-for="option in filteredLeft"
                     :key="option.id"
                     :id="`${leftListId}-${option.id}`"
-                    class="enpii-transfer-list__option flex flex-col gap-0.5 min-h-10 py-2 px-2.5 border-0 rounded-[calc(var(--radius-control)-0.25rem)] bg-none text-on-surface font-inherit text-[0.8125rem] cursor-pointer [transition-property:background,color] duration-fast ease-emphasized motion-reduce:transition-none hover:not-disabled:bg-neutral-soft focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset-negative-outside)] focus-visible:outline-focus"
+                    class="enpii-transfer-list__option flex flex-col gap-0.5 min-h-10 py-2 px-2.5 border-0 rounded-[calc(var(--radius-control)-0.25rem)] bg-none text-on-surface [font-family:inherit] text-[0.8125rem] cursor-pointer [transition-property:background,color] duration-fast ease-emphasized motion-reduce:transition-none hover:not-disabled:bg-neutral-soft focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset-negative-outside)] focus-visible:outline-focus"
                     :class="{
                         'enpii-transfer-list__option--selected': leftSelected.includes(option.id),
                         'enpii-transfer-list__option--disabled': option.disabled,
@@ -240,7 +240,7 @@ const rightListId = `enpii-transfer-list-${uid}-right`
                 v-if="searchable"
                 v-model="rightSearch"
                 type="text"
-                class="enpii-transfer-list__search min-h-10 mx-2 px-2 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)] bg-surface-container-lowest text-on-surface font-inherit text-[0.8125rem] placeholder:text-outline [transition-property:border-color,box-shadow] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:[border-color:color-mix(in_srgb,var(--color-primary)_40%,transparent)] focus:outline-none focus:border-primary-container focus:[box-shadow:var(--shadow-focus)]"
+                class="enpii-transfer-list__search min-h-10 mx-2 px-2 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)] bg-surface-container-lowest text-on-surface [font-family:inherit] text-[0.8125rem] placeholder:text-outline [transition-property:border-color,box-shadow] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:[border-color:color-mix(in_srgb,var(--color-primary)_40%,transparent)] focus:outline-none focus:border-primary-container focus:[box-shadow:var(--shadow-focus)]"
                 :placeholder="t('transferList.searchPlaceholder')"
                 :aria-label="t('transferList.searchRight')"
             >
@@ -256,7 +256,7 @@ const rightListId = `enpii-transfer-list-${uid}-right`
                     v-for="option in filteredRight"
                     :key="option.id"
                     :id="`${rightListId}-${option.id}`"
-                    class="enpii-transfer-list__option flex flex-col gap-0.5 min-h-10 py-2 px-2.5 border-0 rounded-[calc(var(--radius-control)-0.25rem)] bg-none text-on-surface font-inherit text-[0.8125rem] cursor-pointer [transition-property:background,color] duration-fast ease-emphasized motion-reduce:transition-none hover:not-disabled:bg-neutral-soft focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset-negative-outside)] focus-visible:outline-focus"
+                    class="enpii-transfer-list__option flex flex-col gap-0.5 min-h-10 py-2 px-2.5 border-0 rounded-[calc(var(--radius-control)-0.25rem)] bg-none text-on-surface [font-family:inherit] text-[0.8125rem] cursor-pointer [transition-property:background,color] duration-fast ease-emphasized motion-reduce:transition-none hover:not-disabled:bg-neutral-soft focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset-negative-outside)] focus-visible:outline-focus"
                     :class="{
                         'enpii-transfer-list__option--selected': rightSelected.includes(option.id),
                     }"

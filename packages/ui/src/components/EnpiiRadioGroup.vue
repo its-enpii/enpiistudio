@@ -41,7 +41,7 @@ const inputId = props.id || useId();
                 class="enpii-radio-group__native enpii-sr-only peer focus-visible:[&+*]:[box-shadow:var(--shadow-focus)]"
                 >
                     <span
-                        class="enpii-radio-group__button flex min-h-control-sm items-center gap-2 text-on-surface-variant font-inherit text-sm font-medium text-transform-none [transition-property:color,background,border-color] duration-fast ease-emphasized disabled:cursor-not-allowed disabled:opacity-60"
+                        class="enpii-radio-group__button flex min-h-control-sm items-center gap-2 text-on-surface-variant [font-family:inherit] text-sm font-medium [text-transform:none] [transition-property:color,background,border-color] duration-fast ease-emphasized disabled:cursor-not-allowed disabled:opacity-60"
                         :class="{ 'enpii-radio-group__button--active text-primary-text': model === option.value }"
                     >
                     <AppIcon v-if="option.icon" :name="option.icon" class="enpii-radio-group__icon text-base leading-none" />

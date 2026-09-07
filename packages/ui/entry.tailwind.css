@@ -1,7 +1,10 @@
 @import "tailwindcss";
+@import "./src/styles/icon-font.css";
 @source "./src";
 
 @theme {
+  --breakpoint-xs: 30rem;
+
   --color-primary: #87CEEB;
   --color-on-primary: #14202B;
   --color-primary-hover: #5FB8DB;

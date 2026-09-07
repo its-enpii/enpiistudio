@@ -1,5 +1,3 @@
-import './styles/icon-font.css'
-
 export { default as enpiiUi } from './plugin'
 export { enpiiPermissionsKey, enpiiAppModeKey, enpiiNavigationKey, enpiiFlashKey, enpiiLocaleKey } from './plugin'
 export type { EnpiiUiPluginOptions } from './plugin'

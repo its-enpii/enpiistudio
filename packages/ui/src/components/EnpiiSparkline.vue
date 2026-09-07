@@ -42,7 +42,7 @@ const areaPath = computed(() => {
   <div class="enpii-sparkline inline-block w-full max-w-32 align-middle">
     <svg :viewBox="`0 0 ${W} ${H}`" class="enpii-sparkline__svg block w-full h-auto select-none" role="img" aria-label="Sparkline">
       <path :d="areaPath" class="enpii-sparkline__area opacity-12 motion-reduce:transition-none" :style="{ fill: resolvedColor }" />
-      <path :d="linePath" class="enpii-sparkline__line fill-none stroke-[1.5] stroke-linecap-round stroke-linejoin-round motion-reduce:transition-none" :style="{ stroke: resolvedColor }" />
+      <path :d="linePath" class="enpii-sparkline__line fill-none stroke-[1.5] [stroke-linecap:round] [stroke-linejoin:round] motion-reduce:transition-none" :style="{ stroke: resolvedColor }" />
     </svg>
   </div>
 </template>

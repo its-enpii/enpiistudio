@@ -120,15 +120,15 @@ function walkTemplate(node, filename, visit) {
 
   if (node.type === 1) {
     for (const attribute of node.props) {
-      if (attribute.type !== 7) continue
+      if (attribute.type !== 6 && attribute.type !== 7) continue
 
-      if (attribute.name === 'class' && attribute.value) {
+      if (attribute.type === 6 && attribute.name === 'class' && attribute.value?.content) {
         for (const token of attribute.value.content.split(/\s+/)) {
           if (token) visit(token, attribute.loc.start.line)
         }
       }
 
-      if (attribute.name === 'bind' && attribute.arg?.content === 'class' && attribute.exp) {
+      if (attribute.type === 7 && attribute.name === 'bind' && attribute.arg?.content === 'class' && attribute.exp) {
         for (const token of collectExpressionClasses(attribute.exp)) {
           const isSuffixMarker = token.startsWith('enpii-') &&
             componentSuffixMarkersFor(componentMarkerFor(filename), attribute.exp)
@@ -161,6 +161,14 @@ async function loadTailwindDesignSystem() {
     {
       base: process.cwd(),
       loadStylesheet: (id, base) => {
+        if (id.startsWith('.')) {
+          const file = resolve(base, id)
+          return {
+            path: file,
+            base: dirname(file),
+            content: readFileSync(file, 'utf8'),
+          }
+        }
         const packageDirectory = resolve(base, '../../node_modules', id)
         const file = resolve(packageDirectory, 'index.css')
         return {
@@ -173,8 +181,8 @@ async function loadTailwindDesignSystem() {
   )
 }
 
-function scannedCandidates() {
-  const scanner = new Scanner({ sources: [{ base: 'src', pattern: '**/*', negated: false }] })
+function scannedCandidates(sourceDirectory) {
+  const scanner = new Scanner({ sources: [{ base: sourceDirectory, pattern: '**/*', negated: false }] })
   return new Set(scanner.scanFiles(scanner.files.map(file => ({
     file,
     extension: file.split('.').pop() ?? '',
@@ -197,35 +205,25 @@ function readStyleRules(style) {
   return selectors.flatMap(selectorClassTokens)
 }
 
-function legacyComponentCssTokens() {
-  const filename = resolve('src/styles/components.css')
-  try {
-    const { rules } = parseCss({
-      filename,
-      code: Buffer.from(readFileSync(filename, 'utf8')),
-    })
-    return new Set(rules.flatMap(rule => rule.type === 'style' ? selectorClassTokens(rule.selector) : []))
-  } catch (error) {
-    if (error.code === 'ENOENT') return new Set()
-    throw error
-  }
-}
-
-export async function auditTemplateClasses() {
+export async function auditTemplateClasses(componentsDirectory = resolve('src/components')) {
   const designSystem = await loadTailwindDesignSystem()
-  const candidates = scannedCandidates()
-  const componentsDirectory = resolve('src/components')
-  const legacyComponentClasses = legacyComponentCssTokens()
+  const sourceDirectory = dirname(resolve(componentsDirectory))
+  const candidates = componentsDirectory === resolve('src/components')
+    ? scannedCandidates(sourceDirectory)
+    : new Set()
   const violations = []
+
+  // Manifest eksplisit: token enpii-* yang SENGJAHA marker tanpa style (tanpa rule
+  // stylesheet di mana pun). Di luar manifest, token ber-prefix komponen TETAP
+  // diperiksa — mencegah kelas styled baru menyusup sebagai "marker" tersembunyi.
+  const manifestPath = resolve('tests/fixtures/enpii-marker-manifest.json')
+  const allowedMarkers = new Set(JSON.parse(readFileSync(manifestPath, 'utf8')))
 
   for (const filename of readdirSync(componentsDirectory).filter(name => name.endsWith('.vue')).sort()) {
     const { descriptor, errors } = parse(readFileSync(resolve(componentsDirectory, filename), 'utf8'), { filename })
     if (errors.length) throw errors[0]
 
-    const componentClasses = new Set([
-      ...legacyComponentClasses,
-      ...descriptor.styles.flatMap(readStyleRules),
-    ])
+    const componentClasses = new Set(descriptor.styles.flatMap(readStyleRules))
     const templateClasses = new Map()
     const componentMarker = componentMarkerFor(filename)
     walkTemplate(descriptor.template.ast, filename, (token, line) => {
@@ -240,11 +238,11 @@ export async function auditTemplateClasses() {
 
       if (isComponentToken) {
         const isPureMarker = isComponentMarker && !isTailwindUtility && !isComponentClass
-        if (token.endsWith('--') || token.endsWith('__') || isPureMarker) continue
-        if (!isTailwindUtility && !isComponentClass) {
-          violations.push({ filename, line, token, category: 'undefined' })
-        }
-      } else if (!isTailwindUtility) {
+        if (token.endsWith('--') || token.endsWith('__')) continue
+        if (isTailwindUtility || isComponentClass) continue
+        if (allowedMarkers.has(token)) continue
+        violations.push({ filename, line, token, category: isPureMarker ? 'marker-not-in-manifest' : 'undefined' })
+      } else if (!isTailwindUtility && !allowedMarkers.has(token)) {
         violations.push({ filename, line, token, category: 'undefined' })
       }
     }

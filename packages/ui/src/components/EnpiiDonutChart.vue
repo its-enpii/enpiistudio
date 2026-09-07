@@ -64,7 +64,7 @@ const ariaLabel = computed(() => {
           :stroke-width="STROKE_WIDTH"
           :stroke-dasharray="segment.dasharray"
           :stroke-dashoffset="segment.dashoffset"
-          class="enpii-donut-chart__segment stroke-linecap-round motion-reduce:transition-none"
+          class="enpii-donut-chart__segment [stroke-linecap:round] motion-reduce:transition-none"
           :style="{ stroke: segment.color }"
         >
           <title>{{ segment.label }}: {{ segment.value }} ({{ segment.percentage }}%)</title>

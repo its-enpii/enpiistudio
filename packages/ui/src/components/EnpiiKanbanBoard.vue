@@ -270,7 +270,7 @@ watch(() => menuCard.value, (value) => {
           v-for="target in menuTargets"
           :key="target.id"
           type="button"
-          class="enpii-kanban__menu-item block w-full min-h-10 py-2 px-3 border-0 rounded-[calc(var(--radius-control)-0.5rem)] bg-transparent text-on-surface font-inherit text-sm font-medium text-left cursor-pointer transition-[background] duration-fast ease-emphasized hover:enabled:bg-neutral-soft focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset-negative)] disabled:text-outline disabled:cursor-default disabled:opacity-50 aria-disabled:pointer-events-none motion-reduce:transition-none"
+          class="enpii-kanban__menu-item block w-full min-h-10 py-2 px-3 border-0 rounded-[calc(var(--radius-control)-0.5rem)] bg-transparent text-on-surface [font-family:inherit] text-sm font-medium text-left cursor-pointer transition-[background] duration-fast ease-emphasized hover:enabled:bg-neutral-soft focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset-negative)] disabled:text-outline disabled:cursor-default disabled:opacity-50 aria-disabled:pointer-events-none motion-reduce:transition-none"
           role="menuitem"
           :disabled="target.isCurrent"
           @click.stop="selectMoveTarget(target.id)"

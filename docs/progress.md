@@ -34,6 +34,10 @@ Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7. Semua item selesai.
 - Pengecualian sah terdokumentasi permanen di `packages/ui/tests/layer-wiring.conformance.spec.ts`: DesktopSplashScreen, Footer, LoanHistoryTable, Rating, Spinner.
 - Verifikasi: `check` bersih; `test` 349 passed/0 failed; `test:tailwind` 3 passed + smoke; `golden:check` 4 passed dengan baseline 0 diff; `build` sukses.
 
+### 2026-09-07 — UI audit marker manifest + 52 dead class fix SELESAI
+- `@its-enpii/ui` tetap v1.3.0: audit template class kini memakai Tailwind v4 design-system checker dan manifest marker eksplisit (`material-symbols-outlined`, `peer`, `group`, `group/item`); 52 token dead class dikonversi ke utility Tailwind v4, termasuk font/stroke/forced-colors/readonly chain dan breakpoint `xs` (`30rem`).
+- Verifikasi: `check` bersih; `test` 367 passed/0 failed; `test:tailwind` 3 passed + smoke; `golden:record`/`golden:check` 4 passed; `build` sukses; `audit-template-classes.mjs` exit 0. Golden baseline hanya mencatat normalisasi Tailwind: `rgba(0,0,0,0)` → `transparent` dan empty shadow → `0 0 #0000`; snapshot komponen tidak berubah.
+
 ### 2026-09-06 — UI comprehensive control & accessibility correction selesai
 - packages/ui v1.1.1: Badge besar diturunkan ke font-weight 600; RadioGroup diselaraskan ke `h-control-sm`; Range/SegmentedControl/Switch field/root mengikuti kontrak full-width; NotificationDropdown item menjadi button-semantics dengan keyboard support; CommandPalette memberi state `aria-current`; fokus ring token ditambahkan pada aksi sekunder TimePicker, DateRange, SmartTable, CurrencyInput, ThemeMenu, Switch, RadioGroup, PollCard, dan NotificationDropdown; overlay Navbar/OfflineBanner memakai `z-dropdown`/`z-toast`; SignaturePad default ink memakai token; FormRow/InputMask memakai spacing token; golden baseline diperbarui untuk tinggi RadioGroup 40px.
 - Audit regex: 0 `font-extrabold`/weight >600, 0 raw hex di template, 0 alias `z-index-*`, 0 arbitrary field-gap utility; static BEM marker dipertahankan pada 86 komponen.

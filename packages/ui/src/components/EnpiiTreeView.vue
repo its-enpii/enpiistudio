@@ -143,7 +143,7 @@ onMounted(updateListHeight)
                     :id="nodeId(visible.node.id)"
                     type="button"
                     role="treeitem"
-                    class="enpii-tree-view__node flex items-center gap-2 w-full min-h-10 py-2 pr-3 border-0 rounded-[calc(var(--radius-control)-0.25rem)] bg-none text-on-surface font-inherit text-sm font-medium text-left cursor-pointer [transition-property:background,color,box-shadow,transform] duration-fast ease-emphasized motion-reduce:transition-none hover:bg-neutral-soft focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus"
+                    class="enpii-tree-view__node flex items-center gap-2 w-full min-h-10 py-2 pr-3 border-0 rounded-[calc(var(--radius-control)-0.25rem)] bg-none text-on-surface [font-family:inherit] text-sm font-medium text-left cursor-pointer [transition-property:background,color,box-shadow,transform] duration-fast ease-emphasized motion-reduce:transition-none hover:bg-neutral-soft focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus"
                     :class="{
                         'enpii-tree-view__node--focused': isFocused(visible.node),
                         'enpii-tree-view__node--selected': isSelected(visible.node),

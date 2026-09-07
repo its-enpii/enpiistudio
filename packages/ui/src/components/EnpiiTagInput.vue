@@ -146,7 +146,7 @@ function onKeydown(event: KeyboardEvent) {
                 :id="inputId"
                 v-model="inputValue"
                 type="text"
-                class="enpii-tag-input__field flex-1 min-w-28 min-h-8 border-0 bg-none text-on-surface font-inherit text-control focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
+                class="enpii-tag-input__field flex-1 min-w-28 min-h-8 border-0 bg-none text-on-surface [font-family:inherit] text-control focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
                 :placeholder="placeholder ?? t('tagInput.placeholder')"
                 :disabled="disabled || atLimit"
                 :aria-label="t('tagInput.addTagLabel')"
@@ -161,7 +161,7 @@ function onKeydown(event: KeyboardEvent) {
             <li
                 v-for="(suggestion, index) in filteredSuggestions"
                 :key="suggestion"
-                class="enpii-tag-input__suggestion flex min-h-10 items-center py-2 px-2.5 rounded-lg text-on-surface cursor-pointer [transition-property:background] duration-fast ease-emphasized motion-reduce:transition-none data-active:true:bg-surface-container-low hover:bg-surface-container-low"
+                class="enpii-tag-input__suggestion flex min-h-10 items-center py-2 px-2.5 rounded-lg text-on-surface cursor-pointer [transition-property:background] duration-fast ease-emphasized motion-reduce:transition-none data-[active=true]:bg-surface-container-low hover:bg-surface-container-low"
                 role="option"
                 :aria-selected="index === activeSuggestion"
                 :data-active="index === activeSuggestion"

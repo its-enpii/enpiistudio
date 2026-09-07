@@ -132,7 +132,7 @@ watch(() => model.value, (value) => {
                 :inputmode="inputmode ?? (preset === 'currency' ? 'numeric' : undefined)"
                 :aria-invalid="Boolean(error)"
                 :aria-describedby="error ? `${inputId}-error` : hint ? `${inputId}-hint` : undefined"
-        class="enpii-input-mask__control w-full min-h-control px-3 py-1 border border-solid [border-width:var(--control-border-width)] bg-surface-container-lowest text-on-surface font-inherit placeholder:text-outline [transition-property:border-color,box-shadow] duration-fast ease-emphasized hover:enabled:border-primary-border focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--shadow-focus)] disabled:opacity-60 disabled:cursor-not-allowed"
+        class="enpii-input-mask__control w-full min-h-control px-3 py-1 border border-solid [border-width:var(--control-border-width)] bg-surface-container-lowest text-on-surface [font-family:inherit] placeholder:text-outline [transition-property:border-color,box-shadow] duration-fast ease-emphasized hover:enabled:border-primary-border focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--shadow-focus)] disabled:opacity-60 disabled:cursor-not-allowed"
                 :class="[shapeClass, shapeUtility, controlStateClass]"
                 @input="onInput"
                 @change="$emit('change', model)"

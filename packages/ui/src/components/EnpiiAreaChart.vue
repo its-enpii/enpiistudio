@@ -137,7 +137,7 @@ const ariaLabel = computed(() => {
       </template>
       <g v-for="item in series" :key="item.key">
         <path :d="toAreaPath(item.points)" class="enpii-area-chart__area opacity-16 motion-reduce:transition-none" :style="{ fill: item.color }" />
-        <path :d="toLinePath(item.points)" class="enpii-area-chart__line fill-none stroke-2 stroke-linecap-round stroke-linejoin-round motion-reduce:transition-none" :style="{ stroke: item.color }" />
+        <path :d="toLinePath(item.points)" class="enpii-area-chart__line fill-none stroke-2 [stroke-linecap:round] [stroke-linejoin:round] motion-reduce:transition-none" :style="{ stroke: item.color }" />
         <circle
           v-for="(point, i) in item.points"
           :key="`point-${i}`"
