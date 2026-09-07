@@ -22,8 +22,8 @@ function render() {
     margin: props.includeMargin ? 4 : 0,
     errorCorrectionLevel: props.level,
     color: {
-      dark: getComputedStyle(document.documentElement).getPropertyValue('--field-fg').trim() || 'rgb(15 15 15)',
-      light: getComputedStyle(document.documentElement).getPropertyValue('--field-bg').trim() || 'rgb(250 250 250)',
+      dark: '#000000',
+      light: '#ffffff',
     },
   })
 }

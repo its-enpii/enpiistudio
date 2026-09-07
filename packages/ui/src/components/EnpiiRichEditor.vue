@@ -24,7 +24,7 @@ const shapeClass = useShape(props)
 const editorElement = useEditor(() => ({
     editable: !props.disabled,
     content: props.modelValue || '',
-    extensions: [StarterKit.configure({ link: { openOnClick: false } })],
+    extensions: [StarterKit.configure()],
     onUpdate: syncFromEditor,
 }))
 
