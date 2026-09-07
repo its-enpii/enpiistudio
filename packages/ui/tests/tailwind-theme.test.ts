@@ -39,6 +39,7 @@ describe('Tailwind-native theme', () => {
     for (const shadowUtility of ['card', 'control', 'overlay', 'raised']) {
       expect(entry).toContain(`@utility shadow-${shadowUtility} {\n  box-shadow: var(--shadow-${shadowUtility});\n}`)
     }
+    expect(entry).toContain('@utility enpii-sr-only {')
   })
 
   it('removes all legacy Enpii custom properties', () => {

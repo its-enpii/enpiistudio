@@ -1,3 +1,10 @@
+## [1.2.1] - 2026-09-07
+
+### Fixed
+- Definisikan utility `enpii-sr-only` pada entry Tailwind agar input native dan
+  label yang disembunyikan tetap tersembunyi pada consumer build yang hanya
+  meng-import `tailwind.css` dan style layer.
+
 ## [1.2.0] - 2026-09-06
 
 ### Added
