@@ -126,13 +126,13 @@ const chartData = [
         <select v-model="activeLayer" class="border-2 border-ink px-3 py-1 font-bold rounded-none bg-surface">
           <option value="neobrutalism">Neobrutalism (Enmarket Raw 4px/6px)</option>
           <option value="neobrutalism-tamed">Neobrutalism (Tamed 2px)</option>
+          <option value="cyberpunk">Cyberpunk (Synthwave Neon Glow)</option>
+          <option value="nordic">Nordic (Warm Organic Editorial)</option>
+          <option value="fluent">Fluent (Modern Acrylic Flat)</option>
           <option value="material">Material</option>
           <option value="glassmorphism">Glassmorphism</option>
-        <option value="neumorphism">Neumorphism</option>
-        <option value="minimalism">Minimalism</option>
-        <option value="cyberpunk">Cyberpunk</option>
-        <option value="nordic">Nordic</option>
-        <option value="fluent">Fluent</option>
+          <option value="neumorphism">Neumorphism</option>
+          <option value="minimalism">Minimalism</option>
       </select>
       </div>
     </header>
