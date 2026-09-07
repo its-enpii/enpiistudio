@@ -1,3 +1,8 @@
+## [1.4.0] - 2026-09-07
+- feat(ui)!: total base-raw component architecture modernization (all 87 components 100% color-free; 6 style layers own visual tokens & hooks)
+- feat(ui): unified token hooks taxonomy across controls, fields, feedback, navigation, overlays, tables, charts, pickers, upload & domain components
+- test(ui): permanent color-free base conformance suite (38 test files / 491 tests passing; golden parity 0 diff; strict template audit exit 0)
+
 ## [1.3.1] - 2026-09-07
 
 ### Added
