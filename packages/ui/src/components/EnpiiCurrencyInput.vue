@@ -48,7 +48,7 @@ const shapeUtility = computed(() => {
 const controlStateClass = computed(() => {
     if (props.readonly) return 'bg-surface-container-low text-on-surface-variant cursor-default';
     if (props.error) return 'border-danger-border';
-    return 'border-outline-variant';
+    return '[border-color:var(--control-border-color)]';
 });
 
 function formatCurrency(val) {

@@ -46,8 +46,8 @@ const sizeClass = computed(() => {
 const variantClass = computed(() => {
     switch (props.variant) {
         case 'success': return 'bg-secondary text-on-secondary';
-        case 'secondary': return 'border-outline-variant bg-surface-container-lowest text-primary-text';
-        case 'outline': return 'border-primary bg-transparent text-primary-text';
+        case 'secondary': return '[border-color:var(--control-border-color)] bg-surface-container-lowest text-primary-text';
+        case 'outline': return '[border-color:var(--color-primary)] bg-transparent text-primary-text';
         case 'ghost': return 'bg-transparent text-primary-text';
         case 'danger': return 'bg-error text-on-error';
         case 'tertiary': return 'bg-tertiary-container text-on-tertiary';
@@ -67,7 +67,7 @@ const shapeUtility = computed(() => {
     <button
         :type="type"
         :disabled="isDisabled || isLoading"
-        class="enpii-button relative inline-flex items-center justify-center gap-2 m-0 border border-solid border-transparent [border-width:var(--control-border-width)] font-semibold font-sans no-underline cursor-pointer transition-all duration-fast ease-emphasized hover:enabled:brightness-96 active:enabled:[transform:var(--press-transform)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-priority)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset-outside)] disabled:cursor-not-allowed disabled:opacity-60 disabled:transform-none"
+        class="enpii-button relative inline-flex items-center justify-center gap-2 m-0 border border-solid [border-color:var(--control-border-color-filled)] [box-shadow:var(--control-shadow)] [border-width:var(--control-border-width)] font-semibold font-sans no-underline cursor-pointer transition-all duration-fast ease-emphasized hover:enabled:brightness-96 active:enabled:[transform:var(--press-transform)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-priority)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset-outside)] disabled:cursor-not-allowed disabled:opacity-60 disabled:transform-none"
         :class="[
             `enpii-button--${variant}`,
             `enpii-button--${size}`,

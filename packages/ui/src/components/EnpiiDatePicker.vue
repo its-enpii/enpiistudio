@@ -348,7 +348,7 @@ const triggerIcon = computed(() => props.mode === 'year' ? 'event' : 'calendar_m
                 :id="inputId"
                 ref="trigger"
                 type="button"
-                class="enpii-date-picker__control flex w-full h-auto min-h-control items-center px-4 border border-solid [border-width:var(--control-border-width)] border-outline-variant rounded-control bg-surface-container-lowest text-primary font-sans text-control text-left [transition-property:all] duration-fast ease-emphasized hover:enabled:[border-color:color-mix(in_srgb,var(--color-primary)_40%,transparent)] active:enabled:[transform:var(--press-transform)] focus:outline-none focus-visible:outline-none focus:border-primary-container focus-visible:border-primary-container focus:[box-shadow:var(--shadow-focus)] focus-visible:[box-shadow:var(--shadow-focus)] disabled:opacity-60 disabled:cursor-not-allowed"
+                class="enpii-date-picker__control flex w-full h-auto min-h-control items-center px-4 border border-solid [border-width:var(--control-border-width)] [border-color:var(--control-border-color)] rounded-control bg-surface-container-lowest text-primary font-sans text-control text-left [transition-property:all] duration-fast ease-emphasized hover:enabled:[border-color:color-mix(in_srgb,var(--color-primary)_40%,transparent)] active:enabled:[transform:var(--press-transform)] focus:outline-none focus-visible:outline-none focus:border-primary-container focus-visible:border-primary-container focus:[box-shadow:var(--shadow-focus)] focus-visible:[box-shadow:var(--shadow-focus)] disabled:opacity-60 disabled:cursor-not-allowed"
                 :class="[shapeClass, { 'enpii-date-picker__control--error': Boolean(error) }]"
                 :disabled="disabled"
                 :aria-expanded="open"
@@ -373,7 +373,7 @@ const triggerIcon = computed(() => props.mode === 'year' ? 'event' : 'calendar_m
                         role="dialog"
                         aria-modal="false"
                         :aria-label="t('datePicker.selectPlaceholder', { label: label.toLowerCase() })"
-                        class="enpii-date-picker__popup min-w-[18rem] p-3 border border-solid border-outline-variant rounded-control bg-surface-container-lowest shadow-overlay select-none origin-top"
+                        class="enpii-date-picker__popup min-w-[18rem] p-3 border border-solid [border-color:var(--overlay-border-color)] rounded-control bg-surface-container-lowest shadow-overlay select-none origin-top"
                         :class="[
                             { 'enpii-date-picker__popup--above': placeAbove },
                             placeAbove ? 'enpii-date-picker__popup--above-origin origin-bottom' : 'enpii-date-picker__popup--below-origin',
@@ -418,7 +418,7 @@ const triggerIcon = computed(() => props.mode === 'year' ? 'event' : 'calendar_m
                             </div>
                         </Transition>
 
-                        <div class="enpii-date-picker__footer flex items-center justify-between mt-3 pt-3 border-t border-solid border-outline-variant text-sm font-semibold">
+                        <div class="enpii-date-picker__footer flex items-center justify-between mt-3 pt-3 border-t border-solid [border-color:var(--overlay-border-color)] text-sm font-semibold">
                             <button v-if="clearable && model" type="button" class="enpii-date-picker__footer-button enpii-date-picker__footer-button--clear py-2 px-3 border-0 rounded-lg bg-transparent text-danger-text cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:bg-error-container active:[transform:var(--press-transform)]" @click="clear">{{ t('datePicker.clear') }}</button>
                             <span v-else class="enpii-date-picker__footer-spacer w-16" />
                             <button type="button" class="enpii-date-picker__footer-button py-2 px-3 border-0 rounded-lg bg-transparent text-primary-text cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:bg-surface-container-low active:[transform:var(--press-transform)]" @click="selectToday">{{ todayActionLabel }}</button>

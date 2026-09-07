@@ -82,7 +82,7 @@ onBeforeUnmount(() => {
                     tabindex="-1"
                     aria-modal="true"
                     :aria-labelledby="titleId"
-                    class="enpii-drawer__panel absolute flex flex-col border border-solid [border-width:var(--overlay-border-width)] border-outline-variant bg-surface-container-lowest shadow-overlay"
+                    class="enpii-drawer__panel absolute flex flex-col border border-solid [border-width:var(--overlay-border-width)] [border-color:var(--overlay-border-color)] bg-surface-container-lowest shadow-overlay"
                     :class="[
                         `enpii-drawer__panel--${side}`,
                         `enpii-drawer__panel--${size}`,
@@ -96,11 +96,11 @@ onBeforeUnmount(() => {
                         side === 'bottom' && 'bottom-0 inset-x-0 max-h-[min(24rem,90vh)]',
                     ]"
                 >
-                    <header v-if="title || $slots.header" class="enpii-drawer__header flex items-center justify-between gap-4 p-4 border-b border-solid border-outline-variant">
+                    <header v-if="title || $slots.header" class="enpii-drawer__header flex items-center justify-between gap-4 p-4 border-b border-solid [border-color:var(--overlay-border-color)]">
                         <slot name="header"><h2 :id="titleId" class="enpii-drawer__title m-0 text-primary-text text-lg">{{ title }}</h2></slot>
                     </header>
                     <div class="enpii-drawer__body flex-1 overflow-auto p-4"><slot /></div>
-                    <footer v-if="$slots.footer" class="enpii-drawer__footer p-4 border-t border-solid border-outline-variant"><slot name="footer" /></footer>
+                    <footer v-if="$slots.footer" class="enpii-drawer__footer p-4 border-t border-solid [border-color:var(--overlay-border-color)]"><slot name="footer" /></footer>
                 </section>
             </div>
         </Transition>

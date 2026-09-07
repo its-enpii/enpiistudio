@@ -41,9 +41,9 @@ const shapeUtility = computed(() => {
 });
 
 const controlStateClass = computed(() => {
-    if (props.readonly) return 'bg-surface-container-low text-on-surface-variant border-outline-variant cursor-default';
+    if (props.readonly) return 'bg-surface-container-low text-on-surface-variant [border-color:var(--control-border-color)] cursor-default';
     if (props.error) return 'bg-surface-container-lowest text-primary border-danger-border';
-    return 'bg-surface-container-lowest text-primary border-outline-variant';
+    return 'bg-surface-container-lowest text-primary [border-color:var(--control-border-color)]';
 });
 </script>
 

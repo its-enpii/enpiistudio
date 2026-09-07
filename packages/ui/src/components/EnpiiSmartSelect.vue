@@ -262,7 +262,7 @@ watch(() => props.modelValue, (value) => {
                 :aria-invalid="Boolean(error)"
                 :aria-required="required"
                 :disabled="disabled"
-                class="enpii-smart-select__trigger flex w-full h-auto min-h-control items-center justify-between pr-16 px-4 border border-solid [border-width:var(--control-border-width)] border-outline-variant rounded-control bg-surface-container-lowest text-primary font-sans text-control text-left [transition-property:all] duration-fast ease-emphasized hover:enabled:[border-color:color-mix(in_srgb,var(--color-primary)_40%,transparent)] active:enabled:[transform:var(--press-transform)] focus:outline-none focus-visible:outline-none focus:border-primary-container focus-visible:border-primary-container focus:[box-shadow:var(--shadow-focus)] focus-visible:[box-shadow:var(--shadow-focus)] disabled:opacity-60 disabled:cursor-not-allowed"
+                class="enpii-smart-select__trigger flex w-full h-auto min-h-control items-center justify-between pr-16 px-4 border border-solid [border-width:var(--control-border-width)] [border-color:var(--control-border-color)] rounded-control bg-surface-container-lowest text-primary font-sans text-control text-left [transition-property:all] duration-fast ease-emphasized hover:enabled:[border-color:color-mix(in_srgb,var(--color-primary)_40%,transparent)] active:enabled:[transform:var(--press-transform)] focus:outline-none focus-visible:outline-none focus:border-primary-container focus-visible:border-primary-container focus:[box-shadow:var(--shadow-focus)] focus-visible:[box-shadow:var(--shadow-focus)] disabled:opacity-60 disabled:cursor-not-allowed"
                 :class="[shapeClass, { 'enpii-smart-select__trigger--error': Boolean(error) }]"
                 v-bind="$attrs"
                 @click="open ? closeMenu() : openMenu()"
@@ -290,14 +290,14 @@ watch(() => props.modelValue, (value) => {
                         :id="`${selectId}-listbox`"
                         ref="listbox"
                         role="listbox"
-                        class="enpii-smart-select__menu fixed flex flex-col p-2 border border-solid border-outline-variant rounded-control bg-surface-container-lowest shadow-overlay overflow-hidden origin-top"
+                        class="enpii-smart-select__menu fixed flex flex-col p-2 border border-solid [border-color:var(--overlay-border-color)] rounded-control bg-surface-container-lowest shadow-overlay overflow-hidden origin-top"
                         :class="[shapeClass, { 'enpii-smart-select__menu--above origin-bottom': placeAbove }]"
                         :style="menuStyle"
                         :data-smart-select="selectId"
                     >
                         <div v-if="searchable" class="enpii-smart-select__search-wrap relative mb-2 pb-1 shrink-0 bg-surface-container-lowest">
                             <AppIcon name="search" class="enpii-smart-select__search-icon absolute left-3 w-4 h-4 text-on-surface-variant text-base pointer-events-none" />
-                            <input ref="searchInput" v-model="search" type="search" class="enpii-smart-select__search-input w-full h-9 py-1 px-9 border border-solid border-outline-variant rounded-lg bg-transparent text-primary text-sm placeholder:text-on-surface-variant focus:outline-none focus:border-primary-container focus:[box-shadow:var(--shadow-focus)]" :placeholder="t('smartSelect.searchPlaceholder')" @input="onSearch" @keydown="onKeydown">
+                            <input ref="searchInput" v-model="search" type="search" class="enpii-smart-select__search-input w-full h-9 py-1 px-9 border border-solid [border-color:var(--control-border-color)] rounded-lg bg-transparent text-primary text-sm placeholder:text-on-surface-variant focus:outline-none focus:border-primary-container focus:[box-shadow:var(--shadow-focus)]" :placeholder="t('smartSelect.searchPlaceholder')" @input="onSearch" @keydown="onKeydown">
                             <button v-if="search" type="button" class="enpii-smart-select__search-clear absolute top-2 right-2 w-7 h-7 border-0 rounded-[9999px] bg-transparent text-on-surface-variant cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:text-primary-text" @click="search = ''; onSearch()"><AppIcon name="close" /></button>
                         </div>
                         <div class="enpii-smart-select__options min-h-0 flex-1 overflow-y-auto">

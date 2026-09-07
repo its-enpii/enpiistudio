@@ -701,7 +701,16 @@ export function compareSnapshots(
 
 function isEquivalent(a: string, b: string, property: string, tolerance: number, id?: string): boolean {
   if (a === b) return true
-  if (property === 'box-shadow') return areShadowsEqual(a, b)
+  if (property === 'box-shadow') {
+    const isNoShadow = (value: string) => (
+      !value.trim()
+      || value.trim() === 'none'
+      || value.trim() === '0 0 #0000'
+      || value.trim() === 'rgba(0, 0, 0, 0)'
+    )
+    if (isNoShadow(a) && isNoShadow(b)) return true
+    return areShadowsEqual(a, b)
+  }
   if (property === 'outline') {
     if (areOutlinesEqual(a, b)) return true
     if (id?.startsWith('EnpiiCheckbox:focus-visible') || id?.startsWith('EnpiiTabs:focus-visible') || id?.startsWith('EnpiiPagination:focus-visible')) return true

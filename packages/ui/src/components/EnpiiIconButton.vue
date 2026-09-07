@@ -87,7 +87,9 @@ const toneClass = computed(() => {
 const buttonClass = computed(() => [
     'enpii-icon-button',
     'relative inline-flex items-center justify-center shrink-0 bg-transparent text-inherit cursor-pointer transition-all duration-fast ease-emphasized focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)] active:enabled:[transform:var(--press-transform)] hover:enabled:scale-103 disabled:opacity-60 disabled:cursor-not-allowed',
-    props.filled ? 'enpii-icon-button--filled-border' : 'border-0',
+    props.filled
+      ? 'enpii-icon-button--filled-border border border-solid [border-color:var(--control-border-color-filled)] [box-shadow:var(--control-shadow)]'
+      : 'border-0 [box-shadow:var(--control-shadow)]',
     `enpii-icon-button--${props.size}`,
     `enpii-icon-button--${props.rounded}`,
     shapeClass.value,

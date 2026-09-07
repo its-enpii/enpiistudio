@@ -190,7 +190,7 @@ onBeforeUnmount(() => {
           ref="panelRef"
           role="dialog"
           :aria-modal="props.persistent"
-          class="enpii-popover__panel fixed flex overflow-auto min-w-44 max-w-[min(22rem,calc(100vw_-_1rem))] rounded-control border border-solid [border-width:var(--overlay-border-width)] border-outline-variant bg-surface-container-lowest text-on-surface shadow-overlay [transform-origin:center]"
+          class="enpii-popover__panel fixed flex overflow-auto min-w-44 max-w-[min(22rem,calc(100vw_-_1rem))] rounded-control border border-solid [border-width:var(--overlay-border-width)] [border-color:var(--overlay-border-color)] bg-surface-container-lowest text-on-surface shadow-overlay [transform-origin:center]"
           :class="[
             'enpii-popover__panel',
             `enpii-popover__panel--${activePlacement}`,
@@ -202,10 +202,10 @@ onBeforeUnmount(() => {
             v-if="props.arrow"
             class="enpii-popover__arrow absolute w-3 h-3 pointer-events-none"
             :class="[
-              activePlacement === 'top' && 'right-[calc(50%_-_0.375rem)] bottom-[-0.4375rem] border-r border-b border-solid border-outline-variant rotate-45 bg-inherit',
-              activePlacement === 'bottom' && 'right-[calc(50%_-_0.375rem)] top-[-0.4375rem] border-l border-t border-solid border-outline-variant rotate-45 bg-inherit',
-              activePlacement === 'left' && 'top-[calc(50%_-_0.375rem)] right-[-0.4375rem] border-t border-r border-solid border-outline-variant rotate-45 bg-inherit',
-              activePlacement === 'right' && 'top-[calc(50%_-_0.375rem)] left-[-0.4375rem] border-b border-l border-solid border-outline-variant rotate-45 bg-inherit',
+              activePlacement === 'top' && 'right-[calc(50%_-_0.375rem)] bottom-[-0.4375rem] border-r border-b border-solid [border-color:var(--overlay-border-color)] rotate-45 bg-inherit',
+              activePlacement === 'bottom' && 'right-[calc(50%_-_0.375rem)] top-[-0.4375rem] border-l border-t border-solid [border-color:var(--overlay-border-color)] rotate-45 bg-inherit',
+              activePlacement === 'left' && 'top-[calc(50%_-_0.375rem)] right-[-0.4375rem] border-t border-r border-solid [border-color:var(--overlay-border-color)] rotate-45 bg-inherit',
+              activePlacement === 'right' && 'top-[calc(50%_-_0.375rem)] left-[-0.4375rem] border-b border-l border-solid [border-color:var(--overlay-border-color)] rotate-45 bg-inherit',
             ]"
             aria-hidden="true"
           />

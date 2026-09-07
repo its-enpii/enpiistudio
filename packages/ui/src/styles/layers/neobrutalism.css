@@ -6,6 +6,9 @@
   --card-border-width: 2px;
   --card-border-style: solid;
   --card-border-color: var(--color-ink);
+  --control-border-color: var(--color-ink);
+  --control-border-color-filled: var(--color-ink);
+  --overlay-border-color: var(--color-ink);
   --focus-width: 3px;
   --focus-width-overlay: 3px;
   --focus-width-priority: 3px;
@@ -24,6 +27,7 @@
   --radius-track: 2px;
   --radius-media: 8px;
   --press-transform: translate(2px, 2px);
+  --control-shadow: 2px 2px 0 var(--color-ink);
   --shadow-control-pressed: 0 0 0 var(--color-ink);
   --radius-control: 0.375rem;
   --radius-card: 0.5rem;

@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest'
 
 const componentsDirectory = resolve(__dirname, '../src/components')
 const componentFilenames = readdirSync(componentsDirectory).filter((filename) => filename.endsWith('.vue'))
+const entry = readFileSync(resolve(__dirname, '../entry.tailwind.css'), 'utf8')
 
 const borderExceptions: Record<string, string> = {
   'EnpiiDesktopSplashScreen.vue': 'decorative splash halo/logo and progress track, not a bordered control/overlay',
@@ -40,8 +41,34 @@ const borderedComponents = [
 ]
 
 const structuralBorderPattern = /--(control|overlay)-border-width/
+const legacyControlBorderPattern = /border-outline-variant/
 const cardBorderPattern = /--card-border-(?:width|style|color)/
 const literalRadiusPattern = /rounded-\[(?:0\.25rem|0\.125rem|1rem)\]/
+
+const controlBorderComponents = [
+  'EnpiiCurrencyInput.vue',
+  'EnpiiDatePicker.vue',
+  'EnpiiDateRange.vue',
+  'EnpiiFilterPill.vue',
+  'EnpiiInput.vue',
+  'EnpiiInputMask.vue',
+  'EnpiiOtpInput.vue',
+  'EnpiiPasswordInput.vue',
+  'EnpiiSegmentedControl.vue',
+  'EnpiiSmartSelect.vue',
+  'EnpiiTabs.vue',
+  'EnpiiTagInput.vue',
+  'EnpiiTextarea.vue',
+]
+
+const overlayBorderComponents = [
+  'EnpiiBottomSheet.vue',
+  'EnpiiDrawer.vue',
+  'EnpiiDropdownMenu.vue',
+  'EnpiiModal.vue',
+  'EnpiiPopover.vue',
+  'EnpiiTooltip.vue',
+]
 
 const primitiveShadowExceptions: Record<string, string> = {}
 
@@ -60,6 +87,73 @@ describe('structural layer wiring conformance', () => {
     expect(source).toContain('[border-style:var(--card-border-style)]')
     expect(source).toContain('[border-color:var(--card-border-color)]')
     expect(source).toContain('[border-width:max(var(--card-border-width),1px)]')
+  })
+
+  it('defines structural color and resting shadow base tokens', () => {
+    expect(entry).toContain('--control-border-color: var(--color-outline-variant);')
+    expect(entry).toContain('--control-border-color-filled: transparent;')
+    expect(entry).toContain('--overlay-border-color: var(--color-outline-variant);')
+    expect(entry).toContain('--control-shadow: 0 0 #0000;')
+  })
+
+  it('defines brutal structural color and resting shadow values', () => {
+    const expectedValues = [
+      '--control-border-color: var(--color-ink);',
+      '--control-border-color-filled: var(--color-ink);',
+      '--overlay-border-color: var(--color-ink);',
+      '--control-shadow: 2px 2px 0 var(--color-ink);',
+    ]
+
+    for (const filename of ['neobrutalism.css', 'neobrutalism-tamed.css']) {
+      const source = readFileSync(resolve(__dirname, '../src/styles/layers', filename), 'utf8')
+      for (const expectedValue of expectedValues) {
+        expect(source, `${filename} must define ${expectedValue}`).toContain(expectedValue)
+      }
+    }
+
+    for (const filename of ['material.css', 'glassmorphism.css', 'neumorphism.css', 'minimalism.css']) {
+      const source = readFileSync(resolve(__dirname, '../src/styles/layers', filename), 'utf8')
+      expect(source, `${filename} must inherit the structural color and resting shadow tokens`).not.toMatch(
+        /--(?:control-border-color(?:-filled)?|overlay-border-color|control-shadow):/,
+      )
+    }
+  })
+
+  it('wires primary control borders through the control color token', () => {
+    for (const filename of controlBorderComponents) {
+      const source = readFileSync(resolve(componentsDirectory, filename), 'utf8')
+      expect(source, `${filename} must consume --control-border-color`).toContain(
+        '[border-color:var(--control-border-color)]',
+      )
+      expect(
+        source,
+        `${filename} must not hardcode the theme outline color on primary controls`,
+      ).not.toMatch(legacyControlBorderPattern)
+    }
+  })
+
+  it('wires overlays through the overlay color token', () => {
+    for (const filename of overlayBorderComponents) {
+      const source = readFileSync(resolve(componentsDirectory, filename), 'utf8')
+      expect(source, `${filename} must consume --overlay-border-color`).toContain(
+        '[border-color:var(--overlay-border-color)]',
+      )
+      expect(
+        source,
+        `${filename} must not hardcode the theme outline color on primary overlay surfaces`,
+      ).not.toMatch(legacyControlBorderPattern)
+    }
+  })
+
+  it('wires buttons through control colors and the resting shadow token', () => {
+    for (const filename of ['EnpiiButton.vue', 'EnpiiIconButton.vue']) {
+      const source = readFileSync(resolve(componentsDirectory, filename), 'utf8')
+      expect(source).toContain('[box-shadow:var(--control-shadow)]')
+      expect(source).toContain('[border-color:var(--control-border-color-filled)]')
+      expect(source).not.toMatch(legacyControlBorderPattern)
+    }
+    const button = readFileSync(resolve(componentsDirectory, 'EnpiiButton.vue'), 'utf8')
+    expect(button).toContain('[border-color:var(--control-border-color)]')
   })
 
   it('defines brutal layer shape and focus values', () => {

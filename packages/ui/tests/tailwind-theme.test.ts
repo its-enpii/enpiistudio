@@ -30,6 +30,10 @@ describe('Tailwind-native theme', () => {
     expect(entry).toContain('--card-border-color: var(--color-outline-variant, var(--color-outline));')
     expect(entry).toContain('--focus-width: 2px;')
     expect(entry).toContain('--focus-offset: 2px;')
+    expect(entry).toContain('--control-border-color: var(--color-outline-variant);')
+    expect(entry).toContain('--control-border-color-filled: transparent;')
+    expect(entry).toContain('--overlay-border-color: var(--color-outline-variant);')
+    expect(entry).toContain('--control-shadow: 0 0 #0000;')
     expect(entry).toContain('--spacing-control: 3rem;')
     expect(entry).toContain('--shadow-focus: 0 0 0 4px color-mix(in srgb, var(--color-focus) 25%, transparent);')
     for (const shadowUtility of ['card', 'control', 'overlay', 'raised']) {

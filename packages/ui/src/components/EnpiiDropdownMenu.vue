@@ -276,7 +276,7 @@ onBeforeUnmount(() => {
                     :id="`${dropdownId}-menu`"
                     ref="menuRef"
                     role="menu"
-                    class="enpii-dropdown-menu__panel fixed flex flex-col overflow-y-auto overflow-x-hidden rounded-control border border-solid [border-width:var(--overlay-border-width)] border-outline-variant bg-surface-container-lowest shadow-overlay origin-top [transform-origin:top_center]"
+                    class="enpii-dropdown-menu__panel fixed flex flex-col overflow-y-auto overflow-x-hidden rounded-control border border-solid [border-width:var(--overlay-border-width)] [border-color:var(--overlay-border-color)] bg-surface-container-lowest shadow-overlay origin-top [transform-origin:top_center]"
                     :class="[
                         `enpii-dropdown-menu__panel--${size}`,
                         `enpii-dropdown-menu__panel--${align}`,
@@ -288,7 +288,7 @@ onBeforeUnmount(() => {
                     @keydown="onMenuKeydown"
                 >
                     <template v-for="(item, index) in items" :key="item.id ?? `item-${index}`">
-                        <div v-if="item.divider" class="enpii-dropdown-menu__divider h-0 my-1 border-0 border-t border-solid border-outline-variant" role="separator" />
+                        <div v-if="item.divider" class="enpii-dropdown-menu__divider h-0 my-1 border-0 border-t border-solid [border-color:var(--overlay-border-color)]" role="separator" />
                         <button
                             v-if="item.label"
                             type="button"

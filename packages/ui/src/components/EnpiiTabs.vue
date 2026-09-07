@@ -44,7 +44,7 @@ const normalizedVariant = computed(() => {
 const navVariantClasses = {
     'underline': 'flex flex-wrap gap-x-6 gap-y-1',
     'pill': 'flex w-full flex-col gap-1',
-    'pills-bar': 'flex flex-wrap gap-1 rounded-control border border-solid [border-width:var(--control-border-width)] border-outline-variant bg-surface-container-lowest p-1',
+    'pills-bar': 'flex flex-wrap gap-1 rounded-control border border-solid [border-width:var(--control-border-width)] [border-color:var(--control-border-color)] bg-surface-container-lowest p-1',
 };
 
 function tabClass(item) {

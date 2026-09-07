@@ -176,7 +176,7 @@ onBeforeUnmount(() => {
             :id="inputId"
             ref="trigger"
             type="button"
-            class="enpii-date-range__control flex w-full min-h-control items-center gap-2 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-control bg-surface-container-lowest text-on-surface font-inherit text-base text-left cursor-pointer [transition-property:border-color,box-shadow] duration-fast ease-emphasized hover:enabled:border-primary-border focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--shadow-focus)] disabled:opacity-60 disabled:cursor-not-allowed"
+            class="enpii-date-range__control flex w-full min-h-control items-center gap-2 border border-solid [border-color:var(--control-border-color)] [border-width:var(--control-border-width)] rounded-control bg-surface-container-lowest text-on-surface font-inherit text-base text-left cursor-pointer [transition-property:border-color,box-shadow] duration-fast ease-emphasized hover:enabled:border-primary-border focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--shadow-focus)] disabled:opacity-60 disabled:cursor-not-allowed"
             :class="[shapeClass, { 'enpii-date-range__control--error border-danger-border': Boolean(error || isInvalidRange) }]"
             :disabled="disabled"
             :aria-expanded="open"
@@ -200,7 +200,7 @@ onBeforeUnmount(() => {
                     ref="popup"
                     role="dialog"
                     :aria-label="t('dateRange.placeholder')"
-                    class="enpii-date-range__popup grid gap-3 p-3 border border-solid border-outline-variant [border-width:var(--overlay-border-width)] rounded-control bg-surface-container-lowest shadow-overlay"
+                    class="enpii-date-range__popup grid gap-3 p-3 border border-solid [border-color:var(--overlay-border-color)] [border-width:var(--overlay-border-width)] rounded-control bg-surface-container-lowest shadow-overlay"
                     :class="[placeAbove ? 'enpii-date-range__popup--above-origin' : 'enpii-date-range__popup--below-origin']"
                     :style="popupStyle"
                     tabindex="-1"
@@ -214,8 +214,8 @@ onBeforeUnmount(() => {
                     </div>
 
                     <div class="enpii-date-range__inputs grid grid-cols-[repeat(2,minmax(0,1fr))] gap-2">
-                        <label class="grid gap-1 text-on-surface-variant text-sm"><span>Mulai</span><input class="min-h-control-sm appearance-none px-3 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-lg bg-surface-container-lowest text-on-surface font-sans text-control/1.25 focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--shadow-focus)]" type="date" :min="min" :max="max" :value="draft.start" @change="commitInput('start', $event)"></label>
-                        <label class="grid gap-1 text-on-surface-variant text-sm"><span>Selesai</span><input class="min-h-control-sm appearance-none px-3 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-lg bg-surface-container-lowest text-on-surface font-sans text-control/1.25 focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--shadow-focus)]" type="date" :min="min" :max="max" :value="draft.end" @change="commitInput('end', $event)"></label>
+                        <label class="grid gap-1 text-on-surface-variant text-sm"><span>Mulai</span><input class="min-h-control-sm appearance-none px-3 border border-solid [border-color:var(--control-border-color)] [border-width:var(--control-border-width)] rounded-lg bg-surface-container-lowest text-on-surface font-sans text-control/1.25 focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--shadow-focus)]" type="date" :min="min" :max="max" :value="draft.start" @change="commitInput('start', $event)"></label>
+                        <label class="grid gap-1 text-on-surface-variant text-sm"><span>Selesai</span><input class="min-h-control-sm appearance-none px-3 border border-solid [border-color:var(--control-border-color)] [border-width:var(--control-border-width)] rounded-lg bg-surface-container-lowest text-on-surface font-sans text-control/1.25 focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--shadow-focus)]" type="date" :min="min" :max="max" :value="draft.end" @change="commitInput('end', $event)"></label>
                     </div>
 
                     <div class="enpii-date-range__calendars grid grid-cols-[repeat(2,minmax(0,1fr))] gap-3">
@@ -245,7 +245,7 @@ onBeforeUnmount(() => {
                         </section>
                     </div>
 
-                    <footer class="enpii-date-range__footer flex justify-end gap-2 pt-2 border-t border-solid border-outline-variant">
+                    <footer class="enpii-date-range__footer flex justify-end gap-2 pt-2 border-t border-solid [border-color:var(--overlay-border-color)]">
                         <button v-if="clearable && (draft.start || draft.end)" type="button" class="enpii-date-range__footer-button enpii-date-range__footer-button--clear py-2 px-3 border-0 rounded-lg bg-surface-container-low text-danger-text font-inherit font-medium cursor-pointer [transition-property:background,transform] duration-fast ease-emphasized hover:enabled:bg-primary-soft active:enabled:[transform:scale(.98)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus" @click="clear">{{ t('dateRange.clear') }}</button>
                         <button type="button" class="enpii-date-range__footer-button py-2 px-3 border-0 rounded-lg bg-surface-container-low text-primary-text font-inherit font-medium cursor-pointer [transition-property:background,transform] duration-fast ease-emphasized hover:enabled:bg-primary-soft active:enabled:[transform:scale(.98)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus disabled:cursor-not-allowed" :disabled="!draft.start || !draft.end || isInvalidRange" @click="applyRange">Terapkan</button>
                     </footer>

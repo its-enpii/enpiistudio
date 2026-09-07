@@ -81,7 +81,7 @@ function onKeydown(event) {
 <template>
     <div
         v-bind="$attrs"
-        class="enpii-segmented-control relative box-border w-full p-1 border border-solid [border-width:var(--control-border-width)] border-outline-variant rounded-control bg-surface-container-lowest isolate max-w-full"
+        class="enpii-segmented-control relative box-border w-full p-1 border border-solid [border-width:var(--control-border-width)] [border-color:var(--control-border-color)] rounded-control bg-surface-container-lowest isolate max-w-full"
         :class="[
             `enpii-segmented-control--${size}`,
             size === 'sm' ? 'h-control-height-sm' : 'h-control-height',
