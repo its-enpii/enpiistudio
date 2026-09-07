@@ -9,6 +9,9 @@ const styleLayers = [
   'neobrutalism',
   'neobrutalism-tamed',
   'minimalism',
+  'cyberpunk',
+  'nordic',
+  'fluent',
 ] as const
 const tokenOnlyLayers = styleLayers
 

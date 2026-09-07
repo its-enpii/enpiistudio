@@ -185,6 +185,14 @@ describe('structural layer wiring conformance', () => {
         /--(?:control-border-color(?:-filled)?|overlay-border-color|control-shadow):/,
       )
     }
+
+    for (const filename of ['cyberpunk.css', 'nordic.css', 'fluent.css']) {
+      const source = readFileSync(resolve(__dirname, '../src/styles/layers', filename), 'utf8')
+      expect(source).toMatch(/--control-border-color:/)
+      expect(source).toMatch(/--control-border-color-filled:/)
+      expect(source).toMatch(/--overlay-border-color:/)
+      expect(source).toMatch(/--control-shadow:/)
+    }
   })
 
   it('wires primary control borders through the control color token', () => {

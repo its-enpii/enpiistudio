@@ -1,6 +1,6 @@
 # Enpii UI — Style Layers
 
-Six optional design-style skins for the component library. One app = one style.
+Nine optional design-style skins for the component library. One app = one style.
 Layers are value-set only: they define tokens, never component selectors. The
 base reads those tokens for structural borders and pressed/hover states, so any
 theme × any layer combination remains valid.
@@ -14,7 +14,7 @@ import '@its-enpii/ui/styles/material'          // pick exactly ONE layer
 ```
 
 Available: `material` · `glassmorphism` · `neumorphism` · `neobrutalism` ·
-`neobrutalism-tamed` · `minimalism`
+`neobrutalism-tamed` · `minimalism` · `cyberpunk` · `nordic` · `fluent`
 
 ---
 
@@ -86,6 +86,39 @@ Quiet hairline aesthetic.
 - Minimal transitions
 
 Best for: documentation, internal tools, content-first products.
+
+---
+
+## Cyberpunk
+
+Futuristic, high-contrast neon geometry.
+
+- 0px sharp corners across controls, cards, overlays, and primitive radii
+- 2px solid neon ink borders; hard 3px offset shadows with a cyan glow
+- High-contrast primary/accent/tertiary surfaces and neon-focused charts
+- 0–600 weight range and reduced-motion-safe durations
+
+Best for: gaming, developer, and entertainment interfaces.
+
+## Nordic
+
+Warm organic, editorial surfaces.
+
+- Generous 12px/16px/18px radii; 1px warm hairline borders
+- Earthy terracotta, forest green, and warm slate over a warm paper surface
+- Soft diffused elevation shadows and calm transitions
+
+Best for: lifestyle, editorial, wellness, and hospitality products.
+
+## Fluent
+
+Modern acrylic system UI.
+
+- Balanced 6px/8px/10px radii; 1px micro-borders
+- Layered depth shadows and translucent surfaces with a quiet backdrop
+- Clean, functional tone and precise short transitions
+
+Best for: productivity, enterprise, and operating-system-style interfaces.
 
 ---
 

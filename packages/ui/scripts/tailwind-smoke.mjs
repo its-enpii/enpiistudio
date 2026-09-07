@@ -92,7 +92,7 @@ if (layer) {
       throw new Error(`Expected solid 2px 2px 0 neobrutalism shadow, received ${layerShadow}`)
     }
     if (layerWeight !== '600') throw new Error(`Expected 600 neobrutalism weight cap, received ${layerWeight}`)
-  } else if (!['none', 'material', 'glassmorphism', 'neumorphism', 'minimalism'].includes(layer)) {
+  } else if (!['none', 'material', 'glassmorphism', 'neumorphism', 'minimalism', 'cyberpunk', 'nordic', 'fluent'].includes(layer)) {
     throw new Error(`Unknown smoke layer: ${layer}`)
   }
 

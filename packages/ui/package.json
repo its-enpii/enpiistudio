@@ -35,6 +35,9 @@
     "./styles/neobrutalism": "./dist/styles/layers/neobrutalism.css",
     "./styles/neobrutalism-tamed": "./dist/styles/layers/neobrutalism-tamed.css",
     "./styles/minimalism": "./dist/styles/layers/minimalism.css",
+    "./styles/cyberpunk": "./dist/styles/layers/cyberpunk.css",
+    "./styles/nordic": "./dist/styles/layers/nordic.css",
+    "./styles/fluent": "./dist/styles/layers/fluent.css",
     "./styles/*": "./dist/styles/*"
   },
   "scripts": {

@@ -128,9 +128,12 @@ const chartData = [
           <option value="neobrutalism-tamed">Neobrutalism (Tamed 2px)</option>
           <option value="material">Material</option>
           <option value="glassmorphism">Glassmorphism</option>
-          <option value="neumorphism">Neumorphism</option>
-          <option value="minimalism">Minimalism</option>
-        </select>
+        <option value="neumorphism">Neumorphism</option>
+        <option value="minimalism">Minimalism</option>
+        <option value="cyberpunk">Cyberpunk</option>
+        <option value="nordic">Nordic</option>
+        <option value="fluent">Fluent</option>
+      </select>
       </div>
     </header>
 

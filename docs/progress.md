@@ -29,6 +29,12 @@ Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7. Semua item selesai.
 
 ## Log Progress
 
+### 2026-09-07 — UI batch 4 cyberpunk/nordic/fluent style layers SELESAI
+
+- `@its-enpii/ui` tetap v1.4.0: tiga layer token-only baru (`cyberpunk`, `nordic`, `fluent`) melengkapi seluruh 101 color hook dan taxonomy struktural (`--control-*`, `--field-*`, `--tone-*`, `--table-*`, `--kanban-*`, `--picker-*`, `--dropzone-*`, `--editor-*`, `--chart-*`, `--assistant-*`, `--desktop-*`, `--focus-*`, `--radius-*`, `--transition-*`).
+- Ekspor package, demot switcher, dokumentasi style, completeness spec, layer wiring spec, dan Tailwind smoke runner diperbarui untuk sembilan layer.
+- `test:tailwind` diverifikasi untuk ketiga layer baru (radius, border, shadow, motion, reduced motion, dan computed styles) tanpa regresi smoke base.
+
 ### 2026-09-07 — UI batch 3b base-raw charts/assistant/desktop/domain components SELESAI (all 87 components complete)
 - `@its-enpii/ui` tetap v1.3.1: Seluruh 32 komponen tersisa (EnpiiAreaChart, EnpiiBarChart, EnpiiDonutChart, EnpiiLineChart, EnpiiSparkline, EnpiiTrendBarChart, EnpiiStatTile, EnpiiCommandPalette, EnpiiKeyboardShortcutsModal, EnpiiTransferList, EnpiiThemeMenu, EnpiiCsvImportExport, EnpiiReportPeriodFilter, EnpiiLoanHistoryTable, EnpiiDesktopSplashScreen, EnpiiDesktopTitleBar, EnpiiAssistantActionButton, EnpiiAssistantArtifactCard, EnpiiAssistantArtifactModal, EnpiiAssistantPollCard, EnpiiAssistantWidget, EnpiiWhatsAppPreview, EnpiiCalendar, EnpiiConfirmDialog, EnpiiFormActions, EnpiiFormField, EnpiiFormRow, EnpiiIcon, EnpiiInlineEmptyState, EnpiiNotificationDropdown, EnpiiOfflineBanner, EnpiiPageHeader) kini base-raw tanpa keputusan warna.
 - Enam style layer mengisi 21 hook batch 3b (`--chart-1` s/d `--chart-6`, `--chart-grid`, `--chart-axis`, `--chart-tooltip-bg`, `--chart-tooltip-fg`, `--assistant-user-msg-bg/-fg`, `--assistant-bot-msg-bg/-fg`, `--assistant-card-bg/-fg/-border`, `--desktop-titlebar-bg/-fg`, `--desktop-splash-bg/-fg`).
