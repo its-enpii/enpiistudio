@@ -170,7 +170,6 @@ describe('structural layer wiring conformance', () => {
       '--control-border-color: var(--color-ink);',
       '--control-border-color-filled: var(--color-ink);',
       '--overlay-border-color: var(--color-ink);',
-      '--control-shadow: 2px 2px 0 var(--color-ink);',
     ]
 
     for (const filename of ['neobrutalism.css', 'neobrutalism-tamed.css']) {
@@ -224,7 +223,7 @@ describe('structural layer wiring conformance', () => {
   })
 
   it('defines brutal layer shape and focus values', () => {
-    for (const filename of ['neobrutalism.css', 'neobrutalism-tamed.css']) {
+    for (const filename of ['neobrutalism-tamed.css']) {
       const source = readFileSync(resolve(__dirname, '../src/styles/layers', filename), 'utf8')
 
       expect(source).toContain('--card-border-width: 2px;')
@@ -238,6 +237,17 @@ describe('structural layer wiring conformance', () => {
       expect(source).toContain('--radius-xl:')
       expect(source).toContain('--radius-2xl:')
     }
+  })
+
+  it('defines authentic raw neobrutalist geometry', () => {
+    const source = readFileSync(resolve(__dirname, '../src/styles/layers/neobrutalism.css'), 'utf8')
+
+    expect(source).toContain('--control-shadow: 3px 3px 0 var(--color-ink);')
+    expect(source).toContain('--card-border-width: 3px;')
+    expect(source).toContain('--radius-control: 0px;')
+    expect(source).toContain('--radius-card: 0px;')
+    expect(source).toContain('--radius-overlay: 0px;')
+    expect(source).toContain('--press-transform: translate(3px, 3px);')
   })
 
   it('has no literal structural radius values left in components', () => {
