@@ -179,9 +179,9 @@ watch(
         <EnpiiLabel :for="inputId" size="sm" class="enpii-file-upload__label ml-1 block">{{ label }}</EnpiiLabel>
 
         <div
-            class="enpii-file-upload__dropzone flex min-h-24 cursor-pointer flex-col items-center justify-center gap-2 rounded-control border border-dashed border-outline-variant [border-width:var(--control-border-width)] bg-surface-container-lowest px-6 py-4 transition-[border-color,box-shadow,background] duration-fast ease-emphasized hover:border-primary/40 focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)]"
+            class="enpii-file-upload__dropzone flex min-h-24 cursor-pointer flex-col items-center justify-center gap-2 rounded-control border border-dashed [border-color:var(--dropzone-border)] [border-width:var(--control-border-width)] [background-color:var(--dropzone-bg)] px-6 py-4 transition-[border-color,box-shadow,background] duration-fast ease-emphasized hover:[border-color:var(--dropzone-hover-border)] hover:[background-color:var(--dropzone-hover-bg)] focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)]"
             :class="{
-                'border-primary [box-shadow:var(--shadow-focus)]': dragOver,
+                '[border-color:var(--dropzone-hover-border)] [background-color:var(--dropzone-hover-bg)] [box-shadow:var(--shadow-focus)]': dragOver,
                 'enpii-file-upload__dropzone--disabled cursor-not-allowed opacity-60 pointer-events-none': disabled,
             }"
             role="button"
@@ -194,8 +194,8 @@ watch(
             @dragover="onDragOver"
             @dragleave="onDragLeave"
         >
-            <span class="material-symbols-outlined enpii-file-upload__icon text-3xl leading-none text-outline" aria-hidden="true">upload_file</span>
-            <span class="enpii-file-upload__dropzone-text text-on-surface-variant text-[.8125rem]">Seret file di sini atau klik untuk memilih</span>
+            <span class="material-symbols-outlined enpii-file-upload__icon text-3xl leading-none [color:var(--field-placeholder-fg)]" aria-hidden="true">upload_file</span>
+            <span class="enpii-file-upload__dropzone-text [color:var(--label-fg)] text-[.8125rem]">Seret file di sini atau klik untuk memilih</span>
         </div>
 
         <input
@@ -213,7 +213,7 @@ watch(
             <li
                 v-for="[name, msg] of fileErrors"
                 :key="name"
-                class="enpii-file-upload__error text-danger-text text-[.8125rem]"
+                class="enpii-file-upload__error [color:var(--field-error-fg)] text-[.8125rem]"
             >
                 {{ msg }}
             </li>
@@ -223,7 +223,7 @@ watch(
             <li
                 v-for="(file, idx) in files"
                 :key="`${file.name}-${idx}`"
-                class="enpii-file-upload__item flex items-center gap-2.5 rounded-control border border-outline-variant [border-width:var(--control-border-width)] bg-surface-container-lowest px-2.5 py-2"
+                class="enpii-file-upload__item flex items-center gap-2.5 rounded-control border border-solid [border-color:var(--control-border-color)] [border-width:var(--control-border-width)] [background-color:var(--field-bg)] px-2.5 py-2"
             >
                 <img
                     v-if="isImageFile(file) && thumbnails.get(file)"
@@ -231,16 +231,16 @@ watch(
                     :alt="file.name"
                     class="enpii-file-upload__thumb h-9 w-9 shrink-0 rounded-md object-cover"
                 />
-                <span v-else class="material-symbols-outlined enpii-file-upload__file-icon shrink-0 text-xl leading-none text-outline" aria-hidden="true">description</span>
+                <span v-else class="material-symbols-outlined enpii-file-upload__file-icon shrink-0 text-xl leading-none [color:var(--field-placeholder-fg)]" aria-hidden="true">description</span>
 
                 <span class="enpii-file-upload__meta flex min-w-0 flex-1 flex-col gap-px">
-                    <span class="enpii-file-upload__name truncate text-on-surface text-[.8125rem] font-medium">{{ file.name }}</span>
-                    <span class="enpii-file-upload__size text-on-surface-variant text-xs">{{ formatSize(file.size) }}</span>
+                    <span class="enpii-file-upload__name truncate [color:var(--field-fg)] text-[.8125rem] font-medium">{{ file.name }}</span>
+                    <span class="enpii-file-upload__size [color:var(--label-fg)] text-xs">{{ formatSize(file.size) }}</span>
                 </span>
 
                 <button
                     type="button"
-                    class="enpii-file-upload__remove flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent p-0 text-outline transition-colors duration-fast ease-emphasized hover:bg-danger-soft hover:text-danger-text focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)] disabled:cursor-not-allowed"
+                    class="enpii-file-upload__remove flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent p-0 [color:var(--field-placeholder-fg)] transition-colors duration-fast ease-emphasized hover:[background-color:var(--tone-danger-soft-bg)] hover:[color:var(--tone-danger-fg)] focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)] disabled:cursor-not-allowed"
                     :aria-label="`Hapus ${file.name}`"
                     :disabled="disabled"
                     @click="removeFile(idx)"

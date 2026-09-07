@@ -1044,7 +1044,7 @@
     "outline": ""
   },
   "EnpiiRange:default:light": {
-    "background-color": "rgb(224, 230, 234)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "rgb(144, 144, 144)",
     "border-color": "",
     "border-width": "0px",
@@ -1062,7 +1062,7 @@
     "outline": ""
   },
   "EnpiiRange:disabled:light": {
-    "background-color": "rgb(224, 230, 234)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "rgb(144, 144, 144)",
     "border-color": "",
     "border-width": "0px",
@@ -1080,7 +1080,7 @@
     "outline": ""
   },
   "EnpiiRange:focus-visible:light": {
-    "background-color": "rgb(224, 230, 234)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "rgb(144, 144, 144)",
     "border-color": "",
     "border-width": "0px",
@@ -2628,7 +2628,7 @@
     "outline": ""
   },
   "EnpiiRange:default:dark-media": {
-    "background-color": "rgb(71, 85, 105)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "rgb(144, 144, 144)",
     "border-color": "",
     "border-width": "0px",
@@ -2646,7 +2646,7 @@
     "outline": ""
   },
   "EnpiiRange:disabled:dark-media": {
-    "background-color": "rgb(71, 85, 105)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "rgb(144, 144, 144)",
     "border-color": "",
     "border-width": "0px",
@@ -2664,7 +2664,7 @@
     "outline": ""
   },
   "EnpiiRange:focus-visible:dark-media": {
-    "background-color": "rgb(71, 85, 105)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "rgb(144, 144, 144)",
     "border-color": "",
     "border-width": "0px",
@@ -4212,7 +4212,7 @@
     "outline": ""
   },
   "EnpiiRange:default:dark-attribute": {
-    "background-color": "rgb(224, 230, 234)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "rgb(144, 144, 144)",
     "border-color": "",
     "border-width": "0px",
@@ -4230,7 +4230,7 @@
     "outline": ""
   },
   "EnpiiRange:disabled:dark-attribute": {
-    "background-color": "rgb(224, 230, 234)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "rgb(144, 144, 144)",
     "border-color": "",
     "border-width": "0px",
@@ -4248,7 +4248,7 @@
     "outline": ""
   },
   "EnpiiRange:focus-visible:dark-attribute": {
-    "background-color": "rgb(224, 230, 234)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "rgb(144, 144, 144)",
     "border-color": "",
     "border-width": "0px",

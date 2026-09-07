@@ -123,18 +123,18 @@ function onKeydown(event: KeyboardEvent) {
 <template>
     <div class="enpii-tag-input relative grid gap-field-gap" :class="{ 'enpii-tag-input--disabled opacity-60': disabled }">
         <EnpiiLabel :for="inputId" class="enpii-tag-input__label">{{ t('tagInput.label') }}</EnpiiLabel>
-        <div class="enpii-tag-input__control flex flex-wrap items-center gap-1.5 min-h-control p-1 border border-solid [border-width:var(--control-border-width)] [border-color:var(--control-border-color)] rounded-control bg-surface-container-lowest text-on-surface [transition-property:border-color,box-shadow] duration-fast ease-emphasized focus-within:border-primary-container focus-within:[box-shadow:var(--shadow-focus)] motion-reduce:transition-none" :class="{ 'cursor-not-allowed': disabled }" role="list" :aria-label="t('tagInput.label')">
+        <div class="enpii-tag-input__control flex flex-wrap items-center gap-1.5 min-h-control p-1 border border-solid [border-width:var(--control-border-width)] [border-color:var(--control-border-color)] rounded-control [background-color:var(--field-bg)] [color:var(--field-fg)] [transition-property:border-color,box-shadow] duration-fast ease-emphasized focus-within:[border-color:var(--field-border)] focus-within:[box-shadow:var(--shadow-focus)] motion-reduce:transition-none" :class="{ 'cursor-not-allowed': disabled }" role="list" :aria-label="t('tagInput.label')">
             <span
                 v-for="(tag, index) in tags"
                 :key="`${tag}-${index}`"
-                class="enpii-tag-input__tag inline-flex items-center gap-1 py-1 pl-2 pr-1 rounded-[9999px] bg-primary-soft text-primary-text text-[0.8125rem] font-medium"
+                class="enpii-tag-input__tag inline-flex items-center gap-1 py-1 pl-2 pr-1 rounded-[9999px] [background-color:var(--tone-primary-soft-bg)] [color:var(--tone-primary-soft-fg)] text-[0.8125rem] font-medium"
                 role="listitem"
                 :data-testid="`tag-${index}`"
             >
                 {{ tag }}
                 <button
                     type="button"
-                    class="enpii-tag-input__remove inline-flex w-7 h-7 items-center justify-center p-0 border-0 rounded-[9999px] bg-none text-inherit text-base leading-none cursor-pointer [transition-property:background,color] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:bg-surface-container-low hover:enabled:text-on-surface focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus"
+                    class="enpii-tag-input__remove inline-flex w-7 h-7 items-center justify-center p-0 border-0 rounded-[9999px] bg-none text-inherit text-base leading-none cursor-pointer [transition-property:background,color] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:[background-color:var(--control-ghost-bg)] hover:enabled:[color:var(--control-ghost-fg)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus"
                     :disabled="disabled"
                     :aria-label="t('tagInput.removeTag', { tag })"
                     @click="removeTag(index)"
@@ -146,7 +146,7 @@ function onKeydown(event: KeyboardEvent) {
                 :id="inputId"
                 v-model="inputValue"
                 type="text"
-                class="enpii-tag-input__field flex-1 min-w-28 min-h-8 border-0 bg-none text-on-surface [font-family:inherit] text-control focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
+                class="enpii-tag-input__field flex-1 min-w-28 min-h-8 border-0 bg-none [color:var(--field-fg)] [font-family:inherit] text-control focus:outline-none disabled:cursor-not-allowed disabled:opacity-60 placeholder:[color:var(--field-placeholder-fg)]"
                 :placeholder="placeholder ?? t('tagInput.placeholder')"
                 :disabled="disabled || atLimit"
                 :aria-label="t('tagInput.addTagLabel')"
@@ -157,11 +157,11 @@ function onKeydown(event: KeyboardEvent) {
                 @keydown="onKeydown"
             >
         </div>
-        <ul v-if="filteredSuggestions.length" :id="listboxId" class="enpii-tag-input__suggestions absolute top-[calc(100%+0.25rem)] right-0 left-0 z-dropdown m-0 max-h-56 overflow-y-auto p-1 list-none border border-solid [border-color:var(--overlay-border-color)] rounded-control bg-surface-container-lowest shadow-overlay" role="listbox">
+        <ul v-if="filteredSuggestions.length" :id="listboxId" class="enpii-tag-input__suggestions absolute top-[calc(100%+0.25rem)] right-0 left-0 z-dropdown m-0 max-h-56 overflow-y-auto p-1 list-none border border-solid [border-color:var(--overlay-border-color)] rounded-control [background-color:var(--overlay-surface-bg)] shadow-overlay" role="listbox">
             <li
                 v-for="(suggestion, index) in filteredSuggestions"
                 :key="suggestion"
-                class="enpii-tag-input__suggestion flex min-h-10 items-center py-2 px-2.5 rounded-lg text-on-surface cursor-pointer [transition-property:background] duration-fast ease-emphasized motion-reduce:transition-none data-[active=true]:bg-surface-container-low hover:bg-surface-container-low"
+                class="enpii-tag-input__suggestion flex min-h-10 items-center py-2 px-2.5 rounded-lg [color:var(--overlay-surface-fg)] cursor-pointer [transition-property:background] duration-fast ease-emphasized motion-reduce:transition-none data-[active=true]:[background-color:var(--nav-active-bg)] data-[active=true]:[color:var(--nav-active-fg)] hover:[background-color:var(--nav-hover-bg)]"
                 role="option"
                 :aria-selected="index === activeSuggestion"
                 :data-active="index === activeSuggestion"

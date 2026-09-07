@@ -29,6 +29,11 @@ Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7. Semua item selesai.
 
 ## Log Progress
 
+### 2026-09-07 — UI batch 3a base-raw pickers/upload/editor/specialty inputs SELESAI
+- `@its-enpii/ui` tetap v1.3.1: 14 komponen pickers, upload, editor, specialty inputs, dan media (EnpiiDatePicker, EnpiiDateRange, EnpiiTimePicker, EnpiiColorPicker, EnpiiFileUpload, EnpiiImageUpload, EnpiiRichEditor, EnpiiRating, EnpiiRange, EnpiiOtpInput, EnpiiTagInput, EnpiiMentionInput, EnpiiSignaturePad, EnpiiQrCode) kini base-raw tanpa keputusan warna. Ukuran, layout, radius, press, shadow, opacity, dan motion tetap base; 6 style layer mengisi 13 hook batch 3a (`--picker-*`, `--dropzone-*`, `--editor-*`).
+- Conformance conformance spec dan layer completeness spec diperluas untuk menguji batch 3a (fixtures `color-free-batch3a-components.json` & `enpii-color-batch3a-hooks.json`).
+- Verifikasi: `check` 0 error; `test` 38 files/472 tests pass; `test:tailwind` 3 tests + smoke pass; `golden:check` 4 tests pass; `build` sukses; `audit-template-classes.mjs` exit 0.
+
 ### 2026-09-07 — UI batch 2 base-raw feedback/overlay/navigation/data-display SELESAI
 - `@its-enpii/ui` tetap v1.3.1: 28 komponen feedback, overlay, navigasi, dan data-display kini base-raw tanpa keputusan warna. Ukuran, radius, press, shadow, dan opacity disabled tetap base; enam layer mengisi 50 hook batch 2 (`--tone-*`, `--overlay-*`, `--card-*`, `--nav-*`, `--skeleton-*`, `--progress-*`, `--table-*`, `--kanban-*`) light+dark. Marker variant tetap di DOM.
 - Conformance permanen dipecah menjadi fixture `batch1` dan `batch2`: keduanya memeriksa component scope dan layer completeness tanpa selector. Layer wiring juga mengunci konsumsi hook utama per komponen batch 2. Charts, pickers, upload, editor, dan domain komponen tidak disentuh.

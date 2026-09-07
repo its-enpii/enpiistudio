@@ -21,7 +21,10 @@ function render() {
     width: props.size,
     margin: props.includeMargin ? 4 : 0,
     errorCorrectionLevel: props.level,
-    color: { dark: 'rgb(15 15 15)', light: 'rgb(250 250 250)' },
+    color: {
+      dark: getComputedStyle(document.documentElement).getPropertyValue('--field-fg').trim() || 'rgb(15 15 15)',
+      light: getComputedStyle(document.documentElement).getPropertyValue('--field-bg').trim() || 'rgb(250 250 250)',
+    },
   })
 }
 
@@ -41,7 +44,7 @@ defineExpose({ download })
 </script>
 
 <template>
-  <div class="enpii-qr-code inline-flex items-center justify-center p-1 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-control bg-surface-container-lowest forced-colors:border-canvas-text">
+  <div class="enpii-qr-code inline-flex items-center justify-center p-1 border border-solid [border-color:var(--control-border-color)] [border-width:var(--control-border-width)] rounded-control [background-color:var(--field-bg)] forced-colors:border-canvas-text">
     <canvas
       ref="canvasRef"
       class="enpii-qr-code__canvas block rounded-[calc(var(--radius-control)-0.25rem)] [image-rendering:pixelated]"

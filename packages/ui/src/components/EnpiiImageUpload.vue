@@ -290,8 +290,8 @@ defineExpose({ addFiles, removeItem, openCrop, clearErrors })
   <div class="enpii-image-upload flex w-full flex-col gap-field-gap" :class="{ 'enpii-image-upload--disabled opacity-60 pointer-events-none': disabled }">
     <EnpiiLabel :for="inputId" tone="default" class="enpii-image-upload__label">{{ t('imageUpload.label') }}</EnpiiLabel>
     <div
-      class="enpii-image-upload__dropzone flex min-h-24 min-w-10 cursor-pointer flex-col items-center justify-center gap-2 p-4 px-6 border border-dashed border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-control bg-surface-container-lowest text-on-surface [transition-property:border-color,box-shadow,background] duration-fast ease-emphasized motion-reduce:transition-none forced-colors:border-canvas-text hover:not-disabled:border-primary/40 hover:not-disabled:bg-surface-container-low active:not-disabled:bg-surface-container active:not-disabled:[transform:scale(.995)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus aria-disabled:cursor-not-allowed motion-reduce:transform-none"
-      :class="{ 'enpii-image-upload__dropzone--active border-primary [box-shadow:var(--shadow-focus)]': dragOver, 'enpii-image-upload__dropzone--disabled cursor-not-allowed': disabled }"
+      class="enpii-image-upload__dropzone flex min-h-24 min-w-10 cursor-pointer flex-col items-center justify-center gap-2 p-4 px-6 border border-dashed border-solid [border-color:var(--dropzone-border)] [border-width:var(--control-border-width)] rounded-control [background-color:var(--dropzone-bg)] [color:var(--field-fg)] [transition-property:border-color,box-shadow,background] duration-fast ease-emphasized motion-reduce:transition-none forced-colors:border-canvas-text hover:not-disabled:[border-color:var(--dropzone-hover-border)] hover:not-disabled:[background-color:var(--dropzone-hover-bg)] active:not-disabled:[background-color:var(--dropzone-hover-bg)] active:not-disabled:[transform:scale(.995)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus aria-disabled:cursor-not-allowed motion-reduce:transform-none"
+      :class="{ 'enpii-image-upload__dropzone--active [border-color:var(--dropzone-hover-border)] [background-color:var(--dropzone-hover-bg)] [box-shadow:var(--shadow-focus)]': dragOver, 'enpii-image-upload__dropzone--disabled cursor-not-allowed': disabled }"
       role="button"
       :tabindex="disabled ? -1 : 0"
       :aria-disabled="disabled || undefined"
@@ -317,25 +317,25 @@ defineExpose({ addFiles, removeItem, openCrop, clearErrors })
       @change="onInputChange"
     />
     <ul v-if="errors.length" class="enpii-image-upload__errors m-0 p-0 list-none" role="alert">
-      <li v-for="error in errors" :key="error.id" class="enpii-image-upload__error text-sm text-danger-text">{{ error.message }}</li>
+      <li v-for="error in errors" :key="error.id" class="enpii-image-upload__error text-sm [color:var(--field-error-fg)]">{{ error.message }}</li>
     </ul>
     <ul v-if="normalizedItems.length" class="enpii-image-upload__list m-0 p-0 grid list-none grid-cols-[repeat(auto-fill,minmax(8.5rem,1fr))] gap-2.5 max-sm:grid-cols-[repeat(2,minmax(0,1fr))]">
-      <li v-for="(item, index) in normalizedItems" :key="`${item.file.name}-${index}`" class="enpii-image-upload__item relative flex flex-col overflow-hidden border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-control bg-surface-container-lowest forced-colors:border-canvas-text">
+      <li v-for="(item, index) in normalizedItems" :key="`${item.file.name}-${index}`" class="enpii-image-upload__item relative flex flex-col overflow-hidden border border-solid [border-color:var(--control-border-color)] [border-width:var(--control-border-width)] rounded-control [background-color:var(--field-bg)] forced-colors:border-canvas-text">
         <img
           v-if="item.dataUrl"
           :src="item.dataUrl"
           :alt="item.file.name"
-          class="enpii-image-upload__thumb block w-full aspect-square object-cover border-b border-solid border-outline-variant [border-bottom-width:var(--control-border-width)]"
+          class="enpii-image-upload__thumb block w-full aspect-square object-cover border-b border-solid [border-color:var(--control-border-color)] [border-bottom-width:var(--control-border-width)]"
         />
-        <span v-else class="material-symbols-outlined enpii-image-upload__icon text-2xl leading-none text-outline" aria-hidden="true">image</span>
+        <span v-else class="material-symbols-outlined enpii-image-upload__icon text-2xl leading-none [color:var(--field-placeholder-fg)]" aria-hidden="true">image</span>
         <span class="enpii-image-upload__meta flex min-w-0 flex-col gap-0.5 p-2">
-          <span class="enpii-image-upload__name overflow-hidden text-ellipsis whitespace-nowrap text-sm font-medium text-on-surface">{{ item.file.name }}</span>
-          <span class="enpii-image-upload__size text-xs text-on-surface-variant">{{ formatSize(item.file.size) }}</span>
+          <span class="enpii-image-upload__name overflow-hidden text-ellipsis whitespace-nowrap text-sm font-medium [color:var(--field-fg)]">{{ item.file.name }}</span>
+          <span class="enpii-image-upload__size text-xs [color:var(--label-fg)]">{{ formatSize(item.file.size) }}</span>
         </span>
         <button
           v-if="cropEnabled"
           type="button"
-          class="enpii-image-upload__action inline-flex h-10 w-10 shrink-0 items-center justify-center p-0 border-0 rounded-[9999px] bg-surface-container-lowest/90 text-on-surface-variant cursor-pointer [transition-property:background,color,box-shadow,transform] duration-fast ease-emphasized motion-reduce:transition-none forced-colors:[background-color:ButtonFace] forced-colors:[color:ButtonText] hover:enabled:bg-surface-container-low hover:enabled:text-primary-text hover:enabled:[box-shadow:var(--shadow-control)] active:enabled:[transform:scale(.95)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus disabled:opacity-50 disabled:cursor-not-allowed"
+          class="enpii-image-upload__action inline-flex h-10 w-10 shrink-0 items-center justify-center p-0 border-0 rounded-[9999px] [background-color:var(--overlay-surface-bg)] [color:var(--overlay-surface-fg)] cursor-pointer [transition-property:background,color,box-shadow,transform] duration-fast ease-emphasized motion-reduce:transition-none forced-colors:[background-color:ButtonFace] forced-colors:[color:ButtonText] hover:enabled:[background-color:var(--tone-neutral-soft-bg)] hover:enabled:[box-shadow:var(--shadow-control)] active:enabled:[transform:scale(.95)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus disabled:opacity-50 disabled:cursor-not-allowed"
           :aria-label="t('imageUpload.crop', { name: item.file.name })"
           :disabled="disabled"
           @click="openCrop(index)"
@@ -355,23 +355,23 @@ defineExpose({ addFiles, removeItem, openCrop, clearErrors })
     </ul>
     <Teleport to="body">
       <Transition name="enpii-image-upload-modal">
-        <div v-if="cropOpen" class="enpii-image-upload__crop-overlay fixed inset-0 z-modal flex items-center justify-center overflow-hidden p-4 bg-primary/45 backdrop-blur-[4px]">
+        <div v-if="cropOpen" class="enpii-image-upload__crop-overlay fixed inset-0 z-modal flex items-center justify-center overflow-hidden p-4 [background-color:var(--overlay-backdrop)] backdrop-blur-[4px]">
           <section
             ref="cropPanelRef"
             role="dialog"
             aria-modal="true"
             aria-labelledby="enpii-image-upload-crop-title"
-            class="enpii-image-upload__crop-panel flex w-full max-w-96 max-h-[calc(100vh-2rem)] flex-col gap-3 overflow-y-auto p-4 rounded-media bg-surface-container-lowest shadow-overlay max-sm:p-3"
+            class="enpii-image-upload__crop-panel flex w-full max-w-96 max-h-[calc(100vh-2rem)] flex-col gap-3 overflow-y-auto p-4 rounded-media [background-color:var(--overlay-surface-bg)] shadow-overlay max-sm:p-3"
           >
             <header class="enpii-image-upload__crop-header flex items-center justify-between gap-4">
-              <h2 id="enpii-image-upload-crop-title" class="enpii-image-upload__crop-title m-0 text-lg font-medium text-primary-text">{{ t('imageUpload.cropTitle') }}</h2>
+              <h2 id="enpii-image-upload-crop-title" class="enpii-image-upload__crop-title m-0 text-lg font-medium [color:var(--overlay-surface-fg)]">{{ t('imageUpload.cropTitle') }}</h2>
               <button type="button" class="enpii-image-upload__action" :aria-label="t('imageUpload.cancel')" @click="closeCrop">
                 <span class="material-symbols-outlined" aria-hidden="true">close</span>
               </button>
             </header>
             <canvas
               ref="cropCanvasRef"
-              class="enpii-image-upload__crop-canvas block aspect-square w-[min(100%,17.5rem)] cursor-grab touch-none rounded-[calc(var(--radius-control)-0.25rem)] bg-surface-container forced-colors:border forced-colors:border-solid forced-colors:border-canvas-text active:cursor-grabbing focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus"
+              class="enpii-image-upload__crop-canvas block aspect-square w-[min(100%,17.5rem)] cursor-grab touch-none rounded-[calc(var(--radius-control)-0.25rem)] [background-color:var(--picker-range-bg)] forced-colors:border forced-colors:border-solid forced-colors:border-canvas-text active:cursor-grabbing focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus"
               :aria-label="t('imageUpload.cropArea')"
               tabindex="0"
               @pointerdown="startCropDrag"
@@ -383,7 +383,7 @@ defineExpose({ addFiles, removeItem, openCrop, clearErrors })
               <span>{{ t('imageUpload.zoom') }}</span>
               <input
                 v-model.number="zoom"
-                class="enpii-image-upload__zoom w-full min-h-10 m-0 border-0 appearance-none bg-transparent accent-primary disabled:opacity-45 disabled:cursor-not-allowed focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus"
+                class="enpii-image-upload__zoom w-full min-h-10 m-0 border-0 appearance-none bg-transparent [accent-color:var(--control-primary-bg)] disabled:opacity-45 disabled:cursor-not-allowed focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus"
                 type="range"
                 min="1"
                 max="4"
@@ -392,8 +392,8 @@ defineExpose({ addFiles, removeItem, openCrop, clearErrors })
               />
             </EnpiiLabel>
             <div class="enpii-image-upload__crop-actions flex flex-wrap justify-end gap-3">
-              <button type="button" class="enpii-image-upload__button inline-flex min-h-10 items-center justify-center px-4 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)] bg-surface-container-lowest [font-family:inherit] text-sm font-medium text-on-surface cursor-pointer [transition-property:background,box-shadow,transform] duration-fast ease-emphasized motion-reduce:transition-none forced-colors:border-canvas-text hover:enabled:bg-neutral-soft hover:enabled:[box-shadow:var(--shadow-focus)] active:enabled:[transform:scale(.98)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus disabled:opacity-50 disabled:cursor-not-allowed motion-reduce:transform-none" @click="closeCrop">{{ t('imageUpload.cancel') }}</button>
-              <button type="button" class="enpii-image-upload__button enpii-image-upload__button--primary inline-flex min-h-10 items-center justify-center border border-solid border-primary [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)] bg-primary [font-family:inherit] text-sm font-medium text-on-primary cursor-pointer [transition-property:background,box-shadow,transform] duration-fast ease-emphasized motion-reduce:transition-none forced-colors:[background-color:ButtonFace] forced-colors:[color:ButtonText] hover:enabled:bg-primary-container hover:enabled:text-on-primary-container active:enabled:[transform:scale(.98)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus disabled:opacity-50 disabled:cursor-not-allowed motion-reduce:transform-none" @click="applyCrop">
+              <button type="button" class="enpii-image-upload__button inline-flex min-h-10 items-center justify-center px-4 border border-solid [border-color:var(--control-secondary-border)] [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)] [background-color:var(--control-secondary-bg)] [font-family:inherit] text-sm font-medium [color:var(--control-secondary-fg)] cursor-pointer [transition-property:background,box-shadow,transform] duration-fast ease-emphasized motion-reduce:transition-none forced-colors:border-canvas-text hover:enabled:[background-color:var(--control-ghost-bg)] hover:enabled:[box-shadow:var(--shadow-focus)] active:enabled:[transform:scale(.98)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus disabled:opacity-50 disabled:cursor-not-allowed motion-reduce:transform-none" @click="closeCrop">{{ t('imageUpload.cancel') }}</button>
+              <button type="button" class="enpii-image-upload__button enpii-image-upload__button--primary inline-flex min-h-10 items-center justify-center border border-solid [border-color:var(--control-primary-border)] [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)] [background-color:var(--control-primary-bg)] [font-family:inherit] text-sm font-medium [color:var(--control-primary-fg)] cursor-pointer [transition-property:background,box-shadow,transform] duration-fast ease-emphasized motion-reduce:transition-none forced-colors:[background-color:ButtonFace] forced-colors:[color:ButtonText] hover:enabled:[background-color:var(--tone-primary-soft-bg)] hover:enabled:[color:var(--tone-primary-soft-fg)] active:enabled:[transform:scale(.98)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus disabled:opacity-50 disabled:cursor-not-allowed motion-reduce:transform-none" @click="applyCrop">
                 {{ t('imageUpload.apply') }}
               </button>
             </div>

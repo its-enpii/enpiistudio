@@ -224,7 +224,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="enpii-color-picker flex w-full max-w-80 flex-col gap-field-gap p-4 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-control bg-surface-container-lowest text-on-surface shadow-control" :class="{ 'enpii-color-picker--disabled opacity-60 pointer-events-none': disabled }">
+  <div class="enpii-color-picker flex w-full max-w-80 flex-col gap-field-gap p-4 border border-solid [border-color:var(--control-border-color)] [border-width:var(--control-border-width)] rounded-control bg-surface-container-lowest text-on-surface shadow-control" :class="{ 'enpii-color-picker--disabled opacity-60 pointer-events-none': disabled }">
     <div
       ref="areaRef"
       class="enpii-color-picker__area relative w-full aspect-[16/9] min-h-32 overflow-hidden rounded-[calc(var(--radius-control)-0.25rem)] cursor-crosshair touch-none"
@@ -233,7 +233,7 @@ onBeforeUnmount(() => {
       @pointerdown="onPointerDown('area', $event)"
     >
       <div
-        class="enpii-color-picker__thumb absolute w-[1.125rem] h-[1.125rem] border-2 border-solid border-surface-container-lowest rounded-[50%] -translate-x-1/2 -translate-y-1/2 pointer-events-none shadow-[0_1px_3px_rgb(0_0_0/40%)]"
+        class="enpii-color-picker__thumb absolute w-[1.125rem] h-[1.125rem] border-2 border-solid [border-color:var(--overlay-surface-bg)] rounded-[50%] -translate-x-1/2 -translate-y-1/2 pointer-events-none shadow-[0_1px_3px_rgb(0_0_0/40%)]"
         :style="{ left: `${saturation}%`, top: `${100 - brightness}%` }"
         :aria-label="t('colorPicker.thumbLabel')"
       />
@@ -254,7 +254,7 @@ onBeforeUnmount(() => {
         @keydown="onHueKeydown"
       >
         <div
-          class="enpii-color-picker__slider-thumb absolute top-1/2 w-[0.875rem] h-[0.875rem] border-2 border-solid border-surface-container-lowest rounded-[50%] -translate-x-1/2 -translate-y-1/2 pointer-events-none shadow-[0_1px_3px_rgb(0_0_0/40%)]"
+          class="enpii-color-picker__slider-thumb absolute top-1/2 w-[0.875rem] h-[0.875rem] border-2 border-solid [border-color:var(--overlay-surface-bg)] rounded-[50%] -translate-x-1/2 -translate-y-1/2 pointer-events-none shadow-[0_1px_3px_rgb(0_0_0/40%)]"
           :style="{ left: `${(hue / 360) * 100}%` }"
         />
       </div>
@@ -275,21 +275,21 @@ onBeforeUnmount(() => {
         @keydown="onAlphaKeydown"
       >
         <div
-          class="enpii-color-picker__slider-thumb absolute top-1/2 w-[0.875rem] h-[0.875rem] border-2 border-solid border-surface-container-lowest rounded-[50%] -translate-x-1/2 -translate-y-1/2 pointer-events-none shadow-[0_1px_3px_rgb(0_0_0/40%)]"
+          class="enpii-color-picker__slider-thumb absolute top-1/2 w-[0.875rem] h-[0.875rem] border-2 border-solid [border-color:var(--overlay-surface-bg)] rounded-[50%] -translate-x-1/2 -translate-y-1/2 pointer-events-none shadow-[0_1px_3px_rgb(0_0_0/40%)]"
           :style="{ left: `${alpha * 100}%` }"
         />
       </div>
     </div>
 
     <div class="enpii-color-picker__inputs flex items-center gap-2">
-      <div class="enpii-color-picker__preview w-10 h-10 min-h-10 flex-none border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)]" :style="{ background: currentHex }" :aria-label="t('colorPicker.previewLabel')" />
+      <div class="enpii-color-picker__preview w-10 h-10 min-h-10 flex-none border border-solid [border-color:var(--control-border-color)] [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)]" :style="{ background: currentHex }" :aria-label="t('colorPicker.previewLabel')" />
       <div class="enpii-color-picker__hex-label flex-1">
         <EnpiiLabel :for="hexInputId" hidden size="sm" class="enpii-color-picker__hex-input-label">{{ t('colorPicker.hexLabel') }}</EnpiiLabel>
         <input
           :id="hexInputId"
           v-model="hexInput"
           type="text"
-          class="enpii-color-picker__hex-input w-full min-h-control-sm px-3 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)] bg-surface-container-lowest text-on-surface [font-family:inherit] text-control [transition-property:border-color,box-shadow] duration-fast ease-emphasized focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--shadow-focus)] disabled:opacity-60 disabled:cursor-not-allowed"
+          class="enpii-color-picker__hex-input w-full min-h-control-sm px-3 border border-solid [border-color:var(--control-border-color)] [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)] bg-surface-container-lowest text-on-surface [font-family:inherit] text-control [transition-property:border-color,box-shadow] duration-fast ease-emphasized focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--shadow-focus)] disabled:opacity-60 disabled:cursor-not-allowed"
           maxlength="9"
           :disabled="disabled"
           :placeholder="t('colorPicker.hexPlaceholder')"
@@ -303,8 +303,8 @@ onBeforeUnmount(() => {
         v-for="color in swatches"
         :key="color"
         type="button"
-        class="enpii-color-picker__swatch w-10 h-10 min-h-10 p-0 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)] cursor-pointer [transition-property:box-shadow,transform] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:[box-shadow:var(--shadow-focus)] active:enabled:[box-shadow:var(--shadow-control-pressed)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus disabled:opacity-50 disabled:cursor-not-allowed"
-        :class="{ 'enpii-color-picker__swatch--active shadow-[inset_0_0_0_2px_var(--color-surface-container-lowest),0_0_0_2px_var(--color-primary)]': currentHex === color }"
+        class="enpii-color-picker__swatch w-10 h-10 min-h-10 p-0 border border-solid [border-color:var(--control-border-color)] [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)] cursor-pointer [transition-property:box-shadow,transform] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:[box-shadow:var(--shadow-focus)] active:enabled:[box-shadow:var(--shadow-control-pressed)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus disabled:opacity-50 disabled:cursor-not-allowed"
+        :class="{ 'enpii-color-picker__swatch--active shadow-[inset_0_0_0_2px_var(--overlay-surface-bg),0_0_0_2px_var(--control-primary-bg)]': currentHex === color }"
         :style="{ backgroundColor: `var(${swatchToken(color)})` }"
         :aria-label="t('colorPicker.selectSwatch', { color })"
         :disabled="disabled"

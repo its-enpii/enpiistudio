@@ -472,6 +472,19 @@ function appendStyles(theme: GoldenTheme): HTMLStyleElement[] {
     '--kanban-col-bg',
     '--kanban-card-bg',
     '--kanban-card-fg',
+    '--picker-header-bg',
+    '--picker-cell-hover-bg',
+    '--picker-cell-selected-bg',
+    '--picker-cell-selected-fg',
+    '--picker-range-bg',
+    '--dropzone-bg',
+    '--dropzone-border',
+    '--dropzone-hover-bg',
+    '--dropzone-hover-border',
+    '--editor-toolbar-bg',
+    '--editor-toolbar-border',
+    '--editor-content-bg',
+    '--editor-content-fg',
   ]) {
     tokenValues.set(token, 'transparent')
   }

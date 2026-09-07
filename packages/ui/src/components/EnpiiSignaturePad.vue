@@ -10,7 +10,7 @@ const props = withDefaults(defineProps<{
   disabled?: boolean
   backgroundColor?: string
 }>(), {
-  penColor: 'var(--color-ink)',
+  penColor: 'var(--field-fg, var(--color-ink))',
   penWidth: 2,
   disabled: false,
   backgroundColor: undefined,
@@ -80,6 +80,7 @@ function drawBackground() {
   if (!ctx || !canvasRef.value) return
   const rect = canvasRef.value.getBoundingClientRect()
   ctx.fillStyle = props.backgroundColor
+    ?? getComputedStyle(document.documentElement).getPropertyValue('--field-bg').trim()
     ?? getComputedStyle(document.documentElement).getPropertyValue('--color-surface-container-lowest').trim()
     ?? 'rgb(253 253 252)'
   ctx.fillRect(0, 0, rect.width, rect.height)
@@ -191,7 +192,7 @@ onBeforeUnmount(() => {
   >
     <canvas
       ref="canvasRef"
-      class="enpii-signature-pad__canvas w-full h-40 min-h-40 border border-dashed border-outline-variant [border-width:var(--control-border-width)] rounded-control bg-surface-container-lowest cursor-crosshair touch-none focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus forced-colors:border-canvas-text"
+      class="enpii-signature-pad__canvas w-full h-40 min-h-40 border border-dashed [border-color:var(--field-border)] [border-width:var(--control-border-width)] rounded-control [background-color:var(--field-bg)] cursor-crosshair touch-none focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus forced-colors:border-canvas-text"
       :aria-label="t('signaturePad.canvasLabel')"
       :aria-disabled="disabled || undefined"
       :tabindex="disabled ? -1 : 0"
@@ -204,7 +205,7 @@ onBeforeUnmount(() => {
     <div class="enpii-signature-pad__actions flex justify-end gap-2">
       <button
         type="button"
-        class="enpii-signature-pad__action inline-flex items-center justify-center min-h-10 px-4 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)] bg-surface-container-lowest text-on-surface [font-family:inherit] text-sm font-medium cursor-pointer [transition-property:background,box-shadow,transform] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:bg-neutral-soft hover:enabled:[box-shadow:var(--shadow-focus)] active:enabled:[transform:scale(.98)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus disabled:opacity-50 disabled:cursor-not-allowed forced-colors:[border-color:ButtonText]"
+        class="enpii-signature-pad__action inline-flex items-center justify-center min-h-10 px-4 border border-solid [border-color:var(--control-secondary-border)] [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)] [background-color:var(--control-secondary-bg)] [color:var(--control-secondary-fg)] [font-family:inherit] text-sm font-medium cursor-pointer [transition-property:background,box-shadow,transform] duration-fast ease-emphasized motion-reduce:transition-none hover:enabled:[background-color:var(--control-ghost-bg)] hover:enabled:[box-shadow:var(--shadow-focus)] active:enabled:[transform:scale(.98)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus disabled:opacity-50 disabled:cursor-not-allowed forced-colors:[border-color:ButtonText]"
         :disabled="disabled || isEmpty"
         :aria-label="t('signaturePad.undo')"
         @click="undo"

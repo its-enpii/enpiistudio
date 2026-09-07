@@ -63,6 +63,14 @@ const overlayBorderComponents = [
   'EnpiiTooltip.vue',
 ]
 
+const batch3aHookPatterns: Record<string, RegExp> = {
+  "EnpiiDatePicker.vue": /--picker-(?:header-bg|cell-(?:hover-bg|selected-bg|selected-fg)|range-bg)/,
+  "EnpiiDateRange.vue": /--picker-(?:header-bg|cell-(?:hover-bg|selected-bg|selected-fg)|range-bg)/,
+  "EnpiiFileUpload.vue": /--dropzone-(?:bg|border|hover-bg|hover-border)/,
+  "EnpiiImageUpload.vue": /--dropzone-(?:bg|border|hover-bg|hover-border)/,
+  "EnpiiRichEditor.vue": /--editor-(?:toolbar-bg|toolbar-border|content-bg|content-fg)/,
+}
+
 const batch2HookPatterns: Record<string, RegExp> = {
   'EnpiiAlert.vue': /--tone-[a-z]+-(?:soft-)?(?:bg|fg|border)/,
   'EnpiiAvatar.vue': /--tone-(?:primary-soft|success|danger|neutral)(?:-soft)?-(?:bg|fg)/,
@@ -115,6 +123,14 @@ describe('structural layer wiring conformance', () => {
     expect(entry).toContain('--control-border-color-filled: transparent;')
     expect(entry).toContain('--overlay-border-color: var(--color-outline-variant);')
     expect(entry).toContain('--control-shadow: 0 0 #0000;')
+  })
+
+  it.each(Object.entries(batch3aHookPatterns))("wires %s to its batch 3a color hook", (filename, pattern) => {
+    const source = readFileSync(resolve(componentsDirectory, filename), "utf8")
+    expect(source, `${filename} must consume its batch 3a hook`).toMatch(pattern)
+    expect(source, `${filename} must not hardcode theme color utilities`).not.toMatch(
+      /\b(?:bg|text)-(?:primary|success|warning|danger|error|neutral)-?(?:soft|border|text)?\b/,
+    )
   })
 
   it.each(Object.entries(batch2HookPatterns))('wires %s to its batch 2 color hook', (filename, pattern) => {
