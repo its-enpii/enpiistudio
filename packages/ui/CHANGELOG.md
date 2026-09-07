@@ -1,3 +1,16 @@
+## [1.3.1] - 2026-09-07
+
+### Added
+- test(ui): marker manifest + audit self-test — component-prefixed tokens require
+  explicit marker manifest (canary self-test)
+
+### Fixed
+- fix(ui): 52 dead template classes → valid Tailwind v4 utilities (font-inherit,
+  stroke caps, row-gap, forced-colors, data-active, max-xs via
+  `--breakpoint-xs: 30rem`)
+- fix(ui): restore `icon-font.css` on lib entry — `dist/enpii-ui.css` artifact
+  emitted again
+
 ## [1.3.0] - 2026-09-07
 
 ### Added
