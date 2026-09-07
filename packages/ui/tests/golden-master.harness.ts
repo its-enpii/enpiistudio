@@ -400,6 +400,27 @@ function appendStyles(theme: GoldenTheme): HTMLStyleElement[] {
   tokenValues.set('--transition-duration-fast', '150ms')
   tokenValues.set('--tw-outline-style', 'solid')
   tokenValues.set('--tw-border-style', 'solid')
+  for (const token of [
+    '--control-primary-bg',
+    '--control-primary-fg',
+    '--control-primary-border',
+    '--control-secondary-bg',
+    '--control-secondary-fg',
+    '--control-secondary-border',
+    '--control-ghost-bg',
+    '--control-ghost-fg',
+    '--control-danger-bg',
+    '--control-danger-fg',
+    '--field-bg',
+    '--field-fg',
+    '--field-border',
+    '--field-placeholder-fg',
+    '--field-error-fg',
+    '--field-error-border',
+    '--label-fg',
+  ]) {
+    tokenValues.set(token, 'transparent')
+  }
 
   if (theme === 'dark-media' || theme === 'dark-attribute') {
     const darkBlock = theme === 'dark-media'

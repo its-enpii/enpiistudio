@@ -39,25 +39,25 @@ const shapeUtility = computed(() => {
         :class="[shapeClass, { 'enpii-switch--disabled opacity-65 cursor-not-allowed': disabled }]"
     >
         <input :id="switchId" v-model="model" type="checkbox" role="switch" class="enpii-switch__native enpii-sr-only peer focus-visible:[&~.enpii-switch__track]:[box-shadow:var(--shadow-focus)]" :disabled="disabled">
-        <span class="enpii-switch__track w-12 h-7 rounded-[9999px] bg-outline-variant peer-checked:bg-primary [transition-property:background] duration-fast ease-emphasized" />
-        <span class="enpii-switch__thumb absolute top-1 left-1 w-5 h-5 rounded-[9999px] bg-surface-container-lowest shadow-control transition-transform duration-fast ease-standard pointer-events-none peer-checked:translate-x-5" />
+        <span class="enpii-switch__track w-12 h-7 rounded-[9999px] [background-color:var(--control-secondary-bg)] peer-checked:[background-color:var(--control-primary-bg)] [transition-property:background] duration-fast ease-emphasized" />
+        <span class="enpii-switch__thumb absolute top-1 left-1 w-5 h-5 rounded-[9999px] [background-color:var(--field-bg)] shadow-control transition-transform duration-fast ease-standard pointer-events-none peer-checked:translate-x-5" />
     </label>
 
     <div v-else-if="field" class="enpii-switch enpii-switch--field w-full">
         <EnpiiLabel v-if="label" :for="switchId" size="sm" class="enpii-switch__label block ml-1">{{ label }}</EnpiiLabel>
         <label
             :for="switchId"
-            class="enpii-switch__box flex w-full min-h-control items-center justify-between gap-4 px-4 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-control bg-surface-container-lowest cursor-pointer transition-all duration-fast ease-emphasized focus-within:border-primary-container focus-within:[box-shadow:var(--shadow-focus)]"
+            class="enpii-switch__box flex w-full min-h-control items-center justify-between gap-4 px-4 border border-solid [border-color:var(--field-border)] [border-width:var(--control-border-width)] rounded-control [background-color:var(--field-bg)] cursor-pointer transition-all duration-fast ease-emphasized focus-within:[border-color:var(--field-border)] focus-within:[box-shadow:var(--shadow-focus)]"
             :class="[shapeClass, shapeUtility, { 'opacity-65 cursor-not-allowed': disabled }]"
         >
             <span class="enpii-switch__content flex items-center gap-3 min-w-0">
-                <AppIcon v-if="icon" :name="icon" class="enpii-switch__icon w-5 h-5 text-outline text-xl leading-none" />
-                <span class="enpii-switch__text truncate text-primary-text text-sm font-medium">{{ model ? (description || 'Aktif') : (description || 'Nonaktif') }}</span>
+                <AppIcon v-if="icon" :name="icon" class="enpii-switch__icon w-5 h-5 [color:var(--field-placeholder-fg)] text-xl leading-none" />
+                <span class="enpii-switch__text truncate [color:var(--field-fg)] text-sm font-medium">{{ model ? (description || 'Aktif') : (description || 'Nonaktif') }}</span>
             </span>
             <span class="enpii-switch__control relative inline-flex shrink-0">
                 <input :id="switchId" v-model="model" type="checkbox" role="switch" class="enpii-switch__native enpii-sr-only peer focus-visible:[&~.enpii-switch__track]:[box-shadow:var(--shadow-focus)]" :disabled="disabled">
-                <span class="enpii-switch__track w-12 h-7 rounded-[9999px] bg-outline-variant peer-checked:bg-primary [transition-property:background] duration-fast ease-emphasized" />
-                <span class="enpii-switch__thumb absolute top-1 left-1 w-5 h-5 rounded-[9999px] bg-surface-container-lowest shadow-control transition-transform duration-fast ease-standard pointer-events-none peer-checked:translate-x-5" />
+                <span class="enpii-switch__track w-12 h-7 rounded-[9999px] [background-color:var(--control-secondary-bg)] peer-checked:[background-color:var(--control-primary-bg)] [transition-property:background] duration-fast ease-emphasized" />
+                <span class="enpii-switch__thumb absolute top-1 left-1 w-5 h-5 rounded-[9999px] [background-color:var(--field-bg)] shadow-control transition-transform duration-fast ease-standard pointer-events-none peer-checked:translate-x-5" />
             </span>
         </label>
     </div>
@@ -65,20 +65,20 @@ const shapeUtility = computed(() => {
     <label
         v-else
         :for="switchId"
-        class="enpii-switch enpii-switch--inline flex min-h-control items-center justify-between gap-4 px-4 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-control bg-surface-container-lowest cursor-pointer transition-all duration-fast ease-emphasized"
+        class="enpii-switch enpii-switch--inline flex min-h-control items-center justify-between gap-4 px-4 border border-solid [border-color:var(--field-border)] [border-width:var(--control-border-width)] rounded-control [background-color:var(--field-bg)] cursor-pointer transition-all duration-fast ease-emphasized"
         :class="[shapeClass, shapeUtility, { 'opacity-65 cursor-not-allowed': disabled }]"
     >
         <span class="enpii-switch__content flex items-center gap-3 min-w-0">
-            <AppIcon v-if="icon" :name="icon" class="enpii-switch__icon w-5 h-5 text-outline text-xl leading-none" />
+            <AppIcon v-if="icon" :name="icon" class="enpii-switch__icon w-5 h-5 [color:var(--field-placeholder-fg)] text-xl leading-none" />
             <span class="enpii-switch__inline-text block">
-                <span v-if="label" class="enpii-switch__inline-label block text-primary-text text-sm font-semibold">{{ label }}</span>
-                <span v-if="description" class="enpii-switch__description block mt-1 text-on-surface-variant text-xs">{{ description }}</span>
+                <span v-if="label" class="enpii-switch__inline-label block [color:var(--field-fg)] text-sm font-semibold">{{ label }}</span>
+                <span v-if="description" class="enpii-switch__description block mt-1 [color:var(--field-fg)] text-xs">{{ description }}</span>
             </span>
         </span>
         <span class="enpii-switch__control relative inline-flex shrink-0">
             <input :id="switchId" v-model="model" type="checkbox" role="switch" class="enpii-switch__native enpii-sr-only peer focus-visible:[&~.enpii-switch__track]:[box-shadow:var(--shadow-focus)]" :disabled="disabled">
-            <span class="enpii-switch__track w-12 h-7 rounded-[9999px] bg-outline-variant peer-checked:bg-primary [transition-property:background] duration-fast ease-emphasized" />
-            <span class="enpii-switch__thumb absolute top-1 left-1 w-5 h-5 rounded-[9999px] bg-surface-container-lowest shadow-control transition-transform duration-fast ease-standard pointer-events-none peer-checked:translate-x-5" />
+            <span class="enpii-switch__track w-12 h-7 rounded-[9999px] [background-color:var(--control-secondary-bg)] peer-checked:[background-color:var(--control-primary-bg)] [transition-property:background] duration-fast ease-emphasized" />
+            <span class="enpii-switch__thumb absolute top-1 left-1 w-5 h-5 rounded-[9999px] [background-color:var(--field-bg)] shadow-control transition-transform duration-fast ease-standard pointer-events-none peer-checked:translate-x-5" />
         </span>
     </label>
 </template>

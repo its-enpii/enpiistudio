@@ -1,0 +1,19 @@
+[
+  "--control-danger-bg",
+  "--control-danger-fg",
+  "--control-ghost-bg",
+  "--control-ghost-fg",
+  "--control-primary-bg",
+  "--control-primary-border",
+  "--control-primary-fg",
+  "--control-secondary-bg",
+  "--control-secondary-border",
+  "--control-secondary-fg",
+  "--field-bg",
+  "--field-border",
+  "--field-error-border",
+  "--field-error-fg",
+  "--field-fg",
+  "--field-placeholder-fg",
+  "--label-fg"
+]

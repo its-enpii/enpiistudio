@@ -58,28 +58,28 @@ const toneClass = computed(() => {
     if (props.filled) {
         switch (props.tone) {
             case 'primary':
-            case 'info': return 'bg-primary text-on-primary';
+            case 'info': return '[background-color:var(--control-primary-bg)] [color:var(--control-primary-fg)]';
             case 'secondary':
-            case 'success': return 'bg-secondary text-on-secondary';
+            case 'success': return '[background-color:var(--control-secondary-bg)] [color:var(--control-secondary-fg)]';
             case 'warning':
-            case 'tertiary': return 'bg-tertiary text-on-tertiary';
+            case 'tertiary': return '[background-color:var(--control-secondary-bg)] [color:var(--control-secondary-fg)]';
             case 'danger':
-            case 'error': return 'bg-error text-on-error';
+            case 'error': return '[background-color:var(--control-danger-bg)] [color:var(--control-danger-fg)]';
             case 'neutral':
-            default: return 'bg-surface-container-low text-on-surface';
+            default: return '[background-color:var(--control-secondary-bg)] [color:var(--control-secondary-fg)]';
         }
     } else {
         switch (props.tone) {
             case 'primary':
-            case 'info': return 'text-primary-text';
+            case 'info': return '[color:var(--control-primary-fg)]';
             case 'secondary':
-            case 'success': return 'text-on-secondary';
+            case 'success': return '[color:var(--control-secondary-fg)]';
             case 'warning':
-            case 'tertiary': return 'text-on-tertiary';
+            case 'tertiary': return '[color:var(--control-secondary-fg)]';
             case 'danger':
-            case 'error': return 'text-danger-text';
+            case 'error': return '[color:var(--control-danger-fg)]';
             case 'neutral':
-            default: return 'text-on-surface-variant hover:enabled:bg-surface-container-low hover:enabled:text-primary-text';
+            default: return '[color:var(--control-ghost-fg)] hover:enabled:[background-color:var(--control-secondary-bg)] hover:enabled:[color:var(--control-secondary-fg)]';
         }
     }
 });
@@ -88,7 +88,7 @@ const buttonClass = computed(() => [
     'enpii-icon-button',
     'relative inline-flex items-center justify-center shrink-0 bg-transparent text-inherit cursor-pointer transition-all duration-fast ease-emphasized focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)] active:enabled:[transform:var(--press-transform)] hover:enabled:scale-103 disabled:opacity-60 disabled:cursor-not-allowed',
     props.filled
-      ? 'border border-solid [border-color:var(--color-ink)] [border-width:var(--control-border-width)] [box-shadow:var(--control-shadow)]'
+      ? 'border border-solid [border-color:var(--control-secondary-border)] [border-width:var(--control-border-width)] [box-shadow:var(--control-shadow)]'
       : 'border-0 [box-shadow:var(--control-shadow)]',
     `enpii-icon-button--${props.size}`,
     `enpii-icon-button--${props.rounded}`,

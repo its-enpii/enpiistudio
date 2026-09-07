@@ -1,6 +1,23 @@
 /* Value-set only: no component selectors and no brand colors. */
 :root,
 [data-enpii-layer="minimalism"] {
+  --control-primary-bg: var(--color-primary);
+  --control-primary-fg: var(--color-on-primary);
+  --control-primary-border: var(--color-primary-border);
+  --control-secondary-bg: var(--color-surface-container-lowest);
+  --control-secondary-fg: var(--color-primary-text);
+  --control-secondary-border: var(--color-outline-variant);
+  --control-ghost-bg: transparent;
+  --control-ghost-fg: var(--color-on-surface-variant);
+  --control-danger-bg: var(--color-danger);
+  --control-danger-fg: var(--color-on-error);
+  --field-bg: var(--color-surface-container-lowest);
+  --field-fg: var(--color-on-surface);
+  --field-border: var(--color-outline-variant);
+  --field-placeholder-fg: var(--color-outline);
+  --field-error-fg: var(--color-danger-text);
+  --field-error-border: var(--color-danger-border);
+  --label-fg: var(--color-on-surface-variant);
   --control-border-width: 1px;
   --overlay-border-width: 1px;
   --press-transform: none;

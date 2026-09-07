@@ -29,6 +29,11 @@ Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7. Semua item selesai.
 
 ## Log Progress
 
+### 2026-09-07 — UI batch 1 base-raw controls & fields SELESAI
+- `@its-enpii/ui` tetap v1.3.1: 13 kontrol/field/label kini base-raw tanpa keputusan warna. Base menyediakan sizing, radius, state, disabled opacity, dan hook warna; enam layer mengisi 17 hook (`--control-primary/secondary/ghost/danger`, `--field`, `--label-fg`) light+dark. Marker variant tetap di DOM.
+- Conformance permanen ditambahkan lewat `tests/color-free-base.conformance.spec.ts` + fixture hook/component scope; class collector diekspor ulang. Golden harness kini menyelesaikan hook batch ini sebagai transparent, sehingga baseline tanpa layer telanjang.
+- Verifikasi: `check` bersih; `test` 388 passed/0 failed; `test:tailwind` 3 passed + smoke; `golden:check` 4 passed; `build` sukses; `audit-template-classes.mjs` exit 0; `git diff --check` + `contract:check` bersih. Golden baseline berubah pada 129 snapshot state/theme untuk penghapusan warna base saja.
+
 ### 2026-09-06 — UI structural layer wiring gap SELESAI
 - packages/ui tetap v1.2.0: 24 komponen kontrol/surface/overlay kini membaca `--control-border-width` atau `--overlay-border-width`; token baru `--radius-control-sm: 4px` mempertahankan base Checkbox persis. Pressable lokal dinormalisasi ke token-driven transform/pressed shadow tanpa perubahan visual.
 - Pengecualian sah terdokumentasi permanen di `packages/ui/tests/layer-wiring.conformance.spec.ts`: DesktopSplashScreen, Footer, LoanHistoryTable, Rating, Spinner.

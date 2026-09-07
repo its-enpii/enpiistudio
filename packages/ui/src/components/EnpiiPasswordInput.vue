@@ -94,7 +94,7 @@ function updateValue(event: Event) {
         <div class="enpii-password-input__field relative flex items-center">
             <input
                 :id="inputId"
-        class="enpii-password-input__control w-full min-h-12 py-3 pr-[5.5rem] pl-4 border border-solid [border-width:var(--control-border-width)] [border-color:var(--control-border-color)] rounded-control bg-surface-container-lowest text-on-surface font-sans text-control [transition-property:border-color,box-shadow,background] duration-fast ease-emphasized hover:enabled:[border-color:color-mix(in_srgb,var(--color-primary)_40%,transparent)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset-outside)] focus-visible:outline-focus read-only:cursor-default read-only:bg-surface-container-low read-only:text-on-surface-variant disabled:cursor-not-allowed disabled:opacity-60 disabled:bg-surface-container-lowest disabled:text-on-surface placeholder:text-outline"
+        class="enpii-password-input__control w-full min-h-12 py-3 pr-[5.5rem] pl-4 border border-solid [border-width:var(--control-border-width)] [border-color:var(--field-border)] rounded-control [background-color:var(--field-bg)] [color:var(--field-fg)] font-sans text-control [transition-property:border-color,box-shadow,background] duration-fast ease-emphasized hover:enabled:[border-color:var(--field-border)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset-outside)] focus-visible:outline-focus read-only:cursor-default read-only:[background-color:var(--field-bg)] read-only:[color:var(--field-fg)] disabled:cursor-not-allowed disabled:opacity-60 disabled:[background-color:var(--field-bg)] disabled:[color:var(--field-fg)] placeholder:[color:var(--field-placeholder-fg)]"
                 :type="inputType"
                 :value="modelValue"
                 :disabled="disabled"
@@ -108,7 +108,7 @@ function updateValue(event: Event) {
             <button
                 v-if="showToggle"
                 type="button"
-                class="enpii-password-input__toggle absolute top-1 right-1 inline-flex min-w-10 min-h-10 items-center justify-center px-2 border-0 rounded-[9999px] bg-transparent text-primary-text text-[0.8125rem] font-medium cursor-pointer [transition-property:background,color] duration-fast ease-emphasized hover:enabled:bg-surface-container-low hover:enabled:text-on-surface focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus disabled:cursor-not-allowed disabled:opacity-60"
+                class="enpii-password-input__toggle absolute top-1 right-1 inline-flex min-w-10 min-h-10 items-center justify-center px-2 border-0 rounded-[9999px] [background-color:var(--control-ghost-bg)] [color:var(--control-ghost-fg)] text-[0.8125rem] font-medium cursor-pointer [transition-property:background,color] duration-fast ease-emphasized hover:enabled:[background-color:var(--control-secondary-bg)] hover:enabled:[color:var(--control-secondary-fg)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:[outline-offset:var(--focus-offset)] focus-visible:outline-focus disabled:cursor-not-allowed disabled:opacity-60"
                 :aria-pressed="passwordVisible"
                 :aria-label="toggleLabel"
                 :disabled="disabled"
@@ -124,14 +124,14 @@ function updateValue(event: Event) {
             role="status"
             aria-live="polite"
         >
-            <div class="enpii-password-input__meter-track w-full h-1.5 overflow-hidden rounded-[9999px] bg-surface-container-high">
+            <div class="enpii-password-input__meter-track w-full h-1.5 overflow-hidden rounded-[9999px] [background-color:var(--control-secondary-bg)]">
                 <div
-                    class="enpii-password-input__meter-fill h-full rounded-[inherit] bg-neutral-border [transition-property:width,background] duration-base ease-emphasized"
+                    class="enpii-password-input__meter-fill h-full rounded-[inherit] [background-color:var(--control-primary-bg)] [transition-property:width,background] duration-base ease-emphasized"
                     :class="`enpii-password-input__meter-fill--${strength}`"
                     :style="{ width: `${(strength / 4) * 100}%` }"
                 />
             </div>
-            <span class="enpii-password-input__strength text-on-surface-variant text-[0.8125rem] font-medium">{{ strengthLabel }}</span>
+            <span class="enpii-password-input__strength [color:var(--field-fg)] text-[0.8125rem] font-medium">{{ strengthLabel }}</span>
         </div>
     </div>
 </template>

@@ -44,21 +44,21 @@ const shapeClass = useShape(props);
 defineEmits(["update:modelValue"]);
 
 const variantClasses = {
-    outline: "py-2 px-3 border border-solid [border-width:var(--control-border-width)] [border-color:var(--control-border-color)] rounded-control bg-surface-container-lowest text-primary-text",
-    solid: "py-2 px-3 border-0 rounded-full bg-surface-container-high text-on-surface-variant",
-    segment: "py-2 px-3 border-0 rounded-lg bg-surface-container-low text-on-surface-variant",
+    outline: "py-2 px-3 border border-solid [border-width:var(--control-border-width)] [border-color:var(--control-secondary-border)] rounded-control [background-color:var(--field-bg)] [color:var(--field-fg)]",
+    solid: "py-2 px-3 border-0 rounded-full [background-color:var(--control-secondary-bg)] [color:var(--control-secondary-fg)]",
+    segment: "py-2 px-3 border-0 rounded-lg [background-color:var(--control-ghost-bg)] [color:var(--control-ghost-fg)]",
 };
 
 function pillClass(item) {
     const active = props.modelValue === item.value;
     const isCompact = props.size === "compact";
     return [
-        "enpii-filter-pill__button inline-flex items-center gap-1 text-sm font-semibold cursor-pointer [border-color:var(--color-ink)] [transition-property:all] duration-fast ease-emphasized focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)] active:enabled:[transform:var(--press-transform)] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none",
+        "enpii-filter-pill__button inline-flex items-center gap-1 text-sm font-semibold cursor-pointer [border-color:var(--control-secondary-border)] [transition-property:all] duration-fast ease-emphasized focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)] active:enabled:[transform:var(--press-transform)] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none",
         `enpii-filter-pill__button--${props.variant}`,
         variantClasses[props.variant] || variantClasses.outline,
         isCompact ? "enpii-filter-pill__button--compact !py-1 !px-3 !text-xs" : "",
         shapeClass.value,
-        active ? "enpii-filter-pill__button--active !bg-primary !border-primary !text-on-primary shadow-control" : "",
+        active ? "enpii-filter-pill__button--active ![background-color:var(--control-primary-bg)] ![border-color:var(--control-primary-border)] ![color:var(--control-primary-fg)] shadow-control" : "",
         item.disabled ? "enpii-filter-pill__button--disabled" : "",
     ];
 }

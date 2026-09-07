@@ -126,8 +126,8 @@
     "outline": ""
   },
   "EnpiiButton:default:light": {
-    "background-color": "rgb(135, 206, 235)",
-    "color": "rgb(20, 32, 43)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
@@ -144,8 +144,8 @@
     "outline": ""
   },
   "EnpiiButton:hover:light": {
-    "background-color": "rgb(135, 206, 235)",
-    "color": "rgb(20, 32, 43)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
@@ -162,8 +162,8 @@
     "outline": ""
   },
   "EnpiiButton:active:light": {
-    "background-color": "rgb(135, 206, 235)",
-    "color": "rgb(20, 32, 43)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
@@ -180,8 +180,8 @@
     "outline": ""
   },
   "EnpiiButton:disabled:light": {
-    "background-color": "rgb(135, 206, 235)",
-    "color": "rgb(20, 32, 43)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
@@ -198,8 +198,8 @@
     "outline": ""
   },
   "EnpiiButton:focus-visible:light": {
-    "background-color": "rgb(135, 206, 235)",
-    "color": "rgb(20, 32, 43)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
@@ -252,9 +252,9 @@
     "outline": ""
   },
   "EnpiiCheckbox:default:light": {
-    "background-color": "rgb(255, 255, 255)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "initial",
-    "border-color": "rgb(208, 216, 224)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -270,9 +270,9 @@
     "outline": ""
   },
   "EnpiiCheckbox:active:light": {
-    "background-color": "rgb(135, 206, 235)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "initial",
-    "border-color": "rgb(135, 206, 235)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -288,9 +288,9 @@
     "outline": ""
   },
   "EnpiiCheckbox:disabled:light": {
-    "background-color": "rgb(255, 255, 255)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "initial",
-    "border-color": "rgb(208, 216, 224)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -306,9 +306,9 @@
     "outline": ""
   },
   "EnpiiCheckbox:focus-visible:light": {
-    "background-color": "rgb(255, 255, 255)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "initial",
-    "border-color": "rgb(208, 216, 224)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -414,9 +414,9 @@
     "outline": ""
   },
   "EnpiiFilterPill:default:light": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(3, 105, 161)",
-    "border-color": "rgb(208, 216, 224)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -432,9 +432,9 @@
     "outline": ""
   },
   "EnpiiFilterPill:hover:light": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(3, 105, 161)",
-    "border-color": "rgb(208, 216, 224)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -450,9 +450,9 @@
     "outline": ""
   },
   "EnpiiFilterPill:active:light": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(3, 105, 161)",
-    "border-color": "rgb(208, 216, 224)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -468,9 +468,9 @@
     "outline": ""
   },
   "EnpiiFilterPill:disabled:light": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(3, 105, 161)",
-    "border-color": "rgb(208, 216, 224)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -486,9 +486,9 @@
     "outline": ""
   },
   "EnpiiFilterPill:focus-visible:light": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(3, 105, 161)",
-    "border-color": "rgb(208, 216, 224)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -559,7 +559,7 @@
   },
   "EnpiiIconButton:default:light": {
     "background-color": "rgba(0, 0, 0, 0)",
-    "color": "rgb(74, 90, 106)",
+    "color": "inherit",
     "border-color": "buttonface",
     "border-width": "0px",
     "border-style": "solid",
@@ -576,8 +576,8 @@
     "outline": ""
   },
   "EnpiiIconButton:hover:light": {
-    "background-color": "rgb(240, 244, 246)",
-    "color": "rgb(3, 105, 161)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "buttonface",
     "border-width": "0px",
     "border-style": "solid",
@@ -595,7 +595,7 @@
   },
   "EnpiiIconButton:active:light": {
     "background-color": "rgba(0, 0, 0, 0)",
-    "color": "rgb(74, 90, 106)",
+    "color": "inherit",
     "border-color": "buttonface",
     "border-width": "0px",
     "border-style": "solid",
@@ -613,7 +613,7 @@
   },
   "EnpiiIconButton:disabled:light": {
     "background-color": "rgba(0, 0, 0, 0)",
-    "color": "rgb(74, 90, 106)",
+    "color": "inherit",
     "border-color": "buttonface",
     "border-width": "0px",
     "border-style": "solid",
@@ -631,7 +631,7 @@
   },
   "EnpiiIconButton:focus-visible:light": {
     "background-color": "rgba(0, 0, 0, 0)",
-    "color": "rgb(74, 90, 106)",
+    "color": "inherit",
     "border-color": "buttonface",
     "border-width": "0px",
     "border-style": "solid",
@@ -648,9 +648,9 @@
     "outline": "3px solid rgb(2, 132, 199)"
   },
   "EnpiiInput:default:light": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(135, 206, 235)",
-    "border-color": "rgb(208, 216, 224)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -666,9 +666,9 @@
     "outline": ""
   },
   "EnpiiInput:hover:light": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(135, 206, 235)",
-    "border-color": "rgba(135, 206, 235, 0.4)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -684,9 +684,9 @@
     "outline": ""
   },
   "EnpiiInput:disabled:light": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(135, 206, 235)",
-    "border-color": "rgb(208, 216, 224)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -702,9 +702,9 @@
     "outline": ""
   },
   "EnpiiInput:focus-visible:light": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(135, 206, 235)",
-    "border-color": "rgb(125, 211, 252)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "0 0 0 4px rgba(2, 132, 199, 0.25)",
@@ -720,9 +720,9 @@
     "outline": ""
   },
   "EnpiiInput:error:light": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(135, 206, 235)",
-    "border-color": "rgb(254, 202, 202)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -828,9 +828,9 @@
     "outline": "3px solid rgb(2, 132, 199)"
   },
   "EnpiiPasswordInput:default:light": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(20, 32, 43)",
-    "border-color": "rgb(208, 216, 224)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -846,9 +846,9 @@
     "outline": ""
   },
   "EnpiiPasswordInput:disabled:light": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(20, 32, 43)",
-    "border-color": "rgb(208, 216, 224)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -864,9 +864,9 @@
     "outline": ""
   },
   "EnpiiPasswordInput:focus-visible:light": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(20, 32, 43)",
-    "border-color": "rgb(208, 216, 224)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -955,7 +955,7 @@
   },
   "EnpiiRadioGroup:default:light": {
     "background-color": "rgba(0, 0, 0, 0)",
-    "color": "rgb(74, 90, 106)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "",
     "border-width": "",
     "border-style": "",
@@ -973,7 +973,7 @@
   },
   "EnpiiRadioGroup:active:light": {
     "background-color": "rgba(0, 0, 0, 0)",
-    "color": "rgb(3, 105, 161)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "",
     "border-width": "",
     "border-style": "",
@@ -991,7 +991,7 @@
   },
   "EnpiiRadioGroup:disabled:light": {
     "background-color": "rgba(0, 0, 0, 0)",
-    "color": "rgb(74, 90, 106)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "",
     "border-width": "",
     "border-style": "",
@@ -1009,7 +1009,7 @@
   },
   "EnpiiRadioGroup:error:light": {
     "background-color": "rgba(0, 0, 0, 0)",
-    "color": "rgb(74, 90, 106)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "",
     "border-width": "",
     "border-style": "",
@@ -1027,7 +1027,7 @@
   },
   "EnpiiRadioGroup:focus-visible:light": {
     "background-color": "rgba(0, 0, 0, 0)",
-    "color": "rgb(74, 90, 106)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "",
     "border-width": "",
     "border-style": "",
@@ -1278,7 +1278,7 @@
     "outline": ""
   },
   "EnpiiSwitch:default:light": {
-    "background-color": "rgb(208, 216, 224)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "canvastext",
     "border-color": "",
     "border-width": "",
@@ -1296,7 +1296,7 @@
     "outline": ""
   },
   "EnpiiSwitch:active:light": {
-    "background-color": "rgb(135, 206, 235)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "canvastext",
     "border-color": "",
     "border-width": "",
@@ -1314,7 +1314,7 @@
     "outline": ""
   },
   "EnpiiSwitch:disabled:light": {
-    "background-color": "rgb(208, 216, 224)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "canvastext",
     "border-color": "",
     "border-width": "",
@@ -1332,7 +1332,7 @@
     "outline": ""
   },
   "EnpiiSwitch:focus-visible:light": {
-    "background-color": "rgb(208, 216, 224)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "canvastext",
     "border-color": "",
     "border-width": "",
@@ -1440,9 +1440,9 @@
     "outline": "3px solid rgb(2, 132, 199)"
   },
   "EnpiiTextarea:default:light": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(135, 206, 235)",
-    "border-color": "rgb(208, 216, 224)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -1458,9 +1458,9 @@
     "outline": ""
   },
   "EnpiiTextarea:hover:light": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(135, 206, 235)",
-    "border-color": "rgba(135, 206, 235, 0.4)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -1476,8 +1476,8 @@
     "outline": ""
   },
   "EnpiiTextarea:disabled:light": {
-    "background-color": "rgb(240, 244, 246)",
-    "color": "rgb(74, 90, 106)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "rgb(208, 216, 224)",
     "border-width": "1px",
     "border-style": "solid",
@@ -1494,9 +1494,9 @@
     "outline": ""
   },
   "EnpiiTextarea:focus-visible:light": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(135, 206, 235)",
-    "border-color": "rgb(125, 211, 252)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "0 0 0 4px rgba(2, 132, 199, 0.25)",
@@ -1512,9 +1512,9 @@
     "outline": ""
   },
   "EnpiiTextarea:error:light": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(135, 206, 235)",
-    "border-color": "rgb(254, 202, 202)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -1710,8 +1710,8 @@
     "outline": ""
   },
   "EnpiiButton:default:dark-media": {
-    "background-color": "rgb(56, 189, 248)",
-    "color": "rgb(15, 23, 42)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
@@ -1728,8 +1728,8 @@
     "outline": ""
   },
   "EnpiiButton:hover:dark-media": {
-    "background-color": "rgb(56, 189, 248)",
-    "color": "rgb(15, 23, 42)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
@@ -1746,8 +1746,8 @@
     "outline": ""
   },
   "EnpiiButton:active:dark-media": {
-    "background-color": "rgb(56, 189, 248)",
-    "color": "rgb(15, 23, 42)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
@@ -1764,8 +1764,8 @@
     "outline": ""
   },
   "EnpiiButton:disabled:dark-media": {
-    "background-color": "rgb(56, 189, 248)",
-    "color": "rgb(15, 23, 42)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
@@ -1782,8 +1782,8 @@
     "outline": ""
   },
   "EnpiiButton:focus-visible:dark-media": {
-    "background-color": "rgb(56, 189, 248)",
-    "color": "rgb(15, 23, 42)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
@@ -1836,9 +1836,9 @@
     "outline": ""
   },
   "EnpiiCheckbox:default:dark-media": {
-    "background-color": "rgb(30, 41, 59)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "initial",
-    "border-color": "rgb(71, 85, 105)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -1854,9 +1854,9 @@
     "outline": ""
   },
   "EnpiiCheckbox:active:dark-media": {
-    "background-color": "rgb(56, 189, 248)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "initial",
-    "border-color": "rgb(56, 189, 248)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -1872,9 +1872,9 @@
     "outline": ""
   },
   "EnpiiCheckbox:disabled:dark-media": {
-    "background-color": "rgb(30, 41, 59)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "initial",
-    "border-color": "rgb(71, 85, 105)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -1890,9 +1890,9 @@
     "outline": ""
   },
   "EnpiiCheckbox:focus-visible:dark-media": {
-    "background-color": "rgb(30, 41, 59)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "initial",
-    "border-color": "rgb(71, 85, 105)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -1998,9 +1998,9 @@
     "outline": ""
   },
   "EnpiiFilterPill:default:dark-media": {
-    "background-color": "rgb(30, 41, 59)",
-    "color": "rgb(125, 211, 252)",
-    "border-color": "rgb(71, 85, 105)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -2016,9 +2016,9 @@
     "outline": ""
   },
   "EnpiiFilterPill:hover:dark-media": {
-    "background-color": "rgb(30, 41, 59)",
-    "color": "rgb(125, 211, 252)",
-    "border-color": "rgb(71, 85, 105)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -2034,9 +2034,9 @@
     "outline": ""
   },
   "EnpiiFilterPill:active:dark-media": {
-    "background-color": "rgb(30, 41, 59)",
-    "color": "rgb(125, 211, 252)",
-    "border-color": "rgb(71, 85, 105)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -2052,9 +2052,9 @@
     "outline": ""
   },
   "EnpiiFilterPill:disabled:dark-media": {
-    "background-color": "rgb(30, 41, 59)",
-    "color": "rgb(125, 211, 252)",
-    "border-color": "rgb(71, 85, 105)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -2070,9 +2070,9 @@
     "outline": ""
   },
   "EnpiiFilterPill:focus-visible:dark-media": {
-    "background-color": "rgb(30, 41, 59)",
-    "color": "rgb(125, 211, 252)",
-    "border-color": "rgb(71, 85, 105)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -2143,7 +2143,7 @@
   },
   "EnpiiIconButton:default:dark-media": {
     "background-color": "rgba(0, 0, 0, 0)",
-    "color": "rgb(148, 163, 184)",
+    "color": "inherit",
     "border-color": "buttonface",
     "border-width": "0px",
     "border-style": "solid",
@@ -2160,8 +2160,8 @@
     "outline": ""
   },
   "EnpiiIconButton:hover:dark-media": {
-    "background-color": "rgb(30, 41, 59)",
-    "color": "rgb(125, 211, 252)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "buttonface",
     "border-width": "0px",
     "border-style": "solid",
@@ -2179,7 +2179,7 @@
   },
   "EnpiiIconButton:active:dark-media": {
     "background-color": "rgba(0, 0, 0, 0)",
-    "color": "rgb(148, 163, 184)",
+    "color": "inherit",
     "border-color": "buttonface",
     "border-width": "0px",
     "border-style": "solid",
@@ -2197,7 +2197,7 @@
   },
   "EnpiiIconButton:disabled:dark-media": {
     "background-color": "rgba(0, 0, 0, 0)",
-    "color": "rgb(148, 163, 184)",
+    "color": "inherit",
     "border-color": "buttonface",
     "border-width": "0px",
     "border-style": "solid",
@@ -2215,7 +2215,7 @@
   },
   "EnpiiIconButton:focus-visible:dark-media": {
     "background-color": "rgba(0, 0, 0, 0)",
-    "color": "rgb(148, 163, 184)",
+    "color": "inherit",
     "border-color": "buttonface",
     "border-width": "0px",
     "border-style": "solid",
@@ -2232,9 +2232,9 @@
     "outline": "3px solid rgb(56, 189, 248)"
   },
   "EnpiiInput:default:dark-media": {
-    "background-color": "rgb(30, 41, 59)",
-    "color": "rgb(56, 189, 248)",
-    "border-color": "rgb(71, 85, 105)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -2250,9 +2250,9 @@
     "outline": ""
   },
   "EnpiiInput:hover:dark-media": {
-    "background-color": "rgb(30, 41, 59)",
-    "color": "rgb(56, 189, 248)",
-    "border-color": "rgba(56, 189, 248, 0.4)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -2268,9 +2268,9 @@
     "outline": ""
   },
   "EnpiiInput:disabled:dark-media": {
-    "background-color": "rgb(30, 41, 59)",
-    "color": "rgb(56, 189, 248)",
-    "border-color": "rgb(71, 85, 105)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -2286,9 +2286,9 @@
     "outline": ""
   },
   "EnpiiInput:focus-visible:dark-media": {
-    "background-color": "rgb(30, 41, 59)",
-    "color": "rgb(56, 189, 248)",
-    "border-color": "rgb(51, 65, 85)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "0 0 0 4px rgba(56, 189, 248, 0.25)",
@@ -2304,9 +2304,9 @@
     "outline": ""
   },
   "EnpiiInput:error:dark-media": {
-    "background-color": "rgb(30, 41, 59)",
-    "color": "rgb(56, 189, 248)",
-    "border-color": "rgb(185, 28, 28)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -2412,9 +2412,9 @@
     "outline": "3px solid rgb(56, 189, 248)"
   },
   "EnpiiPasswordInput:default:dark-media": {
-    "background-color": "rgb(30, 41, 59)",
-    "color": "rgb(248, 250, 252)",
-    "border-color": "rgb(71, 85, 105)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -2430,9 +2430,9 @@
     "outline": ""
   },
   "EnpiiPasswordInput:disabled:dark-media": {
-    "background-color": "rgb(30, 41, 59)",
-    "color": "rgb(248, 250, 252)",
-    "border-color": "rgb(71, 85, 105)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -2448,9 +2448,9 @@
     "outline": ""
   },
   "EnpiiPasswordInput:focus-visible:dark-media": {
-    "background-color": "rgb(30, 41, 59)",
-    "color": "rgb(248, 250, 252)",
-    "border-color": "rgb(71, 85, 105)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -2539,7 +2539,7 @@
   },
   "EnpiiRadioGroup:default:dark-media": {
     "background-color": "rgba(0, 0, 0, 0)",
-    "color": "rgb(148, 163, 184)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "",
     "border-width": "",
     "border-style": "",
@@ -2557,7 +2557,7 @@
   },
   "EnpiiRadioGroup:active:dark-media": {
     "background-color": "rgba(0, 0, 0, 0)",
-    "color": "rgb(125, 211, 252)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "",
     "border-width": "",
     "border-style": "",
@@ -2575,7 +2575,7 @@
   },
   "EnpiiRadioGroup:disabled:dark-media": {
     "background-color": "rgba(0, 0, 0, 0)",
-    "color": "rgb(148, 163, 184)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "",
     "border-width": "",
     "border-style": "",
@@ -2593,7 +2593,7 @@
   },
   "EnpiiRadioGroup:error:dark-media": {
     "background-color": "rgba(0, 0, 0, 0)",
-    "color": "rgb(148, 163, 184)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "",
     "border-width": "",
     "border-style": "",
@@ -2611,7 +2611,7 @@
   },
   "EnpiiRadioGroup:focus-visible:dark-media": {
     "background-color": "rgba(0, 0, 0, 0)",
-    "color": "rgb(148, 163, 184)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "",
     "border-width": "",
     "border-style": "",
@@ -2862,7 +2862,7 @@
     "outline": ""
   },
   "EnpiiSwitch:default:dark-media": {
-    "background-color": "rgb(71, 85, 105)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "canvastext",
     "border-color": "",
     "border-width": "",
@@ -2880,7 +2880,7 @@
     "outline": ""
   },
   "EnpiiSwitch:active:dark-media": {
-    "background-color": "rgb(56, 189, 248)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "canvastext",
     "border-color": "",
     "border-width": "",
@@ -2898,7 +2898,7 @@
     "outline": ""
   },
   "EnpiiSwitch:disabled:dark-media": {
-    "background-color": "rgb(71, 85, 105)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "canvastext",
     "border-color": "",
     "border-width": "",
@@ -2916,7 +2916,7 @@
     "outline": ""
   },
   "EnpiiSwitch:focus-visible:dark-media": {
-    "background-color": "rgb(71, 85, 105)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "canvastext",
     "border-color": "",
     "border-width": "",
@@ -3024,9 +3024,9 @@
     "outline": "3px solid rgb(56, 189, 248)"
   },
   "EnpiiTextarea:default:dark-media": {
-    "background-color": "rgb(30, 41, 59)",
-    "color": "rgb(56, 189, 248)",
-    "border-color": "rgb(71, 85, 105)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -3042,9 +3042,9 @@
     "outline": ""
   },
   "EnpiiTextarea:hover:dark-media": {
-    "background-color": "rgb(30, 41, 59)",
-    "color": "rgb(56, 189, 248)",
-    "border-color": "rgba(56, 189, 248, 0.4)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -3060,8 +3060,8 @@
     "outline": ""
   },
   "EnpiiTextarea:disabled:dark-media": {
-    "background-color": "rgb(30, 41, 59)",
-    "color": "rgb(148, 163, 184)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "rgb(71, 85, 105)",
     "border-width": "1px",
     "border-style": "solid",
@@ -3078,9 +3078,9 @@
     "outline": ""
   },
   "EnpiiTextarea:focus-visible:dark-media": {
-    "background-color": "rgb(30, 41, 59)",
-    "color": "rgb(56, 189, 248)",
-    "border-color": "rgb(51, 65, 85)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "0 0 0 4px rgba(56, 189, 248, 0.25)",
@@ -3096,9 +3096,9 @@
     "outline": ""
   },
   "EnpiiTextarea:error:dark-media": {
-    "background-color": "rgb(30, 41, 59)",
-    "color": "rgb(56, 189, 248)",
-    "border-color": "rgb(185, 28, 28)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -3294,8 +3294,8 @@
     "outline": ""
   },
   "EnpiiButton:default:dark-attribute": {
-    "background-color": "rgb(135, 206, 235)",
-    "color": "rgb(20, 32, 43)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
@@ -3312,8 +3312,8 @@
     "outline": ""
   },
   "EnpiiButton:hover:dark-attribute": {
-    "background-color": "rgb(135, 206, 235)",
-    "color": "rgb(20, 32, 43)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
@@ -3330,8 +3330,8 @@
     "outline": ""
   },
   "EnpiiButton:active:dark-attribute": {
-    "background-color": "rgb(135, 206, 235)",
-    "color": "rgb(20, 32, 43)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
@@ -3348,8 +3348,8 @@
     "outline": ""
   },
   "EnpiiButton:disabled:dark-attribute": {
-    "background-color": "rgb(135, 206, 235)",
-    "color": "rgb(20, 32, 43)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
@@ -3366,8 +3366,8 @@
     "outline": ""
   },
   "EnpiiButton:focus-visible:dark-attribute": {
-    "background-color": "rgb(135, 206, 235)",
-    "color": "rgb(20, 32, 43)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
@@ -3420,9 +3420,9 @@
     "outline": ""
   },
   "EnpiiCheckbox:default:dark-attribute": {
-    "background-color": "rgb(255, 255, 255)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "initial",
-    "border-color": "rgb(208, 216, 224)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -3438,9 +3438,9 @@
     "outline": ""
   },
   "EnpiiCheckbox:active:dark-attribute": {
-    "background-color": "rgb(135, 206, 235)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "initial",
-    "border-color": "rgb(135, 206, 235)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -3456,9 +3456,9 @@
     "outline": ""
   },
   "EnpiiCheckbox:disabled:dark-attribute": {
-    "background-color": "rgb(255, 255, 255)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "initial",
-    "border-color": "rgb(208, 216, 224)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -3474,9 +3474,9 @@
     "outline": ""
   },
   "EnpiiCheckbox:focus-visible:dark-attribute": {
-    "background-color": "rgb(255, 255, 255)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "initial",
-    "border-color": "rgb(208, 216, 224)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -3582,9 +3582,9 @@
     "outline": ""
   },
   "EnpiiFilterPill:default:dark-attribute": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(3, 105, 161)",
-    "border-color": "rgb(208, 216, 224)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -3600,9 +3600,9 @@
     "outline": ""
   },
   "EnpiiFilterPill:hover:dark-attribute": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(3, 105, 161)",
-    "border-color": "rgb(208, 216, 224)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -3618,9 +3618,9 @@
     "outline": ""
   },
   "EnpiiFilterPill:active:dark-attribute": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(3, 105, 161)",
-    "border-color": "rgb(208, 216, 224)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -3636,9 +3636,9 @@
     "outline": ""
   },
   "EnpiiFilterPill:disabled:dark-attribute": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(3, 105, 161)",
-    "border-color": "rgb(208, 216, 224)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -3654,9 +3654,9 @@
     "outline": ""
   },
   "EnpiiFilterPill:focus-visible:dark-attribute": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(3, 105, 161)",
-    "border-color": "rgb(208, 216, 224)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -3727,7 +3727,7 @@
   },
   "EnpiiIconButton:default:dark-attribute": {
     "background-color": "rgba(0, 0, 0, 0)",
-    "color": "rgb(74, 90, 106)",
+    "color": "inherit",
     "border-color": "buttonface",
     "border-width": "0px",
     "border-style": "solid",
@@ -3744,8 +3744,8 @@
     "outline": ""
   },
   "EnpiiIconButton:hover:dark-attribute": {
-    "background-color": "rgb(240, 244, 246)",
-    "color": "rgb(3, 105, 161)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "buttonface",
     "border-width": "0px",
     "border-style": "solid",
@@ -3763,7 +3763,7 @@
   },
   "EnpiiIconButton:active:dark-attribute": {
     "background-color": "rgba(0, 0, 0, 0)",
-    "color": "rgb(74, 90, 106)",
+    "color": "inherit",
     "border-color": "buttonface",
     "border-width": "0px",
     "border-style": "solid",
@@ -3781,7 +3781,7 @@
   },
   "EnpiiIconButton:disabled:dark-attribute": {
     "background-color": "rgba(0, 0, 0, 0)",
-    "color": "rgb(74, 90, 106)",
+    "color": "inherit",
     "border-color": "buttonface",
     "border-width": "0px",
     "border-style": "solid",
@@ -3799,7 +3799,7 @@
   },
   "EnpiiIconButton:focus-visible:dark-attribute": {
     "background-color": "rgba(0, 0, 0, 0)",
-    "color": "rgb(74, 90, 106)",
+    "color": "inherit",
     "border-color": "buttonface",
     "border-width": "0px",
     "border-style": "solid",
@@ -3816,9 +3816,9 @@
     "outline": "3px solid rgb(2, 132, 199)"
   },
   "EnpiiInput:default:dark-attribute": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(135, 206, 235)",
-    "border-color": "rgb(208, 216, 224)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -3834,9 +3834,9 @@
     "outline": ""
   },
   "EnpiiInput:hover:dark-attribute": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(135, 206, 235)",
-    "border-color": "rgba(135, 206, 235, 0.4)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -3852,9 +3852,9 @@
     "outline": ""
   },
   "EnpiiInput:disabled:dark-attribute": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(135, 206, 235)",
-    "border-color": "rgb(208, 216, 224)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -3870,9 +3870,9 @@
     "outline": ""
   },
   "EnpiiInput:focus-visible:dark-attribute": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(135, 206, 235)",
-    "border-color": "rgb(125, 211, 252)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "0 0 0 4px rgba(2, 132, 199, 0.25)",
@@ -3888,9 +3888,9 @@
     "outline": ""
   },
   "EnpiiInput:error:dark-attribute": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(135, 206, 235)",
-    "border-color": "rgb(254, 202, 202)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -3996,9 +3996,9 @@
     "outline": "3px solid rgb(2, 132, 199)"
   },
   "EnpiiPasswordInput:default:dark-attribute": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(20, 32, 43)",
-    "border-color": "rgb(208, 216, 224)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -4014,9 +4014,9 @@
     "outline": ""
   },
   "EnpiiPasswordInput:disabled:dark-attribute": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(20, 32, 43)",
-    "border-color": "rgb(208, 216, 224)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -4032,9 +4032,9 @@
     "outline": ""
   },
   "EnpiiPasswordInput:focus-visible:dark-attribute": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(20, 32, 43)",
-    "border-color": "rgb(208, 216, 224)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -4123,7 +4123,7 @@
   },
   "EnpiiRadioGroup:default:dark-attribute": {
     "background-color": "rgba(0, 0, 0, 0)",
-    "color": "rgb(74, 90, 106)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "",
     "border-width": "",
     "border-style": "",
@@ -4141,7 +4141,7 @@
   },
   "EnpiiRadioGroup:active:dark-attribute": {
     "background-color": "rgba(0, 0, 0, 0)",
-    "color": "rgb(3, 105, 161)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "",
     "border-width": "",
     "border-style": "",
@@ -4159,7 +4159,7 @@
   },
   "EnpiiRadioGroup:disabled:dark-attribute": {
     "background-color": "rgba(0, 0, 0, 0)",
-    "color": "rgb(74, 90, 106)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "",
     "border-width": "",
     "border-style": "",
@@ -4177,7 +4177,7 @@
   },
   "EnpiiRadioGroup:error:dark-attribute": {
     "background-color": "rgba(0, 0, 0, 0)",
-    "color": "rgb(74, 90, 106)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "",
     "border-width": "",
     "border-style": "",
@@ -4195,7 +4195,7 @@
   },
   "EnpiiRadioGroup:focus-visible:dark-attribute": {
     "background-color": "rgba(0, 0, 0, 0)",
-    "color": "rgb(74, 90, 106)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "",
     "border-width": "",
     "border-style": "",
@@ -4446,7 +4446,7 @@
     "outline": ""
   },
   "EnpiiSwitch:default:dark-attribute": {
-    "background-color": "rgb(208, 216, 224)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "canvastext",
     "border-color": "",
     "border-width": "",
@@ -4464,7 +4464,7 @@
     "outline": ""
   },
   "EnpiiSwitch:active:dark-attribute": {
-    "background-color": "rgb(135, 206, 235)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "canvastext",
     "border-color": "",
     "border-width": "",
@@ -4482,7 +4482,7 @@
     "outline": ""
   },
   "EnpiiSwitch:disabled:dark-attribute": {
-    "background-color": "rgb(208, 216, 224)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "canvastext",
     "border-color": "",
     "border-width": "",
@@ -4500,7 +4500,7 @@
     "outline": ""
   },
   "EnpiiSwitch:focus-visible:dark-attribute": {
-    "background-color": "rgb(208, 216, 224)",
+    "background-color": "rgba(0, 0, 0, 0)",
     "color": "canvastext",
     "border-color": "",
     "border-width": "",
@@ -4608,9 +4608,9 @@
     "outline": "3px solid rgb(2, 132, 199)"
   },
   "EnpiiTextarea:default:dark-attribute": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(135, 206, 235)",
-    "border-color": "rgb(208, 216, 224)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -4626,9 +4626,9 @@
     "outline": ""
   },
   "EnpiiTextarea:hover:dark-attribute": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(135, 206, 235)",
-    "border-color": "rgba(135, 206, 235, 0.4)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",
@@ -4644,8 +4644,8 @@
     "outline": ""
   },
   "EnpiiTextarea:disabled:dark-attribute": {
-    "background-color": "rgb(240, 244, 246)",
-    "color": "rgb(74, 90, 106)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
     "border-color": "rgb(208, 216, 224)",
     "border-width": "1px",
     "border-style": "solid",
@@ -4662,9 +4662,9 @@
     "outline": ""
   },
   "EnpiiTextarea:focus-visible:dark-attribute": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(135, 206, 235)",
-    "border-color": "rgb(125, 211, 252)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "0 0 0 4px rgba(2, 132, 199, 0.25)",
@@ -4680,9 +4680,9 @@
     "outline": ""
   },
   "EnpiiTextarea:error:dark-attribute": {
-    "background-color": "rgb(255, 255, 255)",
-    "color": "rgb(135, 206, 235)",
-    "border-color": "rgb(254, 202, 202)",
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "rgba(0, 0, 0, 0)",
+    "border-color": "transparent",
     "border-width": "1px",
     "border-style": "solid",
     "box-shadow": "",

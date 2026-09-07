@@ -45,14 +45,14 @@ const sizeClass = computed(() => {
 
 const variantClass = computed(() => {
     switch (props.variant) {
-        case 'success': return 'bg-secondary text-on-secondary';
-        case 'secondary': return '[border-color:var(--control-border-color)] bg-surface-container-lowest text-primary-text';
-        case 'outline': return '[border-color:var(--color-primary)] bg-transparent text-primary-text';
-        case 'ghost': return 'bg-transparent text-primary-text';
-        case 'danger': return 'bg-error text-on-error';
-        case 'tertiary': return 'bg-tertiary-container text-on-tertiary';
+        case 'success': return '[background-color:var(--control-secondary-bg)] [color:var(--control-secondary-fg)]';
+        case 'secondary': return '[border-color:var(--control-secondary-border)] [background-color:var(--control-secondary-bg)] [color:var(--control-secondary-fg)]';
+        case 'outline': return '[border-color:var(--control-secondary-border)] bg-transparent [color:var(--control-secondary-fg)]';
+        case 'ghost': return '[background-color:var(--control-ghost-bg)] [color:var(--control-ghost-fg)]';
+        case 'danger': return '[background-color:var(--control-danger-bg)] [color:var(--control-danger-fg)]';
+        case 'tertiary': return '[background-color:var(--control-secondary-bg)] [color:var(--control-secondary-fg)]';
         case 'primary':
-        default: return 'bg-primary text-on-primary';
+        default: return '[background-color:var(--control-primary-bg)] [color:var(--control-primary-fg)]';
     }
 });
 
@@ -62,7 +62,7 @@ const shapeUtility = computed(() => {
     return 'rounded-control';
 });
 
-const structuralUtility = '[border-color:var(--color-ink)]';
+const structuralUtility = '[border-color:var(--control-primary-border)]';
 </script>
 
 <template>

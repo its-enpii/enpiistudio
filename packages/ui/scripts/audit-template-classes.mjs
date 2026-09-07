@@ -9,7 +9,7 @@ import { Scanner } from '@tailwindcss/oxide'
 const require = createRequire(import.meta.url)
 const { parseCss } = require('lightningcss')
 
-function collectExpressionClasses(expression) {
+export function collectExpressionClasses(expression) {
   const source = expression.loc?.source ?? ''
   let ast
   try {
@@ -123,7 +123,7 @@ function walkTemplate(node, filename, visit) {
       if (attribute.type !== 6 && attribute.type !== 7) continue
 
       if (attribute.type === 6 && attribute.name === 'class' && attribute.value?.content) {
-        for (const token of attribute.value.content.split(/\s+/)) {
+  for (const token of attribute.value.content.split(/\s+/)) {
           if (token) visit(token, attribute.loc.start.line)
         }
       }

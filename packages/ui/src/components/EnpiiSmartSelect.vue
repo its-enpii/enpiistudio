@@ -262,20 +262,20 @@ watch(() => props.modelValue, (value) => {
                 :aria-invalid="Boolean(error)"
                 :aria-required="required"
                 :disabled="disabled"
-                class="enpii-smart-select__trigger flex w-full h-auto min-h-control items-center justify-between pr-16 px-4 border border-solid [border-width:var(--control-border-width)] [border-color:var(--control-border-color)] rounded-control bg-surface-container-lowest text-primary font-sans text-control text-left [transition-property:all] duration-fast ease-emphasized hover:enabled:[border-color:color-mix(in_srgb,var(--color-primary)_40%,transparent)] active:enabled:[transform:var(--press-transform)] focus:outline-none focus-visible:outline-none focus:border-primary-container focus-visible:border-primary-container focus:[box-shadow:var(--shadow-focus)] focus-visible:[box-shadow:var(--shadow-focus)] disabled:opacity-60 disabled:cursor-not-allowed"
+                class="enpii-smart-select__trigger flex w-full h-auto min-h-control items-center justify-between pr-16 px-4 border border-solid [border-width:var(--control-border-width)] [border-color:var(--field-border)] rounded-control [background-color:var(--field-bg)] [color:var(--field-fg)] font-sans text-control text-left [transition-property:all] duration-fast ease-emphasized hover:enabled:[border-color:var(--field-border)] active:enabled:[transform:var(--press-transform)] focus:outline-none focus-visible:outline-none focus:[border-color:var(--field-border)] focus-visible:[border-color:var(--field-border)] focus:[box-shadow:var(--shadow-focus)] focus-visible:[box-shadow:var(--shadow-focus)] disabled:opacity-60 disabled:cursor-not-allowed"
                 :class="[shapeClass, { 'enpii-smart-select__trigger--error': Boolean(error) }]"
                 v-bind="$attrs"
                 @click="open ? closeMenu() : openMenu()"
                 @keydown="onKeydown"
             >
-                <span class="enpii-smart-select__value block flex-1 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap text-primary"
+                <span class="enpii-smart-select__value block flex-1 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap [color:var(--field-fg)]"
                 :class="{ 'enpii-smart-select__value--placeholder': !selectedLabel }">{{ selectedLabel || (placeholder ?? t('smartSelect.selectPlaceholder', { label: label.toLowerCase() })) }}</span>
-                <AppIcon name="expand_more" class="enpii-smart-select__chevron absolute top-1/2 right-3 w-5 h-5 -translate-y-[calc(50%+1px)] text-outline text-xl leading-none inline-flex items-center justify-center transition-transform duration-normal ease-standard" :class="{ 'enpii-smart-select__chevron--open -translate-y-[calc(50%+1px)] rotate-180': open }" />
+                <AppIcon name="expand_more" class="enpii-smart-select__chevron absolute top-1/2 right-3 w-5 h-5 -translate-y-[calc(50%+1px)] [color:var(--field-placeholder-fg)] text-xl leading-none inline-flex items-center justify-center transition-transform duration-normal ease-standard" :class="{ 'enpii-smart-select__chevron--open -translate-y-[calc(50%+1px)] rotate-180': open }" />
             </button>
             <button
                 v-if="clearable && selectedLabel"
                 type="button"
-                class="enpii-smart-select__clear absolute top-1/2 right-9 z-raised w-8 h-8 -translate-y-1/2 border-0 rounded-[9999px] bg-transparent text-outline cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:bg-surface-container-low hover:text-primary-text focus-visible:outline-none focus-visible:[box-shadow:0_0_0_3px_color-mix(in_srgb,var(--color-primary-container)_20%,transparent)]"
+                class="enpii-smart-select__clear absolute top-1/2 right-9 z-raised w-8 h-8 -translate-y-1/2 border-0 rounded-[9999px] [background-color:var(--control-ghost-bg)] [color:var(--control-ghost-fg)] cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:[background-color:var(--control-secondary-bg)] hover:[color:var(--control-secondary-fg)] focus-visible:outline-none focus-visible:[box-shadow:var(--shadow-focus)]"
                 :aria-label="t('smartSelect.clearSelection')"
                 @click="clear"
             >
@@ -290,23 +290,23 @@ watch(() => props.modelValue, (value) => {
                         :id="`${selectId}-listbox`"
                         ref="listbox"
                         role="listbox"
-                        class="enpii-smart-select__menu fixed flex flex-col p-2 border border-solid [border-color:var(--overlay-border-color)] rounded-control bg-surface-container-lowest shadow-overlay overflow-hidden origin-top"
+                        class="enpii-smart-select__menu fixed flex flex-col p-2 border border-solid [border-color:var(--field-border)] rounded-control [background-color:var(--field-bg)] shadow-overlay overflow-hidden origin-top"
                         :class="[shapeClass, { 'enpii-smart-select__menu--above origin-bottom': placeAbove }]"
                         :style="menuStyle"
                         :data-smart-select="selectId"
                     >
-                        <div v-if="searchable" class="enpii-smart-select__search-wrap relative mb-2 pb-1 shrink-0 bg-surface-container-lowest">
-                            <AppIcon name="search" class="enpii-smart-select__search-icon absolute left-3 w-4 h-4 text-on-surface-variant text-base pointer-events-none" />
-                            <input ref="searchInput" v-model="search" type="search" class="enpii-smart-select__search-input w-full h-9 py-1 px-9 border border-solid [border-color:var(--control-border-color)] rounded-lg bg-transparent text-primary text-sm placeholder:text-on-surface-variant focus:outline-none focus:border-primary-container focus:[box-shadow:var(--shadow-focus)]" :placeholder="t('smartSelect.searchPlaceholder')" @input="onSearch" @keydown="onKeydown">
-                            <button v-if="search" type="button" class="enpii-smart-select__search-clear absolute top-2 right-2 w-7 h-7 border-0 rounded-[9999px] bg-transparent text-on-surface-variant cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:text-primary-text" @click="search = ''; onSearch()"><AppIcon name="close" /></button>
+                        <div v-if="searchable" class="enpii-smart-select__search-wrap relative mb-2 pb-1 shrink-0 [background-color:var(--field-bg)]">
+                            <AppIcon name="search" class="enpii-smart-select__search-icon absolute left-3 w-4 h-4 [color:var(--field-fg)] text-base pointer-events-none" />
+                            <input ref="searchInput" v-model="search" type="search" class="enpii-smart-select__search-input w-full h-9 py-1 px-9 border border-solid [border-color:var(--field-border)] rounded-lg bg-transparent [color:var(--field-fg)] text-sm placeholder:[color:var(--field-placeholder-fg)] focus:outline-none focus:[border-color:var(--field-border)] focus:[box-shadow:var(--shadow-focus)]" :placeholder="t('smartSelect.searchPlaceholder')" @input="onSearch" @keydown="onKeydown">
+                            <button v-if="search" type="button" class="enpii-smart-select__search-clear absolute top-2 right-2 w-7 h-7 border-0 rounded-[9999px] [background-color:var(--control-ghost-bg)] [color:var(--control-ghost-fg)] cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:[color:var(--control-secondary-fg)]" @click="search = ''; onSearch()"><AppIcon name="close" /></button>
                         </div>
                         <div class="enpii-smart-select__options min-h-0 flex-1 overflow-y-auto">
-                            <div v-if="loading" class="enpii-smart-select__status py-4 px-3 text-on-surface-variant text-sm text-center">{{ t('smartSelect.loading') }}</div>
+                            <div v-if="loading" class="enpii-smart-select__status py-4 px-3 [color:var(--field-fg)] text-sm text-center">{{ t('smartSelect.loading') }}</div>
                             <template v-else>
                                 <template v-for="(row, rowIndex) in visibleRows" :key="row.kind === 'header' ? `h-${row.label}-${rowIndex}` : String(row.option[valueKey])">
                                     <div
                                         v-if="row.kind === 'header'"
-                                        class="enpii-smart-select__group-label pt-2 px-3 pb-1 first:pt-1 text-on-surface-variant text-[0.625rem] font-semibold"
+                                        class="enpii-smart-select__group-label pt-2 px-3 pb-1 first:pt-1 [color:var(--field-fg)] text-[0.625rem] font-semibold"
                                         role="presentation"
                                     >
                                         {{ row.label }}
@@ -317,7 +317,7 @@ watch(() => props.modelValue, (value) => {
                                         type="button"
                                         role="option"
                                         :aria-selected="String(row.option[valueKey]) === String(modelValue)"
-                                        class="enpii-smart-select__option flex w-full items-center justify-between gap-3 py-2 px-3 border-0 rounded-lg bg-transparent text-on-surface text-sm text-left cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:bg-surface-container-low hover:text-primary-text hover:font-medium"
+                                        class="enpii-smart-select__option flex w-full items-center justify-between gap-3 py-2 px-3 border-0 rounded-lg [background-color:var(--control-ghost-bg)] [color:var(--control-ghost-fg)] text-sm text-left cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:[background-color:var(--control-secondary-bg)] hover:[color:var(--control-secondary-fg)] hover:font-medium"
                                         :class="{
                                             'enpii-smart-select__option--highlighted': row.index === highlighted,
                                             'enpii-smart-select__option--selected': String(row.option[valueKey]) === String(modelValue)
@@ -330,26 +330,26 @@ watch(() => props.modelValue, (value) => {
                                                 <span class="enpii-smart-select__option-label font-semibold">
                                                     {{ row.option[labelKey] }}
                                                 </span>
-                                                <span v-if="row.option.badge" class="enpii-smart-select__option-badge shrink-0 py-1 px-2 rounded-[9999px] bg-primary/10 text-primary text-[0.6875rem] font-medium">
+                                                <span v-if="row.option.badge" class="enpii-smart-select__option-badge shrink-0 py-1 px-2 rounded-[9999px] [background-color:var(--control-primary-bg)] [color:var(--control-primary-fg)] text-[0.6875rem] font-medium">
                                                     {{ row.option.badge }}
                                                 </span>
                                             </div>
-                                            <p v-if="row.option.subtitle || row.option.description" class="enpii-smart-select__option-subtitle mt-1 mb-0 overflow-hidden text-ellipsis whitespace-nowrap text-on-surface-variant text-xs">
+                                            <p v-if="row.option.subtitle || row.option.description" class="enpii-smart-select__option-subtitle mt-1 mb-0 overflow-hidden text-ellipsis whitespace-nowrap [color:var(--field-fg)] text-xs">
                                                 {{ row.option.subtitle || row.option.description }}
                                             </p>
                                         </div>
-                                        <AppIcon v-if="String(row.option[valueKey]) === String(modelValue)" name="check" class="enpii-smart-select__check shrink-0 w-4 h-4 text-primary text-base" />
+                                        <AppIcon v-if="String(row.option[valueKey]) === String(modelValue)" name="check" class="enpii-smart-select__check shrink-0 w-4 h-4 [color:var(--control-primary-fg)] text-base" />
                                     </button>
                                 </template>
-                                <button v-if="!visibleOptions.length && emptyActionLabel && search.trim()" type="button" class="enpii-smart-select__empty-action flex w-full items-center gap-2 py-3 px-3 border-0 rounded-lg bg-transparent text-primary-text text-sm font-semibold text-left cursor-pointer hover:bg-surface-container-low hover:outline-none focus-visible:bg-surface-container-low focus-visible:outline-none" @click="runEmptyAction"><AppIcon name="person_add" class="enpii-smart-select__empty-icon w-5 h-5 text-xl" />{{ emptyActionLabel }}</button>
-                                <div v-else-if="!visibleOptions.length" class="enpii-smart-select__status py-4 px-3 text-on-surface-variant text-sm text-center">{{ t('smartSelect.noOptions') }}</div>
+                                <button v-if="!visibleOptions.length && emptyActionLabel && search.trim()" type="button" class="enpii-smart-select__empty-action flex w-full items-center gap-2 py-3 px-3 border-0 rounded-lg [background-color:var(--control-ghost-bg)] [color:var(--control-secondary-fg)] text-sm font-semibold text-left cursor-pointer hover:[background-color:var(--control-secondary-bg)] hover:outline-none focus-visible:[background-color:var(--control-secondary-bg)] focus-visible:outline-none" @click="runEmptyAction"><AppIcon name="person_add" class="enpii-smart-select__empty-icon w-5 h-5 text-xl" />{{ emptyActionLabel }}</button>
+                                <div v-else-if="!visibleOptions.length" class="enpii-smart-select__status py-4 px-3 [color:var(--field-fg)] text-sm text-center">{{ t('smartSelect.noOptions') }}</div>
                             </template>
                         </div>
                     </div>
                 </Transition>
             </Teleport>
         </div>
-        <p v-if="error" :id="`${selectId}-error`" class="enpii-smart-select__help enpii-smart-select__help--error ml-1 text-danger-text text-[0.8125rem]">{{ error }}</p>
-        <p v-else-if="hint" :id="`${selectId}-hint`" class="enpii-smart-select__help ml-1 text-on-surface-variant text-[0.8125rem]">{{ hint }}</p>
+        <p v-if="error" :id="`${selectId}-error`" class="enpii-smart-select__help enpii-smart-select__help--error ml-1 [color:var(--field-error-fg)] text-[0.8125rem]">{{ error }}</p>
+        <p v-else-if="hint" :id="`${selectId}-hint`" class="enpii-smart-select__help ml-1 [color:var(--field-fg)] text-[0.8125rem]">{{ hint }}</p>
     </div>
 </template>

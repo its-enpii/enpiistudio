@@ -46,19 +46,12 @@ const cardBorderPattern = /--card-border-(?:width|style|color)/
 const literalRadiusPattern = /rounded-\[(?:0\.25rem|0\.125rem|1rem)\]/
 
 const controlBorderComponents = [
-  'EnpiiCurrencyInput.vue',
   'EnpiiDatePicker.vue',
   'EnpiiDateRange.vue',
-  'EnpiiFilterPill.vue',
-  'EnpiiInput.vue',
-  'EnpiiInputMask.vue',
   'EnpiiOtpInput.vue',
-  'EnpiiPasswordInput.vue',
   'EnpiiSegmentedControl.vue',
-  'EnpiiSmartSelect.vue',
   'EnpiiTabs.vue',
   'EnpiiTagInput.vue',
-  'EnpiiTextarea.vue',
 ]
 
 const overlayBorderComponents = [
@@ -150,10 +143,8 @@ describe('structural layer wiring conformance', () => {
       const source = readFileSync(resolve(componentsDirectory, filename), 'utf8')
       expect(source).toContain('[box-shadow:var(--control-shadow)]')
       expect(source).toContain('[border-color:var(--control-border-color-filled)]')
-      expect(source).not.toMatch(legacyControlBorderPattern)
+    expect(source).not.toMatch(legacyControlBorderPattern)
     }
-    const button = readFileSync(resolve(componentsDirectory, 'EnpiiButton.vue'), 'utf8')
-    expect(button).toContain('[border-color:var(--control-border-color)]')
   })
 
   it('defines brutal layer shape and focus values', () => {

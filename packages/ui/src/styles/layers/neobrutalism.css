@@ -1,6 +1,23 @@
 /* Value-set only: no component selectors and no brand colors. */
 :root,
 [data-enpii-layer="neobrutalism"] {
+  --control-primary-bg: var(--color-primary);
+  --control-primary-fg: var(--color-on-primary);
+  --control-primary-border: var(--color-ink);
+  --control-secondary-bg: var(--color-surface-container-lowest);
+  --control-secondary-fg: var(--color-on-surface);
+  --control-secondary-border: var(--color-ink);
+  --control-ghost-bg: transparent;
+  --control-ghost-fg: var(--color-on-surface);
+  --control-danger-bg: var(--color-error);
+  --control-danger-fg: var(--color-on-error);
+  --field-bg: var(--color-surface-container-lowest);
+  --field-fg: var(--color-on-surface);
+  --field-border: var(--color-ink);
+  --field-placeholder-fg: var(--color-on-surface-variant);
+  --field-error-fg: var(--color-danger-text);
+  --field-error-border: var(--color-danger-border);
+  --label-fg: var(--color-on-surface-variant);
   --control-border-width: 2px;
   --overlay-border-width: 2px;
   --card-border-width: 2px;

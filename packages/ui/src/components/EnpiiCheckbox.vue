@@ -61,24 +61,24 @@ function onChange(event) {
 <template>
     <div v-if="variant === 'field'" class="enpii-checkbox enpii-checkbox--field [&>*+*]:mt-[0.5rem]">
         <EnpiiLabel :for="id" size="sm" class="enpii-checkbox__label block ml-1">
-            {{ label }}<span v-if="description" class="enpii-checkbox__label-description ml-2 text-on-surface-variant text-xs font-normal normal-case tracking-normal">— {{ description }}</span>
+            {{ label }}<span v-if="description" class="enpii-checkbox__label-description ml-2 [color:var(--field-fg)] text-xs font-normal normal-case tracking-normal">— {{ description }}</span>
         </EnpiiLabel>
         <label
             :for="id"
-            class="enpii-checkbox__box enpii-checkbox__box--field flex w-full min-h-control items-center gap-3 px-4 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-control bg-surface-container-lowest cursor-pointer transition-all duration-fast ease-emphasized focus-within:border-primary-container focus-within:[box-shadow:var(--shadow-focus)]"
+            class="enpii-checkbox__box enpii-checkbox__box--field flex w-full min-h-control items-center gap-3 px-4 border border-solid [border-color:var(--field-border)] [border-width:var(--control-border-width)] rounded-control [background-color:var(--field-bg)] cursor-pointer transition-all duration-fast ease-emphasized focus-within:[border-color:var(--field-border)] focus-within:[box-shadow:var(--shadow-focus)]"
             :class="[shapeClass, shapeUtility, { 'opacity-55 cursor-not-allowed enpii-checkbox__box--disabled': disabled }]"
         >
             <input
                 :id="id"
                 type="checkbox"
                 role="checkbox"
-                class="enpii-checkbox__native enpii-checkbox__native--field m-0 appearance-none w-5 h-5 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-[var(--radius-control-sm)] bg-surface-container-lowest accent-primary [transition-property:transform] duration-fast ease-emphasized checked:border-primary checked:bg-primary indeterminate:border-primary indeterminate:bg-primary before:content-[''] before:block before:w-full before:h-full before:scale-0 before:bg-on-primary before:transition-transform before:duration-fast before:ease-emphasized checked:before:scale-100 indeterminate:before:scale-[0.8] indeterminate:before:translate-y-[-15%] before:[clip-path:polygon(14%_44%,0_65%,50%_100%,100%_16%,80%_0,43%_62%)] indeterminate:before:[clip-path:inset(40%_10%_40%_10%)]"
+                class="enpii-checkbox__native enpii-checkbox__native--field m-0 appearance-none w-5 h-5 border border-solid [border-color:var(--field-border)] [border-width:var(--control-border-width)] rounded-[var(--radius-control-sm)] [background-color:var(--field-bg)] [accent-color:var(--control-primary-bg)] [transition-property:transform] duration-fast ease-emphasized checked:[border-color:var(--control-primary-border)] checked:[background-color:var(--control-primary-bg)] indeterminate:[border-color:var(--control-primary-border)] indeterminate:[background-color:var(--control-primary-bg)] before:content-[''] before:block before:w-full before:h-full before:scale-0 before:[background-color:var(--control-primary-fg)] before:transition-transform before:duration-fast before:ease-emphasized checked:before:scale-100 indeterminate:before:scale-[0.8] indeterminate:before:translate-y-[-15%] before:[clip-path:polygon(14%_44%,0_65%,50%_100%,100%_16%,80%_0,43%_62%)] indeterminate:before:[clip-path:inset(40%_10%_40%_10%)]"
                 :checked="isChecked"
                 :indeterminate.prop="indeterminate"
                 :disabled="disabled"
                 @change="onChange"
             />
-            <span class="enpii-checkbox__text text-primary-text text-sm font-medium">
+            <span class="enpii-checkbox__text [color:var(--field-fg)] text-sm font-medium">
                 <slot name="label">{{ label }}</slot>
             </span>
         </label>
@@ -87,14 +87,14 @@ function onChange(event) {
     <label
         v-else-if="variant === 'inline'"
         :for="id"
-        class="enpii-checkbox enpii-checkbox--inline inline-flex items-center gap-2 text-primary-text font-medium select-none cursor-pointer [transition-property:transform] duration-fast ease-emphasized hover:[&_.enpii-checkbox__native]:border-primary-container"
+        class="enpii-checkbox enpii-checkbox--inline inline-flex items-center gap-2 [color:var(--field-fg)] font-medium select-none cursor-pointer [transition-property:transform] duration-fast ease-emphasized hover:[&_.enpii-checkbox__native]:[border-color:var(--field-border)]"
         :class="[shapeClass, shapeUtility, { 'opacity-55 cursor-not-allowed enpii-checkbox--disabled': disabled }]"
     >
         <input
             :id="id"
             type="checkbox"
             role="checkbox"
-            class="enpii-checkbox__native m-0 appearance-none w-4 h-4 border border-solid border-outline-variant [border-width:var(--control-border-width)] rounded-[var(--radius-control-sm)] bg-surface-container-lowest accent-primary [transition-property:transform] duration-fast ease-emphasized checked:border-primary checked:bg-primary indeterminate:border-primary indeterminate:bg-primary before:content-[''] before:block before:w-full before:h-full before:scale-0 before:bg-on-primary before:transition-transform before:duration-fast before:ease-emphasized checked:before:scale-100 indeterminate:before:scale-[0.8] indeterminate:before:translate-y-[-15%] before:[clip-path:polygon(14%_44%,0_65%,50%_100%,100%_16%,80%_0,43%_62%)] indeterminate:before:[clip-path:inset(40%_10%_40%_10%)]"
+            class="enpii-checkbox__native m-0 appearance-none w-4 h-4 border border-solid [border-color:var(--field-border)] [border-width:var(--control-border-width)] rounded-[var(--radius-control-sm)] [background-color:var(--field-bg)] [accent-color:var(--control-primary-bg)] [transition-property:transform] duration-fast ease-emphasized checked:[border-color:var(--control-primary-border)] checked:[background-color:var(--control-primary-bg)] indeterminate:[border-color:var(--control-primary-border)] indeterminate:[background-color:var(--control-primary-bg)] before:content-[''] before:block before:w-full before:h-full before:scale-0 before:[background-color:var(--control-primary-fg)] before:transition-transform before:duration-fast before:ease-emphasized checked:before:scale-100 indeterminate:before:scale-[0.8] indeterminate:before:translate-y-[-15%] before:[clip-path:polygon(14%_44%,0_65%,50%_100%,100%_16%,80%_0,43%_62%)] indeterminate:before:[clip-path:inset(40%_10%_40%_10%)]"
             :checked="isChecked"
             :indeterminate.prop="indeterminate"
             :disabled="disabled"
@@ -108,7 +108,7 @@ function onChange(event) {
         :id="id"
         type="checkbox"
         role="checkbox"
-        class="enpii-checkbox__native enpii-checkbox__native--cell m-0 appearance-none w-4 h-4 border border-solid border-outline-variant [border-width:var(--control-border-width)] bg-surface-container-lowest accent-primary [transition-property:transform] duration-fast ease-emphasized checked:border-primary checked:bg-primary indeterminate:border-primary indeterminate:bg-primary before:content-[''] before:block before:w-full before:h-full before:scale-0 before:bg-on-primary before:transition-transform before:duration-fast before:ease-emphasized checked:before:scale-100 indeterminate:before:scale-[0.8] indeterminate:before:translate-y-[-15%] before:[clip-path:polygon(14%_44%,0_65%,50%_100%,100%_16%,80%_0,43%_62%)] indeterminate:before:[clip-path:inset(40%_10%_40%_10%)] cursor-pointer active:[transform:scale(.9)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width)] focus-visible:outline-primary focus-visible:[outline-offset:var(--focus-offset)] disabled:opacity-60 disabled:cursor-not-allowed"
+        class="enpii-checkbox__native enpii-checkbox__native--cell m-0 appearance-none w-4 h-4 border border-solid [border-color:var(--field-border)] [border-width:var(--control-border-width)] [background-color:var(--field-bg)] [accent-color:var(--control-primary-bg)] [transition-property:transform] duration-fast ease-emphasized checked:[border-color:var(--control-primary-border)] checked:[background-color:var(--control-primary-bg)] indeterminate:[border-color:var(--control-primary-border)] indeterminate:[background-color:var(--control-primary-bg)] before:content-[''] before:block before:w-full before:h-full before:scale-0 before:[background-color:var(--control-primary-fg)] before:transition-transform before:duration-fast before:ease-emphasized checked:before:scale-100 indeterminate:before:scale-[0.8] indeterminate:before:translate-y-[-15%] before:[clip-path:polygon(14%_44%,0_65%,50%_100%,100%_16%,80%_0,43%_62%)] indeterminate:before:[clip-path:inset(40%_10%_40%_10%)] cursor-pointer active:[transform:scale(.9)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width)] focus-visible:outline-primary focus-visible:[outline-offset:var(--focus-offset)] disabled:opacity-60 disabled:cursor-not-allowed"
         :class="[shapeClass, shapeUtility]"
         :checked="isChecked"
         :indeterminate.prop="indeterminate"

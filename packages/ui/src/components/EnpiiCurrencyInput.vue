@@ -47,9 +47,9 @@ const shapeUtility = computed(() => {
 });
 
 const controlStateClass = computed(() => {
-    if (props.readonly) return 'bg-surface-container-low text-on-surface-variant cursor-default';
-    if (props.error) return 'border-danger-border';
-    return '[border-color:var(--control-border-color)]';
+    if (props.readonly) return '[background-color:var(--field-bg)] [color:var(--field-fg)] cursor-default';
+    if (props.error) return '[border-color:var(--field-error-border)]';
+    return '[border-color:var(--field-border)]';
 });
 
 function formatCurrency(val) {
@@ -180,7 +180,7 @@ watch(model, () => {
         </div>
         <EnpiiLabel v-else :for="inputId" size="sm" hidden class="enpii-currency-input__label">{{ label }}</EnpiiLabel>
         <div class="enpii-currency-input__control-wrap relative">
-            <AppIcon v-if="icon" :name="icon" class="enpii-currency-input__icon absolute top-1/2 left-4 w-5 h-5 -translate-y-1/2 text-outline pointer-events-none text-xl leading-none" />
+                <AppIcon v-if="icon" :name="icon" class="enpii-currency-input__icon absolute top-1/2 left-4 w-5 h-5 -translate-y-1/2 [color:var(--field-placeholder-fg)] pointer-events-none text-xl leading-none" />
             <input
                 :id="inputId"
                 :value="displayValue"
@@ -193,7 +193,7 @@ watch(model, () => {
                 ].filter(Boolean).join(' ') || undefined"
                 :readonly="readonly"
                 :placeholder="readonly ? undefined : (placeholder ?? t('currencyInput.placeholder', { label: label.toLowerCase() }))"
-                class="enpii-currency-input__control w-full min-h-control pr-20 pl-12 border border-solid [border-width:var(--control-border-width)] bg-surface-container-lowest text-primary font-sans text-control placeholder:text-outline appearance-none [transition-property:border-color,box-shadow,background] duration-fast ease-emphasized hover:enabled:[border-color:color-mix(in_srgb,var(--color-primary)_40%,transparent)] focus:outline-none focus-visible:outline-none focus:border-primary-container focus-visible:border-primary-container focus:[box-shadow:var(--shadow-focus)] focus-visible:[box-shadow:var(--shadow-focus)]"
+                class="enpii-currency-input__control w-full min-h-control pr-20 pl-12 border border-solid [border-width:var(--control-border-width)] [background-color:var(--field-bg)] [color:var(--field-fg)] font-sans text-control placeholder:[color:var(--field-placeholder-fg)] appearance-none [transition-property:border-color,box-shadow,background] duration-fast ease-emphasized hover:enabled:[border-color:var(--field-border)] focus:outline-none focus-visible:outline-none focus:[border-color:var(--field-border)] focus-visible:[border-color:var(--field-border)] focus:[box-shadow:var(--shadow-focus)] focus-visible:[box-shadow:var(--shadow-focus)]"
                 :class="[shapeClass, shapeUtility, controlStateClass, { 'enpii-currency-input__control--error': Boolean(error), 'enpii-currency-input__control--readonly': readonly }]"
                 v-bind="$attrs"
                 @input="onInput"
@@ -203,15 +203,15 @@ watch(model, () => {
                 @keydown.down.prevent="adjust(-step)"
             >
             <div class="enpii-currency-input__actions absolute top-1/2 right-2 flex items-center gap-1 h-10 -translate-y-1/2">
-                <button v-if="!readonly" type="button" tabindex="-1" class="enpii-currency-input__action flex w-9 h-9 items-center justify-center border-0 rounded-lg bg-transparent text-on-surface-variant cursor-pointer transition-all duration-fast ease-emphasized hover:bg-surface-container-low hover:text-primary-text focus-visible:bg-surface-container-low focus-visible:text-primary-text focus-visible:outline-none focus-visible:[box-shadow:var(--shadow-focus)] disabled:cursor-not-allowed disabled:opacity-50" :aria-label="t('currencyInput.decrease')" @click="adjust(-step)">
+                <button v-if="!readonly" type="button" tabindex="-1" class="enpii-currency-input__action flex w-9 h-9 items-center justify-center border-0 rounded-lg [background-color:var(--control-ghost-bg)] [color:var(--control-ghost-fg)] cursor-pointer transition-all duration-fast ease-emphasized hover:[background-color:var(--control-secondary-bg)] hover:[color:var(--control-secondary-fg)] focus-visible:[background-color:var(--control-secondary-bg)] focus-visible:[color:var(--control-secondary-fg)] focus-visible:outline-none focus-visible:[box-shadow:var(--shadow-focus)] disabled:cursor-not-allowed disabled:opacity-50" :aria-label="t('currencyInput.decrease')" @click="adjust(-step)">
                     <AppIcon name="remove" class="enpii-currency-input__action-icon w-[1.125rem] h-[1.125rem] text-[1.125rem]" />
                 </button>
-                <button v-if="!readonly" type="button" tabindex="-1" class="enpii-currency-input__action flex w-9 h-9 items-center justify-center border-0 rounded-lg bg-transparent text-on-surface-variant cursor-pointer transition-all duration-fast ease-emphasized hover:bg-surface-container-low hover:text-primary-text focus-visible:bg-surface-container-low focus-visible:text-primary-text focus-visible:outline-none focus-visible:[box-shadow:var(--shadow-focus)] disabled:cursor-not-allowed disabled:opacity-50" :aria-label="t('currencyInput.increase')" @click="adjust(step)">
+                <button v-if="!readonly" type="button" tabindex="-1" class="enpii-currency-input__action flex w-9 h-9 items-center justify-center border-0 rounded-lg [background-color:var(--control-ghost-bg)] [color:var(--control-ghost-fg)] cursor-pointer transition-all duration-fast ease-emphasized hover:[background-color:var(--control-secondary-bg)] hover:[color:var(--control-secondary-fg)] focus-visible:[background-color:var(--control-secondary-bg)] focus-visible:[color:var(--control-secondary-fg)] focus-visible:outline-none focus-visible:[box-shadow:var(--shadow-focus)] disabled:cursor-not-allowed disabled:opacity-50" :aria-label="t('currencyInput.increase')" @click="adjust(step)">
                     <AppIcon name="add" class="enpii-currency-input__action-icon w-[1.125rem] h-[1.125rem] text-[1.125rem]" />
                 </button>
             </div>
         </div>
-        <p v-if="error" :id="`${inputId}-error`" class="enpii-currency-input__help enpii-currency-input__help--error ml-1 text-danger-text text-[0.8125rem]">{{ error }}</p>
-        <p v-else-if="hint" :id="`${inputId}-hint`" class="enpii-currency-input__help ml-1 text-on-surface-variant text-[0.8125rem]">{{ hint }}</p>
+        <p v-if="error" :id="`${inputId}-error`" class="enpii-currency-input__help enpii-currency-input__help--error ml-1 [color:var(--field-error-fg)] text-[0.8125rem]">{{ error }}</p>
+        <p v-else-if="hint" :id="`${inputId}-hint`" class="enpii-currency-input__help ml-1 [color:var(--field-fg)] text-[0.8125rem]">{{ hint }}</p>
     </div>
 </template>

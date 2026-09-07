@@ -1,6 +1,23 @@
 /* Value-set only: no component selectors and no brand colors. */
 :root,
 [data-enpii-layer="neumorphism"] {
+  --control-primary-bg: var(--color-surface-container-low);
+  --control-primary-fg: var(--color-primary-deep);
+  --control-primary-border: var(--color-surface-container-high);
+  --control-secondary-bg: var(--color-surface-container-high);
+  --control-secondary-fg: var(--color-on-surface-variant);
+  --control-secondary-border: var(--color-surface-container-high);
+  --control-ghost-bg: transparent;
+  --control-ghost-fg: var(--color-on-surface-variant);
+  --control-danger-bg: var(--color-error-container);
+  --control-danger-fg: var(--color-on-error-container);
+  --field-bg: var(--color-surface-container-low);
+  --field-fg: var(--color-on-surface);
+  --field-border: var(--color-surface-container-high);
+  --field-placeholder-fg: var(--color-on-surface-variant);
+  --field-error-fg: var(--color-danger-text);
+  --field-error-border: var(--color-danger-border);
+  --label-fg: var(--color-on-surface-variant);
   --control-border-width: 1px;
   --overlay-border-width: 1px;
   --press-transform: none;

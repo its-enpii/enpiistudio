@@ -46,8 +46,8 @@ const shapeUtility = computed(() => {
 
 const controlStateClass = computed(() => {
     if (props.disabled) return 'opacity-60 cursor-not-allowed';
-    if (props.error) return 'border-danger-border';
-    return '[border-color:var(--control-border-color)]';
+    if (props.error) return '[border-color:var(--field-error-border)]';
+    return '[border-color:var(--field-border)]';
 });
 
 function extractRaw(value) {
@@ -132,14 +132,14 @@ watch(() => model.value, (value) => {
                 :inputmode="inputmode ?? (preset === 'currency' ? 'numeric' : undefined)"
                 :aria-invalid="Boolean(error)"
                 :aria-describedby="error ? `${inputId}-error` : hint ? `${inputId}-hint` : undefined"
-        class="enpii-input-mask__control w-full min-h-control px-3 py-1 border border-solid [border-width:var(--control-border-width)] bg-surface-container-lowest text-on-surface [font-family:inherit] placeholder:text-outline [transition-property:border-color,box-shadow] duration-fast ease-emphasized hover:enabled:border-primary-border focus-visible:outline-none focus-visible:border-primary-container focus-visible:[box-shadow:var(--shadow-focus)] disabled:opacity-60 disabled:cursor-not-allowed"
+        class="enpii-input-mask__control w-full min-h-control px-3 py-1 border border-solid [border-width:var(--control-border-width)] [background-color:var(--field-bg)] [color:var(--field-fg)] [font-family:inherit] placeholder:[color:var(--field-placeholder-fg)] [transition-property:border-color,box-shadow] duration-fast ease-emphasized hover:enabled:[border-color:var(--field-border)] focus-visible:outline-none focus-visible:[border-color:var(--field-border)] focus-visible:[box-shadow:var(--shadow-focus)] disabled:opacity-60 disabled:cursor-not-allowed"
                 :class="[shapeClass, shapeUtility, controlStateClass]"
                 @input="onInput"
                 @change="$emit('change', model)"
             >
-            <span v-if="isComplete" class="enpii-input-mask__status absolute top-1/2 right-3 text-success-text -translate-y-1/2" aria-hidden="true">✓</span>
+            <span v-if="isComplete" class="enpii-input-mask__status absolute top-1/2 right-3 [color:var(--field-fg)] -translate-y-1/2" aria-hidden="true">✓</span>
         </div>
-        <p v-if="error" :id="`${inputId}-error`" class="enpii-input-mask__help enpii-input-mask__help--error m-0 text-danger-text text-xs">{{ error }}</p>
-        <p v-else-if="hint || activeMask" class="enpii-input-mask__help m-0 text-on-surface-variant text-xs">{{ hint || `Format: ${inputPlaceholder}` }}</p>
+        <p v-if="error" :id="`${inputId}-error`" class="enpii-input-mask__help enpii-input-mask__help--error m-0 [color:var(--field-error-fg)] text-xs">{{ error }}</p>
+        <p v-else-if="hint || activeMask" class="enpii-input-mask__help m-0 [color:var(--field-fg)] text-xs">{{ hint || `Format: ${inputPlaceholder}` }}</p>
     </div>
 </template>
