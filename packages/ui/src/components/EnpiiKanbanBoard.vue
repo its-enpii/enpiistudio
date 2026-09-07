@@ -195,8 +195,8 @@ watch(() => menuCard.value, (value) => {
           :key="column.id"
           class="enpii-kanban__column flex flex-col gap-2 w-64 shrink-0 p-3 border border-solid [border-width:var(--control-border-width)] rounded-control bg-surface-container-low md:w-auto md:flex-1 md:min-w-56"
           :class="[
-            `enpii-kanban__column--${column.tone || 'neutral'}`,
-            toneBorderClasses[column.tone || 'neutral'],
+            `enpii-kanban__column--${column.tone}`,
+            toneBorderClasses[`enpii-kanban__column--${column.tone ?? 'neutral'}`],
             {
             'enpii-kanban__column--drag-over !border-primary !border-solid !bg-[color-mix(in_srgb,var(--color-primary)_8%,var(--color-surface-container-low))]': dragOverColumn === column.id && isDropValid(column.id),
             'enpii-kanban__column--drag-over-invalid !border-2 !border-dashed !border-[color-mix(in_srgb,var(--color-error)_55%,transparent)] !bg-[color-mix(in_srgb,var(--color-error)_6%,var(--color-surface-container-low))]': dragOverColumn === column.id && !isDropValid(column.id),
@@ -217,8 +217,8 @@ watch(() => menuCard.value, (value) => {
               :key="card.id"
               class="enpii-kanban__card relative py-2.5 px-3 border border-solid [border-width:var(--control-border-width)] rounded-[calc(var(--radius-control)-0.25rem)] bg-surface-container-lowest shadow-control transition-[box-shadow,border-color,transform] duration-fast ease-standard hover:not-active:border-outline hover:not-active:shadow-raised hover:not-active:-translate-y-px active:[box-shadow:var(--shadow-control-pressed)] active:[transform:var(--press-transform)] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:[outline-style:solid] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)] motion-reduce:transition-none"
               :class="[
-                `enpii-kanban__card--${card.tone || 'neutral'}`,
-                toneBorderClasses[card.tone || 'neutral'],
+                `enpii-kanban__card--${card.tone}`,
+                toneBorderClasses[`enpii-kanban__card--${card.tone ?? 'neutral'}`],
               ]"
               :tabindex="draggable ? 0 : undefined"
               :draggable="draggable"
