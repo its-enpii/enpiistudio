@@ -102,13 +102,38 @@
   --desktop-titlebar-fg: var(--color-on-surface);
   --desktop-splash-bg: var(--color-primary-deep);
   --desktop-splash-fg: var(--color-on-primary);
-  --control-border-width: 1px;
-  --overlay-border-width: 1px;
+  --control-border-width: 0px;
+  --overlay-border-width: 0px;
+  --card-border-width: 0px;
+  --card-border-style: solid;
+  --card-border-color: transparent;
+  --control-border-color: transparent;
+  --control-border-color-filled: transparent;
+  --overlay-border-color: transparent;
+  --focus-width: 2px;
+  --focus-width-overlay: 3px;
+  --focus-width-priority: 3px;
+  --focus-width-minimal: 1px;
+  --focus-offset: 2px;
+  --focus-offset-negative: -2px;
+  --focus-offset-negative-outside: -1px;
+  --focus-offset-negative-wide: -3px;
+  --focus-offset-outside: 1px;
+  --focus-offset-wide: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 28px;
+  --radius-track: 999px;
+  --radius-media: 16px;
   --press-transform: none;
+  --control-shadow: 6px 6px 14px color-mix(in srgb, var(--color-shadow) 80%, transparent),
+    -6px -6px 14px color-mix(in srgb, var(--color-surface-inverse) 18%, transparent);
   --shadow-control-pressed: var(--shadow-control);
-  --radius-control: 1rem;
-  --radius-card: 1.25rem;
-  --radius-overlay: 1.75rem;
+  --radius-control: 12px;
+  --radius-card: 16px;
+  --radius-overlay: 20px;
   --transition-duration-fast: 160ms;
   --transition-duration-base: 220ms;
   --transition-duration-normal: 260ms;
@@ -119,6 +144,8 @@
   --ease-emphasized: cubic-bezier(.4, 0, .2, 1);
   --shadow-control: 6px 6px 14px color-mix(in srgb, var(--color-shadow) 80%, transparent),
     -6px -6px 14px color-mix(in srgb, var(--color-surface-inverse) 18%, transparent);
+  --shadow-card: 8px 8px 18px color-mix(in srgb, var(--color-shadow) 78%, transparent),
+    -8px -8px 18px color-mix(in srgb, var(--color-surface-inverse) 20%, transparent);
   --shadow-md: 7px 7px 16px color-mix(in srgb, var(--color-shadow) 78%, transparent),
     -7px -7px 16px color-mix(in srgb, var(--color-surface-inverse) 20%, transparent);
   --shadow-lg: 9px 9px 20px color-mix(in srgb, var(--color-shadow) 76%, transparent),
@@ -129,6 +156,7 @@
     -10px -10px 22px color-mix(in srgb, var(--color-surface-inverse) 24%, transparent);
   --shadow-overlay: 14px 14px 32px color-mix(in srgb, var(--color-shadow) 72%, transparent),
     -14px -14px 32px color-mix(in srgb, var(--color-surface-inverse) 26%, transparent);
+  --shadow-focus: 0 0 0 3px color-mix(in srgb, var(--color-primary-deep) 30%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {

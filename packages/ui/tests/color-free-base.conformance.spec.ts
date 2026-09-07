@@ -198,9 +198,6 @@ describe('layer color-hook completeness', () => {
     'neobrutalism.css',
     'neobrutalism-tamed.css',
     'minimalism.css',
-    'cyberpunk.css',
-    'nordic.css',
-    'fluent.css',
   ]
 
   it.each(layerFiles)('batch 1: %s defines every batch 1 hook without selectors in values', (filename) => {

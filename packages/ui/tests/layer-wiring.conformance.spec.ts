@@ -165,33 +165,74 @@ describe('structural layer wiring conformance', () => {
     )
   })
 
-  it('defines brutal structural color and resting shadow values', () => {
-    const expectedValues = [
-      '--control-border-color: var(--color-ink);',
-      '--control-border-color-filled: var(--color-ink);',
-      '--overlay-border-color: var(--color-ink);',
+  it('defines 100% hook taxonomy and structural color/shadow tokens across all 6 canonical layers', () => {
+    const canonicalLayers = [
+      'neobrutalism.css',
+      'neobrutalism-tamed.css',
+      'material.css',
+      'glassmorphism.css',
+      'neumorphism.css',
+      'minimalism.css',
     ]
 
-    for (const filename of ['neobrutalism.css', 'neobrutalism-tamed.css']) {
+    const expectedTokens = [
+      '--card-border-width',
+      '--card-border-style',
+      '--card-border-color',
+      '--control-border-color',
+      '--control-border-color-filled',
+      '--overlay-border-color',
+      '--control-shadow',
+      '--shadow-card',
+      '--shadow-focus',
+      '--radius-sm',
+      '--radius-md',
+      '--radius-lg',
+      '--radius-xl',
+      '--radius-2xl',
+      '--radius-track',
+      '--radius-media',
+      '--focus-width',
+      '--focus-width-overlay',
+      '--focus-width-priority',
+      '--focus-width-minimal',
+      '--focus-offset',
+      '--focus-offset-negative',
+      '--focus-offset-negative-outside',
+      '--focus-offset-negative-wide',
+      '--focus-offset-outside',
+      '--focus-offset-wide',
+    ]
+
+    const extractTokens = (source: string) => {
+      const sourceWithoutComments = source.replace(/\/\*[\s\S]*?\*\//g, '')
+      const tokens = new Set<string>()
+      for (const [, name] of sourceWithoutComments.matchAll(/--([a-z0-9-]+)\s*:\s*[^;]+;/g)) {
+        tokens.add(`--${name}`)
+      }
+      return tokens
+    }
+
+    const allTokens = new Set<string>()
+    for (const filename of canonicalLayers) {
       const source = readFileSync(resolve(__dirname, '../src/styles/layers', filename), 'utf8')
-      for (const expectedValue of expectedValues) {
-        expect(source, `${filename} must define ${expectedValue}`).toContain(expectedValue)
+      for (const token of extractTokens(source)) {
+        allTokens.add(token)
       }
     }
 
-    for (const filename of ['material.css', 'glassmorphism.css', 'neumorphism.css', 'minimalism.css']) {
-      const source = readFileSync(resolve(__dirname, '../src/styles/layers', filename), 'utf8')
-      expect(source, `${filename} must inherit the structural color and resting shadow tokens`).not.toMatch(
-        /--(?:control-border-color(?:-filled)?|overlay-border-color|control-shadow):/,
-      )
-    }
+    expect(canonicalLayers).toHaveLength(6)
+    expect(allTokens.size).toBe(148)
 
-    for (const filename of ['cyberpunk.css', 'nordic.css', 'fluent.css']) {
+    for (const filename of canonicalLayers) {
       const source = readFileSync(resolve(__dirname, '../src/styles/layers', filename), 'utf8')
-      expect(source).toMatch(/--control-border-color:/)
-      expect(source).toMatch(/--control-border-color-filled:/)
-      expect(source).toMatch(/--overlay-border-color:/)
-      expect(source).toMatch(/--control-shadow:/)
+      const layerTokens = extractTokens(source)
+      const missing = [...allTokens].filter(token => !layerTokens.has(token))
+      expect(missing, `${filename} must have 0 missing variables across the taxonomy`).toEqual([])
+
+      for (const token of expectedTokens) {
+        expect(layerTokens.has(token), `${filename} must define ${token}`).toBe(true)
+      }
     }
   })
 

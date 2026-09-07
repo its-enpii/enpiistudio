@@ -104,11 +104,35 @@
   --desktop-splash-fg: var(--color-on-primary);
   --control-border-width: 1px;
   --overlay-border-width: 1px;
+  --card-border-width: 1px;
+  --card-border-style: solid;
+  --card-border-color: rgba(255, 255, 255, 0.2);
+  --control-border-color: rgba(255, 255, 255, 0.25);
+  --control-border-color-filled: rgba(255, 255, 255, 0.25);
+  --overlay-border-color: rgba(255, 255, 255, 0.2);
+  --focus-width: 2px;
+  --focus-width-overlay: 3px;
+  --focus-width-priority: 3px;
+  --focus-width-minimal: 1px;
+  --focus-offset: 2px;
+  --focus-offset-negative: -2px;
+  --focus-offset-negative-outside: -1px;
+  --focus-offset-negative-wide: -3px;
+  --focus-offset-outside: 1px;
+  --focus-offset-wide: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+  --radius-2xl: 24px;
+  --radius-track: 999px;
+  --radius-media: 14px;
   --press-transform: none;
+  --control-shadow: 0 8px 24px color-mix(in srgb, var(--color-shadow) 60%, transparent);
   --shadow-control-pressed: var(--shadow-control);
-  --radius-control: 0.875rem;
-  --radius-card: 1.25rem;
-  --radius-overlay: 1.75rem;
+  --radius-control: 10px;
+  --radius-card: 14px;
+  --radius-overlay: 18px;
   --transition-duration-fast: 180ms;
   --transition-duration-base: 240ms;
   --transition-duration-normal: 300ms;
@@ -118,6 +142,7 @@
   --ease-accelerate: cubic-bezier(.3, 0, .8, .15);
   --ease-emphasized: cubic-bezier(.32, .72, 0, 1);
   --shadow-control: 0 8px 24px color-mix(in srgb, var(--color-shadow) 60%, transparent);
+  --shadow-card: 0 12px 36px color-mix(in srgb, var(--color-shadow) 62%, transparent);
   --shadow-md: 0 10px 32px color-mix(in srgb, var(--color-shadow) 60%, transparent);
   --shadow-lg: 0 14px 40px color-mix(in srgb, var(--color-shadow) 62%, transparent);
   --shadow-xl: 0 18px 50px color-mix(in srgb, var(--color-shadow) 64%, transparent);
@@ -125,6 +150,7 @@
     0 2px 10px color-mix(in srgb, var(--color-shadow) 35%, transparent);
   --shadow-overlay: 0 24px 72px color-mix(in srgb, var(--color-shadow) 62%, transparent),
     0 4px 14px color-mix(in srgb, var(--color-shadow) 38%, transparent);
+  --shadow-focus: 0 0 0 3px color-mix(in srgb, var(--color-primary) 35%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {
