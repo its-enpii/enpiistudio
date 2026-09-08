@@ -14,6 +14,8 @@ use EnpiiStudio\Core\Payment\PaymentManager;
 use EnpiiStudio\Core\Settings\SettingsRepository;
 use EnpiiStudio\Core\Tenancy\Middleware\ResolveTenantContext;
 use EnpiiStudio\Core\Tenancy\TenantContext;
+use EnpiiStudio\Core\Webhook\Contracts\WebhookDispatcher as WebhookDispatcherContract;
+use EnpiiStudio\Core\Webhook\Services\WebhookDispatcher;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -30,6 +32,7 @@ final class CoreServiceProvider extends ServiceProvider
         $this->app->singleton(MediaManagerContract::class, MediaManager::class);
         $this->app->singleton(PaymentManager::class);
         $this->app->scoped(NotificationCenterContract::class, NotificationCenter::class);
+        $this->app->scoped(WebhookDispatcherContract::class, WebhookDispatcher::class);
     }
 
     public function boot(): void
@@ -68,6 +71,7 @@ final class CoreServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/../database/migrations/0001_01_01_000000_create_enpii_core_tables.php' => database_path('migrations/0001_01_01_000000_create_enpii_core_tables.php'),
+            __DIR__.'/../database/migrations/0001_01_01_000003_create_core_webhook_tables.php' => database_path('migrations/0001_01_01_000003_create_core_webhook_tables.php'),
         ], 'enpii-core-migrations');
 
         $this->loadRoutesFrom(__DIR__.'/../routes/core-notification.php');
