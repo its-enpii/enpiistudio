@@ -161,7 +161,7 @@ function onKeydown(event: KeyboardEvent) {
             <li
                 v-for="(suggestion, index) in filteredSuggestions"
                 :key="suggestion"
-                class="enpii-tag-input__suggestion flex min-h-10 items-center py-2 px-2.5 rounded-lg [color:var(--overlay-surface-fg)] cursor-pointer [transition-property:background] duration-fast ease-emphasized motion-reduce:transition-none data-[active=true]:[background-color:var(--nav-active-bg)] data-[active=true]:[color:var(--nav-active-fg)] hover:[background-color:var(--nav-hover-bg)]"
+                class="enpii-tag-input__suggestion flex min-h-10 items-center py-2 px-2.5 rounded-control [color:var(--overlay-surface-fg)] cursor-pointer [transition-property:background] duration-fast ease-emphasized motion-reduce:transition-none data-[active=true]:[background-color:var(--nav-active-bg)] data-[active=true]:[color:var(--nav-active-fg)] hover:[background-color:var(--nav-hover-bg)]"
                 role="option"
                 :aria-selected="index === activeSuggestion"
                 :data-active="index === activeSuggestion"

@@ -119,7 +119,7 @@ function hideTooltip() {
             :id="id"
             role="tooltip"
             :class="[
-                'enpii-tooltip__bubble absolute z-30 w-56 py-1 px-2 border border-solid [border-width:var(--overlay-border-width)] [border-color:var(--overlay-border-color)] rounded-lg [background-color:var(--overlay-surface-bg)] [color:var(--overlay-surface-fg)] text-xs leading-[1.45] shadow-overlay pointer-events-none transition-[opacity,transform,visibility] duration-fast ease-decelerate',
+                'enpii-tooltip__bubble absolute z-30 w-56 py-1 px-2 border border-solid [border-width:var(--overlay-border-width)] [border-color:var(--overlay-border-color)] rounded-overlay [background-color:var(--overlay-surface-bg)] [color:var(--overlay-surface-fg)] text-xs leading-[1.45] shadow-overlay pointer-events-none transition-[opacity,transform,visibility] duration-fast ease-decelerate',
                 activePosition === 'top' ? 'enpii-tooltip__bubble--top bottom-[calc(100%+0.5rem)] left-1/2 -translate-x-1/2 translate-y-1 scale-95 opacity-0 invisible' : '',
                 activePosition === 'bottom' ? 'enpii-tooltip__bubble--bottom top-[calc(100%+0.5rem)] left-1/2 -translate-x-1/2 translate-y-1 scale-95 opacity-0 invisible' : '',
                 activePosition === 'left' ? 'enpii-tooltip__bubble--left right-[calc(100%+0.5rem)] top-1/2 -translate-y-1/2 translate-x-1 scale-95 opacity-0 invisible' : '',

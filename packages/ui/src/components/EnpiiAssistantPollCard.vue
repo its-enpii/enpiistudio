@@ -52,7 +52,7 @@ function onSubmitOther() {
 
 <template>
     <section
-        class="enpii-assistant-poll-card overflow-hidden rounded-2xl border border-solid [border-color:var(--assistant-card-border)] [border-width:var(--overlay-border-width)] [background-color:var(--assistant-card-bg)] [color:var(--assistant-card-fg)]"
+        class="enpii-assistant-poll-card overflow-hidden rounded-overlay border border-solid [border-color:var(--assistant-card-border)] [border-width:var(--overlay-border-width)] [background-color:var(--assistant-card-bg)] [color:var(--assistant-card-fg)]"
         :aria-label="t('pollCard.pollingLabel', { question: assistantBlock.question })"
     >
         <!-- Header: question + arrow -->
@@ -85,7 +85,7 @@ function onSubmitOther() {
                 @keydown.space.prevent="onPick(opt.label)"
             >
                 <span
-                    class="enpii-assistant-poll-card__marker grid h-7 w-7 shrink-0 place-items-center rounded-md [background-color:var(--control-bg)] [color:var(--tone-neutral-fg)] text-xs font-semibold"
+                    class="enpii-assistant-poll-card__marker grid h-7 w-7 shrink-0 place-items-center rounded-control [background-color:var(--control-bg)] [color:var(--tone-neutral-fg)] text-xs font-semibold"
                     :class="{ '[background-color:var(--assistant-user-msg-bg)] [color:var(--assistant-user-msg-fg)]': submittedLabel === opt.label }"
                 >
                     <template v-if="submittedLabel === opt.label">
@@ -102,7 +102,7 @@ function onSubmitOther() {
             <button
                 v-if="assistantBlock.allowOther && !isSubmitted && !showOther"
                 type="button"
-                class="enpii-assistant-poll-card__other-button inline-flex cursor-pointer items-center gap-1 rounded-md border-0 bg-none px-3 py-1 [color:var(--assistant-card-fg)] text-xs font-semibold transition-all duration-fast ease-emphasized hover:[background-color:var(--control-bg-hover)] focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-primary)_30%,transparent)]"
+                class="enpii-assistant-poll-card__other-button inline-flex cursor-pointer items-center gap-1 rounded-control border-0 bg-none px-3 py-1 [color:var(--assistant-card-fg)] text-xs font-semibold transition-all duration-fast ease-emphasized hover:[background-color:var(--control-bg-hover)] focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-primary)_30%,transparent)]"
                 @click="onOpenOther"
             >
                 <AppIcon name="edit" class="enpii-assistant-poll-card__other-icon [color:var(--tone-neutral-fg)] text-[1.125rem] leading-none" />
@@ -130,7 +130,7 @@ function onSubmitOther() {
                 v-model="otherText"
                 type="text"
                 :placeholder="t('pollCard.placeholder')"
-                class="enpii-assistant-poll-card__other-input min-h-9 min-w-0 flex-1 rounded-md border border-solid [border-color:var(--field-border-color)] [border-width:var(--control-border-width)] [background-color:var(--field-bg)] px-2 py-1 [color:var(--field-fg)] text-sm focus:outline-none focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-primary)_30%,transparent)]"
+                class="enpii-assistant-poll-card__other-input min-h-9 min-w-0 flex-1 rounded-control border border-solid [border-color:var(--field-border-color)] [border-width:var(--control-border-width)] [background-color:var(--field-bg)] px-2 py-1 [color:var(--field-fg)] text-sm focus:outline-none focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-primary)_30%,transparent)]"
                 @keydown.enter.prevent="onSubmitOther"
             />
             <AppButton size="compact" variant="primary" :disabled="!otherText.trim()" @click="onSubmitOther">

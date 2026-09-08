@@ -73,7 +73,7 @@ onUnmounted(() => {
         <Transition name="banner">
             <div
                 v-if="isOffline"
-                class="enpii-offline-banner enpii-offline-banner--offline flex w-full max-w-[min(42rem,100%)] items-center justify-between gap-4 p-3 rounded-2xl border border-solid [border-width:var(--control-border-width)] [border-color:var(--tone-danger-border)] [background-color:var(--tone-danger-soft-bg)] [color:var(--tone-danger-soft-fg)] shadow-overlay backdrop-blur-xl pointer-events-auto"
+                class="enpii-offline-banner enpii-offline-banner--offline flex w-full max-w-[min(42rem,100%)] items-center justify-between gap-4 p-3 rounded-overlay border border-solid [border-width:var(--control-border-width)] [border-color:var(--tone-danger-border)] [background-color:var(--tone-danger-soft-bg)] [color:var(--tone-danger-soft-fg)] shadow-overlay backdrop-blur-xl pointer-events-auto"
                 role="alert"
                 aria-live="assertive"
             >
@@ -102,7 +102,7 @@ onUnmounted(() => {
 
             <div
                 v-else-if="isReconnected"
-                class="enpii-offline-banner enpii-offline-banner--online flex w-full max-w-[min(36rem,100%)] items-center justify-start gap-4 p-3 rounded-2xl border border-solid [border-color:var(--tone-success-border)] [background-color:var(--tone-success-soft-bg)] [color:var(--tone-success-soft-fg)] shadow-overlay backdrop-blur-xl pointer-events-auto"
+                class="enpii-offline-banner enpii-offline-banner--online flex w-full max-w-[min(36rem,100%)] items-center justify-start gap-4 p-3 rounded-overlay border border-solid [border-color:var(--tone-success-border)] [background-color:var(--tone-success-soft-bg)] [color:var(--tone-success-soft-fg)] shadow-overlay backdrop-blur-xl pointer-events-auto"
                 role="status"
                 aria-live="polite"
             >

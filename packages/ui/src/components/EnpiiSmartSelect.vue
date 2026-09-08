@@ -297,7 +297,7 @@ watch(() => props.modelValue, (value) => {
                     >
                         <div v-if="searchable" class="enpii-smart-select__search-wrap relative mb-2 pb-1 shrink-0 [background-color:var(--field-bg)]">
                             <AppIcon name="search" class="enpii-smart-select__search-icon absolute left-3 w-4 h-4 [color:var(--field-fg)] text-base pointer-events-none" />
-                            <input ref="searchInput" v-model="search" type="search" class="enpii-smart-select__search-input w-full h-9 py-1 px-9 border border-solid [border-color:var(--field-border)] rounded-lg bg-transparent [color:var(--field-fg)] text-sm placeholder:[color:var(--field-placeholder-fg)] focus:outline-none focus:[border-color:var(--field-border)] focus:[box-shadow:var(--shadow-focus)]" :placeholder="t('smartSelect.searchPlaceholder')" @input="onSearch" @keydown="onKeydown">
+                            <input ref="searchInput" v-model="search" type="search" class="enpii-smart-select__search-input w-full h-9 py-1 px-9 border border-solid [border-color:var(--field-border)] rounded-control bg-transparent [color:var(--field-fg)] text-sm placeholder:[color:var(--field-placeholder-fg)] focus:outline-none focus:[border-color:var(--field-border)] focus:[box-shadow:var(--shadow-focus)]" :placeholder="t('smartSelect.searchPlaceholder')" @input="onSearch" @keydown="onKeydown">
                             <button v-if="search" type="button" class="enpii-smart-select__search-clear absolute top-2 right-2 w-7 h-7 border-0 rounded-[9999px] [background-color:var(--control-ghost-bg)] [color:var(--control-ghost-fg)] cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:[color:var(--control-secondary-fg)]" @click="search = ''; onSearch()"><AppIcon name="close" /></button>
                         </div>
                         <div class="enpii-smart-select__options min-h-0 flex-1 overflow-y-auto">
@@ -317,7 +317,7 @@ watch(() => props.modelValue, (value) => {
                                         type="button"
                                         role="option"
                                         :aria-selected="String(row.option[valueKey]) === String(modelValue)"
-                                        class="enpii-smart-select__option flex w-full items-center justify-between gap-3 py-2 px-3 border-0 rounded-lg [background-color:var(--control-ghost-bg)] [color:var(--control-ghost-fg)] text-sm text-left cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:[background-color:var(--control-secondary-bg)] hover:[color:var(--control-secondary-fg)] hover:font-medium"
+                                        class="enpii-smart-select__option flex w-full items-center justify-between gap-3 py-2 px-3 border-0 rounded-control [background-color:var(--control-ghost-bg)] [color:var(--control-ghost-fg)] text-sm text-left cursor-pointer [transition-property:all] duration-fast ease-emphasized hover:[background-color:var(--control-secondary-bg)] hover:[color:var(--control-secondary-fg)] hover:font-medium"
                                         :class="{
                                             'enpii-smart-select__option--highlighted': row.index === highlighted,
                                             'enpii-smart-select__option--selected': String(row.option[valueKey]) === String(modelValue)
@@ -341,7 +341,7 @@ watch(() => props.modelValue, (value) => {
                                         <AppIcon v-if="String(row.option[valueKey]) === String(modelValue)" name="check" class="enpii-smart-select__check shrink-0 w-4 h-4 [color:var(--control-primary-fg)] text-base" />
                                     </button>
                                 </template>
-                                <button v-if="!visibleOptions.length && emptyActionLabel && search.trim()" type="button" class="enpii-smart-select__empty-action flex w-full items-center gap-2 py-3 px-3 border-0 rounded-lg [background-color:var(--control-ghost-bg)] [color:var(--control-secondary-fg)] text-sm font-semibold text-left cursor-pointer hover:[background-color:var(--control-secondary-bg)] hover:outline-none focus-visible:[background-color:var(--control-secondary-bg)] focus-visible:outline-none" @click="runEmptyAction"><AppIcon name="person_add" class="enpii-smart-select__empty-icon w-5 h-5 text-xl" />{{ emptyActionLabel }}</button>
+                                <button v-if="!visibleOptions.length && emptyActionLabel && search.trim()" type="button" class="enpii-smart-select__empty-action flex w-full items-center gap-2 py-3 px-3 border-0 rounded-control [background-color:var(--control-ghost-bg)] [color:var(--control-secondary-fg)] text-sm font-semibold text-left cursor-pointer hover:[background-color:var(--control-secondary-bg)] hover:outline-none focus-visible:[background-color:var(--control-secondary-bg)] focus-visible:outline-none" @click="runEmptyAction"><AppIcon name="person_add" class="enpii-smart-select__empty-icon w-5 h-5 text-xl" />{{ emptyActionLabel }}</button>
                                 <div v-else-if="!visibleOptions.length" class="enpii-smart-select__status py-4 px-3 [color:var(--field-fg)] text-sm text-center">{{ t('smartSelect.noOptions') }}</div>
                             </template>
                         </div>

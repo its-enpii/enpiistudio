@@ -33,6 +33,17 @@ describe('EnpiiColorPicker', () => {
     expect(wrapper.emitted('change')?.at(-1)?.[0]).toBe('#ba1a1a')
   })
 
+  it('renders custom prop swatches with a semantic fallback color', () => {
+    const wrapper = mount(EnpiiColorPicker, {
+      props: { modelValue: '#4f46e5', swatches: ['#123456', '#654321'] },
+    })
+
+    const swatches = wrapper.findAll('.enpii-color-picker__swatch')
+    expect(swatches).toHaveLength(2)
+    expect(swatches[0].attributes('style')).toContain('background-color: var(--tone-primary-bg)')
+    expect(swatches[1].attributes('style')).toContain('background-color: var(--tone-primary-bg)')
+  })
+
   it('accepts valid hex input and emits change', async () => {
     const wrapper = mount(EnpiiColorPicker, { props: { modelValue: '#4f46e5' } })
     const input = wrapper.get('.enpii-color-picker__hex-input')

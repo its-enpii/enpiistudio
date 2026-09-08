@@ -213,7 +213,7 @@ function tooltipStyle(h) {
 
         <div
             v-if="hover"
-            class="enpii-trend-bar-chart__tooltip absolute [z-index:var(--z-index-raised)] min-w-42 py-2 px-3 border border-solid [border-color:var(--overlay-border-color)] [border-width:var(--overlay-border-width)] rounded-lg [background-color:var(--chart-tooltip-bg)] shadow-overlay pointer-events-none"
+            class="enpii-trend-bar-chart__tooltip absolute [z-index:var(--z-index-raised)] min-w-42 py-2 px-3 border border-solid [border-color:var(--overlay-border-color)] [border-width:var(--overlay-border-width)] rounded-overlay [background-color:var(--chart-tooltip-bg)] shadow-overlay pointer-events-none"
             :style="tooltipStyle(hover)"
             role="tooltip"
         >

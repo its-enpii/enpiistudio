@@ -35,10 +35,7 @@ const swatchTokens = {
 
 function swatchToken(color: string): string {
   const token = swatchTokens[color as keyof typeof swatchTokens]
-  if (!token) {
-    throw new Error(`Color picker swatches must map to a semantic token: ${color}`)
-  }
-  return token
+  return token ?? '--tone-primary-bg'
 }
 
 const emit = defineEmits<{

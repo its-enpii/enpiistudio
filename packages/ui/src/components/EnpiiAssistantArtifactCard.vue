@@ -29,7 +29,7 @@ const icon = iconMap[kind] ?? 'description';
         :aria-label="t('artifactCard.open', { title: assistantBlock.title })"
         @click="emit('open', assistantBlock)"
     >
-        <span class="enpii-assistant-artifact-card__icon grid h-9 w-9 shrink-0 place-items-center rounded-md [background-color:var(--assistant-user-msg-bg)] [color:var(--assistant-user-msg-fg)]">
+        <span class="enpii-assistant-artifact-card__icon grid h-9 w-9 shrink-0 place-items-center rounded-control [background-color:var(--assistant-user-msg-bg)] [color:var(--assistant-user-msg-fg)]">
             <AppIcon :name="icon" />
         </span>
         <div class="enpii-assistant-artifact-card__body min-w-0 flex-1">

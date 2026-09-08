@@ -85,7 +85,7 @@ const structuralUtility = '[border-color:var(--control-primary-border)]';
         :aria-label="ariaLabel || undefined"
         v-bind="$attrs"
     >
-        <span v-if="isLoading" class="enpii-button__spinner size-5 rounded-full border-2 border-current/30 border-t-current animate-spin" aria-hidden="true" />
+        <span v-if="isLoading" class="enpii-button__spinner size-5 rounded-full [border-width:var(--control-border-width)] border-current/30 border-t-current animate-spin" aria-hidden="true" />
         <AppIcon v-else-if="icon" :name="icon" class="enpii-button__icon text-xl leading-none transition-transform duration-fast ease-emphasized group-hover:enabled:-translate-y-px" />
         <slot />
     </button>

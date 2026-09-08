@@ -57,7 +57,7 @@ const toastIconToneClasses = {
                 <div
                     v-if="toastState.visible"
                     role="status"
-                    class="enpii-toast flex items-center gap-3 w-[min(28rem,100%)] border border-solid [border-width:var(--control-border-width)] [border-color:var(--overlay-border-color)] rounded-2xl [background-color:var(--overlay-surface-bg)] [color:var(--overlay-surface-fg)] py-3 px-4 shadow-overlay pointer-events-auto"
+                    class="enpii-toast flex items-center gap-3 w-[min(28rem,100%)] border border-solid [border-width:var(--control-border-width)] [border-color:var(--overlay-border-color)] rounded-overlay [background-color:var(--overlay-surface-bg)] [color:var(--overlay-surface-fg)] py-3 px-4 shadow-overlay pointer-events-auto"
                     :class="[shapeClass, `enpii-toast--${toastState.tone}`]"
                     @mouseenter="pause"
                     @mouseleave="resume"

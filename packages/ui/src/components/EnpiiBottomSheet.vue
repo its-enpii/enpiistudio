@@ -203,7 +203,7 @@ onBeforeUnmount(() => {
                 >
                     <button
                         type="button"
-                        class="enpii-bottom-sheet__handle w-12 h-10 mx-auto rounded-xl border-0 bg-none cursor-grab touch-none focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-offset-[-2px] focus-visible:outline-focus"
+                        class="enpii-bottom-sheet__handle w-12 h-10 mx-auto rounded-overlay border-0 bg-none cursor-grab touch-none focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-offset-[-2px] focus-visible:outline-focus"
                         :aria-label="t('bottomSheet.dragHandle')"
                         @click="close"
                         @pointerdown="onPointerDown"

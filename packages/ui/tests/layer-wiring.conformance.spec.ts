@@ -7,7 +7,6 @@ const componentFilenames = readdirSync(componentsDirectory).filter((filename) =>
 const entry = readFileSync(resolve(__dirname, '../entry.tailwind.css'), 'utf8')
 
 const borderExceptions: Record<string, string> = {
-  'EnpiiDesktopSplashScreen.vue': 'decorative splash halo/logo and progress track, not a bordered control/overlay',
   'EnpiiFooter.vue': 'hairline copyright divider, not a control/overlay/surface border',
   'EnpiiLoanHistoryTable.vue': 'semantic table with border-collapse, no structural border control',
   'EnpiiRating.vue': 'borderless rating control',
@@ -357,5 +356,15 @@ describe('structural layer wiring conformance', () => {
     const colorPicker = readFileSync(resolve(componentsDirectory, 'EnpiiColorPicker.vue'), 'utf8')
     expect(colorPicker).not.toMatch(/active:(?:\S+:)?scale-/)
     expect(colorPicker).toContain('active:enabled:[box-shadow:var(--shadow-control-pressed)]')
+  })
+
+  it('does not use primitive fixed radius classes for standard component surfaces', () => {
+    for (const filename of componentFilenames) {
+      const source = readFileSync(resolve(componentsDirectory, filename), 'utf8')
+      expect(
+        source,
+        `${filename} should use semantic radius tokens or intentional circular/sharp utilities`,
+      ).not.toMatch(/rounded-(?:md|lg|xl|2xl|3xl)/)
+    }
   })
 })

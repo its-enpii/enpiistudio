@@ -82,7 +82,7 @@ function submitImport() {
                 type="file"
                 accept=".csv,text/csv,application/vnd.ms-excel"
                 id="enpii-csv-import-export-file"
-                class="enpii-csv-import-export__input w-full rounded-control border [border-color:var(--field-border-color)] [border-width:var(--control-border-width)] [background-color:var(--field-bg)] px-4 py-3 [color:var(--field-fg)] text-sm outline-none focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)] file:mr-3 file:rounded-md file:border-0 file:[background-color:var(--tone-primary-bg)] file:px-3 file:py-2 file:font-semibold file:[color:var(--tone-primary-fg)]"
+                class="enpii-csv-import-export__input w-full rounded-control border [border-color:var(--field-border-color)] [border-width:var(--control-border-width)] [background-color:var(--field-bg)] px-4 py-3 [color:var(--field-fg)] text-sm outline-none focus-visible:focus-visible:[outline-style:solid] focus-visible:[outline-style:var(--tw-outline-style)] focus-visible:[outline-width:var(--focus-width-overlay)] focus-visible:outline-focus focus-visible:[outline-offset:var(--focus-offset)] file:mr-3 file:rounded-control file:border-0 file:[background-color:var(--tone-primary-bg)] file:px-3 file:py-2 file:font-semibold file:[color:var(--tone-primary-fg)]"
                 :class="shapeClass"
                 @change="onFileChange"
             />

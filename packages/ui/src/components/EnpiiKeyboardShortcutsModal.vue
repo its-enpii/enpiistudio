@@ -97,7 +97,7 @@ const shortcutGroups = computed(() => [
                 </div>
             </div>
 
-            <div class="enpii-keyboard-shortcuts__tip flex items-center gap-2 py-2 px-3 rounded-lg [background-color:var(--card-bg)] [color:var(--tone-neutral-fg)] text-[0.6875rem]">
+            <div class="enpii-keyboard-shortcuts__tip flex items-center gap-2 py-2 px-3 rounded-card [background-color:var(--card-bg)] [color:var(--tone-neutral-fg)] text-[0.6875rem]">
                 <AppIcon name="info" class="enpii-keyboard-shortcuts__tip-icon w-3.5 h-3.5 shrink-0 [color:var(--card-fg)] text-sm" />
                 <span>
                     <strong>Tips:</strong> Pintasan kombinasi <code>{{ modifierKey }}</code> dapat ditekan kapan saja tanpa mengganggu pengetikan formulir.

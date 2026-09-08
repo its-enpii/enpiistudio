@@ -87,7 +87,7 @@ onBeforeUnmount(() => {
                     aria-modal="true"
                     :aria-labelledby="titleId"
                     tabindex="-1"
-                    class="enpii-modal__panel flex w-full max-h-[calc(100vh-2rem)] flex-col border border-solid [border-width:var(--overlay-border-width)] [border-color:var(--overlay-border-color)] rounded-2xl [background-color:var(--overlay-surface-bg)] [color:var(--overlay-surface-fg)] shadow-overlay outline-none"
+                    class="enpii-modal__panel flex w-full max-h-[calc(100vh-2rem)] flex-col border border-solid [border-width:var(--overlay-border-width)] [border-color:var(--overlay-border-color)] rounded-overlay [background-color:var(--overlay-surface-bg)] [color:var(--overlay-surface-fg)] shadow-overlay outline-none"
                     :class="[
                         `enpii-modal__panel--${size}`,
                         shapeClass,

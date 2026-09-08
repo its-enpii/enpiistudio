@@ -46,7 +46,7 @@ defineEmits(["update:modelValue"]);
 const variantClasses = {
     outline: "py-2 px-3 border border-solid [border-width:var(--control-border-width)] [border-color:var(--control-secondary-border)] rounded-control [background-color:var(--field-bg)] [color:var(--field-fg)]",
     solid: "py-2 px-3 border-0 rounded-full [background-color:var(--control-secondary-bg)] [color:var(--control-secondary-fg)]",
-    segment: "py-2 px-3 border-0 rounded-lg [background-color:var(--control-ghost-bg)] [color:var(--control-ghost-fg)]",
+    segment: "py-2 px-3 border-0 rounded-control [background-color:var(--control-ghost-bg)] [color:var(--control-ghost-fg)]",
 };
 
 function pillClass(item) {

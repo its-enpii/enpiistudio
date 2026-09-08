@@ -199,7 +199,7 @@ watch(() => menuCard.value, (value) => {
             toneBorderClasses[`enpii-kanban__column--${column.tone ?? 'neutral'}`],
             {
             'enpii-kanban__column--drag-over !border-solid [border-color:var(--tone-primary-border)] [background-color:var(--tone-primary-soft-bg)]': dragOverColumn === column.id && isDropValid(column.id),
-            'enpii-kanban__column--drag-over-invalid !border-2 !border-dashed [border-color:var(--tone-danger-border)] [background-color:var(--tone-danger-soft-bg)]': dragOverColumn === column.id && !isDropValid(column.id),
+            'enpii-kanban__column--drag-over-invalid ![border-width:var(--control-border-width)] !border-dashed [border-color:var(--tone-danger-border)] [background-color:var(--tone-danger-soft-bg)]': dragOverColumn === column.id && !isDropValid(column.id),
             },
           ]"
           :data-column-id="column.id"

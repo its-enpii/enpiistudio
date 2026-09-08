@@ -229,7 +229,7 @@ watch(
                     v-if="isImageFile(file) && thumbnails.get(file)"
                     :src="thumbnails.get(file)"
                     :alt="file.name"
-                    class="enpii-file-upload__thumb h-9 w-9 shrink-0 rounded-md object-cover"
+                    class="enpii-file-upload__thumb h-9 w-9 shrink-0 rounded-control object-cover"
                 />
                 <span v-else class="material-symbols-outlined enpii-file-upload__file-icon shrink-0 text-xl leading-none [color:var(--field-placeholder-fg)]" aria-hidden="true">description</span>
 

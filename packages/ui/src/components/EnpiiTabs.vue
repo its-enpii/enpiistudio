@@ -72,14 +72,14 @@ function tabClass(item) {
             classes.push('border-transparent [color:var(--nav-fg)] font-medium hover:[border-bottom-color:var(--tone-neutral-border)] hover:[color:var(--nav-active-fg)]');
         }
     } else if (variant === 'pill') {
-        classes.push('w-full justify-start py-2 px-3 rounded-lg text-sm text-left');
+        classes.push('w-full justify-start py-2 px-3 rounded-control text-sm text-left');
         if (active) {
             classes.push('[background-color:var(--nav-active-bg)] [color:var(--nav-active-fg)] font-semibold');
         } else {
             classes.push('[color:var(--nav-fg)] font-medium hover:[background-color:var(--nav-hover-bg)] hover:[color:var(--nav-active-fg)]');
         }
     } else if (variant === 'pills-bar') {
-        classes.push('py-2 px-4 rounded-lg text-sm');
+        classes.push('py-2 px-4 rounded-control text-sm');
         if (active) {
             classes.push('[background-color:var(--tone-primary-bg)] [color:var(--tone-primary-fg)] shadow-control font-semibold');
         } else {

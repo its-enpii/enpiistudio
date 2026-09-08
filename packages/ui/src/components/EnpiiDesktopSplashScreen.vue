@@ -87,8 +87,8 @@ onUnmounted(() => {
             <div class="enpii-desktop-splash-screen__content relative flex flex-col items-center px-6 text-center" style="-webkit-app-region: no-drag;">
                 <!-- Animated App Logo -->
                 <div class="enpii-desktop-splash-screen__logo-wrap relative mb-6 flex items-center justify-center">
-                    <div class="enpii-desktop-splash-screen__logo-halo absolute -inset-4 rounded-2xl [background-color:var(--desktop-splash-fg)] opacity-20 [filter:blur(24px)] motion-safe:animate-[splash-pulse_2s_ease-in-out_infinite]"></div>
-                    <div class="enpii-desktop-splash-screen__logo relative flex h-20 w-20 items-center justify-center rounded-2xl [background-color:var(--desktop-splash-fg)] shadow-overlay">
+                    <div class="enpii-desktop-splash-screen__logo-halo absolute -inset-4 rounded-overlay [background-color:var(--desktop-splash-fg)] opacity-20 [filter:blur(24px)] motion-safe:animate-[splash-pulse_2s_ease-in-out_infinite]"></div>
+                    <div class="enpii-desktop-splash-screen__logo relative flex h-20 w-20 items-center justify-center rounded-overlay [background-color:var(--desktop-splash-fg)] shadow-overlay">
                         <span class="[color:var(--desktop-splash-bg)] text-3xl font-semibold tracking-wide">S</span>
                     </div>
                 </div>
@@ -137,7 +137,7 @@ onUnmounted(() => {
                 <!-- Animated Exit Spinner -->
                 <div class="enpii-desktop-splash-screen__logo-wrap relative mb-6 flex items-center justify-center">
                     <div class="enpii-desktop-splash-screen__logo-halo absolute -inset-3 rounded-full [background-color:var(--desktop-splash-fg)] opacity-15"></div>
-                    <div class="enpii-desktop-splash-screen__logo relative flex h-16 w-16 items-center justify-center rounded-full border-2 [border-color:var(--control-border-color)] [background-color:var(--desktop-splash-bg)] shadow-raised">
+                    <div class="enpii-desktop-splash-screen__logo relative flex h-16 w-16 items-center justify-center rounded-full [border-width:var(--control-border-width)] [border-color:var(--control-border-color)] [background-color:var(--desktop-splash-bg)] shadow-raised">
                         <svg class="enpii-desktop-splash-screen__spinner h-7 w-7 [color:var(--desktop-splash-fg)] motion-safe:animate-spin" fill="none" viewBox="0 0 24 24">
                             <circle style="opacity:.25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                             <path style="opacity:.75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>

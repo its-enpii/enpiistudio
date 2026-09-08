@@ -51,7 +51,7 @@ const roundedUtility = computed(() => {
     if (props.shape === 'pill' || props.rounded === 'full') return 'rounded-full';
     if (props.shape === 'sharp' || props.rounded === 'square') return 'rounded-none';
     if (props.shape === 'rounded') return 'rounded-control';
-    return 'rounded-lg';
+    return 'rounded-control';
 });
 
 const toneClass = computed(() => {

@@ -51,7 +51,7 @@ defineProps({
             containerSize === 9 && 'h-9 w-9',
             containerSize === 10 && 'h-10 w-10',
             containerSize === 12 && 'h-12 w-12',
-            containerShape === 'pill' ? 'rounded-full' : 'rounded-lg',
+            containerShape === 'pill' ? 'rounded-full' : 'rounded-control',
             ['success', 'secondary'].includes(tone) && '[background-color:var(--tone-success-soft-bg)] [color:var(--tone-success-soft-fg)]',
             ['warning', 'tertiary'].includes(tone) && '[background-color:var(--tone-warning-soft-bg)] [color:var(--tone-warning-soft-fg)]',
             ['danger', 'error'].includes(tone) && '[background-color:var(--tone-danger-soft-bg)] [color:var(--tone-danger-soft-fg)]',

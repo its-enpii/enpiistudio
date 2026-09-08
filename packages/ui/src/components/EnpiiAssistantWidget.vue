@@ -506,7 +506,7 @@ onBeforeUnmount(() => {
         <Transition name="assistant-panel">
             <div
                 v-if="open"
-                class="enpii-assistant-widget__panel flex h-[min(36rem,75vh)] w-[min(24rem,calc(100vw-2rem))] origin-bottom-right flex-col overflow-hidden rounded-2xl border border-solid [border-color:var(--overlay-border-color)] [border-width:var(--overlay-border-width)] [background-color:var(--overlay-surface-bg)] shadow-overlay"
+                class="enpii-assistant-widget__panel flex h-[min(36rem,75vh)] w-[min(24rem,calc(100vw-2rem))] origin-bottom-right flex-col overflow-hidden rounded-overlay border border-solid [border-color:var(--overlay-border-color)] [border-width:var(--overlay-border-width)] [background-color:var(--overlay-surface-bg)] shadow-overlay"
                 role="dialog"
                 :aria-label="displayName()"
             >
@@ -531,7 +531,7 @@ onBeforeUnmount(() => {
                         <div
                             v-for="msg in messages"
                             :key="msg.id"
-                            class="enpii-assistant-widget__bubble max-w-[85%] rounded-2xl px-3 py-2 text-sm leading-relaxed"
+                            class="enpii-assistant-widget__bubble max-w-[85%] rounded-overlay px-3 py-2 text-sm leading-relaxed"
                             :class="{
                                 'self-end rounded-br-sm [background-color:var(--assistant-user-msg-bg)] [color:var(--assistant-user-msg-fg)] whitespace-pre-wrap': msg.role === 'user',
                                 'self-start rounded-bl-sm border border-solid [border-color:var(--assistant-card-border)] [border-width:var(--overlay-border-width)] [background-color:var(--assistant-bot-msg-bg)] [color:var(--assistant-bot-msg-fg)]': msg.role === 'assistant' || msg.role === 'system',
@@ -563,7 +563,7 @@ onBeforeUnmount(() => {
                                     <!-- eslint-disable-next-line vue/no-v-html -->
                                     <div
                                         v-else-if="assistantBlock.type === 'paragraph' || assistantBlock.type === 'code'"
-                                        class="enpii-assistant-widget__markdown text-sm leading-relaxed [&>*:first-child]:mt-0 [&>*:last-child]:mb-0 [&_a]:[color:var(--tone-primary-fg)] [&_a]:underline [&_a]:underline-offset-[.2em] [&_code]:rounded-md [&_code]:[background-color:var(--tone-neutral-soft-bg)] [&_code]:font-mono [&_code]:text-[.8125em] [&_pre]:overflow-x-auto [&_pre]:rounded-md [&_pre]:[background-color:var(--tone-neutral-soft-bg)] [&_pre]:p-2"
+                                        class="enpii-assistant-widget__markdown text-sm leading-relaxed [&>*:first-child]:mt-0 [&>*:last-child]:mb-0 [&_a]:[color:var(--tone-primary-fg)] [&_a]:underline [&_a]:underline-offset-[.2em] [&_code]:rounded-control [&_code]:[background-color:var(--tone-neutral-soft-bg)] [&_code]:font-mono [&_code]:text-[.8125em] [&_pre]:overflow-x-auto [&_pre]:rounded-control [&_pre]:[background-color:var(--tone-neutral-soft-bg)] [&_pre]:p-2"
                                         v-html="assistantBlock.html"
                                     />
                                     <ArtifactCard
@@ -589,7 +589,7 @@ onBeforeUnmount(() => {
 
                     <div
                         v-if="typing"
-                        class="enpii-assistant-widget__typing flex max-w-[85%] items-center gap-2 self-start rounded-2xl rounded-bl-sm border border-solid [border-color:var(--assistant-card-border)] [border-width:var(--overlay-border-width)] [background-color:var(--assistant-bot-msg-bg)] px-3 py-2"
+                        class="enpii-assistant-widget__typing flex max-w-[85%] items-center gap-2 self-start rounded-overlay rounded-bl-sm border border-solid [border-color:var(--assistant-card-border)] [border-width:var(--overlay-border-width)] [background-color:var(--assistant-bot-msg-bg)] px-3 py-2"
                         :aria-label="typingLabel"
                     >
                         <span class="enpii-assistant-widget__typing-dots flex items-center gap-1">
@@ -611,13 +611,13 @@ onBeforeUnmount(() => {
                         <div class="enpii-assistant-widget__confirm-actions mt-3 flex gap-2">
                             <button
                                 type="button"
-                                class="enpii-assistant-widget__confirm-button cursor-pointer rounded-md border-0 [background-color:var(--tone-primary-bg)] px-3 py-1 [color:var(--tone-primary-fg)] text-xs font-semibold hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50"
+                                class="enpii-assistant-widget__confirm-button cursor-pointer rounded-control border-0 [background-color:var(--tone-primary-bg)] px-3 py-1 [color:var(--tone-primary-fg)] text-xs font-semibold hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50"
                                 :disabled="sending"
                                 @click="decideConfirmation('approve')"
                             >Setuju</button>
                             <button
                                 type="button"
-                class="enpii-assistant-widget__reject-button cursor-pointer rounded-md border border-solid [border-color:var(--control-border-color)] [border-width:var(--control-border-width)] [background-color:var(--control-bg)] px-3 py-1 [color:var(--control-fg)] text-xs font-semibold hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50"
+                class="enpii-assistant-widget__reject-button cursor-pointer rounded-control border border-solid [border-color:var(--control-border-color)] [border-width:var(--control-border-width)] [background-color:var(--control-bg)] px-3 py-1 [color:var(--control-fg)] text-xs font-semibold hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50"
                                 :disabled="sending"
                                 @click="decideConfirmation('reject')"
                             >Tolak</button>

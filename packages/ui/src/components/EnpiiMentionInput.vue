@@ -279,7 +279,7 @@ defineExpose({ parseMentions })
         <slot name="preview" :segments="previewSegments">
             <p v-if="readonly" class="enpii-mention-input__preview m-0 py-3 px-4 border border-solid [border-color:var(--field-border)] rounded-control [background-color:var(--field-bg)] [color:var(--field-fg)] text-sm font-normal leading-normal whitespace-pre-wrap">
                 <template v-for="(segment, index) in previewSegments" :key="`${index}-${segment.text}`">
-                    <mark v-if="segment.mention" class="enpii-mention-input__mark py-0.5 px-1 rounded-md [background-color:var(--tone-primary-soft-bg)] [color:var(--tone-primary-soft-fg)] font-medium">{{ segment.text }}</mark>
+                    <mark v-if="segment.mention" class="enpii-mention-input__mark py-0.5 px-1 rounded-control [background-color:var(--tone-primary-soft-bg)] [color:var(--tone-primary-soft-fg)] font-medium">{{ segment.text }}</mark>
                     <template v-else>{{ segment.text }}</template>
                 </template>
             </p>
