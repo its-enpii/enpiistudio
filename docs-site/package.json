@@ -4,8 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vitepress dev",
-    "build": "npm run generate && vitepress build",
-    "generate": "node .scripts/generate-ui-components.mjs",
+    "build": "vitepress build",
     "preview": "vitepress preview"
   }
 }

@@ -29,6 +29,13 @@ Urutan eksekusi aktif: 2+3 paralel → 4 → 5 → 6 → 7. Semua item selesai.
 
 ## Log Progress
 
+### 2026-09-07 — Shared UI & Skeleton DIRETIRE (backend focus)
+
+- `packages/ui` dan `packages/skeleton` dihapus dari branch aktif. UI identity, layout, komponen, dan styling kini menjadi tanggung jawab tiap aplikasi produk.
+- Workflow publish UI dihapus; CI mempertahankan lint OpenAPI, npm audit, dan seluruh job PHP yang sudah ada.
+- Docs-site tidak lagi membaca `packages/ui` saat build, dan navigasi UI aktif dihapus.
+- Histori UI tetap tersedia di Git history. Versi `@its-enpii/ui`/`@its-enpii/skeleton` yang pernah dipublikasikan tidak dihapus atau diubah.
+
 ### 2026-09-07 — UI batch 4 cyberpunk/nordic/fluent style layers SELESAI
 
 - `@its-enpii/ui` tetap v1.4.0: tiga layer token-only baru (`cyberpunk`, `nordic`, `fluent`) melengkapi seluruh 101 color hook dan taxonomy struktural (`--control-*`, `--field-*`, `--tone-*`, `--table-*`, `--kanban-*`, `--picker-*`, `--dropzone-*`, `--editor-*`, `--chart-*`, `--assistant-*`, `--desktop-*`, `--focus-*`, `--radius-*`, `--transition-*`).

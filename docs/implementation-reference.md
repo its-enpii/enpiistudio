@@ -8,7 +8,7 @@ Dokumen ini menjelaskan kontrak yang benar-benar tersedia di repositori Enpii St
 - **belum ada** berarti kemampuan tersebut tidak tersedia pada implementasi saat ini.
 - **Target** berarti gagasan masa depan yang tidak boleh diperlakukan sebagai kontrak aktif.
 
-Jika sumber bertentangan, gunakan urutan penyelesaian berikut: kode sumber dan runtime, pengujian, migrasi dan penyedia layanan, OpenAPI dan Compose, runbook, lalu dokumen target atau roadmap. OpenAPI menggambarkan kontrak HTTP yang dimaksud, tetapi [perbedaan terhadap runtime](#59-perbedaan-implementasi-dan-openapi-yang-diketahui) tetap dicatat secara terbuka.
+Jika sumber bertentangan, gunakan urutan penyelesaian berikut: kode sumber dan runtime, pengujian, migrasi dan penyedia layanan, OpenAPI dan Compose, runbook, lalu dokumen target atau roadmap. OpenAPI menggambarkan kontrak HTTP yang dimaksud, tetapi [perbedaan terhadap runtime](#49-perbedaan-implementasi-dan-openapi-yang-diketahui) tetap dicatat secara terbuka.
 
 Semua tautan memakai jalur relatif repositori tanpa line anchor agar tidak cepat kedaluwarsa.
 
@@ -17,12 +17,11 @@ Semua tautan memakai jalur relatif repositori tanpa line anchor agar tidak cepat
 - [1. Peta sistem aktif](#1-peta-sistem-aktif)
 - [2. Core](#2-core)
 - [3. WhatsApp Client](#3-whatsapp-client)
-- [4. UI](#4-ui)
-- [5. WhatsApp Gateway](#5-whatsapp-gateway)
-- [6. Contoh integrasi aplikasi konsumen](#6-contoh-integrasi-aplikasi-konsumen)
-- [7. Konvensi lintas komponen](#7-konvensi-lintas-komponen)
-- [8. Troubleshooting](#8-troubleshooting)
-- [9. Matriks kemampuan yang belum ada](#9-matriks-kemampuan-yang-belum-ada)
+- [4. WhatsApp Gateway](#4-whatsapp-gateway)
+- [5. Contoh integrasi aplikasi konsumen](#5-contoh-integrasi-aplikasi-konsumen)
+- [6. Konvensi lintas komponen](#6-konvensi-lintas-komponen)
+- [7. Troubleshooting](#7-troubleshooting)
+- [8. Matriks kemampuan yang belum ada](#8-matriks-kemampuan-yang-belum-ada)
 
 ## 1. Peta sistem aktif
 
@@ -30,7 +29,6 @@ Semua tautan memakai jalur relatif repositori tanpa line anchor agar tidak cepat
 Aplikasi produk Laravel
 ├── enpii-studio/core                 in-process
 ├── enpii-studio/whatsapp-client      in-process
-├── @its-enpii/ui                  frontend Vue
 └── HTTP
     └── Enpii WhatsApp Gateway        layanan jaringan internal
         └── Evolution API             layanan eksternal
@@ -40,11 +38,12 @@ Aplikasi produk Laravel
 | --- | --- | --- |
 | Core | Konteks tenant, model identity, authorization, settings, feature flags, audit | Login/MFA, resolver tenant konkret, propagasi queue otomatis |
 | WhatsApp Client | Kontrak PHP, validasi DTO, HTTP adapter, fake, command terbatas | Kepemilikan tenant, credential Evolution, auto-connect |
-| UI | Token CSS, Button, Badge | State aplikasi dan komponen interaktif |
 | WhatsApp Gateway | Auth principal, ACL instance, lifecycle, text send, idempotency, readiness | Domain tenant Core, aplikasi produk, media delivery |
 | Evolution API | Koneksi WhatsApp aktual | Kontrak aplikasi produk |
 
 Aplikasi produk **belum ada** di repositori ini. Setiap produk nantinya tetap menjadi modular monolith Laravel standalone dengan database, deployment, dan release cycle sendiri.
+
+Enpii Studio tidak menyediakan UI package bersama. Setiap aplikasi memiliki dan memelihara identity, komponen, styling, serta stack frontend-nya sendiri. Histori `@its-enpii/ui` dan `@its-enpii/skeleton` tetap tersedia melalui Git history; versi yang pernah dipublikasikan tetap ada di registry dan tidak dihapus.
 
 ## 2. Core
 
@@ -122,7 +121,7 @@ $middleware->alias([
 ]);
 ```
 
-Contoh tersebut adalah kode aplikasi konsumen, bukan class yang disediakan paket. Resolver subdomain, header, session, dan JWT claim dicatat pada [matriks kemampuan yang belum ada](#9-matriks-kemampuan-yang-belum-ada).
+Contoh tersebut adalah kode aplikasi konsumen, bukan class yang disediakan paket. Resolver subdomain, header, session, dan JWT claim dicatat pada [matriks kemampuan yang belum ada](#8-matriks-kemampuan-yang-belum-ada).
 
 #### Konteks pada queue
 
@@ -366,7 +365,7 @@ Paket tidak membawa ID atau konteks tenant. `instanceId` adalah nama logis yang 
 | [`InstanceStatus`](../packages/whatsapp-client/src/DTOs/InstanceStatus.php) | `instanceId`, `GatewayStatus` | Tidak melakukan validasi tambahan; `isConnected()` tersedia |
 | [`ConnectionResult`](../packages/whatsapp-client/src/DTOs/ConnectionResult.php) | `instanceId`, `GatewayStatus`, `qrCode?`, `pairingCode?` | Provisioning material nullable |
 
-Validasi panjang pada DTO memakai `strlen()`, sehingga batasnya berbasis byte. Raw HTTP Gateway dan OpenAPI tidak selalu memakai semantik panjang identik; lihat [perbedaan kontrak](#59-perbedaan-implementasi-dan-openapi-yang-diketahui).
+Validasi panjang pada DTO memakai `strlen()`, sehingga batasnya berbasis byte. Raw HTTP Gateway dan OpenAPI tidak selalu memakai semantik panjang identik; lihat [perbedaan kontrak](#49-perbedaan-implementasi-dan-openapi-yang-diketahui).
 
 [`GatewayStatus`](../packages/whatsapp-client/src/Enums/GatewayStatus.php) memiliki nilai `disconnected`, `connecting`, `connected`, dan `error`. `isConnected()` hanya true untuk `connected`. Status kirim tetap string, bukan enum.
 
@@ -446,62 +445,11 @@ QR/pairing hanya dicetak ketika operator memberi flag eksplisit. Gunakan flag te
 
 `MediaMessage`, `sendMedia()`, dan fake media tersedia sebagai surface persiapan. HTTP client mengirim body serta `Idempotency-Key`, tetapi Gateway aktif mengabaikannya setelah autentikasi dan selalu mengembalikan `501 FEATURE_UNAVAILABLE`. Pada runtime saat ini, `sendMedia()` selalu berakhir sebagai `GatewayException` kind `response` bila request mencapai Gateway.
 
-## 4. UI
-
-Paket [`@its-enpii/ui`](../packages/ui) adalah library Vue 3 internal yang didistribusikan melalui GitHub Packages. Ia hanya berisi komponen presentasional serta token CSS; state aplikasi tetap milik produk.
-
-### 4.1 Export dan konsumsi
-
-[`src/index.ts`](../packages/ui/src/index.ts) mengekspor `EnpiiButton` dan `EnpiiBadge`, serta mengimpor token CSS. Package export `./styles.css` dan compatibility alias `./tokens.css` menunjuk artifact CSS yang sama; import salah satu saja.
-
-```ts
-import { EnpiiBadge, EnpiiButton } from '@its-enpii/ui'
-import '@its-enpii/ui/styles.css'
-```
-
-Peer dependency aktif adalah Vue `^3.5.0`. Package dirilis sebagai versi `0.1.0` melalui GitHub Packages dan tetap berlisensi internal `UNLICENSED`; instalasi memerlukan autentikasi package registry seperti dijelaskan di [`setup.md`](setup.md).
-
-### 4.2 Komponen
-
-| Komponen | Props | Default | Kontrak elemen |
-| --- | --- | --- | --- |
-| [`EnpiiButton`](../packages/ui/src/components/EnpiiButton.vue) | `type?: button|submit|reset`, `disabled?: boolean` | `button`, `false` | Native `<button>` dengan slot |
-| [`EnpiiBadge`](../packages/ui/src/components/EnpiiBadge.vue) | `tone?: primary|success|warning|danger|neutral`, `pill?: boolean` | `neutral`, `false` | Presentational `<span>` dengan slot |
-
-```vue
-<EnpiiButton type="submit" :disabled="saving">
-  Simpan
-</EnpiiButton>
-
-<EnpiiBadge tone="success" pill>
-  Aktif
-</EnpiiBadge>
-```
-
-Accessible name Button berasal dari slot; icon-only button tetap membutuhkan label yang diberikan aplikasi. Untuk submit form, gunakan `type="submit"` eksplisit. `disabled` memakai perilaku native. CSS menyediakan `:focus-visible` dan penyesuaian forced colors.
-
-Badge tidak mempunyai semantic role khusus. Teks harus menyampaikan status tanpa mengandalkan warna saja.
-
-### 4.3 Token CSS
-
-[`tokens.css`](../packages/ui/src/styles/tokens.css) mendefinisikan custom properties `--enpii-*` untuk warna primary/semantic, focus, radius control, spacing control, dan font stack. Override dilakukan setelah import stylesheet:
-
-```css
-@import '@its-enpii/ui/styles.css';
-
-:root {
-  --enpii-color-primary: #1d4ed8;
-  --enpii-color-primary-hover: #1e40af;
-}
-```
-
-Package tidak mengirim konfigurasi Tailwind. Aplikasi boleh memetakan token sendiri. Modal, dropdown, tabs, toast, dismissible chips, menu interaktif, dan komponen stateful lainnya dicatat pada matriks akhir.
-
-## 5. WhatsApp Gateway
+## 4. WhatsApp Gateway
 
 [`services/whatsapp-gateway`](../services/whatsapp-gateway) adalah Laravel application terpisah dan satu-satunya network boundary bersama. Gateway menyembunyikan credential Evolution, mengautentikasi principal, membatasi instance, dan menyediakan kontrak `/api/v1`.
 
-### 5.1 Endpoint aktif
+### 4.1 Endpoint aktif
 
 | Endpoint | Auth | Input utama | Sukses |
 | --- | --- | --- | --- |
@@ -515,7 +463,7 @@ Package tidak mengirim konfigurasi Tailwind. Aplikasi boleh memetakan token send
 
 Semua endpoint terlindungi memakai rate limit default 60 permintaan per menit per principal. Endpoint health/readiness berada di luar auth dan throttle group.
 
-### 5.2 Autentikasi dan ACL
+### 4.2 Autentikasi dan ACL
 
 Bearer token berbentuk `<key_id>.<secret>`. Middleware mencari principal dengan `key_id` dan status persis `active`, lalu memverifikasi secret menggunakan `password_verify()`. Database hanya menyimpan `key_hash`.
 
@@ -530,7 +478,7 @@ Command dapat menerima nol atau lebih option `--instance`, membuat principal, la
 
 Rotasi/revocation command, management API, serta reassignment instance tercatat pada matriks akhir. Mengubah kolom status principal secara administratif menjadi selain `active` membuat autentikasi gagal.
 
-### 5.3 Lifecycle dan status
+### 4.3 Lifecycle dan status
 
 Status provider dipetakan ke status kanonis:
 
@@ -545,11 +493,11 @@ Status endpoint meminta state provider dan menyimpannya pada `gateway_instances.
 
 Connect HTTP adapter selalu mengembalikan status awal `connecting`, beserta QR/pairing nullable. Gateway tidak polling tanpa batas, tidak auto-connect sebelum send, dan tidak menjalankan lifecycle secara otomatis.
 
-### 5.4 Health dan readiness
+### 4.4 Health dan readiness
 
 `/health` hanya membuktikan proses merespons. `/ready` menjalankan query database serta cache write/read. Ia tidak memeriksa Evolution API. Karena itu readiness dapat hijau ketika provider WhatsApp sedang gagal. Compose healthcheck memakai `/health`, bukan `/ready`.
 
-### 5.5 Idempotency pengiriman teks
+### 4.5 Idempotency pengiriman teks
 
 [`IdempotencyService`](../services/whatsapp-gateway/src/Services/IdempotencyService.php) mewajibkan key 8–200 karakter dengan pola `[A-Za-z0-9._:-]`. Scope record adalah `principal_id + operation + SHA-256(key)`; request hash adalah SHA-256 dari JSON payload tervalidasi dalam urutan field runtime.
 
@@ -565,7 +513,7 @@ Record diberi `expires_at = now + 7 hari`, tetapi lookup tidak mengabaikan recor
 
 Gateway menyimpan satu delivery dengan provider message ID, recipient masked, HMAC recipient menggunakan `APP_KEY`, status, dan `attempts=1`. Bila provider send berhasil tetapi persistence delivery gagal, Gateway mengembalikan `500 DELIVERY_PERSISTENCE_FAILED` dan memperingatkan caller agar tidak retry memakai key baru.
 
-### 5.6 Request ID dan error envelope
+### 4.6 Request ID dan error envelope
 
 Middleware membuat UUID baru untuk setiap request dan mengirimkannya melalui `X-Request-ID`. Incoming correlation ID tidak dipertahankan. Error body selalu berbentuk:
 
@@ -601,7 +549,7 @@ Client membaca `request_id` dari body, lalu memakai header sebagai fallback. Sim
 
 Field `retryable` adalah petunjuk, bukan perintah retry otomatis. Caller tetap harus memakai backoff, batas percobaan, serta idempotency key yang sama pada send ambigu.
 
-### 5.7 Penyimpanan dan konfigurasi
+### 4.7 Penyimpanan dan konfigurasi
 
 | Tabel | Isi utama |
 | --- | --- |
@@ -616,7 +564,7 @@ Provider mendukung driver `http` dan `fake`. HTTP driver memerlukan Evolution UR
 
 Compose membangun service `whatsapp-gateway` secara lokal. Container menjalankan migrasi lalu Artisan development server. Ia membuka port PostgreSQL, Redis, dan Gateway ke host; tidak menyediakan TLS, reverse proxy, scheduler, queue worker, atau production process manager. Detail standalone dan Compose ada di [`setup.md`](setup.md).
 
-### 5.8 Contoh wire aman dengan fake driver
+### 4.8 Contoh wire aman dengan fake driver
 
 Contoh ini hanya untuk stack lokal dengan `EVOLUTION_API_DRIVER=fake`. Jangan menjalankannya terhadap provider nyata tanpa persetujuan eksplisit.
 
@@ -644,7 +592,7 @@ curl -X POST \
 
 Mengulang body dan key yang sama menghasilkan replay stabil. Mengubah text dengan key sama menghasilkan `409 IDEMPOTENCY_CONFLICT`. Recipient di atas hanya placeholder dokumentasi dan tidak boleh dipakai untuk send nyata.
 
-### 5.9 Perbedaan implementasi dan OpenAPI yang diketahui
+### 4.9 Perbedaan implementasi dan OpenAPI yang diketahui
 
 [`openapi.yaml`](../contracts/whatsapp-gateway/openapi.yaml) adalah kontrak HTTP yang dimaksud, tetapi runtime belum sepenuhnya conform:
 
@@ -657,11 +605,11 @@ Mengulang body dan key yang sama menghasilkan replay stabil. Mengubah text denga
 
 Saat terjadi drift, kode sumber dan pengujian menjelaskan perilaku teramati; OpenAPI tetap menunjukkan kontrak yang perlu diselaraskan.
 
-## 6. Contoh integrasi aplikasi konsumen
+## 5. Contoh integrasi aplikasi konsumen
 
 Tidak ada skeleton aplikasi produk. Potongan berikut menunjukkan tanggung jawab aplikasi konsumen, bukan file yang disediakan paket.
 
-### 6.1 Instalasi dan request tenancy
+### 5.1 Instalasi dan request tenancy
 
 Tambahkan repository Composer VCS dan require tag rilis kedua paket seperti dijelaskan di [`setup.md`](setup.md). Path repositories hanya untuk pengembangan monorepo. Publikasikan migrasi Core, lalu konfigurasikan Laravel auth agar memakai model `EnpiiStudio\Core\Identity\Models\User`.
 
@@ -681,7 +629,7 @@ Route::middleware(['auth', 'tenant'])->group(function (): void {
 });
 ```
 
-### 6.2 Authorization dan audit
+### 5.2 Authorization dan audit
 
 ```php
 abort_unless(
@@ -704,7 +652,7 @@ DB::transaction(function () use ($order): void {
 
 Transaksi diperlukan bila perubahan domain dan audit harus berhasil atau gagal sebagai satu unit.
 
-### 6.3 Pengiriman text
+### 5.3 Pengiriman text
 
 Gunakan idempotency key stabil yang diturunkan dari operasi bisnis, bukan random key setiap attempt:
 
@@ -729,19 +677,10 @@ try {
 
 Connect harus tetap tindakan operator eksplisit. Jangan memanggil `connect()` otomatis di jalur send.
 
-### 6.4 UI
-
-```ts
-import { EnpiiBadge, EnpiiButton } from '@its-enpii/ui'
-import '@its-enpii/ui/styles.css'
-```
-
-Komponen dapat digunakan langsung di Vue template setelah registrasi/import sesuai setup aplikasi.
-
-## 7. Konvensi lintas komponen
+## 6. Konvensi lintas komponen
 
 - Setiap produk adalah modular monolith standalone dengan satu Laravel application, database, deployment, dan release cycle.
-- Core dan WhatsApp Client adalah paket Composer in-process. UI adalah paket npm internal. Hanya Gateway menjadi dependensi jaringan bersama.
+- Core dan WhatsApp Client adalah paket Composer in-process. Hanya Gateway menjadi dependensi jaringan bersama. UI identity dan komponen milik aplikasi.
 - Tabel Core memakai prefix `core_`; tabel Gateway memakai `gateway_`.
 - Primary key model domain Core dan Gateway memakai UUID. `TenantContext` sendiri hanya memvalidasi string non-kosong.
 - `instanceId` adalah nama logis string, bukan UUID database instance.
@@ -750,7 +689,7 @@ Komponen dapat digunakan langsung di Vue template setelah registrasi/import sesu
 - Migrasi Core dimiliki aplikasi konsumen setelah publish. Migrasi Gateway auto-loaded oleh service provider. Upgrade harus menambah migrasi baru, bukan mengubah migrasi yang telah dijalankan.
 - Credential live, recipient, QR/pairing payload, provider token, dan respons Evolution mentah tidak boleh disimpan di source, fixture, log, atau dokumentasi.
 
-## 8. Troubleshooting
+## 7. Troubleshooting
 
 | Gejala | Penyebab umum | Tindakan aman |
 | --- | --- | --- |
@@ -777,7 +716,7 @@ Komponen dapat digunakan langsung di Vue template setelah registrasi/import sesu
 | Encrypted token gagal dibaca | `APP_KEY` berubah | Pulihkan key lama; jangan generate ulang pada deployment |
 | Client `protocol` | JSON/field/status/instance mismatch | Gunakan request ID; selaraskan Gateway/client contract |
 
-## 9. Matriks kemampuan yang belum ada
+## 8. Matriks kemampuan yang belum ada
 
 Matriks ini adalah daftar kanonis tunggal. Bagian lain menjelaskan perilaku aktif tanpa mengulang daftar absen.
 
@@ -793,19 +732,18 @@ Matriks ini adalah daftar kanonis tunggal. Bagian lain menjelaskan perilaku akti
 | Audit | DB trigger, hash chain, outbox, restore audit | Eloquent writer/trait opt-in | Compliance/durability membutuhkan boundary DB |
 | WhatsApp Client | `SendStatus` enum, facade/helper, fake auto-binding | String status + DI/manual fake | API client perlu ergonomi tambahan |
 | WhatsApp Client | Validasi caption/filename formal | Hanya HTTPS media URL | Media delivery mulai dirancang |
-| UI | Modal/dropdown/tabs/toast/menu dan komponen stateful | Button, Badge, tokens | Pola UI berulang pada produk nyata |
+| Frontend | UI package, skeleton, layout, dan styling bersama | Aplikasi memiliki UI sendiri | Tidak pernah — backend harus tetap frontend-agnostic |
 | Gateway | Media delivery SSRF-safe | Endpoint `501 FEATURE_UNAVAILABLE` | Fetch policy/storage/scanning siap |
 | Gateway | Credential rotation/revocation/reassignment management | Provision command + administrasi DB terbatas | Operasi multi-produk membutuhkan lifecycle key |
 | Gateway | OpenAPI conformance/generated SDK/rendered docs | Lint OpenAPI + tests terpisah | Contract drift harus dicegah otomatis |
 | Gateway | Scheduler/worker/reverse proxy/TLS/production deployment | Compose lokal + Artisan server | Menjelang deployment production |
-| Product | Skeleton dan aplikasi contoh | Dokumentasi consumer manual | Produk pertama mulai dibangun |
+| Product | Aplikasi contoh | Dokumentasi consumer manual | Produk pertama mulai dibangun |
 | IDs | ULID/auto-increment convention | UUID domain, string boundary IDs | Ada kebutuhan terukur untuk mengganti |
 
 ## Indeks sumber utama
 
 - Core: [`src`](../packages/core/src), [`migration`](../packages/core/database/migrations/0001_01_01_000000_create_enpii_core_tables.php), [`tests`](../packages/core/tests).
 - WhatsApp Client: [`src`](../packages/whatsapp-client/src), [`config`](../packages/whatsapp-client/config/whatsapp-client.php), [`tests`](../packages/whatsapp-client/tests).
-- UI: [`README`](../packages/ui/README.md), [`src`](../packages/ui/src), [`tests`](../packages/ui/tests).
 - Gateway: [`routes`](../services/whatsapp-gateway/routes/api.php), [`src`](../services/whatsapp-gateway/src), [`migration`](../services/whatsapp-gateway/database/migrations/0001_01_01_000000_create_gateway_tables.php), [`tests`](../services/whatsapp-gateway/tests).
 - HTTP contract: [`openapi.yaml`](../contracts/whatsapp-gateway/openapi.yaml).
 - Operasi lokal: [`setup.md`](setup.md).

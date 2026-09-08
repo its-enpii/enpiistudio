@@ -3,15 +3,15 @@ layout: home
 
 hero:
   name: Enpii Studio Platform
-  text: Fondasi Laravel multi-tenant + design system Vue
-  tagline: Kerangka, bukan tampilan — konsisten untuk aplikasi produk.
+  text: Fondasi backend Laravel multi-tenant
+  tagline: Frontend-agnostic — identitas UI milik tiap aplikasi.
   actions:
     - theme: brand
       text: Dokumentasi Core
       link: /platform
     - theme: alt
-      text: Dokumentasi UI
-      link: /ui/
+      text: Konvensi Platform
+      link: /guide/platform-conventions
 ---
 
 <style module>

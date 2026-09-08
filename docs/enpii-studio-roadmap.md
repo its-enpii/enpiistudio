@@ -23,7 +23,7 @@ Proyek ini berdiri di atas dua pilar:
 |---|---|---|
 | Core (Identity, Tenancy, Authorization, Settings, Audit Log) | Composer package, di-*install* per app | Tenant scoped per-produk, tidak perlu jadi service terpusat |
 | WhatsApp Client (SDK) | Composer package, di-*install* per app | Tipis, hanya kontrak + HTTP client |
-| UI Components | Composer/NPM package, opsional | Konsistensi tampilan lintas produk |
+| UI tiap aplikasi | Milik repository aplikasi masing-masing | Identity produk berbeda dan Enpii Studio tetap frontend-agnostic |
 | WhatsApp Gateway (Evolution API) | **Service terpisah**, sudah eksis | Credential sensitif, resource mahal (nomor WA), dipakai bersama oleh semua produk |
 | 25 Aplikasi UMKM | Laravel app standalone, masing-masing repo sendiri | Siklus rilis independen, stack berbeda-beda (web/mobile/desktop) |
 
@@ -34,8 +34,6 @@ enpii-studio/core              → package: Identity, Tenancy, Authorization,
                                   Settings, Feature Flags, Audit Log,
                                   Customer Management base
 enpii-studio/whatsapp-client   → package: WhatsAppProvider contract + HTTP client
-@its-enpii/ui                → package: komponen Vue reusable, design tokens
-
 enpii-whatsapp-gateway         → service terpisah (sudah ada), Evolution API adapter
 
 enpii-laundry                  → app pertama (pilot)
@@ -68,7 +66,7 @@ Core dianggap matang untuk di-tag versi 1.0 dan dipakai app kedua jika:
 
 **Laundry** atau **Penjahit** dipilih sebagai pilot pertama karena:
 
-- Stack A (Laravel + Vue 3 + Inertia), tanpa Nuxt publik, tanpa mobile wajib — kompleksitas paling rendah.
+- Stack frontend dipilih aplikasi produk sendiri; backend tetap Laravel.
 - Alur bisnis pendek: Customer → Transaksi → Status → Notifikasi selesai — cukup untuk membuktikan pipa penuh tanpa domain logic yang rumit.
 - Punya event WhatsApp yang jelas untuk divalidasi ujung-ke-ujung: `LaundryOrderReady` — dipicu saat status pesanan berubah jadi selesai, mengirim notifikasi WhatsApp ke pelanggan.
 
@@ -93,7 +91,7 @@ Core dianggap matang untuk di-tag versi 1.0 dan dipakai app kedua jika:
 - [ ] Idempotency key + retry dasar (belum perlu queue kompleks di awal, cukup job sederhana).
 
 ### Fase 3 — Pilot: `enpii-laundry`
-- [ ] Scaffold Laravel + Vue 3 + Inertia, lalu `composer require` Core dan WhatsApp Client dari repository distribusi VCS.
+- [ ] Scaffold aplikasi Laravel dengan frontend milik aplikasi, lalu `composer require` Core dan WhatsApp Client dari repository distribusi VCS.
 - [ ] Fitur inti: data pelanggan, pencatatan transaksi, status proses laundry, invoice, notifikasi WhatsApp saat cucian selesai.
 - [ ] Domain event `LaundryOrderReady` → WhatsApp Client → Evolution API → validasi delivery log.
 - [ ] Deploy pilot ke produksi kecil (real user, bukan cuma staging).
@@ -111,7 +109,7 @@ Core dianggap matang untuk di-tag versi 1.0 dan dipakai app kedua jika:
 
 ### Fase 6 — Infrastruktur Lintas Produk (opsional, belakangan)
 - [ ] Platform Admin dashboard untuk memantau WhatsApp Gateway lintas 25 produk (overview, delivery logs, provider health).
-- [ ] `@its-enpii/ui` sebagai package komponen Vue, diekstrak dari pola yang berulang di beberapa produk pertama — bukan didesain di awal secara spekulatif.
+- [ ] Jangan bangun UI bersama; tiap aplikasi memilih stack dan identity-nya sendiri.
 
 ---
 

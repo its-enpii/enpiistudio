@@ -118,7 +118,7 @@ jobs:
       - run: docker compose config --quiet
       - run: composer audit --working-dir=services/whatsapp-gateway --no-interaction
 
-  ui:
+  contracts-tooling:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
@@ -128,8 +128,4 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run contract:check
-      - run: npm run ui:check
-      - run: npm run ui:test
-      - run: npm run ui:build
-      - run: npm run ui:pack
       - run: npm audit --audit-level=high

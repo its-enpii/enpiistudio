@@ -26,8 +26,8 @@ Halaman ini adalah salinan render dari `docs/platform-conventions.md` pada saat 
    apa pun (struktur folder, penamaan, pola test, pola konfigurasi).
 2. **Kontrak dulu, implementasi belakangan.** Perubahan perilaku lintas package dimulai dari
    contract/spec, disinkronkan ke implementasi (pola yang sudah dipakai `contracts/whatsapp-gateway`).
-3. **Backend agnostik frontend.** Core (Laravel) TIDAK pernah berasumsi konsumen memakai @its-enpii/ui.
-   UI tidak pernah memanggil endpoint spesifik — ia menerima props/adapter dari app.
+3. **Backend agnostik frontend.** Core (Laravel) tidak pernah mengasumsikan framework UI, component
+   library, styling, atau identity visual milik aplikasi konsumen.
 4. **Fail-closed untuk hal yang sensitif** (tenancy, permission, auth). Pola guard tidak dilonggarkan.
 
 ## 1. Struktur Module Core (Laravel)
@@ -84,8 +84,7 @@ Semua endpoint JSON mengembalikan envelope:
 
 - PHP: PSR-12 + Pint config root. Class nama baku; method camelCase; route name `module.entity.action`.
 - Route prefix: `/api/v1/<module>` — versi di path, tidak di header.
-- TS/Vue (`packages/ui` + app): BEM + token `--enpii-*`, prefix `Enpii`, i18n `t()` untuk teks user-facing,
-  weight cap, reduced-motion. **Tidak ada exception styling baru.**
+- Backend contracts must remain frontend-agnostic; do not add UI assumptions or visual decisions here.
 - TypeScript strict; API client types di-generate dari spec.
 
 ## 5. Kontrak Backend–Frontend (Bridge)
@@ -95,15 +94,15 @@ Semua endpoint JSON mengembalikan envelope:
 - TS types di-generate dari spec, bukan diketik manual.
 - Client fetcher tipis: unwrap envelope, normalisasi error, injeksi tenant dan locale header, tanpa axios.
 
-## 6. Skeleton & Identitas Visual
+## 6. Identitas Visual Aplikasi
 
-- Skeleton memilih layout preset saat install, tetapi tidak memaksa satu layout.
-- Identitas aplikasi ditimpa lewat `brand.css` menggunakan token `--enpii-*`.
-- Skeleton tidak mendefinisikan warna brand; bila ragu, gunakan tampilan bawaan UI package.
+- Repositori Enpii Studio tidak menyediakan UI, skeleton, token visual, atau component library bersama.
+- Setiap aplikasi produk memilih sendiri stack frontend, layout, component library, styling, dan identity.
+- Jangan menambahkan dependensi backend atau kontrak API hanya untuk mendukung satu stack frontend.
 
 ## 7. Testing & Verifikasi
 
 - PHPUnit per module: unit dan feature, termasuk authorization dan tenant scoping.
 - Pint harus bersih.
-- UI diuji dengan Vitest dan sandbox visual bila tampilan berubah.
+- Verifikasi frontend dan visual milik repository aplikasi konsumen.
 - CI harus hijau sebelum merge.

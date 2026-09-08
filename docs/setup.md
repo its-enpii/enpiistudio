@@ -1,6 +1,6 @@
 # Setup dan runbook baseline
 
-Repositori ini memuat paket reusable dan layanan WhatsApp Gateway internal. Aplikasi produk **belum ada**. Core dan WhatsApp Client berjalan di dalam proses aplikasi Laravel konsumen; UI dikonsumsi frontend Vue; hanya WhatsApp Gateway menjadi dependensi jaringan bersama.
+Repositori ini memuat paket reusable dan layanan WhatsApp Gateway internal. Aplikasi produk **belum ada**. Core dan WhatsApp Client berjalan di dalam proses aplikasi Laravel konsumen; hanya WhatsApp Gateway menjadi dependensi jaringan bersama. UI identity dan komponen frontend milik masing-masing aplikasi.
 
 ## Prasyarat
 
@@ -22,10 +22,7 @@ composer check --working-dir=services/whatsapp-gateway
 
 npm ci
 npm run contract:check
-npm run ui:check
-npm run ui:test
-npm run ui:build
-npm run ui:pack
+npm run docs:build
 
 docker compose config --quiet
 ```
@@ -34,7 +31,7 @@ Hasil yang diharapkan:
 
 - Kedua `composer check` meloloskan validasi manifest, Pint, dan PHPUnit.
 - `contract:check` meloloskan lint OpenAPI. Pemeriksaan ini belum membuktikan kesesuaian otomatis antara OpenAPI dan runtime.
-- Pemeriksaan UI meloloskan typecheck, Vitest, build Vite, serta dry-run paket npm.
+- Build docs-site meloloskan tanpa membaca paket UI/skeleton yang sudah dihapus.
 - `docker compose config --quiet` selesai tanpa keluaran atau error.
 
 Pengujian perilaku paket Core memakai Orchestra Testbench dengan SQLite in-memory. Jangan menafsirkan hasil itu sebagai bukti eksekusi seluruh perilaku Core pada PostgreSQL.
@@ -51,20 +48,7 @@ composer require enpii-studio/core:^0.1 enpii-studio/whatsapp-client:^0.1
 
 Path repositories pada root monorepo hanya untuk pengembangan paket secara lokal. Jangan memakai checkout `../enpii-studio`, path repository, atau submodule dalam aplikasi konsumen. Versi paket mengikuti tag immutable pada repository distribusi; package belum didaftarkan ke Packagist sehingga kedua deklarasi VCS tetap wajib.
 
-UI dipasang dari GitHub Packages. Buat `.npmrc` pada aplikasi tanpa token literal:
-
-```ini
-@its-enpii:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_TOKEN}
-```
-
-Isi `GITHUB_PACKAGES_TOKEN` melalui environment dengan PAT classic yang memiliki `read:packages`, lalu jalankan:
-
-```bash
-npm install @its-enpii/ui@^0.1
-```
-
-Jangan commit token ke repository, lockfile, image, atau log CI. Import `@its-enpii/ui` dan `@its-enpii/ui/styles.css` dari frontend aplikasi.
+`@its-enpii/ui` dan `@its-enpii/skeleton` sudah tidak dikembangkan di repositori ini. Versi lama yang pernah dipublikasikan tetap tersedia di registry, tetapi Enpii Studio tidak memberikan jalur upgrade bersama. Aplikasi yang masih memakainya harus memelihara dependensinya sendiri, meng-pin versi, atau memigrasikan UI ke kode milik aplikasi.
 
 Penyedia layanan kedua paket Composer terdaftar melalui Laravel package discovery. Core tidak memuat migrasinya secara otomatis. Periksa destination sebelum memublikasikan migrasi:
 
@@ -202,4 +186,4 @@ Periksa nama project Compose sebelum menjalankan `down -v`. Jangan hapus volume 
 - Respons mentah `fetchInstances` dapat memuat token instance. Jangan log respons tersebut; gunakan allowlist field yang aman.
 - Media endpoint tetap mengembalikan `501 FEATURE_UNAVAILABLE` sampai pengambilan media SSRF-safe tersedia.
 
-Kontrak lengkap autentikasi, ACL, idempotency, error, retry, readiness, dan perbedaan OpenAPI tersedia di [referensi WhatsApp Gateway](implementation-reference.md#5-whatsapp-gateway).
+Kontrak lengkap autentikasi, ACL, idempotency, error, retry, readiness, dan perbedaan OpenAPI tersedia di [referensi WhatsApp Gateway](implementation-reference.md#4-whatsapp-gateway).

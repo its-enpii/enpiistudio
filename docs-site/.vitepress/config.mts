@@ -3,14 +3,13 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   lang: 'id-ID',
   title: 'Enpii Studio Platform',
-  description: 'Fondasi aplikasi Laravel multi-tenant dan design system Vue yang konsisten.',
+  description: 'Fondasi backend Laravel multi-tenant yang frontend-agnostic.',
   srcDir: '.',
   cleanUrls: true,
   head: [['meta', { name: 'theme-color', content: '#0d0d0d' }]],
   themeConfig: {
     nav: [
       { text: 'Platform & Core', link: '/guide/platform-conventions' },
-      { text: 'UI', link: '/ui/' },
       { text: 'Roadmap', link: '/guide/roadmap' }
     ],
     sidebar: [
@@ -27,14 +26,6 @@ export default defineConfig({
           { text: 'Audit', link: '/core/audit' },
           { text: 'Media', link: '/core/media' },
           { text: 'Notification', link: '/core/notification' }
-        ]
-      },
-      {
-        text: 'UI',
-        items: [
-          { text: 'Ringkasan UI', link: '/ui/' },
-          { text: 'Komponen', link: '/ui/components' },
-          { text: 'Token & Style Layer', link: '/ui/tokens-and-layers' }
         ]
       },
       {
