@@ -10,6 +10,7 @@ use EnpiiStudio\Core\Media\Contracts\MediaManager as MediaManagerContract;
 use EnpiiStudio\Core\Media\MediaManager;
 use EnpiiStudio\Core\Notification\Contracts\NotificationCenter as NotificationCenterContract;
 use EnpiiStudio\Core\Notification\NotificationCenter;
+use EnpiiStudio\Core\Payment\PaymentManager;
 use EnpiiStudio\Core\Settings\SettingsRepository;
 use EnpiiStudio\Core\Tenancy\Middleware\ResolveTenantContext;
 use EnpiiStudio\Core\Tenancy\TenantContext;
@@ -27,6 +28,7 @@ final class CoreServiceProvider extends ServiceProvider
         $this->app->scoped(FeatureFlags::class);
         $this->mergeConfigFrom(__DIR__.'/../config/enpii-core.php', 'enpii-core');
         $this->app->singleton(MediaManagerContract::class, MediaManager::class);
+        $this->app->singleton(PaymentManager::class);
         $this->app->scoped(NotificationCenterContract::class, NotificationCenter::class);
     }
 
