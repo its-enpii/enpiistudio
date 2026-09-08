@@ -70,6 +70,31 @@ final class GatewayApiTest extends TestCase
         self::assertSame(1, $this->provider->sendCount);
     }
 
+    public function test_media_send_uses_canonical_contract(): void
+    {
+        [$headers] = $this->principalWithInstance('demo');
+
+        $result = $this->withHeaders($headers + ['Idempotency-Key' => 'media:key:1'])
+            ->postJson('/api/v1/messages/media', [
+                'instance_id' => 'demo',
+                'to' => '+628123456789',
+                'media_url' => 'https://example.com/image.png',
+                'caption' => 'Photo caption',
+                'filename' => 'image.png',
+            ])
+            ->assertAccepted()
+            ->json();
+
+        self::assertSame('fake-media-1', $result['message_id']);
+        self::assertSame('accepted', $result['status']);
+        self::assertSame(1, $this->provider->sendCount);
+
+        self::assertDatabaseHas('gateway_message_deliveries', [
+            'provider_message_id' => 'fake-media-1',
+            'status' => 'accepted',
+        ]);
+    }
+
     public function test_idempotent_replay_is_stable_and_conflict_is_rejected(): void
     {
         [$headers] = $this->principalWithInstance('demo');
@@ -85,6 +110,30 @@ final class GatewayApiTest extends TestCase
         self::assertSame(1, $this->provider->sendCount);
 
         $this->withHeaders($headers)->postJson('/api/v1/messages/text', [...$payload, 'text' => 'Changed'])
+            ->assertConflict()->assertJsonPath('code', 'IDEMPOTENCY_CONFLICT');
+    }
+
+    public function test_media_idempotent_replay_is_stable_and_conflict_is_rejected(): void
+    {
+        [$headers] = $this->principalWithInstance('demo');
+        $headers += ['Idempotency-Key' => 'media:key:replay'];
+        $payload = [
+            'instance_id' => 'demo',
+            'to' => '+628123456789',
+            'media_url' => 'https://example.com/invoice.pdf',
+            'caption' => 'Invoice',
+            'filename' => 'invoice.pdf',
+        ];
+
+        $first = $this->withHeaders($headers)->postJson('/api/v1/messages/media', $payload)
+            ->assertAccepted()->json();
+        $replay = $this->withHeaders($headers)->postJson('/api/v1/messages/media', $payload)
+            ->assertAccepted()->json();
+
+        self::assertSame($first, $replay);
+        self::assertSame(1, $this->provider->sendCount);
+
+        $this->withHeaders($headers)->postJson('/api/v1/messages/media', [...$payload, 'caption' => 'Changed invoice'])
             ->assertConflict()->assertJsonPath('code', 'IDEMPOTENCY_CONFLICT');
     }
 
@@ -133,13 +182,19 @@ final class GatewayApiTest extends TestCase
         self::assertSame(['code', 'message', 'request_id', 'retryable'], array_keys($response->json()));
     }
 
-    public function test_media_is_explicitly_unavailable(): void
+    public function test_invalid_media_payload_returns_safe_error(): void
     {
         [$headers] = $this->principalWithInstance('demo');
 
-        $this->withHeaders($headers)->postJson('/api/v1/messages/media')
-            ->assertStatus(501)
-            ->assertJsonPath('code', 'FEATURE_UNAVAILABLE');
+        $this->withHeaders($headers + ['Idempotency-Key' => 'media:key:invalid'])
+            ->postJson('/api/v1/messages/media', [
+                'instance_id' => 'demo',
+                'to' => '+628123456789',
+                'media_url' => 'http://insecure.test/file.pdf',
+            ])
+            ->assertUnprocessable()
+            ->assertJsonPath('code', 'VALIDATION_FAILED')
+            ->assertJsonMissingPath('errors');
     }
 
     private function principalWithInstance(string $instance): array

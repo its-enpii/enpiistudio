@@ -130,15 +130,36 @@ paths:
           $ref: '#/components/responses/Error'
   /messages/media:
     post:
-      summary: Report media sending unavailable
+      summary: Send media message
       operationId: sendMedia
-      description: Reserved. Returns FEATURE_UNAVAILABLE until SSRF-safe media fetching is implemented.
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MediaMessage'
       responses:
+        '202':
+          $ref: '#/components/responses/SendResult'
         '401':
           $ref: '#/components/responses/Error'
         '403':
           $ref: '#/components/responses/Error'
-        '501':
+        '404':
+          $ref: '#/components/responses/Error'
+        '409':
+          $ref: '#/components/responses/Error'
+        '422':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
+        '502':
+          $ref: '#/components/responses/Error'
+        '503':
           $ref: '#/components/responses/Error'
 components:
   securitySchemes:
@@ -205,6 +226,7 @@ components:
         instance_id:
           type: string
           minLength: 1
+          maxLength: 100
         to:
           type: string
           pattern: '^\+?[1-9]\d{7,14}$'
@@ -212,6 +234,28 @@ components:
           type: string
           minLength: 1
           maxLength: 4096
+    MediaMessage:
+      type: object
+      additionalProperties: false
+      required: [instance_id, to, media_url]
+      properties:
+        instance_id:
+          type: string
+          minLength: 1
+          maxLength: 100
+        to:
+          type: string
+          pattern: '^\+?[1-9]\d{7,14}$'
+        media_url:
+          type: string
+          format: uri
+          pattern: '^https://.+'
+        caption:
+          type: [string, 'null']
+          maxLength: 4096
+        filename:
+          type: [string, 'null']
+          maxLength: 255
     SendResult:
       type: object
       additionalProperties: false

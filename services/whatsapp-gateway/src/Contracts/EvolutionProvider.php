@@ -17,4 +17,7 @@ interface EvolutionProvider
 
     /** @return array{message_id: string, status: string} */
     public function sendText(string $instance, string $to, string $text): array;
+
+    /** @return array{message_id: string, status: string} */
+    public function sendMedia(string $instance, string $to, string $mediaUrl, ?string $caption = null, ?string $filename = null): array;
 }

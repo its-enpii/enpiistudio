@@ -36,4 +36,11 @@ final class FakeEvolutionProvider implements EvolutionProvider
 
         return ['message_id' => 'fake-'.$this->sendCount, 'status' => 'accepted'];
     }
+
+    public function sendMedia(string $instance, string $to, string $mediaUrl, ?string $caption = null, ?string $filename = null): array
+    {
+        $this->sendCount++;
+
+        return ['message_id' => 'fake-media-'.$this->sendCount, 'status' => 'accepted'];
+    }
 }

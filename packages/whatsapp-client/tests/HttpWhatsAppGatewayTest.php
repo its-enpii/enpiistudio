@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace EnpiiStudio\WhatsAppClient\Tests;
 
 use EnpiiStudio\WhatsAppClient\Contracts\WhatsAppGateway;
+use EnpiiStudio\WhatsAppClient\DTOs\MediaMessage;
 use EnpiiStudio\WhatsAppClient\DTOs\TextMessage;
 use EnpiiStudio\WhatsAppClient\Enums\GatewayStatus;
 use EnpiiStudio\WhatsAppClient\Exceptions\GatewayException;
@@ -39,6 +40,37 @@ final class HttpWhatsAppGatewayTest extends TestCase
             && $request->hasHeader('Authorization', 'Bearer test-key')
             && $request->hasHeader('Idempotency-Key', 'order:tenant:1')
             && $request['instance_id'] === 'instance-a');
+    }
+
+    public function test_sends_media_contract_request_with_auth_and_idempotency(): void
+    {
+        Http::preventStrayRequests();
+        Http::fake([
+            'https://gateway.test/api/v1/messages/media' => Http::response([
+                'message_id' => 'media-message-1',
+                'status' => 'accepted',
+            ], 202),
+        ]);
+
+        $result = app(WhatsAppGateway::class)->sendMedia(new MediaMessage(
+            instanceId: 'instance-a',
+            to: '+628123456789',
+            mediaUrl: 'https://media.test/invoice.pdf',
+            idempotencyKey: 'order:tenant:media:1',
+            caption: 'Invoice #1',
+            filename: 'invoice.pdf',
+        ));
+
+        self::assertSame('media-message-1', $result->messageId);
+        self::assertSame('accepted', $result->status);
+        Http::assertSent(fn (Request $request) => $request->url() === 'https://gateway.test/api/v1/messages/media'
+            && $request->hasHeader('Authorization', 'Bearer test-key')
+            && $request->hasHeader('Idempotency-Key', 'order:tenant:media:1')
+            && $request['instance_id'] === 'instance-a'
+            && $request['to'] === '+628123456789'
+            && $request['media_url'] === 'https://media.test/invoice.pdf'
+            && $request['caption'] === 'Invoice #1'
+            && $request['filename'] === 'invoice.pdf');
     }
 
     public function test_non_success_response_throws_consistent_exception(): void

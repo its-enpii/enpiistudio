@@ -70,6 +70,25 @@ final readonly class EvolutionHttpProvider implements EvolutionProvider
         return ['message_id' => $id, 'status' => 'accepted'];
     }
 
+    public function sendMedia(string $instance, string $to, string $mediaUrl, ?string $caption = null, ?string $filename = null): array
+    {
+        $payload = array_filter([
+            'number' => ltrim($to, '+'),
+            'media' => $mediaUrl,
+            'caption' => $caption,
+            'fileName' => $filename,
+        ], fn ($value) => $value !== null);
+
+        $data = $this->execute(fn () => $this->request()->post('/message/sendMedia/'.rawurlencode($this->instance($instance)), $payload));
+        $id = $data['key']['id'] ?? null;
+
+        if (! is_string($id) || $id === '') {
+            throw new GatewayApiException('PROVIDER_PROTOCOL_ERROR', 'Provider returned an invalid response.', 502, true);
+        }
+
+        return ['message_id' => $id, 'status' => 'accepted'];
+    }
+
     private function request(): PendingRequest
     {
         return $this->http->baseUrl(rtrim($this->url, '/'))

@@ -42,6 +42,27 @@ final class FakeWhatsAppGatewayTest extends PHPUnitTestCase
         self::assertSame('accepted', $result->status);
     }
 
+    public function test_fake_records_media_messages_and_returns_contract_result(): void
+    {
+        $fake = new FakeWhatsAppGateway;
+        $message = new MediaMessage(
+            instanceId: 'instance-a',
+            to: '+628123456789',
+            mediaUrl: 'https://media.test/image.png',
+            idempotencyKey: 'media:test:key:1',
+            caption: 'Test caption',
+            filename: 'image.png',
+        );
+
+        $result = $fake->sendMedia($message);
+
+        self::assertSame([$message], $fake->mediaMessages);
+        self::assertSame('fake-media-1', $result->messageId);
+        self::assertSame('accepted', $result->status);
+
+        $fake->assertMediaSent(fn (MediaMessage $m) => $m->mediaUrl === 'https://media.test/image.png');
+    }
+
     public function test_fake_supports_explicit_connection_lifecycle(): void
     {
         $fake = new FakeWhatsAppGateway;
@@ -77,6 +98,25 @@ final class FakeWhatsAppGatewayTest extends PHPUnitTestCase
 
         self::assertSame($first, $replay);
         self::assertCount(1, $fake->textMessages);
+    }
+
+    public function test_media_idempotent_replay_returns_original_result_without_resending(): void
+    {
+        $fake = new FakeWhatsAppGateway;
+        $message = new MediaMessage(
+            instanceId: 'instance-a',
+            to: '+628123456789',
+            mediaUrl: 'https://media.test/invoice.pdf',
+            idempotencyKey: 'media:test:key:1',
+            caption: 'Invoice',
+            filename: 'invoice.pdf',
+        );
+
+        $first = $fake->sendMedia($message);
+        $replay = $fake->sendMedia($message);
+
+        self::assertSame($first, $replay);
+        self::assertCount(1, $fake->mediaMessages);
     }
 
     public function test_idempotency_key_rejects_different_payload(): void
