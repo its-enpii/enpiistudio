@@ -1,0 +1,75 @@
+{
+  "name": "@its-enpii/ui",
+  "version": "1.4.0",
+  "description": "Internal presentational Vue components for Enpii Studio products",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/its-enpii/enpiistudio.git",
+    "directory": "packages/ui"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "type": "module",
+  "files": [
+    "CHANGELOG.md",
+    "dist",
+    "README.md",
+    "src"
+  ],
+  "main": "./dist/enpii-ui.umd.cjs",
+  "module": "./dist/enpii-ui.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/enpii-ui.js",
+      "require": "./dist/enpii-ui.umd.cjs"
+    },
+    "./styles.css": "./dist/enpii-ui.css",
+    "./tailwind.css": "./dist/tailwind.css",
+    "./styles/material": "./dist/styles/layers/material.css",
+    "./styles/glassmorphism": "./dist/styles/layers/glassmorphism.css",
+    "./styles/neumorphism": "./dist/styles/layers/neumorphism.css",
+    "./styles/neobrutalism": "./dist/styles/layers/neobrutalism.css",
+    "./styles/neobrutalism-tamed": "./dist/styles/layers/neobrutalism-tamed.css",
+    "./styles/minimalism": "./dist/styles/layers/minimalism.css",
+    "./styles/*": "./dist/styles/*"
+  },
+  "scripts": {
+    "build": "npm run rebuild:dist-tailwind",
+    "build:tailwind": "vite --config vite.config.tailwind.ts build",
+    "check": "vue-tsc --noEmit",
+    "test": "vitest run --exclude tests/tailwind-theme.test.ts --exclude tests/golden-master.parity.spec.ts",
+    "golden:record": "GOLDEN_RECORD=1 vitest run tests/golden-master.parity.spec.ts",
+    "golden:check": "vitest run tests/golden-master.parity.spec.ts",
+    "test:tailwind": "npm run build:tailwind && npm run rebuild:dist-tailwind && vitest run tests/tailwind-theme.test.ts --config vitest.config.tailwind.ts && node scripts/tailwind-smoke.mjs",
+    "rebuild:dist-tailwind": "node scripts/preserve-tailwind-dist.mjs && vite build && vue-tsc --emitDeclarationOnly && node scripts/restore-tailwind-dist.mjs",
+    "pack:check": "npm pack --dry-run"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  },
+  "dependencies": {
+    "@tiptap/starter-kit": "^3.29.0",
+    "@tiptap/vue-3": "^3.29.0",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/qrcode": "^1.5.6",
+    "@vitejs/plugin-vue": "^6.0.0",
+    "@vue/test-utils": "^2.4.6",
+    "jsdom": "^26.0.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.8.0",
+    "vite": "^7.0.0",
+    "vitest": "^3.2.0",
+    "vue": "^3.5.0",
+    "vue-tsc": "^3.0.0"
+  }
+}

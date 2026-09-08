@@ -1,0 +1,102 @@
+import { createRequire } from 'node:module'
+import { createServer } from 'node:http'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const require = createRequire('/usr/local/lib/hermes-agent/node_modules/')
+const { chromium } = require('playwright')
+const executablePath = '/root/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome'
+
+const packageRoot = path.dirname(fileURLToPath(import.meta.url))
+const distRoot = path.join(packageRoot, '..', 'dist')
+const mimeTypes = {
+  '.css': 'text/css',
+  '.html': 'text/html',
+}
+
+const server = createServer(async (request, response) => {
+  try {
+    const file = path.join(distRoot, request.url ?? '/')
+    response.setHeader('content-type', mimeTypes[path.extname(file)] ?? 'text/plain')
+    response.end(await readFile(file))
+  } catch {
+    response.statusCode = 404
+    response.end('Not found')
+  }
+})
+
+await new Promise(resolve => server.listen(0, '127.0.0.1', resolve))
+const address = server.address()
+if (typeof address !== 'object' || address === null) throw new Error('Smoke server failed to start')
+await mkdir(distRoot, { recursive: true })
+const layer = process.env.ENPII_UI_STYLE_LAYER
+const layerCss = layer && layer !== 'none'
+  ? await readFile(path.join(packageRoot, '..', 'src', 'styles', 'layers', `${layer}.css`), 'utf8')
+  : ''
+await writeFile(path.join(distRoot, 'tailwind-smoke.html'), [
+  '<!doctype html>',
+  '<html lang="en"><head><meta charset="utf-8"><title>Tailwind smoke</title>',
+  '<link rel="stylesheet" href="./tailwind.css"></head>',
+  '<body>',
+  '<button id="target" class="min-h-control bg-primary text-on-primary rounded-control shadow-control">Sky button</button>',
+  '<div id="layer-probe" class="rounded-control shadow-control font-semibold duration-fast ease-emphasized">Layer</div>',
+  '</body></html>',
+].join(''), 'utf8')
+
+const browser = await chromium.launch({ executablePath })
+const page = await browser.newPage()
+await page.goto(`http://127.0.0.1:${address.port}/tailwind-smoke.html`)
+const backgroundColor = await page.locator('#target').evaluate(element => getComputedStyle(element).backgroundColor)
+const borderRadius = await page.locator('#target').evaluate(element => getComputedStyle(element).borderRadius)
+const controlHeight = await page.locator('#target').evaluate(element => getComputedStyle(element).minHeight)
+const primaryToken = await page.locator('#target').evaluate(element => getComputedStyle(element).getPropertyValue('--color-primary').trim())
+await browser.close()
+
+if (backgroundColor !== 'rgb(135, 206, 235)') {
+  throw new Error(`Expected sky primary background, received ${backgroundColor}`)
+}
+if (borderRadius !== '9px') {
+  throw new Error(`Expected 9px control radius, received ${borderRadius}`)
+}
+if (controlHeight !== '48px') {
+  throw new Error(`Expected 48px computed min-h-control, received ${controlHeight}`)
+}
+if (primaryToken.toLowerCase() !== '#87ceeb') {
+  throw new Error(`Expected --color-primary #87CEEB, received ${primaryToken}`)
+}
+
+console.log(`smoke: bg-primary=${backgroundColor}; radius=${borderRadius}; min-height=${controlHeight}; token=${primaryToken}`)
+
+if (layer) {
+  const browser = await chromium.launch({ executablePath })
+  const page = await browser.newPage()
+  await page.setContent([
+    '<!doctype html><html><head>',
+    `<link rel="stylesheet" href="http://127.0.0.1:${address.port}/tailwind.css">`,
+    `<style>${layerCss}</style>`,
+    '</head><body>',
+    '<div id="layer-probe" class="rounded-control shadow-control font-semibold duration-fast ease-emphasized">Layer</div>',
+    '</body></html>',
+  ].join(''))
+  const probe = page.locator('#layer-probe')
+  const layerRadius = await probe.evaluate(element => getComputedStyle(element).borderRadius)
+  const layerShadow = await probe.evaluate(element => getComputedStyle(element).boxShadow)
+  const layerWeight = await probe.evaluate(element => getComputedStyle(element).fontWeight)
+  const layerDuration = await probe.evaluate(element => getComputedStyle(element).transitionDuration)
+  await browser.close()
+
+  if (layer === 'neobrutalism') {
+    if (layerRadius !== '6px') throw new Error(`Expected 6px neobrutalism control radius, received ${layerRadius}`)
+    if (!/rgb\([^)]+\) 2px 2px 0px/.test(layerShadow)) {
+      throw new Error(`Expected solid 2px 2px 0 neobrutalism shadow, received ${layerShadow}`)
+    }
+    if (layerWeight !== '600') throw new Error(`Expected 600 neobrutalism weight cap, received ${layerWeight}`)
+  } else if (!['none', 'material', 'glassmorphism', 'neumorphism', 'minimalism', 'neobrutalism', 'neobrutalism-tamed'].includes(layer)) {
+    throw new Error(`Unknown smoke layer: ${layer}`)
+  }
+
+  console.log(`smoke: layer=${layer}; radius=${layerRadius}; shadow=${layerShadow}; weight=${layerWeight}; duration=${layerDuration}`)
+}
+
+server.close()

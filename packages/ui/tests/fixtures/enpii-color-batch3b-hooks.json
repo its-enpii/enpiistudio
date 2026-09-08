@@ -1,0 +1,23 @@
+[
+  "--chart-1",
+  "--chart-2",
+  "--chart-3",
+  "--chart-4",
+  "--chart-5",
+  "--chart-6",
+  "--chart-grid",
+  "--chart-axis",
+  "--chart-tooltip-bg",
+  "--chart-tooltip-fg",
+  "--assistant-user-msg-bg",
+  "--assistant-user-msg-fg",
+  "--assistant-bot-msg-bg",
+  "--assistant-bot-msg-fg",
+  "--assistant-card-bg",
+  "--assistant-card-fg",
+  "--assistant-card-border",
+  "--desktop-titlebar-bg",
+  "--desktop-titlebar-fg",
+  "--desktop-splash-bg",
+  "--desktop-splash-fg"
+]
