@@ -57,3 +57,6 @@ pnpm-debug.log*
 Thumbs.db
 desktop.ini
 .audit-tmp/
+
+# graphify local AST baseline (regenerable, never commit)
+graphify-out/
