@@ -1,28 +1,96 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import {
-  EnpiiAccordion, EnpiiAlert, EnpiiAreaChart, EnpiiAssistantActionButton,
-  EnpiiAssistantArtifactCard, EnpiiAssistantArtifactModal, EnpiiAssistantPollCard,
-  EnpiiAssistantWidget, EnpiiAvatar, EnpiiBadge, EnpiiBarChart, EnpiiBottomSheet,
-  EnpiiBreadcrumb, EnpiiButton, EnpiiCalendar, EnpiiCard, EnpiiCheckbox,
-  EnpiiColorPicker, EnpiiCommandPalette, EnpiiConfirmDialog, EnpiiCsvImportExport,
-  EnpiiCurrencyInput, EnpiiDatePicker, EnpiiDateRange, EnpiiDesktopSplashScreen,
-  EnpiiDesktopTitleBar, EnpiiDonutChart, EnpiiDrawer, EnpiiDropdownMenu,
-  EnpiiEmptyState, EnpiiFileUpload, EnpiiFilterPill, EnpiiFooter, EnpiiFormActions,
-  EnpiiFormField, EnpiiFormRow, EnpiiIcon, EnpiiIconButton, EnpiiImageUpload,
-  EnpiiInlineEmptyState, EnpiiInput, EnpiiInputMask, EnpiiKanbanBoard,
-  EnpiiKeyboardShortcutsModal, EnpiiLabel, EnpiiLineChart, EnpiiLoanHistoryTable,
-  EnpiiMentionInput, EnpiiModal, EnpiiNavbar, EnpiiNotificationDropdown,
-  EnpiiOfflineBanner, EnpiiOtpInput, EnpiiPageHeader, EnpiiPagination,
-  EnpiiPasswordInput, EnpiiPopover, EnpiiProgress, EnpiiQrCode, EnpiiRadioGroup,
-  EnpiiRange, EnpiiRating, EnpiiReportPeriodFilter, EnpiiRichEditor,
-  EnpiiSegmentedControl, EnpiiSidebar, EnpiiSignaturePad, EnpiiSkeleton,
-  EnpiiSmartSelect, EnpiiSmartTable, EnpiiSparkline, EnpiiSpinner, EnpiiStatTile,
-  EnpiiStepper, EnpiiSwitch, EnpiiTabs, EnpiiTagInput, EnpiiTextarea,
-  EnpiiThemeMenu, EnpiiTimePicker, EnpiiTimeline, EnpiiToast, EnpiiTooltip,
-  EnpiiTransferList, EnpiiTreeView, EnpiiTrendBarChart, EnpiiWhatsAppPreview
+  EnpiiAccordion,
+  EnpiiAlert,
+  EnpiiAreaChart,
+  EnpiiAssistantActionButton,
+  EnpiiAssistantArtifactCard,
+  EnpiiAssistantArtifactModal,
+  EnpiiAssistantPollCard,
+  EnpiiAssistantWidget,
+  EnpiiAvatar,
+  EnpiiBadge,
+  EnpiiBarChart,
+  EnpiiBottomSheet,
+  EnpiiBreadcrumb,
+  EnpiiButton,
+  EnpiiCalendar,
+  EnpiiCard,
+  EnpiiCheckbox,
+  EnpiiColorPicker,
+  EnpiiCommandPalette,
+  EnpiiConfirmDialog,
+  EnpiiCsvImportExport,
+  EnpiiCurrencyInput,
+  EnpiiDatePicker,
+  EnpiiDateRange,
+  EnpiiDesktopSplashScreen,
+  EnpiiDesktopTitleBar,
+  EnpiiDonutChart,
+  EnpiiDrawer,
+  EnpiiDropdownMenu,
+  EnpiiEmptyState,
+  EnpiiFileUpload,
+  EnpiiFilterPill,
+  EnpiiFooter,
+  EnpiiFormActions,
+  EnpiiFormField,
+  EnpiiFormRow,
+  EnpiiIcon,
+  EnpiiIconButton,
+  EnpiiImageUpload,
+  EnpiiInlineEmptyState,
+  EnpiiInput,
+  EnpiiInputMask,
+  EnpiiKanbanBoard,
+  EnpiiKeyboardShortcutsModal,
+  EnpiiLabel,
+  EnpiiLineChart,
+  EnpiiLoanHistoryTable,
+  EnpiiMentionInput,
+  EnpiiModal,
+  EnpiiNavbar,
+  EnpiiNotificationDropdown,
+  EnpiiOfflineBanner,
+  EnpiiOtpInput,
+  EnpiiPageHeader,
+  EnpiiPagination,
+  EnpiiPasswordInput,
+  EnpiiPopover,
+  EnpiiProgress,
+  EnpiiQrCode,
+  EnpiiRadioGroup,
+  EnpiiRange,
+  EnpiiRating,
+  EnpiiReportPeriodFilter,
+  EnpiiRichEditor,
+  EnpiiSegmentedControl,
+  EnpiiSidebar,
+  EnpiiSignaturePad,
+  EnpiiSkeleton,
+  EnpiiSmartSelect,
+  EnpiiSmartTable,
+  EnpiiSparkline,
+  EnpiiSpinner,
+  EnpiiStatTile,
+  EnpiiStepper,
+  EnpiiSwitch,
+  EnpiiTabs,
+  EnpiiTagInput,
+  EnpiiTextarea,
+  EnpiiThemeMenu,
+  EnpiiTimePicker,
+  EnpiiTimeline,
+  EnpiiToast,
+  EnpiiTooltip,
+  EnpiiTransferList,
+  EnpiiTreeView,
+  EnpiiTrendBarChart,
+  EnpiiWhatsAppPreview,
 } from '../src/index'
 
+const calendarDate = ref(new Date())
 const activeLayer = ref('neobrutalism')
 const textVal = ref('Input Value')
 const numVal = ref(150000)
@@ -40,6 +108,8 @@ const pillVal = ref('all')
 const activeTab = ref('t1')
 const activeStep = ref('s1')
 const currentPage = ref(1)
+const richTextVal = ref('<p>Konten artikel dengan <strong>format tebal</strong> dan bullet.</p>')
+const otpVal = ref('1234')
 
 const filterPillItems = [
   { value: 'all', label: 'Semua (12)', icon: 'list' },
@@ -47,8 +117,14 @@ const filterPillItems = [
   { value: 'drink', label: 'Minuman (4)', icon: 'local_cafe' }
 ]
 
+const sidebarItems = [
+  { key: 'dash', label: 'Dashboard POS', icon: 'dashboard' },
+  { key: 'orders', label: 'Pesanan Aktif', icon: 'receipt_long', badge: 4 },
+  { key: 'reports', label: 'Laporan Penjualan', icon: 'analytics' },
+]
+
 const assistantActionBlock = {
-  label: 'Buka Spesifikasi',
+  label: 'Buka Spesifikasi Arsitektur',
   url: 'https://its-enpii.com',
   icon: 'open_in_new'
 }
@@ -60,7 +136,7 @@ const assistantPollBlock = {
 
 const assistantArtifactBlock = {
   kind: 'document',
-  title: 'Architecture Spec',
+  title: 'Architecture Specification',
   description: 'Spesifikasi arsitektur package @its-enpii/ui v1.4.0'
 }
 
@@ -94,6 +170,7 @@ const transferOptions = [
   { id: '3', label: 'Hak Akses Laporan' }
 ]
 const transferVal = ref(['1'])
+
 const treeNodes = [
   { id: '1', label: 'Root Folder', children: [{ id: '1-1', label: 'File A.vue' }, { id: '1-2', label: 'File B.ts' }] }
 ]
@@ -114,12 +191,12 @@ const chartData = [
 </script>
 
 <template>
-  <div class="p-8 max-w-[1500px] mx-auto min-h-screen" :data-enpii-layer="activeLayer">
+  <div class="p-8 max-w-[1600px] mx-auto min-h-screen" :data-enpii-layer="activeLayer">
     <!-- Header -->
     <header class="mb-8 pb-6 border-b-2 border-ink flex justify-between items-center">
       <div>
         <h1 class="text-3xl font-black uppercase tracking-tight">@its-enpii/ui Exhaustive 87-Component Verification Gallery</h1>
-        <p class="text-on-surface-variant text-sm mt-1">Mounted Verification of All 87 Vue Components in @its-enpii/ui</p>
+        <p class="text-on-surface-variant text-sm mt-1">Mounted Verification of All 87 Vue Components in @its-enpii/ui (100% Mounted)</p>
       </div>
       <div class="flex gap-2 items-center">
         <span class="text-xs font-bold uppercase">Pilih Layer:</span>
@@ -130,14 +207,14 @@ const chartData = [
           <option value="glassmorphism">Glassmorphism</option>
           <option value="neumorphism">Neumorphism</option>
           <option value="minimalism">Minimalism</option>
-      </select>
+        </select>
       </div>
     </header>
 
     <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <!-- 1. Buttons & Actions -->
       <section class="enpii-card p-5 flex flex-col gap-4 border-2 border-ink">
-        <h2 class="text-base font-bold uppercase border-b pb-2 border-outline-variant">1. Buttons & Actions (6 Components)</h2>
+        <h2 class="text-base font-bold uppercase border-b pb-2 border-outline-variant">1. Buttons & Actions (7 Components)</h2>
         <div class="flex flex-wrap gap-2 items-center">
           <EnpiiButton variant="primary">Primary</EnpiiButton>
           <EnpiiButton variant="secondary">Secondary</EnpiiButton>
@@ -156,9 +233,9 @@ const chartData = [
         </div>
       </section>
 
-      <!-- 2. Form Inputs (Text & Specialized) -->
+      <!-- 2. Form Fields & Inputs -->
       <section class="enpii-card p-5 flex flex-col gap-4 border-2 border-ink">
-        <h2 class="text-base font-bold uppercase border-b pb-2 border-outline-variant">2. Form Fields & Inputs (6 Components)</h2>
+        <h2 class="text-base font-bold uppercase border-b pb-2 border-outline-variant">2. Form Fields & Inputs (7 Components)</h2>
         <EnpiiFormField label="Standard Input" hint="Petunjuk pengisian">
           <EnpiiInput v-model="textVal" placeholder="Placeholder..." />
         </EnpiiFormField>
@@ -168,10 +245,10 @@ const chartData = [
             <EnpiiPasswordInput value="Secret123" />
           </div>
         </EnpiiFormField>
-        <EnpiiFormField label="Mask & OTP & Tag">
+        <EnpiiFormField label="Mask, OTP & Tag">
           <div class="flex flex-col gap-2">
             <EnpiiInputMask mask="999.999.999" placeholder="000.000.000" />
-            <EnpiiOtpInput :length="4" />
+            <EnpiiOtpInput :length="4" v-model="otpVal" />
             <EnpiiTagInput v-model="tagsVal" />
           </div>
         </EnpiiFormField>
@@ -184,7 +261,7 @@ const chartData = [
           <EnpiiTextarea placeholder="Tulis deskripsi lengkap..." rows="2" />
           <EnpiiMentionInput placeholder="Mention @user..." class="mt-2" />
         </EnpiiFormField>
-        <EnpiiFormField label="Smart Select & Form Row">
+        <EnpiiFormField label="Smart Select, Form Row & Label">
           <EnpiiSmartSelect v-model="selectVal" :options="[{ label: 'Apple', value: 'apple' }, { label: 'Banana', value: 'banana' }]" />
           <EnpiiFormRow class="mt-2">
             <EnpiiLabel>Form Label Component</EnpiiLabel>
@@ -210,7 +287,7 @@ const chartData = [
 
       <!-- 5. Pickers & Calendar -->
       <section class="enpii-card p-5 flex flex-col gap-4 border-2 border-ink">
-        <h2 class="text-base font-bold uppercase border-b pb-2 border-outline-variant">5. Pickers & Calendar (5 Components)</h2>
+        <h2 class="text-base font-bold uppercase border-b pb-2 border-outline-variant">5. Pickers & Calendar (6 Components)</h2>
         <div class="grid grid-cols-2 gap-2">
           <EnpiiDatePicker v-model="dateVal" label="Pilih Tanggal" />
           <EnpiiTimePicker v-model="timeVal" label="Pilih Waktu" />
@@ -220,11 +297,12 @@ const chartData = [
           <EnpiiColorPicker v-model="colorVal" label="Warna Tema" />
           <EnpiiReportPeriodFilter year="2026" base-url="/reports" />
         </div>
+        <EnpiiCalendar :month="calendarDate" v-model="calendarDate" class="mt-2" />
       </section>
 
-      <!-- 6. Media & Upload & Tools -->
+      <!-- 6. Media, Upload & Tools -->
       <section class="enpii-card p-5 flex flex-col gap-4 border-2 border-ink">
-        <h2 class="text-base font-bold uppercase border-b pb-2 border-outline-variant">6. Media & Upload & Tools (5 Components)</h2>
+        <h2 class="text-base font-bold uppercase border-b pb-2 border-outline-variant">6. Media, Upload & Tools (6 Components)</h2>
         <EnpiiFileUpload />
         <div class="grid grid-cols-2 gap-2 items-center">
           <EnpiiImageUpload />
@@ -234,6 +312,7 @@ const chartData = [
           </div>
         </div>
         <EnpiiSignaturePad />
+        <EnpiiRichEditor v-model="richTextVal" placeholder="Tulis artikel..." />
       </section>
 
       <!-- 7. Feedback & Status -->
@@ -255,14 +334,18 @@ const chartData = [
         <EnpiiSkeleton class="h-6 w-full" />
         <div class="flex gap-2 items-center">
           <EnpiiAvatar name="Enpii User" size="md" />
-          <EnpiiEmptyState icon="inbox" title="Belum Ada Data" description="Silakan buat entri baru." />
-          <EnpiiInlineEmptyState message="Tidak ada hasil filter" />
+          <EnpiiToast message="Operasi berhasil disimpan!" />
         </div>
+        <EnpiiEmptyState icon="inbox" title="Belum Ada Data" description="Silakan buat entri baru." />
+        <EnpiiInlineEmptyState message="Tidak ada hasil filter" />
       </section>
 
       <!-- 8. Data Display & Tables -->
       <section class="enpii-card p-5 flex flex-col gap-4 border-2 border-ink">
-        <h2 class="text-base font-bold uppercase border-b pb-2 border-outline-variant">8. Data Display & Tables (5 Components)</h2>
+        <h2 class="text-base font-bold uppercase border-b pb-2 border-outline-variant">8. Data Display & Tables (6 Components)</h2>
+        <EnpiiCard class="p-3 border">
+          <span class="text-xs font-bold">EnpiiCard Embedded Panel</span>
+        </EnpiiCard>
         <div class="grid grid-cols-2 gap-2">
           <EnpiiStatTile label="Total Transaksi" value="Rp 2.450.000" />
           <EnpiiStatTile label="Pengunjung" value="384" />
@@ -289,7 +372,7 @@ const chartData = [
 
       <!-- 10. Navigation & Structural Containers -->
       <section class="enpii-card p-5 flex flex-col gap-4 border-2 border-ink">
-        <h2 class="text-base font-bold uppercase border-b pb-2 border-outline-variant">10. Navigation & Structure (8 Components)</h2>
+        <h2 class="text-base font-bold uppercase border-b pb-2 border-outline-variant">10. Navigation & Structure (9 Components)</h2>
         <EnpiiNavbar brand="Enpii Showcase" :links="[{ key: 'h', label: 'Beranda' }, { key: 'p', label: 'Produk' }]" />
         <EnpiiPageHeader title="Judul Halaman" subtitle="Deskripsi ringkas konteks halaman" />
         <EnpiiTabs :items="[{ key: 't1', label: 'Tab Satu' }, { key: 't2', label: 'Tab Dua' }]" v-model="activeTab" />
@@ -300,25 +383,52 @@ const chartData = [
           <EnpiiThemeMenu />
           <EnpiiNotificationDropdown />
         </div>
+        <EnpiiSidebar :items="sidebarItems" active-key="dash" />
         <EnpiiFooter copyright="© 2026 Enpii Studio" />
       </section>
 
       <!-- 11. Complex Domain, Assistant & WhatsApp -->
       <section class="enpii-card p-5 flex flex-col gap-4 border-2 border-ink">
-        <h2 class="text-base font-bold uppercase border-b pb-2 border-outline-variant">11. Assistant & Specialty (4 Components)</h2>
+        <h2 class="text-base font-bold uppercase border-b pb-2 border-outline-variant">11. Assistant, Domain & Overlays (8 Components)</h2>
         <EnpiiAssistantPollCard :assistant-block="assistantPollBlock" />
         <EnpiiAssistantArtifactCard :assistant-block="assistantArtifactBlock" />
+        <EnpiiAssistantArtifactModal :assistant-block="assistantArtifactBlock" />
+        <EnpiiAssistantWidget :assistant-block="assistantArtifactBlock" />
         <EnpiiWhatsAppPreview :messages="[{ id: '1', body: 'Halo, pesanan Anda sedang disiapkan!', direction: 'out', status: 'read', timestamp: '14:30' }]" />
         <EnpiiTimeline :items="timelineItems" />
+        <EnpiiOfflineBanner :online="false" />
+        <EnpiiDesktopSplashScreen title="Enpii Desktop" subtitle="Inisialisasi sistem..." />
       </section>
 
-      <!-- 12. Tree, Kanban, Desktop & Overlays -->
+      <!-- 12. Tree, Kanban, Desktop & Dialog Overlays -->
       <section class="enpii-card p-5 flex flex-col gap-4 border-2 border-ink">
-        <h2 class="text-base font-bold uppercase border-b pb-2 border-outline-variant">12. Tree, Kanban & Desktop (4 Components)</h2>
+        <h2 class="text-base font-bold uppercase border-b pb-2 border-outline-variant">12. Tree, Kanban, Desktop & Overlays (11 Components)</h2>
         <EnpiiDesktopTitleBar title="Desktop App Title" />
         <EnpiiTreeView :nodes="treeNodes" />
         <EnpiiKanbanBoard :columns="kanbanColumns" :cards="kanbanCards" />
         <EnpiiTransferList :options="transferOptions" v-model="transferVal" />
+        <div class="flex flex-wrap gap-2 pt-2 border-t border-outline-variant">
+          <EnpiiTooltip text="Petunjuk Tooltip">
+            <button class="px-3 py-1.5 border border-ink text-xs font-bold">Hover Tooltip</button>
+          </EnpiiTooltip>
+          <EnpiiPopover title="Info Popover">
+            <template #trigger>
+              <button class="px-3 py-1.5 border border-ink text-xs font-bold">Buka Popover</button>
+            </template>
+            <p class="text-xs p-2">Konten popover interaktif.</p>
+          </EnpiiPopover>
+          <EnpiiDropdownMenu :items="[{ key: '1', label: 'Item Menu A' }, { key: '2', label: 'Item Menu B' }]">
+            <template #trigger>
+              <button class="px-3 py-1.5 border border-ink text-xs font-bold">Dropdown Menu</button>
+            </template>
+          </EnpiiDropdownMenu>
+          <EnpiiConfirmDialog title="Dialog Konfirmasi" message="Lanjutkan operasi?" />
+          <EnpiiKeyboardShortcutsModal />
+          <EnpiiCommandPalette />
+          <EnpiiModal title="Modal Box">Konten modal</EnpiiModal>
+          <EnpiiDrawer title="Drawer Samping">Konten drawer</EnpiiDrawer>
+          <EnpiiBottomSheet title="Bottom Sheet">Konten bottom sheet</EnpiiBottomSheet>
+        </div>
       </section>
     </main>
   </div>
