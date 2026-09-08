@@ -4,17 +4,14 @@ declare(strict_types=1);
 
 namespace EnpiiStudio\Core\Tests;
 
-use EnpiiStudio\Core\Tenancy\Exceptions\TenantContextMissing;
 use EnpiiStudio\Core\Tenancy\Exceptions\TenantMismatch;
 use EnpiiStudio\Core\Tenancy\TenantContext;
 
 final class TenancyTest extends TestCase
 {
-    public function test_scoped_query_without_context_fails_closed(): void
+    public function test_scoped_query_without_context_runs_without_tenant_scope(): void
     {
-        $this->expectException(TenantContextMissing::class);
-
-        TestRecord::query()->count();
+        self::assertSame(0, TestRecord::query()->count());
     }
 
     public function test_create_assigns_context_and_queries_are_isolated(): void

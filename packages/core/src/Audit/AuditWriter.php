@@ -45,7 +45,10 @@ final readonly class AuditWriter
         }
 
         if (method_exists($subject, 'getTenantColumn')) {
-            $this->context->assertMatches((string) $subject->getAttribute($subject->getTenantColumn()));
+            $subjectTenant = $subject->getAttribute($subject->getTenantColumn());
+            if ($this->context->has()) {
+                $this->context->assertMatches((string) $subjectTenant);
+            }
         }
 
         $actorId = $this->container->bound(AuditActorResolver::class)
@@ -57,7 +60,7 @@ final readonly class AuditWriter
         }
 
         return AuditLog::query()->create([
-            'tenant_id' => $this->context->id(),
+            'tenant_id' => $this->context->has() ? $this->context->id() : null,
             'actor_id' => $actorId,
             'action' => $action,
             'subject_type' => $subject->getMorphClass(),

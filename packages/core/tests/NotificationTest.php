@@ -9,7 +9,6 @@ use EnpiiStudio\Core\Notification\Contracts\NotificationCenter;
 use EnpiiStudio\Core\Notification\Http\Controllers\NotificationController;
 use EnpiiStudio\Core\Notification\Models\Notification;
 use EnpiiStudio\Core\Tenancy\Contracts\TenantResolver;
-use EnpiiStudio\Core\Tenancy\Exceptions\TenantContextMissing;
 use EnpiiStudio\Core\Tenancy\Middleware\ResolveTenantContext;
 use EnpiiStudio\Core\Tenancy\TenantContext;
 use Illuminate\Support\Facades\Route;
@@ -96,11 +95,9 @@ final class NotificationTest extends TestCase
         self::assertSame(1, $context->run($tenant, fn () => $center->unreadCountFor($secondUser)));
     }
 
-    public function test_query_without_tenant_context_fails_closed(): void
+    public function test_query_without_tenant_context_runs_without_tenant_scope(): void
     {
-        $this->expectException(TenantContextMissing::class);
-
-        Notification::query()->count();
+        self::assertSame(0, Notification::query()->count());
     }
 
     public function test_index_filter_and_unread_count_endpoint(): void

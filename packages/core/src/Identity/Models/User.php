@@ -21,7 +21,7 @@ final class User extends Authenticatable
 
     protected $table = 'core_users';
 
-    protected $fillable = ['name', 'email', 'password', 'status'];
+    protected $fillable = ['name', 'email', 'password', 'status', 'tenant_id'];
 
     protected $hidden = ['password', 'remember_token'];
 

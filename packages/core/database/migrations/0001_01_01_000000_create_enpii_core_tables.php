@@ -21,7 +21,7 @@ return new class extends Migration
 
         Schema::create('core_users', function (Blueprint $table): void {
             $table->uuid('id')->primary();
-            $table->uuid('tenant_id');
+            $table->uuid('tenant_id')->nullable();
             $table->string('name');
             $table->string('email');
             $table->timestamp('email_verified_at')->nullable();
@@ -29,19 +29,19 @@ return new class extends Migration
             $table->string('status')->default('active');
             $table->rememberToken();
             $table->timestamps();
+            $table->index('tenant_id');
             $table->unique(['tenant_id', 'email']);
-            $table->unique(['id', 'tenant_id']);
             $table->foreign('tenant_id')->references('id')->on('core_tenants')->restrictOnDelete();
         });
 
         Schema::create('core_roles', function (Blueprint $table): void {
             $table->uuid('id')->primary();
-            $table->uuid('tenant_id');
+            $table->uuid('tenant_id')->nullable();
             $table->string('name');
             $table->string('slug');
             $table->timestamps();
+            $table->index('tenant_id');
             $table->unique(['tenant_id', 'slug']);
-            $table->unique(['id', 'tenant_id']);
             $table->foreign('tenant_id')->references('id')->on('core_tenants')->restrictOnDelete();
         });
 
@@ -61,12 +61,14 @@ return new class extends Migration
         });
 
         Schema::create('core_role_user', function (Blueprint $table): void {
-            $table->uuid('tenant_id');
             $table->uuid('role_id');
             $table->uuid('user_id');
-            $table->primary(['tenant_id', 'role_id', 'user_id']);
-            $table->foreign(['role_id', 'tenant_id'])->references(['id', 'tenant_id'])->on('core_roles')->cascadeOnDelete();
-            $table->foreign(['user_id', 'tenant_id'])->references(['id', 'tenant_id'])->on('core_users')->cascadeOnDelete();
+            $table->uuid('tenant_id')->nullable();
+            $table->primary(['role_id', 'user_id']);
+            $table->index('tenant_id');
+            $table->foreign('role_id')->references('id')->on('core_roles')->cascadeOnDelete();
+            $table->foreign('user_id')->references('id')->on('core_users')->cascadeOnDelete();
+            $table->foreign('tenant_id')->references('id')->on('core_tenants')->cascadeOnDelete();
         });
 
         Schema::create('core_settings', function (Blueprint $table): void {
@@ -91,7 +93,7 @@ return new class extends Migration
 
         Schema::create('core_audit_logs', function (Blueprint $table): void {
             $table->uuid('id')->primary();
-            $table->uuid('tenant_id');
+            $table->uuid('tenant_id')->nullable();
             $table->uuid('actor_id')->nullable();
             $table->string('action');
             $table->string('subject_type');
@@ -103,7 +105,7 @@ return new class extends Migration
             $table->index(['tenant_id', 'created_at']);
             $table->index(['tenant_id', 'subject_type', 'subject_id']);
             $table->foreign('tenant_id')->references('id')->on('core_tenants')->restrictOnDelete();
-            $table->foreign(['actor_id', 'tenant_id'])->references(['id', 'tenant_id'])->on('core_users')->restrictOnDelete();
+            $table->foreign('actor_id')->references('id')->on('core_users')->nullOnDelete();
         });
     }
 

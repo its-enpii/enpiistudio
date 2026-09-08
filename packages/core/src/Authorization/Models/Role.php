@@ -17,7 +17,7 @@ final class Role extends Model
 
     protected $table = 'core_roles';
 
-    protected $fillable = ['name', 'slug'];
+    protected $fillable = ['name', 'slug', 'tenant_id'];
 
     public function permissions(): BelongsToMany
     {

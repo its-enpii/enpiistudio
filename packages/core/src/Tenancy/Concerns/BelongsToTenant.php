@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace EnpiiStudio\Core\Tenancy\Concerns;
 
 use EnpiiStudio\Core\Tenancy\Models\Tenant;
-use EnpiiStudio\Core\Tenancy\Scopes\TenantScope;
 use EnpiiStudio\Core\Tenancy\TenantContext;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -14,20 +14,34 @@ trait BelongsToTenant
 {
     public static function bootBelongsToTenant(): void
     {
-        static::addGlobalScope(new TenantScope(app(TenantContext::class)));
+        static::addGlobalScope('tenant', static function (Builder $builder): void {
+            $context = app(TenantContext::class);
+
+            if ($context->has()) {
+                /** @var Model $model */
+                $model = $builder->getModel();
+
+                $builder->where(
+                    $model->qualifyColumn($model->getTenantColumn()),
+                    $context->id(),
+                );
+            }
+        });
 
         static::creating(function (Model $model): void {
             $context = app(TenantContext::class);
             $column = $model->getTenantColumn();
             $tenantId = $model->getAttribute($column);
 
-            if ($tenantId === null || $tenantId === '') {
-                $model->setAttribute($column, $context->id());
+            if ($context->has()) {
+                if ($tenantId === null || $tenantId === '') {
+                    $model->setAttribute($column, $context->id());
 
-                return;
+                    return;
+                }
+
+                $context->assertMatches((string) $tenantId);
             }
-
-            $context->assertMatches((string) $tenantId);
         });
 
         $assertTenant = static function (Model $model): void {
@@ -36,11 +50,15 @@ trait BelongsToTenant
             $tenantId = $model->getAttribute($column);
 
             if ($tenantId !== null && $tenantId !== '') {
-                $context->assertMatches((string) $tenantId);
+                if ($context->has()) {
+                    $context->assertMatches((string) $tenantId);
+                }
             }
 
-            if ($model->exists && $model->getOriginal($column) !== null) {
-                $context->assertMatches((string) $model->getOriginal($column));
+            if ($model->exists && $model->getOriginal($column) !== null && $model->getOriginal($column) !== '') {
+                if ($context->has()) {
+                    $context->assertMatches((string) $model->getOriginal($column));
+                }
             }
         };
 
@@ -74,7 +92,10 @@ trait BelongsToTenant
         $tenantId = $this->getAttribute($this->getTenantColumn());
 
         if ($tenantId !== null && $tenantId !== '') {
-            app(TenantContext::class)->assertMatches((string) $tenantId);
+            $context = app(TenantContext::class);
+            if ($context->has()) {
+                $context->assertMatches((string) $tenantId);
+            }
         }
     }
 
