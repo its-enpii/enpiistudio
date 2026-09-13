@@ -1,15 +1,20 @@
 <script setup>
 defineOptions({ inheritAttrs: false });
 
-import { ref, useId, watch } from 'vue';
+import { computed, ref, useId, watch } from 'vue';
 import AppIcon from './AppIcon.vue';
 import AppTooltip from './AppTooltip.vue';
 
 const model = defineModel({ type: [String, Number], default: '' });
 const props = defineProps({
+    size: {
+        type: String,
+        default: 'md',
+        validator: (value) => ['sm', 'md', 'lg', 'xl'].includes(value),
+    },
     id: { type: String, default: null },
     label: { type: String, required: true },
-    icon: { type: String, default: 'payments' },
+    icon: { type: String, default: null },
     error: { type: String, default: null },
     hint: { type: String, default: null },
     placeholder: { type: String, default: null },
@@ -27,6 +32,13 @@ const generatedId = useId();
 const inputId = props.id || generatedId;
 const focused = ref(false);
 const displayValue = ref('');
+const sizeClasses = {
+    sm: { input: 'h-10 text-sm pl-3 pr-12', icon: 'text-lg', leftIcon: 'left-3', leadingPad: 'pl-10', stepper: 'right-1', stepperButton: 'size-8', stepperIcon: 'text-base' },
+    md: { input: 'h-12 text-base pl-4 pr-14', icon: 'text-xl', leftIcon: 'left-4', leadingPad: 'pl-11', stepper: 'right-2', stepperButton: 'size-9', stepperIcon: 'text-lg' },
+    lg: { input: 'h-14 text-base pl-5 pr-16', icon: 'text-2xl', leftIcon: 'left-5', leadingPad: 'pl-14', stepper: 'right-2', stepperButton: 'size-11', stepperIcon: 'text-xl' },
+    xl: { input: 'h-16 text-lg pl-6 pr-[4.5rem]', icon: 'text-2xl', leftIcon: 'left-6', leadingPad: 'pl-16', stepper: 'right-2', stepperButton: 'size-12', stepperIcon: 'text-2xl' },
+};
+const activeSize = computed(() => sizeClasses[props.size]);
 
 function formatCurrency(val) {
     if (val === null || val === undefined || val === '') return '';
@@ -195,7 +207,12 @@ watch(model, () => {
         </div>
         <label v-else :for="inputId" class="sr-only">{{ label }}</label>
         <div class="relative">
-            <AppIcon v-if="icon" :name="icon" class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-xl text-outline" />
+            <AppIcon
+                v-if="icon"
+                :name="icon"
+                class="pointer-events-none absolute top-1/2 -translate-y-1/2 text-outline"
+                :class="[activeSize.icon, activeSize.leftIcon]"
+            />
             <input
                 :id="inputId"
                 :value="displayValue"
@@ -208,8 +225,8 @@ watch(model, () => {
                 ].filter(Boolean).join(' ') || undefined"
                 :readonly="readonly"
                 :placeholder="readonly ? undefined : (placeholder ?? `Masukkan ${label.toLowerCase()}`)"
-                class="h-14 w-full rounded-xl border bg-surface-container-lowest pl-12 pr-20 text-primary transition placeholder:text-outline focus:border-primary-container focus:ring-2 focus:ring-primary-container/10 focus:outline-none read-only:cursor-default read-only:bg-surface-container-low read-only:text-on-surface-variant"
-                :class="error ? 'border-error' : 'border-outline-variant'"
+                class="w-full rounded-xl border bg-surface-container-lowest text-primary transition placeholder:text-outline focus:border-primary-container focus:ring-2 focus:ring-primary-container/10 focus:outline-none read-only:cursor-default read-only:bg-surface-container-low read-only:text-on-surface-variant"
+                :class="[activeSize.input, icon && activeSize.leadingPad, error ? 'border-error' : 'border-outline-variant']"
                 v-bind="$attrs"
                 @input="onInput"
                 @focus="onFocus"
@@ -217,12 +234,12 @@ watch(model, () => {
                 @keydown.up.prevent="adjust(step)"
                 @keydown.down.prevent="adjust(-step)"
             >
-            <div class="absolute right-2 top-1/2 flex h-10 -translate-y-1/2 items-center gap-1">
-                <button v-if="!readonly" type="button" tabindex="-1" class="flex h-9 w-9 items-center justify-center rounded-lg text-on-surface-variant transition hover:bg-surface-container-low focus:bg-surface-container-low focus:outline-none" aria-label="Kurangi nilai" @click="adjust(-step)">
-                    <AppIcon name="remove" class="text-lg" />
+            <div class="absolute top-1/2 flex -translate-y-1/2 items-center gap-1" :class="activeSize.stepper">
+                <button v-if="!readonly" type="button" tabindex="-1" class="flex items-center justify-center rounded-lg text-on-surface-variant transition hover:bg-surface-container-low focus:bg-surface-container-low focus:outline-none" :class="activeSize.stepperButton" aria-label="Kurangi nilai" @click="adjust(-step)">
+                    <AppIcon name="remove" :class="activeSize.stepperIcon" />
                 </button>
-                <button v-if="!readonly" type="button" tabindex="-1" class="flex h-9 w-9 items-center justify-center rounded-lg text-on-surface-variant transition hover:bg-surface-container-low focus:bg-surface-container-low focus:outline-none" aria-label="Tambah nilai" @click="adjust(step)">
-                    <AppIcon name="add" class="text-lg" />
+                <button v-if="!readonly" type="button" tabindex="-1" class="flex items-center justify-center rounded-lg text-on-surface-variant transition hover:bg-surface-container-low focus:bg-surface-container-low focus:outline-none" :class="activeSize.stepperButton" aria-label="Tambah nilai" @click="adjust(step)">
+                    <AppIcon name="add" :class="activeSize.stepperIcon" />
                 </button>
             </div>
         </div>

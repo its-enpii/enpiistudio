@@ -5,7 +5,7 @@ import { computed, ref, useId } from 'vue';
 import AppIcon from './AppIcon.vue';
 import AppTooltip from './AppTooltip.vue';
 
-const model = defineModel({ type: [String, Number], default: '' });
+const model = defineModel({ type: String, default: '' });
 const props = defineProps({
     size: {
         type: String,
@@ -13,53 +13,39 @@ const props = defineProps({
         validator: (value) => ['sm', 'md', 'lg', 'xl'].includes(value),
     },
     id: { type: String, default: null },
-    label: { type: String, required: true },
-    type: { type: String, default: 'text' },
-    icon: { type: String, default: null },
-    trailingIcon: { type: String, default: null },
-    clearable: { type: Boolean, default: false },
+    label: { type: String, default: 'Kata Sandi' },
+    icon: { type: String, default: 'lock' },
+    autocomplete: { type: String, default: 'current-password' },
+    placeholder: { type: String, default: '••••••••' },
     error: { type: String, default: null },
     hint: { type: String, default: null },
-    placeholder: { type: String, default: null },
     readonly: { type: Boolean, default: false },
     hideLabel: { type: Boolean, default: false },
     tooltip: { type: String, default: null },
     disabled: { type: Boolean, default: false },
-    disablePasswordToggle: { type: Boolean, default: false },
+    required: { type: Boolean, default: false },
 });
 
 const generatedId = useId();
 const inputId = props.id || generatedId;
+const visible = ref(false);
+const canShowPasswordToggle = computed(() => !props.readonly);
 const sizeClasses = {
-    sm: { input: 'h-10 px-3 text-sm', icon: 'text-lg', leftIcon: 'left-3', leadingPad: 'pl-10', trailingPad: 'pr-10', trailingGap: 'right-2' },
-    md: { input: 'h-12 px-4 text-base', icon: 'text-xl', leftIcon: 'left-4', leadingPad: 'pl-11', trailingPad: 'pr-12', trailingGap: 'right-3' },
-    lg: { input: 'h-14 px-5 text-base', icon: 'text-2xl', leftIcon: 'left-5', leadingPad: 'pl-14', trailingPad: 'pr-14', trailingGap: 'right-3' },
-    xl: { input: 'h-16 px-6 text-lg', icon: 'text-2xl', leftIcon: 'left-6', leadingPad: 'pl-16', trailingPad: 'pr-16', trailingGap: 'right-4' },
+    sm: { input: 'h-10 px-3 text-sm', icon: 'text-lg', leftIcon: 'left-3', leadingPad: 'pl-10', trailingPad: 'pr-10', action: 'right-2' },
+    md: { input: 'h-12 px-4 text-base', icon: 'text-xl', leftIcon: 'left-4', leadingPad: 'pl-11', trailingPad: 'pr-12', action: 'right-3' },
+    lg: { input: 'h-14 px-5 text-base', icon: 'text-2xl', leftIcon: 'left-5', leadingPad: 'pl-14', trailingPad: 'pr-14', action: 'right-3' },
+    xl: { input: 'h-16 px-6 text-lg', icon: 'text-2xl', leftIcon: 'left-6', leadingPad: 'pl-16', trailingPad: 'pr-16', action: 'right-4' },
 };
 const activeSize = computed(() => sizeClasses[props.size]);
-const showPassword = ref(false);
-const canShowPasswordToggle = computed(() => (
-    props.type === 'password'
-    && !props.readonly
-    && !props.disablePasswordToggle
-    && !$slots.trailing
-));
-const inputType = computed(() => (
-    props.type === 'password' ? (showPassword.value ? 'text' : 'password') : props.type
-));
 
-function togglePasswordVisibility() {
-    showPassword.value = !showPassword.value;
-}
-
-function clearInput() {
-    model.value = '';
+function toggleVisibility() {
+    visible.value = !visible.value;
 }
 </script>
 
 <template>
     <div class="space-y-2">
-        <div v-if="!hideLabel" class="flex items-center gap-1.5 ml-1">
+        <div v-if="!hideLabel" class="ml-1 flex items-center gap-1.5">
             <label :for="inputId" class="block text-sm font-bold uppercase tracking-wider text-primary">{{ label }}</label>
             <AppTooltip v-if="tooltip" :id="`${inputId}-tooltip`" :text="tooltip" />
         </div>
@@ -75,8 +61,10 @@ function clearInput() {
             <input
                 :id="inputId"
                 v-model="model"
-                :type="inputType"
+                :type="visible ? 'text' : 'password'"
+                :autocomplete="autocomplete"
                 :aria-invalid="Boolean(error)"
+                :aria-required="required"
                 :aria-describedby="[
                     error && `${inputId}-error`,
                     hint && `${inputId}-hint`,
@@ -84,42 +72,31 @@ function clearInput() {
                 ].filter(Boolean).join(' ') || undefined"
                 :readonly="readonly"
                 :disabled="disabled"
-                :placeholder="readonly ? undefined : (placeholder ?? `Masukkan ${label.toLowerCase()}`)"
+                :placeholder="readonly ? undefined : placeholder"
                 class="w-full rounded-xl border bg-surface-container-lowest text-primary transition placeholder:text-outline focus:border-primary-container focus:ring-2 focus:ring-primary-container/10 focus:outline-none read-only:cursor-default read-only:bg-surface-container-low read-only:text-on-surface-variant"
                 :class="[
                     activeSize.input,
                     ($slots.leading || icon) && activeSize.leadingPad,
-                    ($slots.trailing || trailingIcon || canShowPasswordToggle || (clearable && model !== '')) && activeSize.trailingPad,
+                    (canShowTrailing ? ($slots.trailing || !readonly) : false),
                     error ? 'border-error' : 'border-outline-variant',
                 ]"
                 v-bind="$attrs"
             >
             <div
-                v-if="$slots.trailing || trailingIcon || canShowPasswordToggle || (clearable && model !== '' && model !== null && model !== undefined)"
+                v-if="$slots.trailing || (!readonly && canShowPasswordToggle)"
                 class="absolute top-1/2 flex -translate-y-1/2 items-center justify-center gap-1"
-                :class="activeSize.trailingGap"
+                :class="activeSize.action"
             >
-                <AppIcon v-if="trailingIcon" :name="trailingIcon" class="text-outline" :class="activeSize.icon" />
                 <button
-                    v-if="clearable && model !== '' && model !== null && model !== undefined"
+                    v-if="!readonly"
                     type="button"
                     class="rounded-full p-1 text-outline transition hover:bg-surface-container-low hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary-container/20 active:scale-90"
-                    aria-label="Hapus isi input"
-                    :disabled="disabled || readonly"
-                    @click="clearInput"
-                >
-                    <AppIcon name="close" :class="activeSize.icon" />
-                </button>
-                <button
-                    v-if="canShowPasswordToggle"
-                    type="button"
-                    class="rounded-full p-1 text-outline transition hover:bg-surface-container-low hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary-container/20 active:scale-90"
-                    :aria-label="showPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'"
-                    :aria-pressed="showPassword"
+                    :aria-label="visible ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'"
+                    :aria-pressed="visible"
                     :disabled="disabled"
-                    @click="togglePasswordVisibility"
+                    @click="toggleVisibility"
                 >
-                    <AppIcon :name="showPassword ? 'visibility_off' : 'visibility'" :class="activeSize.icon" />
+                    <AppIcon :name="visible ? 'visibility_off' : 'visibility'" :class="activeSize.icon" />
                 </button>
                 <slot name="trailing" />
             </div>

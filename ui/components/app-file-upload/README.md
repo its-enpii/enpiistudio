@@ -14,7 +14,13 @@ Komponen referensi `AppFileUpload` berbasis Vue 3 dan Tailwind CSS dari aplikasi
 ## Props & Konfigurasi
 | Prop | Tipe | Default |
 | --- | --- | --- |
+| `modelValue` | `File`, `Array` | `null` |
+| `size` | `String` | `'md'` (`sm`, `md`, `lg`, `xl`) |
 | `id` | `String` | `null` |
+| `label` | `String` | required |
+| `icon` | `String` | `'attach_file'` |
 | `accept` | `String` | `null` |
 | `hint` | `String` | `null` |
 | `error` | `String` | `null` |
+
+**V-model**: `v-model="file"`

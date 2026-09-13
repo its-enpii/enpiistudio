@@ -15,8 +15,9 @@ Komponen referensi `AppButton` berbasis Vue 3 dan Tailwind CSS dari aplikasi `ne
 | Prop | Tipe | Default |
 | --- | --- | --- |
 | `variant` | `String` | `'primary'` |
-| `size` | `String` | `'default'` |
+| `size` | `String` | `'md'` (`sm`, `md`, `lg`, `xl`, alias `compact`, `default`, `large`) |
 | `icon` | `String` | `null` |
+| `trailingIcon` | `String` | `null` |
 | `iconOnly` | `Boolean` | `false` |
 | `loading` | `Boolean` | `false` |
 | `disabled` | `Boolean` | `false` |
@@ -24,3 +25,5 @@ Komponen referensi `AppButton` berbasis Vue 3 dan Tailwind CSS dari aplikasi `ne
 | `ariaLabel` | `String` | `null` |
 
 **Slots**: `default`
+
+Alias kompatibilitas: `compact` → `sm`, `default` → `md`, `large` → `lg`.

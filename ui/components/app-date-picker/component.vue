@@ -4,6 +4,11 @@ import AppIcon from './AppIcon.vue';
 
 const model = defineModel({ type: String, default: '' });
 const props = defineProps({
+    size: {
+        type: String,
+        default: 'md',
+        validator: (value) => ['sm', 'md', 'lg', 'xl'].includes(value),
+    },
     id: { type: String, default: null },
     label: { type: String, required: true },
     icon: { type: String, default: 'calendar_month' },
@@ -326,6 +331,13 @@ onBeforeUnmount(() => {
 
 const todayActionLabel = computed(() => props.mode === 'year' ? 'Tahun ini' : props.mode === 'month' ? 'Bulan ini' : 'Hari ini');
 const triggerIcon = computed(() => props.mode === 'year' ? 'event' : 'calendar_month');
+const sizeClasses = {
+    sm: { trigger: 'h-10 text-sm pl-3 pr-3', icon: 'text-lg', leftIcon: 'left-3', leftPad: 'pl-10', rightIcon: 'right-3' },
+    md: { trigger: 'h-12 text-base pl-4 pr-4', icon: 'text-xl', leftIcon: 'left-4', leftPad: 'pl-11', rightIcon: 'right-4' },
+    lg: { trigger: 'h-14 text-base pl-5 pr-5', icon: 'text-2xl', leftIcon: 'left-5', leftPad: 'pl-14', rightIcon: 'right-5' },
+    xl: { trigger: 'h-16 text-lg pl-6 pr-6', icon: 'text-2xl', leftIcon: 'left-6', leftPad: 'pl-16', rightIcon: 'right-6' },
+};
+const activeSize = computed(() => sizeClasses[props.size]);
 </script>
 
 <template>
@@ -337,8 +349,8 @@ const triggerIcon = computed(() => props.mode === 'year' ? 'event' : 'calendar_m
                 :id="inputId"
                 ref="trigger"
                 type="button"
-                class="flex h-14 w-full items-center rounded-xl border bg-surface-container-lowest px-4 text-left text-primary transition-all duration-150 active:scale-[0.99] focus:border-primary-container focus:ring-2 focus:ring-primary-container/10 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60 disabled:active:scale-100"
-                :class="[icon && 'pl-12', error ? 'border-error' : 'border-outline-variant']"
+                class="flex w-full items-center rounded-xl border bg-surface-container-lowest text-left text-primary transition-all duration-150 active:scale-[0.99] focus:border-primary-container focus:ring-2 focus:ring-primary-container/10 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60 disabled:active:scale-100"
+                :class="[activeSize.trigger, icon && activeSize.leftPad, error ? 'border-error' : 'border-outline-variant']"
                 :disabled="disabled"
                 :aria-expanded="open"
                 :aria-controls="`${inputId}-calendar`"
@@ -347,9 +359,18 @@ const triggerIcon = computed(() => props.mode === 'year' ? 'event' : 'calendar_m
                 @click="open ? closeCalendar() : openCalendar()"
                 @keydown.esc="closeCalendar(true)"
             >
-                <AppIcon v-if="icon" :name="icon" class="pointer-events-none absolute left-4 text-xl text-outline" />
+                <AppIcon
+                    v-if="icon"
+                    :name="icon"
+                    class="pointer-events-none absolute text-outline"
+                    :class="[activeSize.icon, activeSize.leftIcon]"
+                />
                 <span :class="displayValue ? 'text-primary' : 'text-outline'">{{ displayValue || (placeholder ?? `Pilih ${label.toLowerCase()}`) }}</span>
-                <AppIcon :name="triggerIcon" class="pointer-events-none absolute right-4 text-xl text-outline transition-transform duration-200" :class="{ 'scale-110 text-primary': open }" />
+                <AppIcon
+                    :name="triggerIcon"
+                    class="pointer-events-none absolute text-outline transition-transform duration-200"
+                    :class="[activeSize.icon, activeSize.rightIcon, { 'scale-110 text-primary': open }]"
+                />
             </button>
 
             <Teleport to="body">

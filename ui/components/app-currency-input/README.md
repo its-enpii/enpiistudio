@@ -14,8 +14,11 @@ Komponen referensi `AppCurrencyInput` berbasis Vue 3 dan Tailwind CSS dari aplik
 ## Props & Konfigurasi
 | Prop | Tipe | Default |
 | --- | --- | --- |
+| `modelValue` | `String`, `Number` | `''` |
+| `size` | `String` | `'md'` (`sm`, `md`, `lg`, `xl`) |
 | `id` | `String` | `null` |
-| `icon` | `String` | `'payments'` |
+| `label` | `String` | required |
+| `icon` | `String` | `null` |
 | `error` | `String` | `null` |
 | `hint` | `String` | `null` |
 | `placeholder` | `String` | `null` |
@@ -27,3 +30,5 @@ Komponen referensi `AppCurrencyInput` berbasis Vue 3 dan Tailwind CSS dari aplik
 | `step` | `Number` | `1000` |
 | `allowDecimal` | `Boolean` | `true` |
 | `maxDecimals` | `Number` | `2` |
+
+**V-model**: `v-model="amount"`

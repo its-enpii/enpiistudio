@@ -1,12 +1,18 @@
 <script setup>
 defineOptions({ inheritAttrs: false });
 
+import { computed } from 'vue';
 import AppIcon from './AppIcon.vue';
 
-defineProps({
+const props = defineProps({
     variant: { type: String, default: 'primary' },
-    size: { type: String, default: 'default' },
+    size: {
+        type: String,
+        default: 'md',
+        validator: (value) => ['sm', 'md', 'lg', 'xl', 'compact', 'default', 'large'].includes(value),
+    },
     icon: { type: String, default: null },
+    trailingIcon: { type: String, default: null },
     iconOnly: { type: Boolean, default: false },
     loading: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
@@ -25,10 +31,24 @@ const variants = {
 };
 
 const sizes = {
+    sm: 'min-h-10 px-3 text-sm',
+    md: 'min-h-12 px-5 text-base',
+    lg: 'min-h-14 px-6 text-lg',
+    xl: 'min-h-16 px-8 text-xl',
     compact: 'min-h-10 px-3 text-sm',
-    default: 'min-h-12 px-5',
+    default: 'min-h-12 px-5 text-base',
     large: 'min-h-14 px-6 text-lg',
 };
+const iconSizes = {
+    sm: 'text-lg',
+    md: 'text-xl',
+    lg: 'text-2xl',
+    xl: 'text-2xl',
+    compact: 'text-lg',
+    default: 'text-xl',
+    large: 'text-2xl',
+};
+const iconSize = computed(() => iconSizes[props.size] || iconSizes.md);
 </script>
 
 <template>
@@ -41,8 +61,9 @@ const sizes = {
         :aria-label="ariaLabel || undefined"
         v-bind="$attrs"
     >
-        <span v-if="loading" class="size-5 animate-spin rounded-full border-2 border-current/30 border-t-current" aria-hidden="true" />
-        <AppIcon v-else-if="icon" :name="icon" class="text-xl" />
+        <span v-if="loading" class="animate-spin rounded-full border-2 border-current/30 border-t-current" :class="iconSize" aria-hidden="true" />
+        <AppIcon v-else-if="icon" :name="icon" :class="iconSize" />
         <slot />
+        <AppIcon v-if="trailingIcon && !loading" :name="trailingIcon" :class="iconSize" />
     </button>
 </template>

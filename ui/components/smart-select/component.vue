@@ -5,9 +5,15 @@ import AppIcon from './AppIcon.vue';
 defineOptions({ inheritAttrs: false });
 
 const props = defineProps({
+    size: {
+        type: String,
+        default: 'md',
+        validator: (value) => ['sm', 'md', 'lg', 'xl'].includes(value),
+    },
     modelValue: { type: [String, Number], default: '' },
     options: { type: Array, default: () => [] },
     label: { type: String, required: true },
+    icon: { type: String, default: null },
     placeholder: { type: String, default: null },
     error: { type: String, default: null },
     hint: { type: String, default: null },
@@ -39,6 +45,13 @@ const highlighted = ref(0);
 const searchInput = ref(null);
 const selectedCache = ref(null);
 let searchTimer;
+const sizeClasses = {
+    sm: { trigger: 'h-10 text-sm pl-3 pr-10', icon: 'text-lg', leftIcon: 'left-3', leftPad: 'pl-10', rightIcon: 'right-3', clearIcon: 'right-8' },
+    md: { trigger: 'h-12 text-base pl-4 pr-12', icon: 'text-xl', leftIcon: 'left-4', leftPad: 'pl-11', rightIcon: 'right-4', clearIcon: 'right-11' },
+    lg: { trigger: 'h-14 text-base pl-5 pr-14', icon: 'text-2xl', leftIcon: 'left-5', leftPad: 'pl-14', rightIcon: 'right-5', clearIcon: 'right-12' },
+    xl: { trigger: 'h-16 text-lg pl-6 pr-16', icon: 'text-2xl', leftIcon: 'left-6', leftPad: 'pl-16', rightIcon: 'right-6', clearIcon: 'right-14' },
+};
+const activeSize = computed(() => sizeClasses[props.size]);
 
 const selected = computed(() => {
     const current = props.options.find((option) => String(option[props.valueKey]) === String(props.modelValue));
@@ -250,23 +263,34 @@ watch(() => props.modelValue, (value) => {
                 :aria-invalid="Boolean(error)"
                 :aria-required="required"
                 :disabled="disabled"
-                class="flex h-14 w-full items-center justify-between rounded-xl border bg-surface-container-lowest px-4 pr-16 text-left text-primary transition-all duration-150 active:scale-[0.99] focus:border-primary-container focus:ring-2 focus:ring-primary-container/10 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60 disabled:active:scale-100"
-                :class="error ? 'border-error' : 'border-outline-variant'"
+                class="flex w-full items-center justify-between rounded-xl border bg-surface-container-lowest text-left text-primary transition-all duration-150 active:scale-[0.99] focus:border-primary-container focus:ring-2 focus:ring-primary-container/10 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60 disabled:active:scale-100"
+                :class="[activeSize.trigger, icon && activeSize.leftPad, error ? 'border-error' : 'border-outline-variant']"
                 v-bind="$attrs"
                 @click="open ? closeMenu() : openMenu()"
                 @keydown="onKeydown"
             >
+                <AppIcon
+                    v-if="icon"
+                    :name="icon"
+                    class="pointer-events-none absolute top-1/2 -translate-y-1/2 text-outline"
+                    :class="[activeSize.icon, activeSize.leftIcon]"
+                />
                 <span class="block min-w-0 flex-1 truncate whitespace-nowrap" :class="selectedLabel ? 'text-primary' : 'text-outline'">{{ selectedLabel || (placeholder ?? `Pilih ${label.toLowerCase()}`) }}</span>
-                <AppIcon name="expand_more" class="absolute right-3 text-xl text-outline transition-transform duration-200" :class="{ 'rotate-180': open }" />
+                <AppIcon
+                    name="expand_more"
+                    class="absolute top-1/2 -translate-y-1/2 text-outline transition-transform duration-200"
+                    :class="[activeSize.icon, activeSize.rightIcon, { 'rotate-180': open }]"
+                />
             </button>
             <button
                 v-if="clearable && selectedLabel"
                 type="button"
-                class="absolute right-9 top-1/2 z-10 -translate-y-1/2 rounded-full p-1 text-outline transition-all duration-150 hover:bg-surface-container-low hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary-container/20 active:scale-90"
+                class="absolute top-1/2 z-10 -translate-y-1/2 rounded-full p-1 text-outline transition-all duration-150 hover:bg-surface-container-low hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary-container/20 active:scale-90"
+                :class="activeSize.clearIcon"
                 aria-label="Hapus pilihan"
                 @click="clear"
             >
-                <AppIcon name="close" class="text-lg" />
+                <AppIcon name="close" :class="activeSize.icon" />
             </button>
             <Teleport to="body">
                 <Transition

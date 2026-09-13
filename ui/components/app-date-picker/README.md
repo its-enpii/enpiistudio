@@ -14,7 +14,10 @@ Komponen referensi `AppDatePicker` berbasis Vue 3 dan Tailwind CSS dari aplikasi
 ## Props & Konfigurasi
 | Prop | Tipe | Default |
 | --- | --- | --- |
+| `modelValue` | `String` | `''` |
+| `size` | `String` | `'md'` (`sm`, `md`, `lg`, `xl`) |
 | `id` | `String` | `null` |
+| `label` | `String` | required |
 | `icon` | `String` | `'calendar_month'` |
 | `placeholder` | `String` | `null` |
 | `error` | `String` | `null` |
@@ -25,3 +28,5 @@ Komponen referensi `AppDatePicker` berbasis Vue 3 dan Tailwind CSS dari aplikasi
 | `min` | `String` | `null` |
 | `max` | `String` | `null` |
 | `mode` | `String` | `'date'` |
+
+**V-model**: `v-model="date"`

@@ -14,14 +14,24 @@ Komponen referensi `AppInput` berbasis Vue 3 dan Tailwind CSS dari aplikasi `new
 ## Props & Konfigurasi
 | Prop | Tipe | Default |
 | --- | --- | --- |
+| `modelValue` | `String`, `Number` | `''` |
+| `size` | `String` | `'md'` (`sm`, `md`, `lg`, `xl`) |
 | `id` | `String` | `null` |
+| `label` | `String` | required |
 | `type` | `String` | `'text'` |
 | `icon` | `String` | `null` |
+| `trailingIcon` | `String` | `null` |
+| `clearable` | `Boolean` | `false` |
 | `error` | `String` | `null` |
 | `hint` | `String` | `null` |
 | `placeholder` | `String` | `null` |
 | `readonly` | `Boolean` | `false` |
 | `hideLabel` | `Boolean` | `false` |
 | `tooltip` | `String` | `null` |
+| `disabled` | `Boolean` | `false` |
 
-**Slots**: `trailing`
+**Slots**: `leading`, `trailing`
+
+**V-model**: `v-model="value"`
+
+Tinggi default mengikuti sistem control height: `sm` 40px, `md` 48px, `lg` 56px, dan `xl` 64px.

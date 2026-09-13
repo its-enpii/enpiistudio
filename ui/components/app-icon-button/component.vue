@@ -13,7 +13,7 @@ const props = defineProps({
     size: {
         type: String,
         default: 'md',
-        validator: (value) => ['sm', 'md', 'lg'].includes(value),
+        validator: (value) => ['sm', 'md', 'lg', 'xl'].includes(value),
     },
     rounded: {
         type: String,
@@ -29,9 +29,10 @@ const props = defineProps({
 });
 
 const sizeClasses = {
-    sm: 'size-8',
-    md: 'size-10',
-    lg: 'size-12',
+    sm: 'size-10',
+    md: 'size-12',
+    lg: 'size-14',
+    xl: 'size-16',
 };
 
 const roundedMap = {
@@ -74,8 +75,8 @@ const buttonClass = computed(() => [
 
 const iconSize = computed(() => {
     if (props.size === 'sm') return 'text-lg';
-    if (props.size === 'lg') return 'text-2xl';
-    return 'text-xl';
+    if (props.size === 'md') return 'text-xl';
+    return 'text-2xl';
 });
 </script>
 

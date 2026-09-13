@@ -14,7 +14,11 @@ Komponen referensi `SmartSelect` berbasis Vue 3 dan Tailwind CSS dari aplikasi `
 ## Props & Konfigurasi
 | Prop | Tipe | Default |
 | --- | --- | --- |
+| `modelValue` | `String`, `Number` | `''` |
+| `size` | `String` | `'md'` (`sm`, `md`, `lg`, `xl`) |
 | `options` | `Array` | `() => []` |
+| `label` | `String` | required |
+| `icon` | `String` | `null` |
 | `placeholder` | `String` | `null` |
 | `error` | `String` | `null` |
 | `hint` | `String` | `null` |
@@ -30,5 +34,7 @@ Komponen referensi `SmartSelect` berbasis Vue 3 dan Tailwind CSS dari aplikasi `
 | `hideLabel` | `Boolean` | `false` |
 | `emptyActionLabel` | `String` | `null` |
 | `excludedValues` | `Array` | `() => []` |
+
+**V-model**: `v-model="selected"`
 
 **Emits**: `'update:modelValue', 'search', 'search-change', 'empty-action'`

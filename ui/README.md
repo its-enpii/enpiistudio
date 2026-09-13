@@ -2,7 +2,7 @@
 
 > **Status**: Aktif sebagai direktori referensi komponen (bukan library/package npm).
 > **Tujuan**: Memudahkan developer dan AI menemukan, menyalin, dan menyesuaikan komponen siap pakai ke aplikasi masing-masing tanpa harus membangun dan mengetes dari nol.
-> **Terakhir Diperbarui**: 2026-09-07 | Total Komponen: 85
+> **Terakhir Diperbarui**: 2026-09-13 | Total Komponen: 88
 
 ## Panduan Singkat untuk Developer & AI Agent
 1. **Cari komponen** yang sesuai pada tabel indeks di bawah ini.
@@ -10,6 +10,19 @@
 3. **Salin kode** dari `component.vue` atau `component.tsx` ke project aplikasi konsumen.
 4. **Sesuaikan styling / class Tailwind** agar match dengan tema & visual identity aplikasi Anda.
 5. Baca `README.md` di dalam masing-masing folder komponen untuk referensi props dan event.
+
+## Standard Control Height & Size Variants
+
+Komponen interaktif di baris form (`AppInput`, `AppPasswordInput`, `AppImageInput` mode `compact`, `AppDatePicker`, `SmartSelect`, `AppButton`, `AppCurrencyInput`, dan `AppFileUpload`) memakai tinggi default yang identik: `md` = 48px (`h-12` atau `min-h-12`).
+
+| Ukuran | Control height | Button min-height | Padding X | Text size | Icon size | Left pad dengan leading icon | Right pad dengan trailing element |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `sm` | `h-10` (40px) | `min-h-10` | `px-3` | `text-sm` | `text-lg` | `pl-10` | `pr-10` |
+| `md` | `h-12` (48px) | `min-h-12` | `px-4` | `text-base` | `text-xl` | `pl-11` | `pr-12` |
+| `lg` | `h-14` (56px) | `min-h-14` | `px-5` | `text-base` | `text-2xl` | `pl-14` | `pr-14` |
+| `xl` | `h-16` (64px) | `min-h-16` | `px-6` | `text-lg` | `text-2xl` | `pl-16` | `pr-16` |
+
+`AppButton` memakai padding khusus untuk aksi tingkat page (`md` `px-5`, `lg` `px-6`, `xl` `px-8`) dan tetap menyediakan alias kompatibilitas `compact` → `sm`, `default` → `md`, `large` → `lg`. `AppIconButton` memakai tombol persegi `size-10/12/14/16`. `AppImageInput` mode `card`/`dropzone` sengaja tidak mengikuti tinggi inline karena berperan sebagai area preview besar.
 
 ## Indeks Komponen
 
@@ -23,14 +36,17 @@
 | **AppConfirmDialog** | [`ui/components/app-confirm-dialog/component.vue`](components/app-confirm-dialog/component.vue) | Vue 3 | `new_sidbm` |
 | **AppCurrencyInput** | [`ui/components/app-currency-input/component.vue`](components/app-currency-input/component.vue) | Vue 3 | `new_sidbm` |
 | **AppDatePicker** | [`ui/components/app-date-picker/component.vue`](components/app-date-picker/component.vue) | Vue 3 | `new_sidbm` |
+| **AppDropzoneUpload** | [`ui/components/app-dropzone-upload/component.vue`](components/app-dropzone-upload/component.vue) | Vue 3 | `new_sidbm` |
 | **AppEmptyState** | [`ui/components/app-empty-state/component.vue`](components/app-empty-state/component.vue) | Vue 3 | `new_sidbm` |
 | **AppFileUpload** | [`ui/components/app-file-upload/component.vue`](components/app-file-upload/component.vue) | Vue 3 | `new_sidbm` |
 | **AppFilterPill** | [`ui/components/app-filter-pill/component.vue`](components/app-filter-pill/component.vue) | Vue 3 | `new_sidbm` |
 | **AppIcon** | [`ui/components/app-icon/component.vue`](components/app-icon/component.vue) | Vue 3 | `new_sidbm` |
 | **AppIconButton** | [`ui/components/app-icon-button/component.vue`](components/app-icon-button/component.vue) | Vue 3 | `new_sidbm` |
+| **AppImageInput** | [`ui/components/app-image-input/component.vue`](components/app-image-input/component.vue) | Vue 3 | `new_sidbm` |
 | **AppInput** | [`ui/components/app-input/component.vue`](components/app-input/component.vue) | Vue 3 | `new_sidbm` |
 | **AppModal** | [`ui/components/app-modal/component.vue`](components/app-modal/component.vue) | Vue 3 | `new_sidbm` |
 | **AppOfflineBanner** | [`ui/components/app-offline-banner/component.vue`](components/app-offline-banner/component.vue) | Vue 3 | `new_sidbm` |
+| **AppPasswordInput** | [`ui/components/app-password-input/component.vue`](components/app-password-input/component.vue) | Vue 3 | `new_sidbm` |
 | **AppRadioGroup** | [`ui/components/app-radio-group/component.vue`](components/app-radio-group/component.vue) | Vue 3 | `new_sidbm` |
 | **AppRichEditor** | [`ui/components/app-rich-editor/component.vue`](components/app-rich-editor/component.vue) | Vue 3 | `new_sidbm` |
 | **AppSwitch** | [`ui/components/app-switch/component.vue`](components/app-switch/component.vue) | Vue 3 | `new_sidbm` |

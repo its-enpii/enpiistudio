@@ -16,8 +16,7 @@ Komponen referensi `AppIconButton` berbasis Vue 3 dan Tailwind CSS dari aplikasi
 | --- | --- | --- |
 | `tone` | `String` | `'neutral',
         validator: (value) => ['neutral', 'success', 'warning', 'danger', 'error', 'info', 'primary', 'secondary', 'tertiary'].includes(value),` |
-| `size` | `String` | `'md',
-        validator: (value) => ['sm', 'md', 'lg'].includes(value),` |
+| `size` | `String` | `'md'` (`sm`, `md`, `lg`, `xl`) |
 | `rounded` | `String` | `'lg',
         validator: (value) => ['square', 'lg', 'full'].includes(value),` |
 | `filled` | `Boolean` | `false` |
